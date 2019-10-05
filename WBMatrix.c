@@ -34,18 +34,18 @@ int printV8(struct V8 Vec)
 {
     printf("%x\n",Vec.V);
 }
-int affineB1(struct M8 Mat,uint8_t *arr,struct V8 Vec)//1 byte(8 bits) array affine
+int affineU8(struct M8 Mat,uint8_t *arr,struct V8 Vec)//1 byte(8 bits) array affine
 {
     uint8_t temp=0;
-    if(xorByte(Mat.M[0]&(*arr))) temp=temp^0x01;
+    if(xorU8(Mat.M[0]&(*arr))) temp=temp^0x01;
     for(int i=1;i<8;i++)
     {
         temp=temp<<1;
-        if(xorByte(Mat.M[i]&(*arr))) temp=temp^0x01;//mul,add are equal to and,xor 
+        if(xorU8(Mat.M[i]&(*arr))) temp=temp^0x01;//mul,add are equal to and,xor 
     }
     (*arr)=temp^Vec.V;
 }
-int xorByte(uint8_t B)
+int xorU8(uint8_t B)// uint8_t internal xor
 {
     int count=0;
     for(int i=0;i<8;i++)
@@ -53,7 +53,7 @@ int xorByte(uint8_t B)
         if(B&0x01) count++;
         B=B>>1;
     }
-    if(count==1||count==3||count==5||count==7) return 1;
+    if(count&0x01==1) return 1;
     else return 0;
 }
 

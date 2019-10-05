@@ -12,13 +12,13 @@ int main()
     uint8_t t=1;
     /*affineB1(M,&t,V);
     printf("%d",t);*/
-    //printf("%d",xorByte(t));
+    //printf("%d",xorU8(t));
     for(int i=0;i<8;i++)
     {
         M.M[i]=1;
     }
-    V.V=255;
-    affineB1(M,&t,V);
+    V.V=0;
+    affineU8(M,&t,V);
     printf("%d",t);
 
     return 0;

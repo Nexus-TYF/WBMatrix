@@ -32,5 +32,5 @@ int printM8(struct M8 Mat);
 int initV8(struct V8 *Vec);
 int randV8(struct V8 *Vec);
 int printV8(struct V8 Vec);
-int affineB1(struct M8 Mat,uint8_t *arr,struct V8 Vec);
-int xorByte(uint8_t B);
+int affineU8(struct M8 Mat,uint8_t *arr,struct V8 Vec);
+int xorU8(uint8_t B);
