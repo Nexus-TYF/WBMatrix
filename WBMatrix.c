@@ -34,9 +34,9 @@ int printV8(struct V8 Vec)
 {
     printf("%x\n",Vec.V);
 }
-int affineB1(struct M8 Mat,byte *arr,struct V8 Vec)//1 byte(8 bits) array affine
+int affineB1(struct M8 Mat,uint8_t *arr,struct V8 Vec)//1 byte(8 bits) array affine
 {
-    byte temp=0;
+    uint8_t temp=0;
     if(xorByte(Mat.M[0]&(*arr))) temp=temp^0x01;
     for(int i=1;i<8;i++)
     {
@@ -45,7 +45,7 @@ int affineB1(struct M8 Mat,byte *arr,struct V8 Vec)//1 byte(8 bits) array affine
     }
     (*arr)=temp^Vec.V;
 }
-int xorByte(byte B)
+int xorByte(uint8_t B)
 {
     int count=0;
     for(int i=0;i<8;i++)

@@ -9,7 +9,7 @@ int main()
     /*initV8(&V);
     randV8(&V);
     printV8(V);*/
-    byte t=1;
+    uint8_t t=1;
     /*affineB1(M,&t,V);
     printf("%d",t);*/
     //printf("%d",xorByte(t));
