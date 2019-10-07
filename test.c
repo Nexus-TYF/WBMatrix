@@ -1,16 +1,13 @@
 #include "WBMatrix.h"
 int main()
 {
-    struct M8 M;
-    struct V8 V;
+    Aff8 aff,aff_inv;
     uint8_t t=1;//plaintext
-    struct M8 M_inv;
-    struct V8 V_inv;
-    affinepairM8(&M,&V,&M_inv,&V_inv);
+    affinepairM8(&aff,&aff_inv);
     printU8(t);
-    affineU8(M,&t,V);
+    affineU8(aff,&t);
     printU8(t);//ciphertext
-    affineU8(M_inv,&t,V_inv);
+    affineU8(aff_inv,&t);
     printU8(t);
     return 0;
 }
