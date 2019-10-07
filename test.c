@@ -13,13 +13,24 @@ int main()
     /*affineB1(M,&t,V);
     printf("%d",t);*/
     //printf("%d",xorU8(t));
-    for(int i=0;i<8;i++)
+    /*for(int i=0;i<8;i++)
     {
         M.M[i]=1;
     }
     V.V=0;
     affineU8(M,&t,V);
-    printf("%d",t);
-
+    printU8(t);*/
+    //identityM8(&M);
+    struct M8 M_inv;
+    struct V8 V_inv;
+    affinepairM8(&M,&V,&M_inv,&V_inv);
+    //printM8(M);
+    printU8(t);
+    printf("\n");
+    affineU8(M,&t,V);
+    printU8(t);
+    printf("\n");
+    affineU8(M_inv,&t,V_inv);
+    printU8(t);
     return 0;
 }
