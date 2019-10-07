@@ -42,7 +42,7 @@ int printV8(struct V8 Vec)//printf Vector 8*1
 {
     printf("%x\n",Vec.V);
 }
-int affineU8(struct M8 Mat,uint8_t *arr,struct V8 Vec)//1 byte(8 bits) array affine
+int affineU8(struct M8 Mat,uint8_t *arr,struct V8 Vec)//8bits affine transformation
 {
     uint8_t temp=0;
     if(xorU8(Mat.M[0]&(*arr))) temp^=0x01;
@@ -93,7 +93,7 @@ int MatMulVec(struct M8 Mat,struct V8 Vec,struct V8 *ans)//matrix * vector -> ve
         if(xorU8(Mat.M[i]&Vec.V)) (*ans).V^=0x01;
     }
 }
-int affinepairM8(struct M8 *Mat,struct V8 *Vec,struct M8 *Mat_inv,struct V8 *Vec_inv)
+int affinepairM8(struct M8 *Mat,struct V8 *Vec,struct M8 *Mat_inv,struct V8 *Vec_inv)//generate a pair of affine
 {
     int n=30;//generate times
     int p,q;
@@ -152,10 +152,3 @@ int affinepairM8(struct M8 *Mat,struct V8 *Vec,struct M8 *Mat_inv,struct V8 *Vec
     }
     MatMulVec(*Mat_inv,*Vec,Vec_inv);
 }
-
-
-
-
-
-
-
