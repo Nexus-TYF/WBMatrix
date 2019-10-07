@@ -6,7 +6,18 @@ int initM8(M8 *Mat)//initial Matrix 8*8
         (*Mat).M[i]=0;
     }
 }
+int initM32(M32 *Mat)//initial Matrix 32*32
+{
+    for(int i=0;i<32;i++)
+    {
+        (*Mat).M[i]=0;
+    }
+}
 int initV8(V8 *Vec)//initial Vector 8*1
+{
+    (*Vec).V=0;
+}
+int initV32(V32 *Vec)//initial Vector 32*1
 {
     (*Vec).V=0;
 }
@@ -35,12 +46,16 @@ int printM8(M8 Mat)//printf Matrix 8*8
 {
     for(int i=0;i<8;i++)
     {
-        printf("%x\n",Mat.M[i]);
+        printf("0x%x\n",Mat.M[i]);
     }
 }
 int printV8(V8 Vec)//printf Vector 8*1
 {
-    printf("%x\n",Vec.V);
+    printf("0x%x\n",Vec.V);
+}
+int printV32(V32 Vec)//printf Vector 32*1
+{
+    printf("0x%x\n",Vec.V);
 }
 int affineU8(Aff8 aff,uint8_t *arr)//8bits affine transformation
 {
@@ -82,6 +97,23 @@ int printbitM8(M8 Mat)//printf Matrix 8*8 in the form of bits
         }
         printf("\n");
     }
+    printf("\n");
+}
+int printbitM32(M32 Mat)//printf Matrix 32*32 in the form of bits 
+{
+    uint32_t temp;
+    for(int i=0;i<32;i++)
+    {
+        temp=Mat.M[i];
+        for(int j=0;j<32;j++)
+        {
+            if(temp&0x80000000) printf("%d ",1);
+            else printf("%d ",0);
+            temp=temp<<1;
+        }
+        printf("\n");
+    }
+    printf("\n");
 }
 int MatMulVec(M8 Mat,V8 Vec,V8 *ans)//matrix * vector -> vector 8*1
 {
@@ -151,4 +183,41 @@ int affinepairM8(Aff8 *aff,Aff8 *aff_inv)//generate a pair of affine
         }   
     }
     MatMulVec((*aff_inv).Mat,(*aff).Vec,&(aff_inv->Vec));
+}
+int affinecomM8to32(Aff8 aff1,Aff8 aff2,Aff8 aff3,Aff8 aff4,Aff32 *aff)//diagonal line affine combine,four 8*8 -> 32*32
+{
+    int j=0;
+    initM32(&(aff->Mat));
+    initV32(&(aff->Vec));
+    for(int i=0;i<8;i++)
+    {
+        (*aff).Mat.M[j]=aff1.Mat.M[i];
+        (*aff).Mat.M[j]=(*aff).Mat.M[j]<<24;
+        j++;
+    }
+    for(int i=0;i<8;i++)
+    {
+        (*aff).Mat.M[j]=aff2.Mat.M[i];
+        (*aff).Mat.M[j]=(*aff).Mat.M[j]<<16;
+        j++;
+    }
+    for(int i=0;i<8;i++)
+    {
+        (*aff).Mat.M[j]=aff3.Mat.M[i];
+        (*aff).Mat.M[j]=(*aff).Mat.M[j]<<8;
+        j++;
+    }
+    for(int i=0;i<8;i++)
+    {
+        (*aff).Mat.M[j]=aff4.Mat.M[i];
+        (*aff).Mat.M[j]=(*aff).Mat.M[j];
+        j++;
+    }
+    (*aff).Vec.V=aff1.Vec.V;
+    (*aff).Vec.V=(*aff).Vec.V<<8;
+    (*aff).Vec.V^=aff2.Vec.V;
+    (*aff).Vec.V=(*aff).Vec.V<<8;
+    (*aff).Vec.V^=aff3.Vec.V;
+    (*aff).Vec.V=(*aff).Vec.V<<8;
+    (*aff).Vec.V^=aff4.Vec.V;
 }
