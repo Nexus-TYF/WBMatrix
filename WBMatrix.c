@@ -52,11 +52,10 @@ int randV8(V8 *Vec)//randomize Vector 8*1
 }
 int randV32(V32 *Vec)//randomize Vector 32*1
 {
-    (*Vec).V=0;
+    uint16_t *v=(uint16_t*)&((*Vec).V);
     srand(time(NULL));
-    (*Vec).V=rand()%65536;
-    (*Vec).V=(*Vec).V<<16;
-    (*Vec).V^=(rand()%65536);
+    *(v+1)=rand()%65536;
+    *v=rand()%65536;
 }
 int printM8(M8 Mat)//printf Matrix 8*8
 {
@@ -116,8 +115,8 @@ int xorU8(uint8_t n)// uint8_t internal xor
 int xorU32(uint32_t n)// uint32_t internal xor
 {
     uint8_t temp=0;
-    uint8_t* t=(uint8_t*)&n;
-    temp=(*t)^(*(t+1))^(*(t+2))^(*(t+3));
+    uint8_t* u=(uint8_t*)&n;
+    temp=(*u)^(*(u+1))^(*(u+2))^(*(u+3));
     if(xorU8(temp)) return 1;
     else return 0;
 }
@@ -242,7 +241,7 @@ int affinepairM8(Aff8 *aff,Aff8 *aff_inv)//generate a pair of affine
 }
 int affinepairM32(Aff32 *aff,Aff32 *aff_inv)//generate a pair of affine
 {
-    int n=30;//generate times
+    int n=100;//generate times
     int p,q;
     uint32_t temp;
     int swaporadd[3]={1,0,1};
@@ -302,37 +301,38 @@ int affinepairM32(Aff32 *aff,Aff32 *aff_inv)//generate a pair of affine
 int affinecomM8to32(Aff8 aff1,Aff8 aff2,Aff8 aff3,Aff8 aff4,Aff32 *aff)//diagonal line affine combine,four 8*8 -> 32*32
 {
     int j=0;
+    uint8_t* m;
+    uint8_t* v;
     initM32(&(aff->Mat));
-    initV32(&(aff->Vec));
+
+    v=(uint8_t*)&(*aff).Vec.V;
+    *(v+3)=aff1.Vec.V;
+    *(v+2)=aff2.Vec.V;
+    *(v+1)=aff3.Vec.V;
+    *v=aff4.Vec.V;
+
     for(int i=0;i<8;i++)
     {
-        (*aff).Mat.M[j]=aff1.Mat.M[i];
-        (*aff).Mat.M[j]=(*aff).Mat.M[j]<<24;
+        m=(uint8_t*)&(*aff).Mat.M[j];
+        *(m+3)=aff1.Mat.M[i];
         j++;
     }
     for(int i=0;i<8;i++)
     {
-        (*aff).Mat.M[j]=aff2.Mat.M[i];
-        (*aff).Mat.M[j]=(*aff).Mat.M[j]<<16;
+        m=(uint8_t*)&(*aff).Mat.M[j];
+        *(m+2)=aff2.Mat.M[i];
         j++;
     }
     for(int i=0;i<8;i++)
     {
-        (*aff).Mat.M[j]=aff3.Mat.M[i];
-        (*aff).Mat.M[j]=(*aff).Mat.M[j]<<8;
+        m=(uint8_t*)&(*aff).Mat.M[j];
+        *(m+1)=aff3.Mat.M[i];
         j++;
     }
     for(int i=0;i<8;i++)
     {
-        (*aff).Mat.M[j]=aff4.Mat.M[i];
-        (*aff).Mat.M[j]=(*aff).Mat.M[j];
+        m=(uint8_t*)&(*aff).Mat.M[j];
+        *m=aff4.Mat.M[i];
         j++;
     }
-    (*aff).Vec.V=aff1.Vec.V;
-    (*aff).Vec.V=(*aff).Vec.V<<8;
-    (*aff).Vec.V^=aff2.Vec.V;
-    (*aff).Vec.V=(*aff).Vec.V<<8;
-    (*aff).Vec.V^=aff3.Vec.V;
-    (*aff).Vec.V=(*aff).Vec.V<<8;
-    (*aff).Vec.V^=aff4.Vec.V;
 }

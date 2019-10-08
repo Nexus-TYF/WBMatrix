@@ -12,6 +12,10 @@ int main()
     printf("\n");
 
     Aff8 aff1,aff2,aff3,aff4;
+    initM8(&(aff1.Mat));
+    randM8(&(aff1.Mat));
+    initM8(&(aff2.Mat));
+    randM8(&(aff2.Mat));
     printbitM8(aff1.Mat);
     printbitM8(aff2.Mat);
     printbitM8(aff3.Mat);
