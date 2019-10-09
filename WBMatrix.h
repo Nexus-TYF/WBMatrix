@@ -64,10 +64,12 @@ int xorU32(uint32_t n);
 int printU32(uint32_t n);
 
 int MatMulVecM8(M8 Mat,V8 Vec,V8 *ans);
-
+int MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat);
+int MattransM8(M8 Mat,M8 *Mat_trans);
 int MatMulVecM32(M32 Mat,V32 Vec,V32 *ans);
 
 int affinepairM8(Aff8 *aff,Aff8 *aff_inv);
 int affinecomM8to32(Aff8 aff1,Aff8 aff2,Aff8 aff3,Aff8 aff4,Aff32 *aff);
+int affinemixM8(Aff8 aff1,Aff8 aff2,Aff8 *aff);
 
 int affinepairM32(Aff32 *aff,Aff32 *aff_inv);

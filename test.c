@@ -46,15 +46,23 @@ int main()
     printV32(aff32.Vec);
     printf("\n");
 
-    Aff32 affine,affine_inv;
-    uint32_t r=8888;//plaintext
-    affinepairM32(&affine,&affine_inv);
-    printU32(r);
-    affineU32(affine,&r);
-    printU32(r);//affine transformation
-    affineU32(affine_inv,&r);
-    printU32(r);
-    printf("\n");
+    Aff32 affine[10],affine_inv[10];
+    uint32_t r;
+    for(int i=0;i<10;i++)
+    {
+        r=8888;//plaintext
+        affinepairM32(&affine[i],&affine_inv[i]);
+        printU32(r);
+        affineU32(affine[i],&r);
+        printU32(r);//affine transformation
+        affineU32(affine_inv[i],&r);
+        printU32(r);
+        printf("\n");
+    }
 
+    M8 M_trans;
+    printbitM8(aff1.Mat);
+    MattransM8(aff1.Mat,&M_trans);
+    printbitM8(M_trans);
     return 0;
 }

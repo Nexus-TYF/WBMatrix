@@ -336,3 +336,20 @@ int affinecomM8to32(Aff8 aff1,Aff8 aff2,Aff8 aff3,Aff8 aff4,Aff32 *aff)//diagona
         j++;
     }
 }
+int MattransM8(M8 Mat,M8 *Mat_trans)
+{
+    initM8(Mat_trans);
+    for(int i=0;i<8;i++)
+    {
+        if((Mat.M[0]<<i)&0x80) (*Mat_trans).M[i]^=0x01;
+        for(int j=1;j<8;j++)
+        {
+            (*Mat_trans).M[i]=(*Mat_trans).M[i]<<1;
+            if((Mat.M[j]<<i)&0x80) (*Mat_trans).M[i]^=0x01;
+        }
+    }
+}
+int affinemixM8(Aff8 aff1,Aff8 aff2,Aff8 *aff)
+{
+
+}
