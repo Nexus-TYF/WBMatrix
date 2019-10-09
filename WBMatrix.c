@@ -336,7 +336,7 @@ int affinecomM8to32(Aff8 aff1,Aff8 aff2,Aff8 aff3,Aff8 aff4,Aff32 *aff)//diagona
         j++;
     }
 }
-int MattransM8(M8 Mat,M8 *Mat_trans)
+int MattransM8(M8 Mat,M8 *Mat_trans)//matrix tansposition M8
 {
     initM8(Mat_trans);
     for(int i=0;i<8;i++)
@@ -348,6 +348,22 @@ int MattransM8(M8 Mat,M8 *Mat_trans)
             if((Mat.M[j]<<i)&0x80) (*Mat_trans).M[i]^=0x01;
         }
     }
+}
+int MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat)//matrix multiplication 8*8 mul 8*8 -> 8*8
+{
+    M8 Mat2_trans;
+    initM8(Mat);
+    MattransM8(Mat2,&Mat2_trans);
+    for(int i=0;i<8;i++)
+    {
+        if(xorU8(Mat1.M[i]&Mat2_trans.M[0])) (*Mat).M[i]=0x01;
+        for(int j=1;j<8;j++)
+        {
+            (*Mat).M[i]=(*Mat).M[i]<<1;
+            if(xorU8(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=0x01;
+        }       
+    }
+
 }
 int affinemixM8(Aff8 aff1,Aff8 aff2,Aff8 *aff)
 {
