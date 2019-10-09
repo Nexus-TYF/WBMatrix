@@ -1,15 +1,19 @@
 #include "WBMatrix.h"
 int main()
 {
-    Aff8 aff,aff_inv;
-    uint8_t t=222;//plaintext
-    affinepairM8(&aff,&aff_inv);
-    printU8(t);
-    affineU8(aff,&t);
-    printU8(t);//affine transformation
-    affineU8(aff_inv,&t);
-    printU8(t);
-    printf("\n");
+    Aff8 aff[10],aff_inv[10];
+    uint8_t t;
+    for(int i=0;i<10;i++)
+    {
+        t=3;
+        affinepairM8(&aff[i],&aff_inv[i]);
+        printU8(t);
+        affineU8(aff[i],&t);
+        printU8(t);//affine transformation
+        affineU8(aff_inv[i],&t);
+        printU8(t);
+        printf("\n");
+    }
 
     Aff8 aff1,aff2,aff3,aff4;
     initM8(&(aff1.Mat));
@@ -47,5 +51,6 @@ int main()
     affineU32(affine_inv,&r);
     printU32(r);
     printf("\n");
+
     return 0;
 }

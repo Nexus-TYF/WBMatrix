@@ -34,6 +34,8 @@ typedef struct Aff32
     V32 Vec;
 }Aff32;
 
+int randseed;
+
 int initM8(M8 *Mat);
 int randM8(M8 *Mat);
 int identityM8(M8 *Mat);

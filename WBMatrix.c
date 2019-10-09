@@ -23,7 +23,7 @@ int initV32(V32 *Vec)//initial Vector 32*1
 }
 int randM8(M8 *Mat)//randomize Matrix 8*8 
 {
-    srand(time(NULL));
+    srand((randseed++)+time(NULL));
     for(int i=0;i<8;i++)
     {
         (*Mat).M[i]=rand()%256;
@@ -47,13 +47,13 @@ int identityM32(M32 *Mat)//identity matrix 32*32
 }
 int randV8(V8 *Vec)//randomize Vector 8*1
 {
-    srand(time(NULL));
+    srand((randseed++)+time(NULL));
     (*Vec).V=rand()%256;
 }
 int randV32(V32 *Vec)//randomize Vector 32*1
 {
     uint16_t *v=(uint16_t*)&((*Vec).V);
-    srand(time(NULL));
+    srand((randseed++)+time(NULL));
     *(v+1)=rand()%65536;
     *v=rand()%65536;
 }
@@ -190,7 +190,7 @@ int affinepairM8(Aff8 *aff,Aff8 *aff_inv)//generate a pair of affine
     identityM8(&(aff->Mat));
     identityM8(&(aff_inv->Mat));
     randV8(&(aff->Vec));
-    srand(time(NULL));
+    srand((randseed++)+time(NULL));
     for(int i=0;i<n;i++)//generate reversible matrix
     {
         if(swaporadd[rand()%3])//add
@@ -249,7 +249,7 @@ int affinepairM32(Aff32 *aff,Aff32 *aff_inv)//generate a pair of affine
     identityM32(&(aff->Mat));
     identityM32(&(aff_inv->Mat));
     randV32(&(aff->Vec));
-    srand(time(NULL));
+    srand((randseed++)+time(NULL));
     for(int i=0;i<n;i++)//generate reversible matrix
     {
         if(swaporadd[rand()%3])//add
