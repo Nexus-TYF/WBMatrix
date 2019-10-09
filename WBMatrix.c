@@ -298,7 +298,7 @@ int affinepairM32(Aff32 *aff,Aff32 *aff_inv)//generate a pair of affine
     }
     MatMulVecM32((*aff_inv).Mat,(*aff).Vec,&(aff_inv->Vec));
 }
-int affinecomM8to32(Aff8 aff1,Aff8 aff2,Aff8 aff3,Aff8 aff4,Aff32 *aff)//diagonal line affine combine,four 8*8 -> 32*32
+int affinecomM8to32(Aff8 aff1,Aff8 aff2,Aff8 aff3,Aff8 aff4,Aff32 *aff)//diagonal affine combine,four 8*8 -> 32*32
 {
     int j=0;
     uint8_t* m;
@@ -363,9 +363,10 @@ int MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat)//matrix multiplication 8*8 mul 8*8 -> 8
             if(xorU8(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=0x01;
         }       
     }
-
 }
-int affinemixM8(Aff8 aff1,Aff8 aff2,Aff8 *aff)
+int affinemixM8(Aff8 preaff_inv,Aff8 aff,Aff8 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
 {
-
+    MatMulMatM8(aff.Mat,preaff_inv.Mat,&(mixaff->Mat));
+    MatMulVecM8(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
+    (*mixaff).Vec.V^=aff.Vec.V;
 }
