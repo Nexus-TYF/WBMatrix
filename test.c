@@ -26,6 +26,10 @@ int main()
     printbitM8(aff4.Mat);
 
     Aff32 aff32;
+    randV8(&(aff1.Vec));
+    randV8(&(aff2.Vec));
+    randV8(&(aff3.Vec));
+    randV8(&(aff4.Vec));
     affinecomM8to32(aff1,aff2,aff3,aff4,&aff32);//affine combine
     printbitM32(aff32.Mat);
 
