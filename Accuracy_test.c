@@ -73,7 +73,7 @@ int main()
 
     printf("matrix mul test:\n");
     M8 mulMat;
-    MatMulMatM8(aff1.Mat,M_trans,&mulMat);
+    MatMulMatM8(aff[2].Mat,aff_inv[2].Mat,&mulMat);
     printbitM8(mulMat);
 
     printf("\n");
