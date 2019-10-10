@@ -1,5 +1,4 @@
 #include "WBMatrix.h"
-
 #ifdef __GNUC__
 #include <x86intrin.h>
 #endif
@@ -42,5 +41,57 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("8*8 Mat mul 8*1 Vec cost %llu CPU cycles\n", (ans) / TEST);
+
+    Aff8 aff1,aff1_inv;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        affinepairM8(&aff1,&aff1_inv);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 8*8 Affine and its inversion Affine cost %llu CPU cycles\n", (ans) / TEST);
+
+    M8 Mat2,Mat3,Mat4;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        MatMulMatM8(Mat2,Mat3,&Mat4);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("8*8 Mat mul 8*8 Mat cost %llu CPU cycles\n", (ans) / TEST);
+
+    uint8_t t=222;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+       affineU8(aff1,&t);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("8bits affine transformation cost %llu CPU cycles\n", (ans) / TEST);
+
+    M8 Mat5,Mat5_trans;
+    randM8(&Mat5);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+       MattransM8(Mat5,&Mat5_trans);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("8*8 Mat tansposition cost %llu CPU cycles\n", (ans) / TEST);
+
+    Aff8 aff2,aff2_inv,aff3;
+    affinepairM8(&aff2,&aff2_inv);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+       affinemixM8(aff1_inv,aff2,&aff3);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("8bits affine mixture cost %llu CPU cycles\n", (ans) / TEST);
     return 0;
 }
