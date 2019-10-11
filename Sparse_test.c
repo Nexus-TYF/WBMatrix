@@ -28,14 +28,14 @@ double quantof1M32(M32 Mat)
 }
 int main()
 {
-    /*Aff8 aff1,aff1_inv;
+    Aff8 aff1,aff1_inv;
     double scale=0.0;
     for(int i=0;i<N;i++)
     {
         affinepairM8(&aff1,&aff1_inv);
         scale+=quantof1M8(aff1.Mat);
     }
-    printf("the proporton of the quantity of 1 is :%0.4f\n",(scale/N));*/
+    printf("the proporton of the quantity of 1 is :%0.4f\n",(scale/N));
 
     Aff32 aff2,aff2_inv;
     double scale1=0.0;
