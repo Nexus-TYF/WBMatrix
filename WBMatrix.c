@@ -29,6 +29,17 @@ int randM8(M8 *Mat)//randomize Matrix 8*8
         (*Mat).M[i]=rand()%256;
     }
 }
+int randM32(M32 *Mat)//randomize Matrix 32*32 
+{
+    uint16_t *m;
+    srand((randseed++)^time(NULL));
+    for(int i=0;i<32;i++)
+    {
+        m=(uint16_t*)&((*Mat).M[i]);
+        *(m+1)=rand()%65536;
+        *m=rand()%65536;
+    }
+}
 int identityM8(M8 *Mat)//identity matrix 8*8
 {
     (*Mat).M[7]=1;

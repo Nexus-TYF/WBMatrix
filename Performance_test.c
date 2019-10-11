@@ -93,5 +93,19 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("8bits affine mixture cost %llu CPU cycles\n", (ans) / TEST);
+
+    M32 Mat32_1;
+    V32 Vec32_1;
+    V32 Vec32_2;
+    randM32(&Mat32_1);
+    randV32(&Vec32_1);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        MatMulVecM32(Mat32_1,Vec32_1,&Vec32_2);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("32*32 Mat mul 32*1 Vec cost %llu CPU cycles\n", (ans) / TEST);
     return 0;
 }

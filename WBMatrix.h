@@ -43,6 +43,7 @@ int printM8(M8 Mat);
 int printbitM8(M8 Mat);
 
 int initM32(M32 *Mat);
+int randM32(M32 *Mat);
 int identityM32(M32 *Mat);
 int printM32(M32 Mat);
 int printbitM32(M32 Mat);
