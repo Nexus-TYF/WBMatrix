@@ -1,9 +1,16 @@
-gcc version 8.2.0
 gcc WBMatrix.c WBMatrix.h Performance_test.c  -oP_test -O2 
+
+gcc version 8.2.0 (MinGW.org GCC-8.2.0-3)
+Intel Core i7-6700K CPU @ 4.00GHz 4.00GHz
+RAM 16.0GB
 ------------------------------------------------------------------
-8*8 Mat mul 8*1 Vec cost 155 CPU cycles
-generate 8*8 Affine and its inversion Affine cost 4950 CPU cycles
-8*8 Mat mul 8*8 Mat cost 1393 CPU cycles
-8bits affine transformation cost 189 CPU cycles
-8*8 Mat tansposition cost 238 CPU cycles
-8bits affine mixture cost 1246 CPU cycles
+8*8 Mat mul 8*1 Vec cost 146 CPU cycles
+generate 8*8 Affine and its inversion Affine cost 4957 CPU cycles
+8*8 Mat mul 8*8 Mat cost 1516 CPU cycles
+8bits affine transformation cost 130 CPU cycles
+8*8 Mat tansposition cost 225 CPU cycles
+8bits affine mixture cost 1503 CPU cycles
+
+32*32 Mat mul 32*1 Vec cost 525 CPU cycles
+generate 32*32 Affine and its inversion Affine cost 12190 CPU cycles
+32bits affine transformation cost 1022 CPU cycles
