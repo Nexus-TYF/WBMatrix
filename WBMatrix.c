@@ -252,7 +252,7 @@ int affinepairM8(Aff8 *aff,Aff8 *aff_inv)//generate a pair of affine
 }
 int affinepairM32(Aff32 *aff,Aff32 *aff_inv)//generate a pair of affine
 {
-    int n=100;//generate times
+    int n=80;//generate times
     int p,q;
     uint32_t temp;
     int swaporadd[3]={1,0,1};

@@ -92,7 +92,7 @@ int main()
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("8bits affine mixture cost %llu CPU cycles\n", (ans) / TEST);
+    printf("8bits affine mixture cost %llu CPU cycles\n\n", (ans) / TEST);
 
     M32 Mat32_1;
     V32 Vec32_1;
@@ -107,5 +107,25 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("32*32 Mat mul 32*1 Vec cost %llu CPU cycles\n", (ans) / TEST);
+
+    Aff32 aff32_1,aff32_1_inv;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        affinepairM32(&aff32_1,&aff32_1_inv);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 32*32 Affine and its inversion Affine cost %llu CPU cycles\n", (ans) / TEST);
+
+    uint32_t r=0x12345678;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+       affineU32(aff32_1,&r);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("32bits affine transformation cost %llu CPU cycles\n", (ans) / TEST);
     return 0;
 }
