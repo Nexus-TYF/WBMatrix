@@ -1,89 +1,9 @@
-#include <stdint.h>
+#include "structure.h"
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 int randseed;
-//8bits
-typedef struct M8
-{
-    uint8_t M[8];
-}M8;
-
-typedef struct V8
-{
-    uint8_t V;
-}V8;
-
-typedef struct Aff8
-{
-    M8 Mat;
-    V8 Vec;
-}Aff8;
-//16bits
-typedef struct M16
-{
-    uint16_t M[16];
-}M16;
-
-typedef struct V16
-{
-    uint16_t V;
-}V16;
-
-typedef struct Aff16
-{
-    M16 Mat;
-    V16 Vec;
-}Aff16;
-//32bits
-typedef struct M32
-{
-    uint32_t M[32];
-}M32;
-
-typedef struct V32
-{
-    uint32_t V;
-}V32;
-
-typedef struct Aff32
-{
-    M32 Mat;
-    V32 Vec;
-}Aff32;
-//64bits
-typedef struct M64
-{
-    uint64_t M[64];
-}M64;
-
-typedef struct V64
-{
-    uint64_t V;
-}V64;
-
-typedef struct Aff64
-{
-    M64 Mat;
-    V64 Vec;
-}Aff64;
-//128bits
-typedef struct M128
-{
-    uint64_t M[128][2];
-}M128;
-
-typedef struct V128
-{
-    uint64_t V[2];
-}V128;
-
-typedef struct Aff128
-{
-    M128 Mat;
-    V128 Vec;
-}Aff128;
 
 /*
 * 8bit Matrix operation
@@ -93,6 +13,7 @@ void randM8(M8 *Mat);
 void identityM8(M8 *Mat);
 void printM8(M8 Mat);
 void printbitM8(M8 Mat);
+void copyM8(M8 Mat1,M8 *Mat2);
 
 void initV8(V8 *Vec);
 void randV8(V8 *Vec);
@@ -105,6 +26,7 @@ void printU8(uint8_t n);
 void MatMulVecM8(M8 Mat,V8 Vec,V8 *ans);
 void MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat);
 void MattransM8(M8 Mat,M8 *Mat_trans);
+void initinvbaseM8();
 
 void genMatpairM8(M8 *Mat,M8 *Mat_inv);
 void genaffinepairM8(Aff8 *aff,Aff8 *aff_inv);
@@ -138,6 +60,7 @@ void randM32(M32 *Mat);
 void identityM32(M32 *Mat);
 void printM32(M32 Mat);
 void printbitM32(M32 Mat);
+void copyM32(M32 Mat1,M32 *Mat2);
 
 void initV32(V32 *Vec);
 void randV32(V32 *Vec);
@@ -150,6 +73,7 @@ void printU32(uint32_t n);
 void MatMulVecM32(M32 Mat,V32 Vec,V32 *ans);
 void MatMulMatM32(M32 Mat1,M32 Mat2,M32 *Mat);
 void MattransM32(M32 Mat,M32 *Mat_trans);
+void initinvbaseM32();
 
 void genMatpairM32(M32 *Mat,M32 *Mat_inv);
 void genaffinepairM32(Aff32 *aff,Aff32 *aff_inv);
