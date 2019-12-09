@@ -543,8 +543,7 @@ void genMatpairM8(M8 *Mat,M8 *Mat_inv)//generate 8*8 reversible matrix and its i
     int p,q;
     uint8_t temp;
     int trail[M8N][3];// generate trail
-    if(basetrailM8[0][0]==-1) identityM8(Mat);
-    else copyM8(baseM8,Mat);
+    copyM8(baseM8,Mat);//copy base matrix
     identityM8(Mat_inv);
     srand((randseed++)^time(NULL));
     for(int i=0;i<M8N;i++)//generate reversible matrix
@@ -700,8 +699,7 @@ void genMatpairM32(M32 *Mat,M32 *Mat_inv)//generate 32*32 reversible matrix and 
     int p,q;
     uint32_t temp;
     int trail[M32N][3];
-    if(basetrailM32[0][0]==-1) identityM32(Mat);
-    else copyM32(baseM32,Mat);
+    copyM32(baseM32,Mat);//copy base matrix
     identityM32(Mat_inv);
     srand((randseed++)^time(NULL));
     for(int i=0;i<M32N;i++)//generate reversible matrix
