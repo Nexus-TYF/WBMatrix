@@ -12,7 +12,13 @@ Matrix transpositon<br>
 Affine transformation<br>
 
 ---
-last update : 2019/12/9<br>
+inverse.h : Revisable generate times from the temporary state matrix.<br>
+struture.h : Data structure of matrix.<br>
+structure.c : Prestored identity matrix.<br>
+xor.h : Prestored value for number's internal xor.<br>
+
+---
+last update : 2019/12/10<br>
 modified by : Nexus
 
 ---
@@ -25,7 +31,14 @@ details(2019/12/9):<br>
 8bits default value is 15<br>
 32bits default value is 30<br>
 which represent the operation times.<br>
-5.If not use the initialize fuction then each matrix generate from a identify matrix in defined times<br>
+5.If not use the initialize fucntion then each matrix generate from a identify matrix in defined times<br>
 6.Add copy function instead of identify function.<br>
+
+---
+(2019/12/10):<br>
+1.Update 16/64/128bits inverse matrix function.<br>
+New method has been covered.<br>
+
+
 
 

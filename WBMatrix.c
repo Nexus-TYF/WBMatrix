@@ -266,11 +266,33 @@ void copyM8(M8 Mat1,M8 *Mat2)
         (*Mat2).M[i]=Mat1.M[i];
     }
 }
+void copyM16(M16 Mat1,M16 *Mat2)
+{
+    for(int i=0;i<16;i++)
+    {
+        (*Mat2).M[i]=Mat1.M[i];
+    }
+}
 void copyM32(M32 Mat1,M32 *Mat2)
 {
     for(int i=0;i<32;i++)
     {
         (*Mat2).M[i]=Mat1.M[i];
+    }
+}
+void copyM64(M64 Mat1,M64 *Mat2)
+{
+    for(int i=0;i<64;i++)
+    {
+        (*Mat2).M[i]=Mat1.M[i];
+    }
+}
+void copyM128(M128 Mat1,M128 *Mat2)
+{
+    for(int i=0;i<128;i++)
+    {
+        (*Mat2).M[i][0]=Mat1.M[i][0];
+        (*Mat2).M[i][1]=Mat1.M[i][1];
     }
 }
 uint8_t affineU8(Aff8 aff,uint8_t arr)//8bits affine transformation
@@ -510,7 +532,7 @@ void initinvbaseM8()
     uint8_t temp;
     srand((randseed++)^time(NULL));
     if(basetrailM8[0][0]!=-1) return ;
-    for(int i=0;i<15;i++)//generate reversible base matrix
+    for(int i=0;i<10;i++)//generate reversible base matrix
     {
         p=rand()%8;
         q=rand()%8;
@@ -588,7 +610,7 @@ void genMatpairM8(M8 *Mat,M8 *Mat_inv)//generate 8*8 reversible matrix and its i
     }
     if(basetrailM8[0][0]!=-1)//base matrix
     {
-        for(int j=15-1;j>=0;j--)//generate inverse matrix
+        for(int j=10-1;j>=0;j--)//generate inverse matrix
         {
             if(basetrailM8[j][0])//add
             {
@@ -603,27 +625,60 @@ void genMatpairM8(M8 *Mat,M8 *Mat_inv)//generate 8*8 reversible matrix and its i
         }
     }
 }
-void genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and its inverse matrix
+void initinvbaseM16()
 {
-    int n=30;//generate times 50+2*5
     int p,q;
-    uint16_t temp;
-    int swaporadd[10]={1,0,1,1,1,1,1,1,1,1};
-    int trail[n][3];
-    identityM16(Mat);
-    identityM16(Mat_inv);
+    uint8_t temp;
     srand((randseed++)^time(NULL));
-    for(int i=0;i<n;i++)//generate reversible matrix
+    if(basetrailM16[0][0]!=-1) return ;
+    for(int i=0;i<20;i++)//generate reversible base matrix
     {
-        if(swaporadd[rand()%5])//add
+        p=rand()%16;
+        q=rand()%16;
+        while(p==q)
         {
             p=rand()%16;
             q=rand()%16;
-            while(p==q)
-            {
-                p=rand()%16;
-                q=rand()%16;
-            }
+        }
+        if(p>q)//add
+        {
+            
+            baseM16.M[p]^=baseM16.M[q];
+            basetrailM16[i][0]=1;
+            basetrailM16[i][1]=p;
+            basetrailM16[i][2]=q;
+        }
+        else//swap
+        {
+            temp=baseM16.M[p];
+            baseM16.M[p]=baseM16.M[q];
+            baseM16.M[q]=temp;
+            basetrailM16[i][0]=0;
+            basetrailM16[i][1]=p;
+            basetrailM16[i][2]=q;
+        }   
+    }
+}
+void genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and its inverse matrix
+{
+    int p,q;
+    uint16_t temp;
+    int trail[M16N][3];
+    copyM16(baseM16,Mat);//copy base matrix
+    identityM16(Mat_inv);
+    srand((randseed++)^time(NULL));
+    for(int i=0;i<M16N;i++)//generate reversible matrix
+    {
+        p=rand()%16;
+        q=rand()%16;
+        while(p==q)
+        {
+            p=rand()%16;
+            q=rand()%16;
+        }
+        if(p>q)//add
+        {
+            
             (*Mat).M[p]^=(*Mat).M[q];
             trail[i][0]=1;
             trail[i][1]=p;
@@ -646,7 +701,7 @@ void genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and 
             trail[i][2]=q;
         }   
     }
-    for(int j=n-1;j>=0;j--)//generate inverse matrix
+    for(int j=M16N-1;j>=0;j--)//generate inverse matrix
     {
         if(trail[j][0])//add
         {
@@ -655,9 +710,25 @@ void genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and 
         else//swap
         {
             temp= (*Mat_inv).M[trail[j][1]];
-            (*Mat_inv).M[trail[j][1]]= (*Mat_inv).M[trail[j][2]];
+            (*Mat_inv).M[trail[j][1]]=(*Mat_inv).M[trail[j][2]];
             (*Mat_inv).M[trail[j][2]]=temp;
         }   
+    }
+    if(basetrailM16[0][0]!=-1)
+    {
+        for(int j=20-1;j>=0;j--)//generate inverse matrix for base matrix
+        {
+            if(basetrailM16[j][0])//add
+            {
+                (*Mat_inv).M[basetrailM16[j][1]]^= (*Mat_inv).M[basetrailM16[j][2]];
+            }
+            else//swap
+            {
+                temp= (*Mat_inv).M[basetrailM16[j][1]];
+                (*Mat_inv).M[basetrailM16[j][1]]= (*Mat_inv).M[basetrailM16[j][2]];
+                (*Mat_inv).M[basetrailM16[j][2]]=temp;
+            }   
+        }
     }
 }
 void initinvbaseM32()
@@ -758,27 +829,60 @@ void genMatpairM32(M32 *Mat,M32 *Mat_inv)//generate 32*32 reversible matrix and 
         }
     }
 }
-void genMatpairM64(M64 *Mat,M64 *Mat_inv)//generate 64*64 reversible matrix and its inverse matrix
+void initinvbaseM64()
 {
-    int n=85;//generate times 150+2*20
     int p,q;
     uint64_t temp;
-    int swaporadd[20]={1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-    int trail[n][3];
-    identityM64(Mat);
-    identityM64(Mat_inv);
     srand((randseed++)^time(NULL));
-    for(int i=0;i<n;i++)//generate reversible matrix
+    if(basetrailM64[0][0]!=-1) return ;
+    for(int i=0;i<40;i++)//generate reversible base matrix
     {
-        if(swaporadd[rand()%20])//add
+        p=rand()%64;
+        q=rand()%64;
+        while(p==q)
         {
             p=rand()%64;
             q=rand()%64;
-            while(p==q)
-            {
-                p=rand()%64;
-                q=rand()%64;
-            }
+        }
+        if(p>q)//add
+        {
+            
+            baseM64.M[p]^=baseM64.M[q];
+            basetrailM64[i][0]=1;
+            basetrailM64[i][1]=p;
+            basetrailM64[i][2]=q;
+        }
+        else//swap
+        {
+            temp=baseM64.M[p];
+            baseM64.M[p]=baseM64.M[q];
+            baseM64.M[q]=temp;
+            basetrailM64[i][0]=0;
+            basetrailM64[i][1]=p;
+            basetrailM64[i][2]=q;
+        }   
+    }
+}
+void genMatpairM64(M64 *Mat,M64 *Mat_inv)//generate 64*64 reversible matrix and its inverse matrix
+{
+    int p,q;
+    uint64_t temp;
+    int trail[M64N][3];
+    copyM64(baseM64,Mat);//copy base matrix
+    identityM64(Mat_inv);
+    srand((randseed++)^time(NULL));
+    for(int i=0;i<M64N;i++)//generate reversible matrix
+    {
+        p=rand()%64;
+        q=rand()%64;
+        while(p==q)
+        {
+            p=rand()%64;
+            q=rand()%64;
+        }
+        if(p>q)//add
+        {
+            
             (*Mat).M[p]^=(*Mat).M[q];
             trail[i][0]=1;
             trail[i][1]=p;
@@ -786,13 +890,6 @@ void genMatpairM64(M64 *Mat,M64 *Mat_inv)//generate 64*64 reversible matrix and 
         }
         else//swap
         {
-            p=rand()%64;
-            q=rand()%64;
-            while(p==q)
-            {
-                p=rand()%64;
-                q=rand()%64;
-            }
             temp=(*Mat).M[p];
             (*Mat).M[p]=(*Mat).M[q];
             (*Mat).M[q]=temp;
@@ -801,7 +898,7 @@ void genMatpairM64(M64 *Mat,M64 *Mat_inv)//generate 64*64 reversible matrix and 
             trail[i][2]=q;
         }   
     }
-    for(int j=n-1;j>=0;j--)//generate inverse matrix
+    for(int j=M64N-1;j>=0;j--)//generate inverse matrix
     {
         if(trail[j][0])//add
         {
@@ -814,28 +911,80 @@ void genMatpairM64(M64 *Mat,M64 *Mat_inv)//generate 64*64 reversible matrix and 
             (*Mat_inv).M[trail[j][2]]=temp;
         }   
     }
+    if(basetrailM64[0][0]!=-1)
+    {
+        for(int j=40-1;j>=0;j--)//generate inverse matrix for base matrix
+        {
+            if(basetrailM64[j][0])//add
+            {
+                (*Mat_inv).M[basetrailM64[j][1]]^= (*Mat_inv).M[basetrailM64[j][2]];
+            }
+            else//swap
+            {
+                temp= (*Mat_inv).M[basetrailM64[j][1]];
+                (*Mat_inv).M[basetrailM64[j][1]]= (*Mat_inv).M[basetrailM64[j][2]];
+                (*Mat_inv).M[basetrailM64[j][2]]=temp;
+            }   
+        }
+    }
 }
-void genMatpairM128(M128 *Mat,M128 *Mat_inv)//generate 128*128 reversible matrix and its inverse matrix
+void initinvbaseM128()
 {
-    int n=140;//generate times 200+2*40
     int p,q;
     uint64_t temp[2];
-    int swaporadd[20]={1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-    int trail[n][3];
-    identityM128(Mat);
-    identityM128(Mat_inv);
     srand((randseed++)^time(NULL));
-    for(int i=0;i<n;i++)//generate reversible matrix
+    if(basetrailM128[0][0]!=-1) return ;
+    for(int i=0;i<50;i++)//generate reversible base matrix
     {
-        if(swaporadd[rand()%20])//add
+        p=rand()%128;
+        q=rand()%128;
+        while(p==q)
         {
             p=rand()%128;
             q=rand()%128;
-            while(p==q)
-            {
-                p=rand()%128;
-                q=rand()%128;
-            }
+        }
+        if(p>q)//add
+        {
+            
+            baseM128.M[p][0]^=baseM128.M[q][0];
+            baseM128.M[p][1]^=baseM128.M[q][1];
+            basetrailM128[i][0]=1;
+            basetrailM128[i][1]=p;
+            basetrailM128[i][2]=q;
+        }
+        else//swap
+        {
+            temp[0]=baseM128.M[p][0];
+            temp[1]=baseM128.M[p][1];
+            baseM128.M[p][0]=baseM128.M[q][0];
+            baseM128.M[p][1]=baseM128.M[q][1];
+            baseM128.M[q][0]=temp[0];
+            baseM128.M[q][1]=temp[1];
+            basetrailM128[i][0]=0;
+            basetrailM128[i][1]=p;
+            basetrailM128[i][2]=q;
+        }   
+    }
+}
+void genMatpairM128(M128 *Mat,M128 *Mat_inv)//generate 128*128 reversible matrix and its inverse matrix
+{
+    int p,q;
+    uint64_t temp[2];
+    int trail[M128N][3];
+    copyM128(baseM128,Mat);
+    identityM128(Mat_inv);
+    srand((randseed++)^time(NULL));
+    for(int i=0;i<M128N;i++)//generate reversible matrix
+    {
+        p=rand()%128;
+        q=rand()%128;
+        while(p==q)
+        {
+            p=rand()%128;
+            q=rand()%128;
+        }
+        if(p>q)//add
+        {
             (*Mat).M[p][0]^=(*Mat).M[q][0];
             (*Mat).M[p][1]^=(*Mat).M[q][1];
             trail[i][0]=1;
@@ -844,13 +993,6 @@ void genMatpairM128(M128 *Mat,M128 *Mat_inv)//generate 128*128 reversible matrix
         }
         else//swap
         {
-            p=rand()%128;
-            q=rand()%128;
-            while(p==q)
-            {
-                p=rand()%128;
-                q=rand()%128;
-            }
             temp[0]=(*Mat).M[p][0];
             (*Mat).M[p][0]=(*Mat).M[q][0];
             (*Mat).M[q][0]=temp[0];
@@ -862,7 +1004,7 @@ void genMatpairM128(M128 *Mat,M128 *Mat_inv)//generate 128*128 reversible matrix
             trail[i][2]=q;
         }   
     }
-    for(int j=n-1;j>=0;j--)//generate inverse matrix
+    for(int j=M128N-1;j>=0;j--)//generate inverse matrix
     {
         if(trail[j][0])//add
         {
@@ -878,6 +1020,26 @@ void genMatpairM128(M128 *Mat,M128 *Mat_inv)//generate 128*128 reversible matrix
             (*Mat_inv).M[trail[j][1]][1]=(*Mat_inv).M[trail[j][2]][1];
             (*Mat_inv).M[trail[j][2]][1]=temp[1];
         }   
+    }
+    if(basetrailM128[0][0]!=-1)
+    {
+        for(int j=50-1;j>=0;j--)//generate inverse matrix for base matrix
+        {
+            if(basetrailM128[j][0])//add
+            {
+                (*Mat_inv).M[basetrailM128[j][1]][0]^= (*Mat_inv).M[basetrailM128[j][2]][0];
+                (*Mat_inv).M[basetrailM128[j][1]][1]^= (*Mat_inv).M[basetrailM128[j][2]][1];
+            }
+            else//swap
+            {
+                temp[0]= (*Mat_inv).M[basetrailM128[j][1]][0];
+                (*Mat_inv).M[basetrailM128[j][1]][0]= (*Mat_inv).M[basetrailM128[j][2]][0];
+                (*Mat_inv).M[basetrailM128[j][2]][0]=temp[0];
+                temp[1]= (*Mat_inv).M[basetrailM128[j][1]][1];
+                (*Mat_inv).M[basetrailM128[j][1]][1]= (*Mat_inv).M[basetrailM128[j][2]][1];
+                (*Mat_inv).M[basetrailM128[j][2]][1]=temp[1];
+            }   
+        }
     }
 }
 void genaffinepairM8(Aff8 *aff,Aff8 *aff_inv)//generate a pair of affine

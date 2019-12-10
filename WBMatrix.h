@@ -39,6 +39,7 @@ void randM16(M16 *Mat);
 void identityM16(M16 *Mat);
 void printM16(M16 Mat);
 void printbitM16(M16 Mat);
+void copyM16(M16 Mat1,M16 *Mat2);
 
 void initV16(V16 *Vec);
 void randV16(V16 *Vec);
@@ -50,6 +51,7 @@ void printU16(uint16_t n);
 void MatMulVecM16(M16 Mat,V16 Vec,V16 *ans);
 void MatMulMatM16(M16 Mat1,M16 Mat2,M16 *Mat);
 void MattransM16(M16 Mat,M16 *Mat_trans);
+void initinvbaseM16();
 
 void genMatpairM16(M16 *Mat,M16 *Mat_inv);
 /*
@@ -89,6 +91,7 @@ void randM64(M64 *Mat);
 void identityM64(M64 *Mat);
 void printM64(M64 Mat);
 void printbitM64(M64 Mat);
+void copyM64(M64 Mat1,M64 *Mat2);
 
 void initV64(V64 *Vec);
 void randV64(V64 *Vec);
@@ -100,6 +103,7 @@ void printU64(uint64_t n);
 void MatMulVecM64(M64 Mat,V64 Vec,V64 *ans);
 void MatMulMatM64(M64 Mat1,M64 Mat2,M64 *Mat);
 void MattransM64(M64 Mat,M64 *Mat_trans);
+void initinvbaseM64();
 
 void genMatpairM64(M64 *Mat,M64 *Mat_inv);
 /*
@@ -110,6 +114,7 @@ void randM128(M128 *Mat);
 void identityM128(M128 *Mat);
 void printM128(M128 Mat);
 void printbitM128(M128 Mat);
+void copyM128(M128 Mat1,M128 *Mat2);
 
 void initV128(V128 *Vec);
 void randV128(V128 *Vec);
@@ -121,5 +126,6 @@ void printU128(uint64_t n[]);
 void MatMulVecM128(M128 Mat,V128 Vec,V128 *ans);
 void MatMulMatM128(M128 Mat1,M128 Mat2,M128 *Mat);
 void MattransM128(M128 Mat,M128 *Mat_trans);
+void initinvbaseM128();
 
 void genMatpairM128(M128 *Mat,M128 *Mat_inv);

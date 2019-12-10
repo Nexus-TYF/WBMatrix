@@ -81,7 +81,16 @@ typedef struct Aff128
 }Aff128;
 
 M8 baseM8;
-int basetrailM8[15][3];
+int basetrailM8[10][3];
+
+M16 baseM16;
+int basetrailM16[20][3];
 
 M32 baseM32;
 int basetrailM32[30][3];
+
+M64 baseM64;
+int basetrailM64[40][3];
+
+M128 baseM128;
+int basetrailM128[50][3];
