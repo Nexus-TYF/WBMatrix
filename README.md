@@ -18,7 +18,7 @@ structure.c : Prestored identity matrix.<br>
 xor.h : Prestored value for number's internal xor.<br>
 
 ---
-last update : 2019/12/10<br>
+last update : 2019/12/11<br>
 modified by : Nexus
 
 ---
@@ -38,6 +38,10 @@ which represent the operation times.<br>
 (2019/12/10):<br>
 1.Update 16/64/128bits inverse matrix function.<br>
 New method has been covered.<br>
+
+---
+(2019/12/11):<br>
+1.Add 16/64bit affine transformation.<br>
 
 
 

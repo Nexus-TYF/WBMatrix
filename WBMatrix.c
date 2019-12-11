@@ -297,25 +297,31 @@ void copyM128(M128 Mat1,M128 *Mat2)
 }
 uint8_t affineU8(Aff8 aff,uint8_t arr)//8bits affine transformation
 {
-    uint8_t temp=0;
-    if(xorU8(aff.Mat.M[0]&arr)) temp^=0x01;
-    for(int i=1;i<8;i++)
-    {
-        temp=temp<<1;
-        if(xorU8(aff.Mat.M[i]&arr)) temp^=0x01;//mul,add are equal to and,xor 
-    }
-    return temp^aff.Vec.V;
+    V8 mul_vec,ans_vec;
+    mul_vec.V=arr;
+    MatMulVecM8(aff.Mat,mul_vec,&ans_vec);//mul
+    return ans_vec.V^aff.Vec.V;//add
+}
+uint16_t affineU16(Aff16 aff,uint16_t arr)//16bits affine transformation
+{
+    V16 mul_vec,ans_vec;
+    mul_vec.V=arr;
+    MatMulVecM16(aff.Mat,mul_vec,&ans_vec);//mul
+    return ans_vec.V^aff.Vec.V;//add
 }
 uint32_t affineU32(Aff32 aff,uint32_t arr)//32bits affine transformation
 {
-    uint32_t temp=0;
-    if(xorU32(aff.Mat.M[0]&arr)) temp^=0x00000001;
-    for(int i=1;i<32;i++)
-    {
-        temp=temp<<1;
-        if(xorU32(aff.Mat.M[i]&arr)) temp^=0x00000001;//mul,add are equal to and,xor 
-    }
-    return temp^aff.Vec.V;
+    V32 mul_vec,ans_vec;
+    mul_vec.V=arr;
+    MatMulVecM32(aff.Mat,mul_vec,&ans_vec);//mul
+    return ans_vec.V^aff.Vec.V;//add
+}
+uint64_t affineU64(Aff64 aff,uint64_t arr)//64bits affine transformation
+{
+    V64 mul_vec,ans_vec;
+    mul_vec.V=arr;
+    MatMulVecM64(aff.Mat,mul_vec,&ans_vec);//mul
+    return ans_vec.V^aff.Vec.V;//add
 }
 int xorU8(uint8_t n)// uint8_t internal xor
 {
@@ -1048,11 +1054,23 @@ void genaffinepairM8(Aff8 *aff,Aff8 *aff_inv)//generate a pair of affine
     randV8(&(aff->Vec));
     MatMulVecM8((*aff_inv).Mat,(*aff).Vec,&(aff_inv->Vec));
 }
+void genaffinepairM16(Aff16 *aff,Aff16 *aff_inv)//generate a pair of affine
+{
+    genMatpairM16(&(aff->Mat),&(aff_inv->Mat));
+    randV16(&(aff->Vec));
+    MatMulVecM16((*aff_inv).Mat,(*aff).Vec,&(aff_inv->Vec));
+}
 void genaffinepairM32(Aff32 *aff,Aff32 *aff_inv)//generate a pair of affine
 {
     genMatpairM32(&(aff->Mat),&(aff_inv->Mat));
     randV32(&(aff->Vec));
     MatMulVecM32((*aff_inv).Mat,(*aff).Vec,&(aff_inv->Vec));
+}
+void genaffinepairM64(Aff64 *aff,Aff64 *aff_inv)//generate a pair of affine
+{
+    genMatpairM64(&(aff->Mat),&(aff_inv->Mat));
+    randV64(&(aff->Vec));
+    MatMulVecM64((*aff_inv).Mat,(*aff).Vec,&(aff_inv->Vec));
 }
 void MatrixcomM8to32(M8 m1,M8 m2,M8 m3,M8 m4,M32 *mat)//diagonal matrix combine,four 8*8 -> 32*32
 {

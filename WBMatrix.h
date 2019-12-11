@@ -45,6 +45,7 @@ void initV16(V16 *Vec);
 void randV16(V16 *Vec);
 void printV16(V16 Vec);
 
+uint16_t affineU16(Aff16 aff,uint16_t arr);
 int xorU16(uint16_t n);
 void printU16(uint16_t n);
 
@@ -54,6 +55,7 @@ void MattransM16(M16 Mat,M16 *Mat_trans);
 void initinvbaseM16();
 
 void genMatpairM16(M16 *Mat,M16 *Mat_inv);
+void genaffinepairM16(Aff16 *aff,Aff16 *aff_inv);
 /*
 * 32bit Matrix operation
 */
@@ -97,6 +99,7 @@ void initV64(V64 *Vec);
 void randV64(V64 *Vec);
 void printV64(V64 Vec);
 
+uint64_t affineU64(Aff64 aff,uint64_t arr);
 int xorU64(uint64_t n);
 void printU64(uint64_t n);
 
@@ -106,6 +109,7 @@ void MattransM64(M64 Mat,M64 *Mat_trans);
 void initinvbaseM64();
 
 void genMatpairM64(M64 *Mat,M64 *Mat_inv);
+void genaffinepairM64(Aff64 *aff,Aff64 *aff_inv);
 /*
 * 128bit Matrix operation
 */
