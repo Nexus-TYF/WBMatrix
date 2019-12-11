@@ -323,6 +323,15 @@ uint64_t affineU64(Aff64 aff,uint64_t arr)//64bits affine transformation
     MatMulVecM64(aff.Mat,mul_vec,&ans_vec);//mul
     return ans_vec.V^aff.Vec.V;//add
 }
+void affineU128(Aff128 aff,uint64_t arr[],uint64_t ans[])//128bits affine transformation
+{
+    V128 mul_vec,ans_vec;
+    mul_vec.V[0]=arr[0];
+    mul_vec.V[1]=arr[1];
+    MatMulVecM128(aff.Mat,mul_vec,&ans_vec);//mul
+    ans[0]=ans_vec.V[0]^aff.Vec.V[0];//add
+    ans[1]=ans_vec.V[1]^aff.Vec.V[1];
+}
 int xorU8(uint8_t n)// uint8_t internal xor
 {
     if(xor[n]) return 1;
@@ -1071,6 +1080,12 @@ void genaffinepairM64(Aff64 *aff,Aff64 *aff_inv)//generate a pair of affine
     genMatpairM64(&(aff->Mat),&(aff_inv->Mat));
     randV64(&(aff->Vec));
     MatMulVecM64((*aff_inv).Mat,(*aff).Vec,&(aff_inv->Vec));
+}
+void genaffinepairM128(Aff128 *aff,Aff128 *aff_inv)//generate a pair of affine
+{
+    genMatpairM128(&(aff->Mat),&(aff_inv->Mat));
+    randV128(&(aff->Vec));
+    MatMulVecM128((*aff_inv).Mat,(*aff).Vec,&(aff_inv->Vec));
 }
 void MatrixcomM8to32(M8 m1,M8 m2,M8 m3,M8 m4,M32 *mat)//diagonal matrix combine,four 8*8 -> 32*32
 {

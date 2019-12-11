@@ -124,6 +124,7 @@ void initV128(V128 *Vec);
 void randV128(V128 *Vec);
 void printV128(V128 Vec);
 
+void affineU128(Aff128 aff,uint64_t arr[],uint64_t ans[]);
 int xorU128(uint64_t n[]);
 void printU128(uint64_t n[]);
 
@@ -133,3 +134,4 @@ void MattransM128(M128 Mat,M128 *Mat_trans);
 void initinvbaseM128();
 
 void genMatpairM128(M128 *Mat,M128 *Mat_inv);
+void genaffinepairM128(Aff128 *aff,Aff128 *aff_inv);
