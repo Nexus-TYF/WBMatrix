@@ -56,6 +56,7 @@ void initinvbaseM16();
 
 void genMatpairM16(M16 *Mat,M16 *Mat_inv);
 void genaffinepairM16(Aff16 *aff,Aff16 *aff_inv);
+void affinemixM16(Aff16 preaff_inv,Aff16 aff,Aff16 *mixaff);
 /*
 * 32bit Matrix operation
 */
@@ -110,6 +111,7 @@ void initinvbaseM64();
 
 void genMatpairM64(M64 *Mat,M64 *Mat_inv);
 void genaffinepairM64(Aff64 *aff,Aff64 *aff_inv);
+void affinemixM64(Aff64 preaff_inv,Aff64 aff,Aff64 *mixaff);
 /*
 * 128bit Matrix operation
 */
@@ -135,3 +137,4 @@ void initinvbaseM128();
 
 void genMatpairM128(M128 *Mat,M128 *Mat_inv);
 void genaffinepairM128(Aff128 *aff,Aff128 *aff_inv);
+void affinemixM128(Aff128 preaff_inv,Aff128 aff,Aff128 *mixaff);

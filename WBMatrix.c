@@ -1327,9 +1327,28 @@ void affinemixM8(Aff8 preaff_inv,Aff8 aff,Aff8 *mixaff)//mixed transformation of
     MatMulVecM8(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
     (*mixaff).Vec.V^=aff.Vec.V;
 }
+void affinemixM16(Aff16 preaff_inv,Aff16 aff,Aff16 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
+{
+    MatMulMatM16(aff.Mat,preaff_inv.Mat,&(mixaff->Mat));
+    MatMulVecM16(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
+    (*mixaff).Vec.V^=aff.Vec.V;
+}
 void affinemixM32(Aff32 preaff_inv,Aff32 aff,Aff32 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
 {
     MatMulMatM32(aff.Mat,preaff_inv.Mat,&(mixaff->Mat));
     MatMulVecM32(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
     (*mixaff).Vec.V^=aff.Vec.V;
+}
+void affinemixM64(Aff64 preaff_inv,Aff64 aff,Aff64 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
+{
+    MatMulMatM64(aff.Mat,preaff_inv.Mat,&(mixaff->Mat));
+    MatMulVecM64(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
+    (*mixaff).Vec.V^=aff.Vec.V;
+}
+void affinemixM128(Aff128 preaff_inv,Aff128 aff,Aff128 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
+{
+    MatMulMatM128(aff.Mat,preaff_inv.Mat,&(mixaff->Mat));
+    MatMulVecM128(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
+    (*mixaff).Vec.V[0]^=aff.Vec.V[0];
+    (*mixaff).Vec.V[1]^=aff.Vec.V[1];
 }
