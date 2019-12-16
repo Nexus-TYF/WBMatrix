@@ -1,3 +1,6 @@
+#ifndef _HWBMATRIX_H_
+#define _HWBMATRIX_H_
+
 #include "structure.h"
 #include <time.h>
 #include <stdlib.h>
@@ -138,3 +141,5 @@ void initinvbaseM128();
 void genMatpairM128(M128 *Mat,M128 *Mat_inv);
 void genaffinepairM128(Aff128 *aff,Aff128 *aff_inv);
 void affinemixM128(Aff128 preaff_inv,Aff128 aff,Aff128 *mixaff);
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef _HSTRUCTURE_H_
+#define _HSTRUCTURE_H_
+
 #include <stdint.h>
 //8bits
 typedef struct M8
@@ -94,3 +97,5 @@ int basetrailM64[40][3];
 
 M128 baseM128;
 int basetrailM128[50][3];
+
+#endif
