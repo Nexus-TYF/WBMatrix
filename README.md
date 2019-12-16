@@ -22,20 +22,20 @@ xor.h : Prestored value for number's internal xor.<br>
 main function(8bit in example):<br>
 1.initinvbaseM8() : initial base invertible matrix which generate in a default times.<br>
       8bit-10,16bit-20,32bit-30,64bit-40,128bit-50.<br>
-2.genMatpairM8(M8 *Mat,M8 *Mat_inv) : generate a invertible matrix Mat and its inverse matrix Mat_inv from the base matrix in prestored times set in inverse.h.<br>
+2.genMatpairM8(M8 *Mat,M8 *Mat_inv) : generate an invertible matrix Mat and its inverse matrix Mat_inv from the base matrix in prestored times set in inverse.h.<br>
 3.genaffinepairM8(Aff8 *aff,Aff8 *aff_inv) : generate an affine transformation aff and its inverse affine transformation aff_inv.<br>
 4.MatMulVecM8(M8 Mat,V8 Vec,V8 *ans) : multiplication for matrix Mat and vertor Vec, result set in ans.<br>
 5.MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat) : multiplication for matrix Mat1 and matrix Mat2, result set in Mat.<br>
 6.MattransM8(M8 Mat,M8 *Mat_trans) : transpositon for matrix Mat, result set in Mat_trans.<br>
-7.affineU8(Aff8 aff,uint8_t arr) : affine transformation for a uint8_t number, and return a uint8_t result.
+7.affineU8(Aff8 aff,uint8_t arr) : affine transformation for an uint8_t number, and return an uint8_t result.
 
 ---
-last update : 2019/12/12<br>
+last update : 2019/12/16<br>
 modified by : Nexus
 
 ---
 details(2019/12/9):<br>
-1.Change the generation of invertible matrix to base on a initialized matrix
+1.Change the generation of invertible matrix to base on an initialized matrix
 (now just support for 8/32bits operations)<br>
 2.Unify the API<br>
 3.User can change the generation times in inverse.h <br>
@@ -60,3 +60,7 @@ No retrun value because of its special structure.
 ---
 (2019/12/12):<br>
 1.Add 16/64/128bit affine combination operation.<br>
+
+---
+(2019/12/16):<br>
+1. Add header files define code.<br>
