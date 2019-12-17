@@ -12,22 +12,39 @@ Matrix transpositon<br>
 Affine transformation<br>
 
 ---
-header file:<br>
-inverse.h : Revisable generate times from the temporary state matrix.<br>
-struture.h : Data structure of matrix.<br>
-structure.c : Prestored identity matrix.<br>
+###Header files:<br>
+inverse.h : Revisable generate times from the temporary state matrix , the selection times for initialization of base matrix.<br>
+struture.h : Data structure of matrix , the trails for generation.<br>
+structure.c : Prestored identity matrix which will be recorded for the base matrix.<br>
 xor.h : Prestored value for number's internal xor.<br>
 
 ---
-main function(8bit in example):<br>
-1.initinvbaseM8() : initial base invertible matrix which generate in a default times.<br>
-      8bit-10,16bit-20,32bit-30,64bit-40,128bit-50.<br>
+###main function(8bit in example):<br>
+1.initinvbaseM8(int N) : initial base invertible matrix which generate in N times.<br>
+we give a suggestion for the selection of N in inverse.h .<br>
 2.genMatpairM8(M8 *Mat,M8 *Mat_inv) : generate an invertible matrix Mat and its inverse matrix Mat_inv from the base matrix in prestored times set in inverse.h.<br>
 3.genaffinepairM8(Aff8 *aff,Aff8 *aff_inv) : generate an affine transformation aff and its inverse affine transformation aff_inv.<br>
 4.MatMulVecM8(M8 Mat,V8 Vec,V8 *ans) : multiplication for matrix Mat and vertor Vec, result set in ans.<br>
 5.MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat) : multiplication for matrix Mat1 and matrix Mat2, result set in Mat.<br>
 6.MattransM8(M8 Mat,M8 *Mat_trans) : transpositon for matrix Mat, result set in Mat_trans.<br>
 7.affineU8(Aff8 aff,uint8_t arr) : affine transformation for an uint8_t number, and return an uint8_t result.
+
+---
+###Example:<br>
+M32 mat32[3];<br>
+initinvbaseM32(initM32_max);<br>
+genMatpairM32(&mat32[0],&mat32[1]);<br>
+MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
+printM32(mat32[2]);<br>
+
+Aff32 A32[2];<br>
+uint32_t t32=0xcbbccbbc,tt32[2];<br>
+genaffinepairM32(&A32[0],&A32[1]);<br>
+printf("0x%x\n",t32);<br>
+tt32[0]=affineU32(A32[0],t32);<br>
+printf("0x%x\n",tt32[0]);<br>
+tt32[1]=affineU32(A32[1],tt32[0]);<br>
+printf("0x%x\n",tt32[1]);<br>
 
 ---
 last update : 2019/12/17<br>
