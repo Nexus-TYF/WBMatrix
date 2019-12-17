@@ -541,13 +541,14 @@ void MatMulVecM128(M128 Mat,V128 Vec,V128 *ans)//matrix * vector -> vector 128*1
         if(xorU128(temp)) (*ans).V[1]^=0x0000000000000001;
     }
 }
-void initinvbaseM8()
+void initinvbaseM8(int N)//initial base matrix, parameter: initM8_min , initM8_max
 {
     int p,q;
     uint8_t temp;
     srand((randseed++)^time(NULL));
     if(basetrailM8[0][0]!=-1) return ;
-    for(int i=0;i<10;i++)//generate reversible base matrix
+    initM8_times=N;
+    for(int i=0;i<initM8_times;i++)//generate reversible base matrix
     {
         p=rand()%8;
         q=rand()%8;
@@ -625,7 +626,7 @@ void genMatpairM8(M8 *Mat,M8 *Mat_inv)//generate 8*8 reversible matrix and its i
     }
     if(basetrailM8[0][0]!=-1)//base matrix
     {
-        for(int j=10-1;j>=0;j--)//generate inverse matrix
+        for(int j=initM8_times-1;j>=0;j--)//generate inverse matrix
         {
             if(basetrailM8[j][0])//add
             {
@@ -640,13 +641,14 @@ void genMatpairM8(M8 *Mat,M8 *Mat_inv)//generate 8*8 reversible matrix and its i
         }
     }
 }
-void initinvbaseM16()
+void initinvbaseM16(int N)//initial base matrix, parameter: initM16_min , initM16_max
 {
     int p,q;
-    uint8_t temp;
+    uint16_t temp;
     srand((randseed++)^time(NULL));
     if(basetrailM16[0][0]!=-1) return ;
-    for(int i=0;i<20;i++)//generate reversible base matrix
+    initM16_times=N;
+    for(int i=0;i<initM16_times;i++)//generate reversible base matrix
     {
         p=rand()%16;
         q=rand()%16;
@@ -731,7 +733,7 @@ void genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and 
     }
     if(basetrailM16[0][0]!=-1)
     {
-        for(int j=20-1;j>=0;j--)//generate inverse matrix for base matrix
+        for(int j=initM16_times-1;j>=0;j--)//generate inverse matrix for base matrix
         {
             if(basetrailM16[j][0])//add
             {
@@ -746,13 +748,14 @@ void genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and 
         }
     }
 }
-void initinvbaseM32()
+void initinvbaseM32(int N)//initial base matrix, parameter: initM32_min , initM32_max
 {
     int p,q;
     uint32_t temp;
     srand((randseed++)^time(NULL));
     if(basetrailM32[0][0]!=-1) return ;
-    for(int i=0;i<30;i++)//generate reversible base matrix
+    initM32_times=N;
+    for(int i=0;i<initM32_times;i++)//generate reversible base matrix
     {
         p=rand()%32;
         q=rand()%32;
@@ -829,7 +832,7 @@ void genMatpairM32(M32 *Mat,M32 *Mat_inv)//generate 32*32 reversible matrix and 
     }
     if(basetrailM32[0][0]!=-1)
     {
-        for(int j=30-1;j>=0;j--)//generate inverse matrix for base matrix
+        for(int j=initM32_times-1;j>=0;j--)//generate inverse matrix for base matrix
         {
             if(basetrailM32[j][0])//add
             {
@@ -844,13 +847,14 @@ void genMatpairM32(M32 *Mat,M32 *Mat_inv)//generate 32*32 reversible matrix and 
         }
     }
 }
-void initinvbaseM64()
+void initinvbaseM64(int N)//initial base matrix, parameter: initM64_min , initM64_max
 {
     int p,q;
     uint64_t temp;
     srand((randseed++)^time(NULL));
     if(basetrailM64[0][0]!=-1) return ;
-    for(int i=0;i<40;i++)//generate reversible base matrix
+    initM64_times=N;
+    for(int i=0;i<initM64_times;i++)//generate reversible base matrix
     {
         p=rand()%64;
         q=rand()%64;
@@ -928,7 +932,7 @@ void genMatpairM64(M64 *Mat,M64 *Mat_inv)//generate 64*64 reversible matrix and 
     }
     if(basetrailM64[0][0]!=-1)
     {
-        for(int j=40-1;j>=0;j--)//generate inverse matrix for base matrix
+        for(int j=initM64_times-1;j>=0;j--)//generate inverse matrix for base matrix
         {
             if(basetrailM64[j][0])//add
             {
@@ -943,13 +947,14 @@ void genMatpairM64(M64 *Mat,M64 *Mat_inv)//generate 64*64 reversible matrix and 
         }
     }
 }
-void initinvbaseM128()
+void initinvbaseM128(int N)//initial base matrix, parameter: initM128_min , initM128_max
 {
     int p,q;
     uint64_t temp[2];
     srand((randseed++)^time(NULL));
     if(basetrailM128[0][0]!=-1) return ;
-    for(int i=0;i<50;i++)//generate reversible base matrix
+    initM128_times=N;
+    for(int i=0;i<initM128_times;i++)//generate reversible base matrix
     {
         p=rand()%128;
         q=rand()%128;
@@ -1038,7 +1043,7 @@ void genMatpairM128(M128 *Mat,M128 *Mat_inv)//generate 128*128 reversible matrix
     }
     if(basetrailM128[0][0]!=-1)
     {
-        for(int j=50-1;j>=0;j--)//generate inverse matrix for base matrix
+        for(int j=initM128_times-1;j>=0;j--)//generate inverse matrix for base matrix
         {
             if(basetrailM128[j][0])//add
             {

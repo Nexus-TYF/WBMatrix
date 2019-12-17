@@ -30,7 +30,7 @@ main function(8bit in example):<br>
 7.affineU8(Aff8 aff,uint8_t arr) : affine transformation for an uint8_t number, and return an uint8_t result.
 
 ---
-last update : 2019/12/16<br>
+last update : 2019/12/17<br>
 modified by : Nexus
 
 ---
@@ -64,3 +64,9 @@ No retrun value because of its special structure.
 ---
 (2019/12/16):<br>
 1. Add header files define code.<br>
+
+---
+(2019/12/17):<br>
+1.Fix some errors.<br>
+2.Add parameter for initial base matrix function. <br>
+The initial base matrix function has a max times and a min times for selection which is detailed in inverse.h .<br> 

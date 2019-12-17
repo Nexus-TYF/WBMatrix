@@ -1,4 +1,5 @@
 #include "structure.h"
+
 M8 baseM8={
     .M[0]=0x80,
     .M[1]=0x40,
@@ -10,7 +11,7 @@ M8 baseM8={
     .M[7]=0x1
 };
 
-int basetrailM8[10][3]={-1};
+int basetrailM8[initM8_max][3]={-1};
 
 M16 baseM16={
     .M[0]=0x8000,
@@ -31,7 +32,7 @@ M16 baseM16={
     .M[15]=0x1
 };
 
-int basetrail[20][3]={-1};
+int basetrailM16[initM16_max][3]={-1};
 
 M32 baseM32={
     .M[0]=0x80000000,
@@ -68,7 +69,7 @@ M32 baseM32={
     .M[31]=0x1
 };
 
-int basetrailM32[30][3]={-1};
+int basetrailM32[initM32_max][3]={-1};
 
 M64 baseM64={
     .M[0]=0x8000000000000000,
@@ -137,7 +138,7 @@ M64 baseM64={
     .M[63]=0x1
 };
 
-int basetrailM64[40][3]={-1};
+int basetrailM64[initM64_max][3]={-1};
 
 M128 baseM128={
     .M[0][0]=0x8000000000000000,
@@ -270,4 +271,4 @@ M128 baseM128={
     .M[127][1]=0x1
 };
 
-int basetrailM128[50][3]={-1};
+int basetrailM128[initM128_max][3]={-1};

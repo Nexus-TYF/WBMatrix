@@ -2,6 +2,7 @@
 #define _HSTRUCTURE_H_
 
 #include <stdint.h>
+#include "inverse.h"
 //8bits
 typedef struct M8
 {
@@ -84,18 +85,23 @@ typedef struct Aff128
 }Aff128;
 
 M8 baseM8;
-int basetrailM8[10][3];
+int basetrailM8[initM8_max][3];
+int initM8_times;
 
 M16 baseM16;
-int basetrailM16[20][3];
+int basetrailM16[initM16_max][3];
+int initM16_times;
 
 M32 baseM32;
-int basetrailM32[30][3];
+int basetrailM32[initM32_max][3];
+int initM32_times;
 
 M64 baseM64;
-int basetrailM64[40][3];
+int basetrailM64[initM64_max][3];
+int initM64_times;
 
 M128 baseM128;
-int basetrailM128[50][3];
+int basetrailM128[initM128_max][3];
+int initM128_times;
 
 #endif
