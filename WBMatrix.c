@@ -1236,6 +1236,42 @@ void MattransM128(M128 Mat,M128 *Mat_trans)//matrix tansposition M128
         }
     }
 }
+void MatAddMatM8(M8 Mat1,M8 Mat2,M8 *Mat)
+{
+    for(int i=0;i<8;i++)
+    {
+        (*Mat).M[i]=Mat1.M[i]^Mat2.M[i];
+    }
+}
+void MatAddMatM16(M16 Mat1,M16 Mat2,M16 *Mat)
+{
+    for(int i=0;i<16;i++)
+    {
+        (*Mat).M[i]=Mat1.M[i]^Mat2.M[i];
+    }
+}
+void MatAddMatM32(M32 Mat1,M32 Mat2,M32 *Mat)
+{
+    for(int i=0;i<32;i++)
+    {
+        (*Mat).M[i]=Mat1.M[i]^Mat2.M[i];
+    }
+}
+void MatAddMatM64(M64 Mat1,M64 Mat2,M64 *Mat)
+{
+    for(int i=0;i<64;i++)
+    {
+        (*Mat).M[i]=Mat1.M[i]^Mat2.M[i];
+    }
+}
+void MatAddMatM128(M128 Mat1,M128 Mat2,M128 *Mat)
+{
+    for(int i=0;i<128;i++)
+    {
+        (*Mat).M[i][0]=Mat1.M[i][0]^Mat2.M[i][0];
+        (*Mat).M[i][1]=Mat1.M[i][1]^Mat2.M[i][1];
+    }
+}
 void MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat)//matrix multiplication 8*8 mul 8*8 -> 8*8
 {
     M8 Mat2_trans;

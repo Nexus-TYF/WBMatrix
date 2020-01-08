@@ -47,7 +47,7 @@ tt32[1]=affineU32(A32[1],tt32[0]);<br>
 printf("0x%x\n",tt32[1]);<br>
 
 ---
-last update : 2019/12/17<br>
+last update : 2019/01/08<br>
 modified by : Nexus
 
 ---
@@ -87,3 +87,7 @@ No retrun value because of its special structure.
 1.Fix some errors.<br>
 2.Add parameter for initial base matrix function. <br>
 The initial base matrix function has a max times and a min times for selection which is detailed in inverse.h .<br> 
+
+---
+(2019/01/08):<br>
+1.Add Matrix addition function.<br>

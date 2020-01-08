@@ -28,6 +28,7 @@ void printU8(uint8_t n);
 
 void MatMulVecM8(M8 Mat,V8 Vec,V8 *ans);
 void MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat);
+void MatAddMatM8(M8 Mat1,M8 Mat2,M8 *Mat);
 void MattransM8(M8 Mat,M8 *Mat_trans);
 void initinvbaseM8(int N);
 
@@ -51,9 +52,10 @@ void printV16(V16 Vec);
 uint16_t affineU16(Aff16 aff,uint16_t arr);
 int xorU16(uint16_t n);
 void printU16(uint16_t n);
-
+void MatAddMatM16(M16 Mat1,M16 Mat2,M16 *Mat);
 void MatMulVecM16(M16 Mat,V16 Vec,V16 *ans);
 void MatMulMatM16(M16 Mat1,M16 Mat2,M16 *Mat);
+
 void MattransM16(M16 Mat,M16 *Mat_trans);
 void initinvbaseM16(int N);
 
@@ -80,6 +82,7 @@ void printU32(uint32_t n);
 
 void MatMulVecM32(M32 Mat,V32 Vec,V32 *ans);
 void MatMulMatM32(M32 Mat1,M32 Mat2,M32 *Mat);
+void MatAddMatM32(M32 Mat1,M32 Mat2,M32 *Mat);
 void MattransM32(M32 Mat,M32 *Mat_trans);
 void initinvbaseM32(int N);
 
@@ -109,9 +112,10 @@ void printU64(uint64_t n);
 
 void MatMulVecM64(M64 Mat,V64 Vec,V64 *ans);
 void MatMulMatM64(M64 Mat1,M64 Mat2,M64 *Mat);
+
 void MattransM64(M64 Mat,M64 *Mat_trans);
 void initinvbaseM64(int N);
-
+void MatAddMatM64(M64 Mat1,M64 Mat2,M64 *Mat);
 void genMatpairM64(M64 *Mat,M64 *Mat_inv);
 void genaffinepairM64(Aff64 *aff,Aff64 *aff_inv);
 void affinemixM64(Aff64 preaff_inv,Aff64 aff,Aff64 *mixaff);
@@ -135,9 +139,10 @@ void printU128(uint64_t n[]);
 
 void MatMulVecM128(M128 Mat,V128 Vec,V128 *ans);
 void MatMulMatM128(M128 Mat1,M128 Mat2,M128 *Mat);
+
 void MattransM128(M128 Mat,M128 *Mat_trans);
 void initinvbaseM128(int N);
-
+void MatAddMatM128(M128 Mat1,M128 Mat2,M128 *Mat);
 void genMatpairM128(M128 *Mat,M128 *Mat_inv);
 void genaffinepairM128(Aff128 *aff,Aff128 *aff_inv);
 void affinemixM128(Aff128 preaff_inv,Aff128 aff,Aff128 *mixaff);
