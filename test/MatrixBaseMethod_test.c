@@ -497,7 +497,11 @@ int main()
     int i;
 
     printf("Matrix Basis Method performance test:\n");
-    M8 m8,m8_inv;
+    M8 m8,m8_inv;//,res;
+    // MatrixpairM8(&m8,&m8_inv);
+    // printbitM8(m8);
+    // MatMulMatM8(m8,m8_inv,&res);
+    // printM8(res);
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
@@ -536,6 +540,16 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("generate 64*64 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+    
+    M128 m128,m128_inv;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        MatrixpairM128(&m128,&m128_inv);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 128*128 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
     return 0;
 }
