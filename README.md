@@ -47,7 +47,7 @@ tt32[1]=affineU32(A32[1],tt32[0]);<br>
 printf("0x%x\n",tt32[1]);<br>
 
 ---
-last update : 2019/01/10<br>
+last update : 2019/01/12<br>
 modified by : Nexus
 
 ---
@@ -97,3 +97,7 @@ The initial base matrix function has a max times and a min times for selection w
 1.File tidying.<br>
 2.Add WBMatrix test.<br>
 3.Add Matrix Basis Method test.<br>
+
+---
+(2019/01/12):<br>
+1.Add 128bit test for matrix base method.<br>
