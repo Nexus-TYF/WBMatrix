@@ -1,4 +1,3 @@
-#include "structure.h"
 #include "WBMatrix.h"
 #ifdef __GNUC__
 #include <x86intrin.h>
@@ -29,6 +28,12 @@ uint64_t end_rdtsc()
 {
     return __rdtsc();
 }
+
+uint8_t TM8[TEST][N8];
+uint8_t TM16[TEST][N16];
+uint8_t TM32[TEST][N32];
+uint8_t TM64[TEST][N64];
+uint8_t TM128[TEST][N128];
 
 M8 MatrixM8[16]={
     [0].M={0xbc,0x3e,0x7a,0x1e,0x38,0x8a,0x9d,0xbe},
@@ -567,6 +572,169 @@ M128 MatrixM128_inv[16]={
     {0x6528616e96dbd8a4,0x98d993bc6d9765bc},{0x4da2a1f8d3331b79,0x8f4057b9aff3e48d},{0x45bc67b4956ef6d7,0x52f0e26cff1121cf},{0x4d93af762ddd8f2d,0x3e62902231cfcde7},{0xcbbc35ccd7d4d349,0x62545d481fbe99b1},{0xb577160ffc569ccf,0xd97f9c0da06684d4},{0xc247677009d58a82,0x6fedc34a39cd8f4d},{0xb065efba9d9f7b06,0xae816f8fae081430},{0x5e2178f66474dab7,0x707f7f962179547a},{0xe603533af79a7809,0xdc5a9cbb278248cb},{0xf2c9c845dd80f75c,0x9289c47b166e52b7},{0x915adcfa18b7fd8a,0x3d12f0df68e7de8f},{0x227955fce97647e,0x126df562cb6f9a3b},{0x2fdfcc5d4161a6ed,0x7dec408ad1cb7326},{0x73a27351a2619c21,0xbccd970c767a70f8},{0x6df09ae2aa052e72,0x1e8e71b60cc83f6d}}
 };
 
+void InvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
+{
+    M8 Temp;
+    int randnum;
+    identityM8(&Temp);
+    srand((randseed++)^time(NULL));
+    for(int i=0;i<N8;i++)
+    {
+        randnum=rand()%16;
+        MatMulMatM8(Temp,MatrixM8[randnum],&Temp);
+    }
+    copyM8(Temp,Mat);
+}
+void InvTMatM16(M16 *Mat)//generate 16*16 invertible matrix
+{
+    M16 Temp;
+    int randnum;
+    identityM16(&Temp);
+    srand((randseed++)^time(NULL));
+    for(int i=0;i<N16;i++)
+    {
+        randnum=rand()%16;
+        MatMulMatM16(Temp,MatrixM16[randnum],&Temp);
+    }
+    copyM16(Temp,Mat);
+}
+void InvTMatM32(M32 *Mat)//generate 32*32 invertible matrix
+{
+    M32 Temp;
+    int randnum;
+    identityM32(&Temp);
+    srand((randseed++)^time(NULL));
+    for(int i=0;i<N32;i++)
+    {
+        randnum=rand()%16;
+        MatMulMatM32(Temp,MatrixM32[randnum],&Temp);
+    }
+    copyM32(Temp,Mat);
+}
+void InvTMatM64(M64 *Mat)//generate 64*64 invertible matrix
+{
+    M64 Temp;
+    int randnum;
+    identityM64(&Temp);
+    srand((randseed++)^time(NULL));
+    for(int i=0;i<N64;i++)
+    {
+        randnum=rand()%16;
+        MatMulMatM64(Temp,MatrixM64[randnum],&Temp);
+    }
+    copyM64(Temp,Mat);
+}
+void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
+{
+    M128 Temp;
+    int randnum;
+    identityM128(&Temp);
+    srand((randseed++)^time(NULL));
+    for(int i=0;i<N128;i++)
+    {
+        randnum=rand()%16;
+        MatMulMatM128(Temp,MatrixM128[randnum],&Temp);
+    }
+    copyM128(Temp,Mat);
+}
+
+void TrailM8(int k)//generate trail of 8*8 matrix
+{
+    int randnum;
+    for(int i=0;i<N8;i++)
+    {
+        randnum=rand()%16;
+        TM8[k][i]=randnum;
+    }
+}
+void TrailM16(int k)//generate trail of 16*16 matrix
+{
+    int randnum;
+    for(int i=0;i<N16;i++)
+    {
+        randnum=rand()%16;
+        TM16[k][i]=randnum;
+    }
+}
+void TrailM32(int k)//generate trail of 32*32 matrix
+{
+    int randnum;
+    for(int i=0;i<N32;i++)
+    {
+        randnum=rand()%16;
+        TM32[k][i]=randnum;
+    }
+}
+void TrailM64(int k)//generate trail of 64*64 matrix
+{
+    int randnum;
+    for(int i=0;i<N64;i++)
+    {
+        randnum=rand()%16;
+        TM64[k][i]=randnum;
+    }
+}
+void TrailM128(int k)//generate trail of 128*128 matrix
+{
+    int randnum;
+    for(int i=0;i<N128;i++)
+    {
+        randnum=rand()%16;
+        TM128[k][i]=randnum;
+    }
+}
+
+void InvSMatM8(M8 *Mat_inv,int k)//generate 8*8 inverse matrix
+{
+    M8 Temp_inv;
+    identityM8(&Temp_inv);
+    for(int i=N8-1;i>=0;i--)
+    {
+        MatMulMatM8(Temp_inv,MatrixM8_inv[TM8[k][i]],&Temp_inv);
+    }
+    copyM8(Temp_inv,Mat_inv);
+}
+void InvSMatM16(M16 *Mat_inv,int k)//generate 16*16 inverse matrix
+{
+    M16 Temp_inv;
+    identityM16(&Temp_inv);
+    for(int i=N16-1;i>=0;i--)
+    {
+        MatMulMatM16(Temp_inv,MatrixM16_inv[TM16[k][i]],&Temp_inv);
+    }
+    copyM16(Temp_inv,Mat_inv);
+}
+void InvSMatM32(M32 *Mat_inv,int k)//generate 32*32 inverse matrix
+{
+    M32 Temp_inv;
+    identityM32(&Temp_inv);
+    for(int i=N32-1;i>=0;i--)
+    {
+        MatMulMatM32(Temp_inv,MatrixM32_inv[TM32[k][i]],&Temp_inv);
+    }
+    copyM32(Temp_inv,Mat_inv);
+}
+void InvSMatM64(M64 *Mat_inv,int k)//generate 64*64 inverse matrix
+{
+    M64 Temp_inv;
+    identityM64(&Temp_inv);
+    for(int i=N64-1;i>=0;i--)
+    {
+        MatMulMatM64(Temp_inv,MatrixM64_inv[TM64[k][i]],&Temp_inv);
+    }
+    copyM64(Temp_inv,Mat_inv);
+}
+void InvSMatM128(M128 *Mat_inv,int k)//generate 128*128 inverse matrix
+{
+    M128 Temp_inv;
+    identityM128(&Temp_inv);
+    for(int i=N128-1;i>=0;i--)
+    {
+        MatMulMatM128(Temp_inv,MatrixM128_inv[TM128[k][i]],&Temp_inv);
+    }
+    copyM128(Temp_inv,Mat_inv);
+}
+
 void MatrixpairM8(M8 *Mat,M8 *Mat_inv)
 {
     M8 Temp,Temp_inv;
@@ -681,7 +849,132 @@ int main()
     int i;
 
     printf("Matrix Basis Method performance test:\n");
-    M8 m8,m8_inv; 
+    printf("Inverible\n");
+    M8 Tm8;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMatM8(&Tm8);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 8*8 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+    M16 Tm16;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMatM16(&Tm16);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 16*16 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+    M32 Tm32;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMatM32(&Tm32);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 32*32 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+    M64 Tm64;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMatM64(&Tm64);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 64*64 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+    M128 Tm128;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMatM128(&Tm128);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 128*128 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+
+    printf("\nInverse\n");
+    M8 Sm8;
+    for (i = 0; i < TEST; i++)
+    {
+        TrailM8(i);
+    }
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvSMatM8(&Sm8,i);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("compute 8*8 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+     M16 Sm16;
+    for (i = 0; i < TEST; i++)
+    {
+        TrailM16(i);
+    }
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvSMatM16(&Sm16,i);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("compute 16*16 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+    M32 Sm32;
+    for (i = 0; i < TEST; i++)
+    {
+        TrailM32(i);
+    }
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvSMatM32(&Sm32,i);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("compute 32*32 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+    M64 Sm64;
+    for (i = 0; i < TEST; i++)
+    {
+        TrailM64(i);
+    }
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvSMatM64(&Sm64,i);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("compute 64*64 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+    M128 Sm128;
+    for (i = 0; i < TEST; i++)
+    {
+        TrailM128(i);
+    }
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvSMatM128(&Sm128,i);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("compute 128*128 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+    
+    printf("\nInvertible and Inverse\n");
+    M8 m8,m8_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
