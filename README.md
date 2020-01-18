@@ -19,7 +19,7 @@ structure.c : Prestored identity matrix which will be recorded for the base matr
 xor.h : Prestored value for number's internal xor.<br>
 
 ---
-###main function(8bit in example):<br>
+###Main function(8bit in Example):<br>
 1.initinvbaseM8(int N) : initial base invertible matrix which generate in N times.<br>
 we give a suggestion for the selection of N in inverse.h .<br>
 2.genMatpairM8(M8 *Mat,M8 *Mat_inv) : generate an invertible matrix Mat and its inverse matrix Mat_inv from the base matrix in prestored times set in inverse.h.<br>
@@ -37,21 +37,13 @@ genMatpairM32(&mat32[0],&mat32[1]);<br>
 MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
-Aff32 A32[2];<br>
-uint32_t t32=0xcbbccbbc,tt32[2];<br>
-genaffinepairM32(&A32[0],&A32[1]);<br>
-printf("0x%x\n",t32);<br>
-tt32[0]=affineU32(A32[0],t32);<br>
-printf("0x%x\n",tt32[0]);<br>
-tt32[1]=affineU32(A32[1],tt32[0]);<br>
-printf("0x%x\n",tt32[1]);<br>
+---
+Last update : 2019/01/18<br>
+Modified by : Nexus
 
 ---
-last update : 2019/01/18<br>
-modified by : Nexus
-
----
-details(2019/12/9):<br>
+Details:
+(2019/12/9)<br>
 1.Change the generation of invertible matrix to base on an initialized matrix
 (now just support for 8/32bits operations)<br>
 2.Unify the API<br>
@@ -63,46 +55,38 @@ which represent the operation times.<br>
 5.If not use the initialize fucntion then each matrix generate from a identify matrix in defined times<br>
 6.Add copy function instead of identify function.<br>
 
----
-(2019/12/10):<br>
+(2019/12/10)<br>
 1.Update 16/64/128bits inverse matrix function.<br>
 New method has been covered.<br>
 
----
-(2019/12/11):<br>
+(2019/12/11)<br>
 1.Add 16/64bit affine transformation.<br>
 2.Add 128bit affine transformation.<br>
 No retrun value because of its special structure.
 
----
-(2019/12/12):<br>
+(2019/12/12)<br>
 1.Add 16/64/128bit affine combination operation.<br>
 
----
-(2019/12/16):<br>
+(2019/12/16)<br>
 1. Add header files define code.<br>
 
----
-(2019/12/17):<br>
+(2019/12/17)<br>
 1.Fix some errors.<br>
 2.Add parameter for initial base matrix function. <br>
 The initial base matrix function has a max times and a min times for selection which is detailed in inverse.h .<br> 
 
----
-(2019/01/08):<br>
+(2019/01/08)<br>
 1.Add Matrix addition function.<br>
 
----
-(2019/01/10):<br>
+(2019/01/10)<br>
 1.File tidying.<br>
 2.Add WBMatrix test.<br>
 3.Add Matrix Basis Method test.<br>
 
----
-(2019/01/12):<br>
+(2019/01/12)<br>
 1.Add 128bit test for matrix base method.<br>
 
-(2019/01/18):<br>
+(2019/01/18)<br>
 1.Update test case: generate invertible matrix , compute inverse matrix.<br>
 2.Invertible: Matrix Basis Method, WBMatrix Method, Reverse Gaussian Elimination Method.<br>
 3.Inverse: WBMatrix Method, Matrix Basis Method.<br>
