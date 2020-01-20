@@ -1,7 +1,7 @@
 WBMatrix
 ====
 
-Matrix Mathematical Operation Library Of White Box Cryptography
+White-Box Matrix Library
 ----
 
 Support for following operations(8/16/32/64/128 bits):<br>
@@ -38,11 +38,11 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last update : 2019/01/18<br>
+Last update : 2019/01/20<br>
 Modified by : Nexus
 
 ---
-Details:
+Details:<br>
 (2019/12/9)<br>
 1.Change the generation of invertible matrix to base on an initialized matrix
 (now just support for 8/32bits operations)<br>
@@ -68,7 +68,7 @@ No retrun value because of its special structure.
 1.Add 16/64/128bit affine combination operation.<br>
 
 (2019/12/16)<br>
-1. Add header files define code.<br>
+1.Add header files define code.<br>
 
 (2019/12/17)<br>
 1.Fix some errors.<br>
@@ -90,3 +90,7 @@ The initial base matrix function has a max times and a min times for selection w
 1.Update test case: generate invertible matrix , compute inverse matrix.<br>
 2.Invertible: Matrix Basis Method, WBMatrix Method, Reverse Gaussian Elimination Method.<br>
 3.Inverse: WBMatrix Method, Matrix Basis Method.<br>
+
+(2019/01/20)<br>
+1.Add CMakeLists.txt<br>
+2.Add M4RI Method.<br>

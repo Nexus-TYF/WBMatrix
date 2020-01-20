@@ -8,14 +8,14 @@
 #pragma intrinsic(__rdtsc)
 
 //Repeat test times and calculate on average for accuracy
-#define TEST 100000
+#define TEST 100
 
 //times for multiplication
-#define N8 5
-#define N16 5
-#define N32 5
-#define N64 5
-#define N128 5
+#define N8 16
+#define N16 64
+#define N32 256
+#define N64 1024
+#define N128 4096
 
 //CPU cycles set start;
 uint64_t start_rdtsc()

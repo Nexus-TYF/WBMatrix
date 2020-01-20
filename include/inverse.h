@@ -2,11 +2,11 @@
 #define _HINVERSE_H_
 
 //times generate from base matrix, define by user
-#define M8N 15
-#define M16N 20
-#define M32N 30
-#define M64N 35
-#define M128N 40
+#define M8N 11
+#define M16N 33
+#define M32N 103
+#define M64N 342
+#define M128N 1172
 
 //times of base matrix's generation, select by user
 #define initM8_min 8
