@@ -14,8 +14,8 @@ Affine transformation<br>
 ---
 ###Header files:<br>
 inverse.h : Revisable generate times from the temporary state matrix , the selection times for initialization of base matrix.<br>
-struture.h : Data structure of matrix , the trails for generation.<br>
-structure.c : Prestored identity matrix which will be recorded for the base matrix.<br>
+WBMatrix.h : The declaration of the main function.<br>
+struture.h : Data structure of matrix.<br>
 xor.h : Prestored value for number's internal xor.<br>
 
 ---
@@ -38,7 +38,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last update : 2019/01/20<br>
+Last update : 2019/01/21<br>
 Modified by : Nexus
 
 ---
@@ -94,3 +94,6 @@ The initial base matrix function has a max times and a min times for selection w
 (2019/01/20)<br>
 1.Add CMakeLists.txt<br>
 2.Add M4RI Method.<br>
+
+(2019/01/21)<br>
+1.Organize file structure, especially fix the structure.h and .c error.<br>
