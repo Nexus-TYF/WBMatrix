@@ -32,7 +32,7 @@ void InvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
 {
     int p,q;
     uint8_t temp;
-    copyM8(baseM8,Mat);//copy base matrix
+    identityM8(Mat);//identity matrix
     srand((randseed++)^time(NULL));
     for(int i=0;i<M8N;i++)//generate reversible matrix
     {
@@ -59,7 +59,7 @@ void InvTMatM16(M16 *Mat)//generate 16*16 invertible matrix
 {
     int p,q;
     uint16_t temp;
-    copyM16(baseM16,Mat);//copy base matrix
+    identityM16(Mat);//identity matrix
     srand((randseed++)^time(NULL));
     for(int i=0;i<M16N;i++)//generate reversible matrix
     {
@@ -86,7 +86,7 @@ void InvTMatM32(M32 *Mat)//generate 32*32 invertible matrix
 {
     int p,q;
     uint32_t temp;
-    copyM32(baseM32,Mat);//copy base matrix
+    identityM32(Mat);//identity matrix
     srand((randseed++)^time(NULL));
     for(int i=0;i<M32N;i++)//generate reversible matrix
     {
@@ -113,7 +113,7 @@ void InvTMatM64(M64 *Mat)//generate 64*64 invertible matrix
 {
     int p,q;
     uint64_t temp;
-    copyM64(baseM64,Mat);//copy base matrix
+    identityM64(Mat);//identity matrix
     srand((randseed++)^time(NULL));
     for(int i=0;i<M64N;i++)//generate reversible matrix
     {
@@ -140,7 +140,7 @@ void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
 {
     int p,q;
     uint64_t temp[2];
-    copyM128(baseM128,Mat);//copy base matrix
+    identityM128(Mat);//identity matrix
     srand((randseed++)^time(NULL));
     for(int i=0;i<M128N;i++)//generate reversible matrix
     {

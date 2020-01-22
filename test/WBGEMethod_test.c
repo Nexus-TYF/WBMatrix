@@ -1,3 +1,4 @@
+//Gaussian elimination Method Base on WBMatrix 
 #include "WBMatrix.h"
 #ifdef __GNUC__
 #include <x86intrin.h>
@@ -47,31 +48,65 @@ int isinvertM8(M8 Mat)
                     temp=Mat.M[i];
                     Mat.M[i]=Mat.M[j];
                     Mat.M[j]=temp;
+                    break;
+                }
+            }
+            for(int k=i+1;k<8;k++)
+            {
+                if((Mat.M[k]&identM8[i])==identM8[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
                 }
             }
         }
-        printbitM8(Mat); 
     }
-    //printbitM8(Mat);
-    if(Mat.M[7]==0x01) return 1;
+    printbitM8(Mat);
+    if((Mat.M[7]&identM8[7])==identM8[7]) return 1;
     else return 0;
+}
+
+void diagdominM8(M8 *Mat)
+{
+    uint8_t temp;
+    int flag;
+    srand((randseed++)^time(NULL));
+    for(int i=0;i<8;i++)
+    {
+        flag=1;
+        while(flag)
+        {
+            flag=0;
+            temp=rand()%256;
+            while(!( ((temp&identM8[i])==identM8[i]) && xorU8(temp) ) )
+            {
+                temp=rand()%256;
+            }
+            for(int j=0;j<i;j++)
+            {
+                if((*Mat).M[j]==temp) flag=1;
+            }
+        }
+        (*Mat).M[i]=temp;
+    }
 }
 
 int main()
 {
+    // int ans=0;
+    // M8 mat[100000];
+    // for(int i=0;i<100000;i++)
+    // {
+    //     randM8(&mat[i]);
+    // }
+    // for(int j=0;j<100000;j++)
+    // {
+    //     ans+=isinvertM8(mat[j]);
+    // }
+    M8 mat;
     int ans;
-    M8 mat[3][3];
-    initinvbaseM8(initM8_max);
-    for(int i=0;i<3;i++)
-    {
-        genMatpairM8(&mat[i][0],&mat[i][1]);
-        MatMulMatM8(mat[i][0],mat[i][1],&mat[i][3]);
-        printM8(mat[i][3]);
-        initinvbaseM8(initM8_max);
-    }
-    //ans=isinvertM8(mat[0][0]);
-    // printf("invert?: %d\n",ans);
-    // ans=isinvertM8(mat[0][1]);
-    // printf("invert?: %d\n",ans);
+    diagdominM8(&mat);
+    printbitM8(mat);
+    ans=isinvertM8(mat);
+    //printf("invert?:%d\n",ans);
     return 0;
 }

@@ -148,24 +148,10 @@ void genMatpairM128(M128 *Mat,M128 *Mat_inv);
 void genaffinepairM128(Aff128 *aff,Aff128 *aff_inv);
 void affinemixM128(Aff128 preaff_inv,Aff128 aff,Aff128 *mixaff);
 
-M8 baseM8;
-int basetrailM8[initM8_max][3];
 int initM8_times;
-
-M16 baseM16;
-int basetrailM16[initM16_max][3];
 int initM16_times;
-
-M32 baseM32;
-int basetrailM32[initM32_max][3];
 int initM32_times;
-
-M64 baseM64;
-int basetrailM64[initM64_max][3];
 int initM64_times;
-
-M128 baseM128;
-int basetrailM128[initM128_max][3];
 int initM128_times;
 
 #endif
