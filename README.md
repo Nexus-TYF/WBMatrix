@@ -37,7 +37,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last update : 2019/01/22<br>
+Last update : 2019/01/30<br>
 Modified by : Nexus
 
 ---
@@ -99,3 +99,7 @@ The initial base matrix function has a max times and a min times for selection w
 
 (2019/01/22)<br>
 1.Delete xor.h.<br>
+
+(2019/01/30)<br>
+1.Add Gaussian elimination Method(Base on WBMatrix).<br>
+2.Change the generation function of random Matrix.<br>

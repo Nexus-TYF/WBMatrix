@@ -279,6 +279,12 @@ int xor[]={0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,0,
 0,0,1,1,0,0,1,0,1,1,0,0,1,1,0,1,0,0,1,0,
 1,1,0,1,0,0,1,1,0,0,1,0,1,1};
 
+uint8_t idM8[8]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
+uint16_t idM16[16]={0x8000,0x4000,0x2000,0x1000,0x800,0x400,0x200,0x100,0x80,0x40,0x20,0x10,0x8,0x4,0x2,0x1};
+uint32_t idM32[32]={0x80000000,0x40000000,0x20000000,0x10000000,0x8000000,0x4000000,0x2000000,0x1000000,0x800000,0x400000,0x200000,0x100000,0x80000,0x40000,0x20000,0x10000,0x8000,0x4000,0x2000,0x1000,0x800,0x400,0x200,0x100,0x80,0x40,0x20,0x10,0x8,0x4,0x2,0x1};
+uint64_t idM64[64]={0x8000000000000000,0x4000000000000000,0x2000000000000000,0x1000000000000000,0x800000000000000,0x400000000000000,0x200000000000000,0x100000000000000,0x80000000000000,0x40000000000000,0x20000000000000,0x10000000000000,0x8000000000000,0x4000000000000,0x2000000000000,0x1000000000000,0x800000000000,0x400000000000,0x200000000000,0x100000000000,0x80000000000,0x40000000000,0x20000000000,0x10000000000,0x8000000000,0x4000000000,0x2000000000,0x1000000000,0x800000000,0x400000000,0x200000000,0x100000000,\
+                        0x80000000,0x40000000,0x20000000,0x10000000,0x8000000,0x4000000,0x2000000,0x1000000,0x800000,0x400000,0x200000,0x100000,0x80000,0x40000,0x20000,0x10000,0x8000,0x4000,0x2000,0x1000,0x800,0x400,0x200,0x100,0x80,0x40,0x20,0x10,0x8,0x4,0x2,0x1};
+
 void initM8(M8 *Mat)//initial Matrix 8*8
 {
     for(int i=0;i<8;i++)
@@ -341,7 +347,10 @@ void randM8(M8 *Mat)//randomize Matrix 8*8
     srand((randseed++)^time(NULL));
     for(int i=0;i<8;i++)
     {
-        (*Mat).M[i]=rand()%256;
+        for(int j=0;j<8;j++)
+        {
+            if(rand()%2) (*Mat).M[i]^=idM8[j];
+        }
     }
 }
 void randM16(M16 *Mat)//randomize Matrix 16*16 
@@ -349,94 +358,85 @@ void randM16(M16 *Mat)//randomize Matrix 16*16
     srand((randseed++)^time(NULL));
     for(int i=0;i<16;i++)
     {
-        (*Mat).M[i]=rand()%65536;
+        for(int j=0;j<16;j++)
+        {
+            if(rand()%2) (*Mat).M[i]^=idM16[j];
+        }
     }
 }
 void randM32(M32 *Mat)//randomize Matrix 32*32 
 {
-    uint16_t *m;
     srand((randseed++)^time(NULL));
     for(int i=0;i<32;i++)
     {
-        m=(uint16_t*)&((*Mat).M[i]);
-        *(m+1)=rand()%65536;
-        *m=rand()%65536;
+        for(int j=0;j<32;j++)
+        {
+            if(rand()%2) (*Mat).M[i]^=idM32[j];
+        }
     }
 }
 void randM64(M64 *Mat)//randomize Matrix 64*64 
 {
-    uint16_t *m;
     srand((randseed++)^time(NULL));
     for(int i=0;i<64;i++)
     {
-        m=(uint16_t*)&((*Mat).M[i]);
-        *(m+3)=rand()%65536;
-        *(m+2)=rand()%65536;
-        *(m+1)=rand()%65536;
-        *m=rand()%65536;
+        for(int j=0;j<64;j++)
+        {
+            if(rand()%2) (*Mat).M[i]^=idM64[j];
+        }
     }
 }
 void randM128(M128 *Mat)//randomize Matrix 128*128 
 {
-    uint16_t *m;
     srand((randseed++)^time(NULL));
     for(int i=0;i<128;i++)
     {
-        m=(uint16_t*)&((*Mat).M[i][0]);
-        *(m+3)=rand()%65536;
-        *(m+2)=rand()%65536;
-        *(m+1)=rand()%65536;
-        *m=rand()%65536;
-        m=(uint16_t*)&((*Mat).M[i][1]);
-        *(m+3)=rand()%65536;
-        *(m+2)=rand()%65536;
-        *(m+1)=rand()%65536;
-        *m=rand()%65536;
+        for(int j=0;j<64;j++)
+        {
+            if(rand()%2) (*Mat).M[i][0]^=idM64[j];
+            if(rand()%2) (*Mat).M[i][1]^=idM64[j];
+        }
     }
 }
 void identityM8(M8 *Mat)//identity matrix 8*8
 {
-    (*Mat).M[7]=1;
-    for(int i=6;i>=0;i--)
+    for(int i=0;i<8;i++)
     {
-        (*Mat).M[i]=(*Mat).M[i+1]<<1;
+        (*Mat).M[i]=idM8[i];
     }
 }
 void identityM16(M16 *Mat)//identity matrix 16*16
 {
-    (*Mat).M[15]=1;
-    for(int i=14;i>=0;i--)
+    for(int i=0;i<16;i++)
     {
-        (*Mat).M[i]=(*Mat).M[i+1]<<1;
+        (*Mat).M[i]=idM16[i];
     }
 }
 void identityM32(M32 *Mat)//identity matrix 32*32
 {
-    (*Mat).M[31]=1;
-    for(int i=30;i>=0;i--)
+    for(int i=0;i<32;i++)
     {
-        (*Mat).M[i]=(*Mat).M[i+1]<<1;
+        (*Mat).M[i]=idM32[i];
     }
 }
 void identityM64(M64 *Mat)//identity matrix 64*64
 {
-    (*Mat).M[63]=1;
-    for(int i=62;i>=0;i--)
+    for(int i=0;i<64;i++)
     {
-        (*Mat).M[i]=(*Mat).M[i+1]<<1;
+        (*Mat).M[i]=idM64[i];
     }
 }
 void identityM128(M128 *Mat)//identity matrix 128*128
 {
-    initM128(Mat);
-    (*Mat).M[127][1]=1;
-    for(int i=126;i>=64;i--)
+    for(int i=0;i<64;i++)
     {
-        (*Mat).M[i][1]=(*Mat).M[i+1][1]<<1;
+        (*Mat).M[i][0]=idM64[i];
+        (*Mat).M[i][1]=0;
     }
-    for(int i=63;i>=0;i--)
+    for(int i=64;i<128;i++)
     {
-        (*Mat).M[i][0]=(*Mat).M[i+64][1];
+        (*Mat).M[i][0]=0;
+        (*Mat).M[i][1]=idM64[i-64];
     }
 }
 void randV8(V8 *Vec)//randomize Vector 8*1
