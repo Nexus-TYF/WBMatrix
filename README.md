@@ -1,10 +1,10 @@
 WBMatrix
 ====
 
-White-Box Matrix Library
+White-Box Matrix Library(Designed for Cryptography)
 ----
 
-Support for following operations(8/16/32/64/128 bits):<br>
+Support For Following Operations(8/16/32/64/128 bits):<br>
 Matrix-Vector multiplication<br>
 Matrix-Matrix multiplication<br>
 Generate invertible Matrix with it's inverse matrix<br>
@@ -12,13 +12,13 @@ Matrix transpositon<br>
 Affine transformation<br>
 
 ---
-###Header files:<br>
+###Header Files:<br>
 inverse.h : Revisable generate times from the temporary state matrix , the selection times for initialization of base matrix.<br>
 WBMatrix.h : The declaration of the main function.<br>
 struture.h : Data structure of matrix.<br>
 
 ---
-###Main function(8bit in Example):<br>
+###Main Function(8bit in Example):<br>
 1.initinvbaseM8(int N) : initial base invertible matrix which generate in N times.<br>
 we give a suggestion for the selection of N in inverse.h .<br>
 2.genMatpairM8(M8 *Mat,M8 *Mat_inv) : generate an invertible matrix Mat and its inverse matrix Mat_inv from the base matrix in prestored times set in inverse.h.<br>
@@ -37,8 +37,8 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last update : 2019/01/30<br>
-Modified by : Nexus
+Last Updated : 2019/01/31<br>
+Modified By : Nexus
 
 ---
 Details:<br>
@@ -52,38 +52,38 @@ Details:<br>
 32bits default value is 30<br>
 which represent the operation times.<br>
 5.If not use the initialize fucntion then each matrix generate from a identify matrix in defined times<br>
-6.Add copy function instead of identify function.<br>
+6.NEW: copy function instead of identify function.<br>
 
 (2019/12/10)<br>
 1.Update 16/64/128bits inverse matrix function.<br>
 New method has been covered.<br>
 
 (2019/12/11)<br>
-1.Add 16/64bit affine transformation.<br>
-2.Add 128bit affine transformation.<br>
+1.NEW: 16/64bit affine transformation.<br>
+2.NEW: 128bit affine transformation.<br>
 No retrun value because of its special structure.
 
 (2019/12/12)<br>
-1.Add 16/64/128bit affine combination operation.<br>
+1.NEW: 16/64/128bit affine combination operation.<br>
 
 (2019/12/16)<br>
-1.Add header files define code.<br>
+1.NEW: header files define code.<br>
 
 (2019/12/17)<br>
 1.Fix some errors.<br>
-2.Add parameter for initial base matrix function. <br>
+2.NEW: Add parameter for initial base matrix function. <br>
 The initial base matrix function has a max times and a min times for selection which is detailed in inverse.h .<br> 
 
 (2019/01/08)<br>
-1.Add Matrix addition function.<br>
+1.NEW: Add Matrix addition function.<br>
 
 (2019/01/10)<br>
 1.File tidying.<br>
-2.Add WBMatrix test.<br>
-3.Add Matrix Basis Method test.<br>
+2.NEW: Add WBMatrix test.<br>
+3.NEW: Add Matrix Basis Method test.<br>
 
 (2019/01/12)<br>
-1.Add 128bit test for matrix base method.<br>
+1.NEW: Add 128bit test for matrix base method.<br>
 
 (2019/01/18)<br>
 1.Update test case: generate invertible matrix , compute inverse matrix.<br>
@@ -91,8 +91,8 @@ The initial base matrix function has a max times and a min times for selection w
 3.Inverse: WBMatrix Method, Matrix Basis Method.<br>
 
 (2019/01/20)<br>
-1.Add CMakeLists.txt<br>
-2.Add M4RI Method.<br>
+1.NEW: Add CMakeLists.txt<br>
+2.NEW: Add M4RI Method.<br>
 
 (2019/01/21)<br>
 1.Organize file structure, especially fix the structure.h and .c error.<br>
@@ -101,5 +101,8 @@ The initial base matrix function has a max times and a min times for selection w
 1.Delete xor.h.<br>
 
 (2019/01/30)<br>
-1.Add Gaussian elimination Method(Base on WBMatrix).<br>
+1.NEW: Add Gaussian elimination Method(Base on WBMatrix).<br>
 2.Change the generation function of random Matrix.<br>
+
+(2019/01/31)<br>
+1.NEW: Add Reverse LU Decomposition Method.<br>
