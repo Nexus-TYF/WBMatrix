@@ -442,42 +442,42 @@ void identityM128(M128 *Mat)//identity matrix 128*128
 void randV8(V8 *Vec)//randomize Vector 8*1
 {
     srand((randseed++)^time(NULL));
-    (*Vec).V=rand()%256;
+    (*Vec).V=rand();
 }
 void randV16(V16 *Vec)//randomize Vector 16*1
 {
     srand((randseed++)^time(NULL));
-    (*Vec).V=rand()%65536;
+    (*Vec).V=rand();
 }
 void randV32(V32 *Vec)//randomize Vector 32*1
 {
     uint16_t *v=(uint16_t*)&((*Vec).V);
     srand((randseed++)^time(NULL));
-    *(v+1)=rand()%65536;
-    *v=rand()%65536;
+    *(v+1)=rand();
+    *v=rand();
 }
 void randV64(V64 *Vec)//randomize Vector 64*1
 {
     uint16_t *v=(uint16_t*)&((*Vec).V);
     srand((randseed++)^time(NULL));
-    *(v+3)=rand()%65536;
-    *(v+2)=rand()%65536;
-    *(v+1)=rand()%65536;
-    *v=rand()%65536;
+    *(v+3)=rand();
+    *(v+2)=rand();
+    *(v+1)=rand();
+    *v=rand();
 }
 void randV128(V128 *Vec)//randomize Vector 128*1
 {
     uint16_t *v=(uint16_t*)&((*Vec).V[0]);
     srand((randseed++)^time(NULL));
-    *(v+3)=rand()%65536;
-    *(v+2)=rand()%65536;
-    *(v+1)=rand()%65536;
-    *v=rand()%65536;
+    *(v+3)=rand();
+    *(v+2)=rand();
+    *(v+1)=rand();
+    *v=rand();
     v=(uint16_t*)&((*Vec).V[1]);
-    *(v+3)=rand()%65536;
-    *(v+2)=rand()%65536;
-    *(v+1)=rand()%65536;
-    *v=rand()%65536;
+    *(v+3)=rand();
+    *(v+2)=rand();
+    *(v+1)=rand();
+    *v=rand();
 }
 void printM8(M8 Mat)//printf Matrix 8*8
 {

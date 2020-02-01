@@ -60,3 +60,7 @@ void lowtoupM8(M8 *Mat)
     //printbitM8(temp);
     copyM8(temp,Mat);
 }
+ int main()
+ {
+    return 0;
+ }
