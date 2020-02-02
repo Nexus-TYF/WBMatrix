@@ -37,7 +37,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last Updated : 2019/02/01<br>
+Last Updated : 2019/02/02<br>
 Modified By : Nexus
 
 ---
@@ -109,3 +109,6 @@ The initial base matrix function has a max times and a min times for selection w
 
 (2019/02/01)<br>
 1.Fixed: Function of random matrix.<br>
+
+(2019/02/02)<br>
+1.NEW: Comparison test on github.<br>
