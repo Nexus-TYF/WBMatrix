@@ -112,3 +112,5 @@ The initial base matrix function has a max times and a min times for selection w
 
 (2019/02/02)<br>
 1.NEW: Comparison test on github.<br>
+2.NEW: Accuracy Test.<br>
+3.Fixed: Parameter Order of affinemix function.<br>

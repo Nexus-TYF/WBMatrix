@@ -572,6 +572,107 @@ void copyM128(M128 Mat1,M128 *Mat2)
         (*Mat2).M[i][1]=Mat1.M[i][1];
     }
 }
+int isequalM8(M8 Mat1,M8 Mat2)
+{
+    int flag=1;
+    for(int i=0;i<8;i++)
+    {
+        if(Mat1.M[i]!=Mat2.M[i])
+        {
+            flag=0;
+            break;
+        }
+    }
+    return flag;
+}
+int isequalM16(M16 Mat1,M16 Mat2)
+{
+    int flag=1;
+    for(int i=0;i<16;i++)
+    {
+        if(Mat1.M[i]!=Mat2.M[i])
+        {
+            flag=0;
+            break;
+        }
+    }
+    return flag;
+}
+int isequalM32(M32 Mat1,M32 Mat2)
+{
+    int flag=1;
+    for(int i=0;i<32;i++)
+    {
+        if(Mat1.M[i]!=Mat2.M[i])
+        {
+            flag=0;
+            break;
+        }
+    }
+    return flag;
+}
+int isequalM64(M64 Mat1,M64 Mat2)
+{
+    int flag=1;
+    for(int i=0;i<64;i++)
+    {
+        if(Mat1.M[i]!=Mat2.M[i])
+        {
+            flag=0;
+            break;
+        }
+    }
+    return flag;
+}
+int isequalM128(M128 Mat1,M128 Mat2)
+{
+    int flag=1;
+    for(int i=0;i<128;i++)
+    {
+        if(Mat1.M[i][0]!=Mat2.M[i][0])
+        {
+            flag=0;
+            break;
+        }
+        if(Mat1.M[i][1]!=Mat2.M[i][1])
+        {
+            flag=0;
+            break;
+        }
+    }
+    return flag;
+}
+int isequalV8(V8 Vec1,V8 Vec2)
+{
+    int flag=1;
+    if(Vec1.V!=Vec2.V) flag=0;
+    return flag;
+}
+int isequalV16(V16 Vec1,V16 Vec2)
+{
+    int flag=1;
+    if(Vec1.V!=Vec2.V) flag=0;
+    return flag;
+}
+int isequalV32(V32 Vec1,V32 Vec2)
+{
+    int flag=1;
+    if(Vec1.V!=Vec2.V) flag=0;
+    return flag;
+}
+int isequalV64(V64 Vec1,V64 Vec2)
+{
+    int flag=1;
+    if(Vec1.V!=Vec2.V) flag=0;
+    return flag;
+}
+int isequalV128(V128 Vec1,V128 Vec2)
+{
+    int flag=1;
+    if(Vec1.V[0]!=Vec2.V[0]) flag=0;
+    if(Vec1.V[1]!=Vec2.V[1]) flag=0;
+    return flag;
+}
 uint8_t affineU8(Aff8 aff,uint8_t arr)//8bits affine transformation
 {
     V8 mul_vec,ans_vec;
@@ -817,6 +918,31 @@ void MatMulVecM128(M128 Mat,V128 Vec,V128 *ans)//matrix * vector -> vector 128*1
         temp[1]=Mat.M[i][1]&Vec.V[1];
         if(xorU128(temp)) (*ans).V[1]^=0x0000000000000001;
     }
+}
+void freebaseM8()
+{
+    identityM8(&baseM8);
+    basetrailM8[0][0]=-1;
+}
+void freebaseM16()
+{
+    identityM16(&baseM16);
+    basetrailM16[0][0]=-1;
+}
+void freebaseM32()
+{
+    identityM32(&baseM32);
+    basetrailM32[0][0]=-1;
+}
+void freebaseM64()
+{
+    identityM64(&baseM64);
+    basetrailM64[0][0]=-1;
+}
+void freebaseM128()
+{
+    identityM128(&baseM128);
+    basetrailM128[0][0]=-1;
 }
 void initinvbaseM8(int N)//initial base matrix, parameter: initM8_min , initM8_max
 {
@@ -1639,31 +1765,31 @@ void MatMulMatM128(M128 Mat1,M128 Mat2,M128 *Mat)//matrix multiplication 128*128
         }
     } 
 }
-void affinemixM8(Aff8 preaff_inv,Aff8 aff,Aff8 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
+void affinemixM8(Aff8 aff,Aff8 preaff_inv,Aff8 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
 {
     MatMulMatM8(aff.Mat,preaff_inv.Mat,&(mixaff->Mat));
     MatMulVecM8(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
     (*mixaff).Vec.V^=aff.Vec.V;
 }
-void affinemixM16(Aff16 preaff_inv,Aff16 aff,Aff16 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
+void affinemixM16(Aff16 aff,Aff16 preaff_inv,Aff16 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
 {
     MatMulMatM16(aff.Mat,preaff_inv.Mat,&(mixaff->Mat));
     MatMulVecM16(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
     (*mixaff).Vec.V^=aff.Vec.V;
 }
-void affinemixM32(Aff32 preaff_inv,Aff32 aff,Aff32 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
+void affinemixM32(Aff32 aff,Aff32 preaff_inv,Aff32 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
 {
     MatMulMatM32(aff.Mat,preaff_inv.Mat,&(mixaff->Mat));
     MatMulVecM32(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
     (*mixaff).Vec.V^=aff.Vec.V;
 }
-void affinemixM64(Aff64 preaff_inv,Aff64 aff,Aff64 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
+void affinemixM64(Aff64 aff,Aff64 preaff_inv,Aff64 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
 {
     MatMulMatM64(aff.Mat,preaff_inv.Mat,&(mixaff->Mat));
     MatMulVecM64(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
     (*mixaff).Vec.V^=aff.Vec.V;
 }
-void affinemixM128(Aff128 preaff_inv,Aff128 aff,Aff128 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
+void affinemixM128(Aff128 aff,Aff128 preaff_inv,Aff128 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
 {
     MatMulMatM128(aff.Mat,preaff_inv.Mat,&(mixaff->Mat));
     MatMulVecM128(aff.Mat,preaff_inv.Vec,&(mixaff->Vec));
