@@ -850,7 +850,7 @@ int main()
     int i;
 
     printf("Matrix Basis Method performance test:\n");
-    printf("Inverible\n");
+    printf("Invertible\n");
     M8 Tm8;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
