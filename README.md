@@ -1,32 +1,32 @@
 WBMatrix
 ====
 
-White-Box Matrix Library(Designed for Cryptography)
+White-Box Matrix Library(Designed for White-Box Cryptography)
 ----
 
-Support For Following Operations(8/16/32/64/128 bits):<br>
-Matrix-Vector multiplication<br>
-Matrix-Matrix multiplication<br>
-Generate invertible Matrix with it's inverse matrix<br>
-Matrix transpositon<br>
-Affine transformation<br>
+* Support For Following Operations(8/16/32/64/128 bits):<br>
+* Matrix-Vector multiplication<br>
+* Matrix-Matrix multiplication<br>
+* Generate invertible Matrix with it's inverse matrix<br>
+* Matrix transpositon<br>
+* Affine transformation<br>
 
 ---
 ###Header Files:<br>
-inverse.h : Revisable generate times from the temporary state matrix , the selection times for initialization of base matrix.<br>
-WBMatrix.h : The declaration of the main function.<br>
-struture.h : Data structure of matrix.<br>
+* **inverse.h** : Revisable generate times from the temporary state matrix , the selection times for initialization of base matrix.<br>
+* **WBMatrix.h** : The declaration of the main function.<br>
+* **struture.h** : Data structure of matrix.<br>
 
 ---
 ###Main Function(8bit in Example):<br>
-1.initinvbaseM8(int N) : initial base invertible matrix which generate in N times.<br>
+* **initinvbaseM8(int N)** : initial base invertible matrix which generate in N times.<br>
 we give a suggestion for the selection of N in inverse.h .<br>
-2.genMatpairM8(M8 *Mat,M8 *Mat_inv) : generate an invertible matrix Mat and its inverse matrix Mat_inv from the base matrix in prestored times set in inverse.h.<br>
-3.genaffinepairM8(Aff8 *aff,Aff8 *aff_inv) : generate an affine transformation aff and its inverse affine transformation aff_inv.<br>
-4.MatMulVecM8(M8 Mat,V8 Vec,V8 *ans) : multiplication for matrix Mat and vertor Vec, result set in ans.<br>
-5.MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat) : multiplication for matrix Mat1 and matrix Mat2, result set in Mat.<br>
-6.MattransM8(M8 Mat,M8 *Mat_trans) : transpositon for matrix Mat, result set in Mat_trans.<br>
-7.affineU8(Aff8 aff,uint8_t arr) : affine transformation for an uint8_t number, and return an uint8_t result.
+* **genMatpairM8(M8 *Mat,M8 *Mat_inv)** : generate an invertible matrix Mat and its inverse matrix Mat_inv from the base matrix in prestored times set in inverse.h.<br>
+* **genaffinepairM8(Aff8 *aff,Aff8 *aff_inv)** : generate an affine transformation aff and its inverse affine transformation aff_inv.<br>
+* **MatMulVecM8(M8 Mat,V8 Vec,V8 *ans)** : multiplication for matrix Mat and vertor Vec, result set in ans.<br>
+* **MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat)** : multiplication for matrix Mat1 and matrix Mat2, result set in Mat.<br>
+* **MattransM8(M8 Mat,M8 *Mat_trans)** : transpositon for matrix Mat, result set in Mat_trans.<br>
+* **affineU8(Aff8 aff,uint8_t arr)** : affine transformation for an uint8_t number, and return an uint8_t result.
 
 ---
 ###Example:<br>
