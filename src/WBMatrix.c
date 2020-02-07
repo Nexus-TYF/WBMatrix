@@ -866,6 +866,50 @@ void printbitM128(M128 Mat)//printf Matrix 128*128 in the form of bits
     }
     printf("\n");
 }
+uint8_t MatMulNumM8(M8 Mat,uint8_t n)//matrix * number -> number 8bits
+{
+    uint8_t temp=0;
+    if(xorU8(Mat.M[0]&n)) temp^=0x01;
+    for(int i=1;i<8;i++)
+    {
+        temp=temp<<1;
+        if(xorU8(Mat.M[i]&n)) temp^=0x01;
+    }
+    return temp;
+}
+uint16_t MatMulNumM16(M16 Mat,uint16_t n)//matrix * number -> number 16bits
+{
+    uint16_t temp=0;
+    if(xorU16(Mat.M[0]&n)) temp^=0x0001;
+    for(int i=1;i<16;i++)
+    {
+        temp=temp<<1;
+        if(xorU16(Mat.M[i]&n)) temp^=0x0001;
+    }
+    return temp;
+}
+uint32_t MatMulNumM32(M32 Mat,uint32_t n)//matrix * number -> number 32bits
+{
+    uint32_t temp=0;
+    if(xorU32(Mat.M[0]&n)) temp^=0x00000001;
+    for(int i=1;i<32;i++)
+    {
+        temp=temp<<1;
+        if(xorU32(Mat.M[i]&n)) temp^=0x00000001;
+    }
+    return temp;
+}
+uint64_t MatMulNumM64(M64 Mat,uint64_t n)//matrix * number -> number 64bits
+{
+    uint64_t temp=0;
+    if(xorU64(Mat.M[0]&n)) temp^=0x0000000000000001;
+    for(int i=1;i<64;i++)
+    {
+        temp=temp<<1;
+        if(xorU64(Mat.M[i]&n)) temp^=0x0000000000000001;
+    }
+    return temp;
+}
 void MatMulVecM8(M8 Mat,V8 Vec,V8 *ans)//matrix * vector -> vector 8*1
 {
     initV8(ans);

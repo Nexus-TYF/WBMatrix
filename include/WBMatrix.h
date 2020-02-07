@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void SetRandSeed(int seed);
+void SetRandSeed(int seed);//Set random seed
 
 /*
 * 8bit Matrix operation
@@ -30,6 +30,7 @@ int xorU8(uint8_t n);
 void printU8(uint8_t n);
 
 void MatMulVecM8(M8 Mat,V8 Vec,V8 *ans);
+uint8_t MatMulNumM8(M8 Mat,uint8_t n);
 void MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat);
 void MatAddMatM8(M8 Mat1,M8 Mat2,M8 *Mat);
 void MattransM8(M8 Mat,M8 *Mat_trans);
@@ -60,6 +61,7 @@ int xorU16(uint16_t n);
 void printU16(uint16_t n);
 void MatAddMatM16(M16 Mat1,M16 Mat2,M16 *Mat);
 void MatMulVecM16(M16 Mat,V16 Vec,V16 *ans);
+uint16_t MatMulNumM16(M16 Mat,uint16_t n);
 void MatMulMatM16(M16 Mat1,M16 Mat2,M16 *Mat);
 
 void MattransM16(M16 Mat,M16 *Mat_trans);
@@ -90,6 +92,7 @@ int xorU32(uint32_t n);
 void printU32(uint32_t n);
 
 void MatMulVecM32(M32 Mat,V32 Vec,V32 *ans);
+uint32_t MatMulNumM32(M32 Mat,uint32_t n);
 void MatMulMatM32(M32 Mat1,M32 Mat2,M32 *Mat);
 void MatAddMatM32(M32 Mat1,M32 Mat2,M32 *Mat);
 void MattransM32(M32 Mat,M32 *Mat_trans);
@@ -123,6 +126,7 @@ int xorU64(uint64_t n);
 void printU64(uint64_t n);
 
 void MatMulVecM64(M64 Mat,V64 Vec,V64 *ans);
+uint64_t MatMulNumM64(M64 Mat,uint64_t n);
 void MatMulMatM64(M64 Mat1,M64 Mat2,M64 *Mat);
 
 void MattransM64(M64 Mat,M64 *Mat_trans);
@@ -154,6 +158,7 @@ void printU128(uint64_t n[]);
 int isequalV128(V128 Vec1,V128 Vec2);
 
 void MatMulVecM128(M128 Mat,V128 Vec,V128 *ans);
+//void MatMulNumM128(M128 Mat,uint64_t n[],uint64_t ans[]);
 void MatMulMatM128(M128 Mat1,M128 Mat2,M128 *Mat);
 
 void MattransM128(M128 Mat,M128 *Mat_trans);

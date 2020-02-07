@@ -4,6 +4,35 @@
 int main()
 {
     int flag=1;
+    printf("-----mat mul num test-----\n");
+    M8 mmnm8_1,mmnm8_2;
+    uint8_t mmnn8_1=0x87,mmnn8_2;
+    genMatpairM8(&mmnm8_1,&mmnm8_2);
+    mmnn8_2=MatMulNumM8(mmnm8_2,MatMulNumM8(mmnm8_1,mmnn8_1));
+    if(mmnn8_1==mmnn8_2) printf("8bit: OK\n");
+    else {printf("8bit: ERROR\n"); flag=0;}
+
+    M16 mmnm16_1,mmnm16_2;
+    uint16_t mmnn16_1=0x8778,mmnn16_2;
+    genMatpairM16(&mmnm16_1,&mmnm16_2);
+    mmnn16_2=MatMulNumM16(mmnm16_2,MatMulNumM16(mmnm16_1,mmnn16_1));
+    if(mmnn16_1==mmnn16_2) printf("16bit: OK\n");
+    else {printf("16bit: ERROR\n"); flag=0;}
+
+    M32 mmnm32_1,mmnm32_2;
+    uint32_t mmnn32_1=0x87788778,mmnn32_2;
+    genMatpairM32(&mmnm32_1,&mmnm32_2);
+    mmnn32_2=MatMulNumM32(mmnm32_2,MatMulNumM32(mmnm32_1,mmnn32_1));
+    if(mmnn32_1==mmnn32_2) printf("32bit: OK\n");
+    else {printf("32bit: ERROR\n"); flag=0;}
+
+    M64 mmnm64_1,mmnm64_2;
+    uint64_t mmnn64_1=0x8778877887788778,mmnn64_2;
+    genMatpairM64(&mmnm64_1,&mmnm64_2);
+    mmnn64_2=MatMulNumM64(mmnm64_2,MatMulNumM64(mmnm64_1,mmnn64_1));
+    if(mmnn64_1==mmnn64_2) printf("64bit: OK\n");
+    else {printf("64bit: ERROR\n"); flag=0;}
+
     printf("-----mat mul vec test-----\n");
     M8 mmvm8_1,mmvm8_2;
     V8 mmvv8_1,mmvv8_2,mmvv8_3;
