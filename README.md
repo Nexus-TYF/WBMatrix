@@ -37,7 +37,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last Updated : 2019/02/02<br>
+Last Updated : 2019/02/07<br>
 Modified By : Nexus
 
 ---
@@ -114,3 +114,8 @@ The initial base matrix function has a max times and a min times for selection w
 1.NEW: Comparison test on github.<br>
 2.NEW: Accuracy Test.<br>
 3.Fixed: Parameter Order of affinemix function.<br>
+
+(2019/02/07)<br>
+1.Fixed: Multipe define of global variables.<br>
+2.New: Function for random seed.<br>
+3.New: WBAES.<br>
