@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int randseed;
+void SetRandSeed(int seed);
 
 /*
 * 8bit Matrix operation
@@ -164,11 +164,5 @@ void MatAddMatM128(M128 Mat1,M128 Mat2,M128 *Mat);
 void genMatpairM128(M128 *Mat,M128 *Mat_inv);
 void genaffinepairM128(Aff128 *aff,Aff128 *aff_inv);
 void affinemixM128(Aff128 aff,Aff128 preaff_inv,Aff128 *mixaff);
-
-int initM8_times;
-int initM16_times;
-int initM32_times;
-int initM64_times;
-int initM128_times;
 
 #endif

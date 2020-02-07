@@ -1,6 +1,8 @@
 //Beta version for innovation and promotion
 #include "WBMatrix.h"
 
+int randseed;
+
 uint8_t identM8[8]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
 int numxor(uint8_t num)
 {
