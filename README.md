@@ -52,38 +52,38 @@ Details:<br>
 32bits default value is 30<br>
 which represent the operation times.<br>
 5.If not use the initialize fucntion then each matrix generate from a identify matrix in defined times<br>
-6.NEW: copy function instead of identify function.<br>
+6.New: copy function instead of identify function.<br>
 
 (2019/12/10)<br>
 1.Update 16/64/128bits inverse matrix function.<br>
 New method has been covered.<br>
 
 (2019/12/11)<br>
-1.NEW: 16/64bit affine transformation.<br>
-2.NEW: 128bit affine transformation.<br>
+1.New: 16/64bit affine transformation.<br>
+2.New: 128bit affine transformation.<br>
 No retrun value because of its special structure.
 
 (2019/12/12)<br>
-1.NEW: 16/64/128bit affine combination operation.<br>
+1.New: 16/64/128bit affine combination operation.<br>
 
 (2019/12/16)<br>
-1.NEW: header files define code.<br>
+1.New: header files define code.<br>
 
 (2019/12/17)<br>
 1.Fix some errors.<br>
-2.NEW: Add parameter for initial base matrix function. <br>
+2.New: Add parameter for initial base matrix function. <br>
 The initial base matrix function has a max times and a min times for selection which is detailed in inverse.h .<br> 
 
 (2019/01/08)<br>
-1.NEW: Add Matrix addition function.<br>
+1.New: Add Matrix addition function.<br>
 
 (2019/01/10)<br>
 1.File tidying.<br>
-2.NEW: Add WBMatrix test.<br>
-3.NEW: Add Matrix Basis Method test.<br>
+2.New: Add WBMatrix test.<br>
+3.New: Add Matrix Basis Method test.<br>
 
 (2019/01/12)<br>
-1.NEW: Add 128bit test for matrix base method.<br>
+1.New: Add 128bit test for matrix base method.<br>
 
 (2019/01/18)<br>
 1.Update test case: generate invertible matrix , compute inverse matrix.<br>
@@ -91,8 +91,8 @@ The initial base matrix function has a max times and a min times for selection w
 3.Inverse: WBMatrix Method, Matrix Basis Method.<br>
 
 (2019/01/20)<br>
-1.NEW: Add CMakeLists.txt<br>
-2.NEW: Add M4RI Method.<br>
+1.New: Add CMakeLists.txt<br>
+2.New: Add M4RI Method.<br>
 
 (2019/01/21)<br>
 1.Organize file structure, especially fix the structure.h and .c error.<br>
@@ -101,18 +101,18 @@ The initial base matrix function has a max times and a min times for selection w
 1.Delete xor.h.<br>
 
 (2019/01/30)<br>
-1.NEW: Add Gaussian elimination Method(Base on WBMatrix).<br>
+1.New: Add Gaussian elimination Method(Base on WBMatrix).<br>
 2.Change the generation function of random Matrix.<br>
 
 (2019/01/31)<br>
-1.NEW: Add Reverse LU Decomposition Method.<br>
+1.New: Add Reverse LU Decomposition Method.<br>
 
 (2019/02/01)<br>
 1.Fixed: Function of random matrix.<br>
 
 (2019/02/02)<br>
-1.NEW: Comparison test on github.<br>
-2.NEW: Accuracy Test.<br>
+1.New: Comparison test on github.<br>
+2.New: Accuracy Test.<br>
 3.Fixed: Parameter Order of affinemix function.<br>
 
 (2019/02/07)<br>
@@ -120,5 +120,6 @@ The initial base matrix function has a max times and a min times for selection w
 2.New: Function for random seed.<br>
 3.New: WBAES.<br>
 
-(2019/02/0)<br>
+(2019/02/09)<br>
 1.Fixed: Poor randomness of random matrix function.<br>
+2.New: Function for estimate the invertibility of matrix.<br>

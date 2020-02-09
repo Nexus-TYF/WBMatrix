@@ -1,6 +1,9 @@
 #ifndef _HWBMATRIX_H_
 #define _HWBMATRIX_H_
-
+/***
+ * Last Update:2020/02/09
+ * Version:2.1.0
+***/
 #include "structure.h"
 #include "inverse.h"
 #include <time.h>
@@ -20,6 +23,7 @@ void printM8(M8 Mat);
 void printbitM8(M8 Mat);
 void copyM8(M8 Mat1,M8 *Mat2);
 int isequalM8(M8 Mat1,M8 Mat2);
+int isinvertM8(M8 Mat);
 
 void initV8(V8 *Vec);
 void randV8(V8 *Vec);
@@ -51,6 +55,7 @@ void printM16(M16 Mat);
 void printbitM16(M16 Mat);
 void copyM16(M16 Mat1,M16 *Mat2);
 int isequalM16(M16 Mat1,M16 Mat2);
+int isinvertM16(M16 Mat);
 
 void initV16(V16 *Vec);
 void randV16(V16 *Vec);
@@ -82,6 +87,7 @@ void printM32(M32 Mat);
 void printbitM32(M32 Mat);
 void copyM32(M32 Mat1,M32 *Mat2);
 int isequalM32(M32 Mat1,M32 Mat2);
+int isinvertM32(M32 Mat);
 
 void initV32(V32 *Vec);
 void randV32(V32 *Vec);
@@ -116,6 +122,7 @@ void printM64(M64 Mat);
 void printbitM64(M64 Mat);
 void copyM64(M64 Mat1,M64 *Mat2);
 int isequalM64(M64 Mat1,M64 Mat2);
+int isinvertM64(M64 Mat);
 
 void initV64(V64 *Vec);
 void randV64(V64 *Vec);
@@ -148,6 +155,7 @@ void printM128(M128 Mat);
 void printbitM128(M128 Mat);
 void copyM128(M128 Mat1,M128 *Mat2);
 int isequalM128(M128 Mat1,M128 Mat2);
+int isinvertM128(M128 Mat);
 
 void initV128(V128 *Vec);
 void randV128(V128 *Vec);

@@ -1,5 +1,5 @@
 #include "random.h"
-
+//generate random permutation
 unsigned int m_index;
 unsigned int m_intermediateOffset;
 

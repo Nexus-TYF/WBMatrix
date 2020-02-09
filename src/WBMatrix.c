@@ -678,6 +678,263 @@ int isequalV128(V128 Vec1,V128 Vec2)
     if(Vec1.V[1]!=Vec2.V[1]) flag=0;
     return flag;
 }
+int isinvertM8(M8 Mat)//Invertible Matrix?
+{
+    uint8_t temp;
+    int flag;
+    for(int i=0;i<8;i++)
+    {
+        if((Mat.M[i]&idM8[i])==idM8[i])
+        {
+            for(int j=i+1;j<8;j++)
+            {
+                if((Mat.M[j]&idM8[i])==idM8[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<8;j++)
+            {
+                if((Mat.M[j]&idM8[i])==idM8[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<8;k++)
+            {
+                if((Mat.M[k]&idM8[i])==idM8[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                }
+            }
+        }
+    }
+    if(Mat.M[7]==idM8[7]) return 1;
+    else return 0;
+}
+int isinvertM16(M16 Mat)//Invertible Matrix?
+{
+    uint16_t temp;
+    int flag;
+    for(int i=0;i<16;i++)
+    {
+        if((Mat.M[i]&idM16[i])==idM16[i])
+        {
+            for(int j=i+1;j<16;j++)
+            {
+                if((Mat.M[j]&idM16[i])==idM16[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<16;j++)
+            {
+                if((Mat.M[j]&idM16[i])==idM16[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<16;k++)
+            {
+                if((Mat.M[k]&idM16[i])==idM16[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                }
+            }
+        }
+    }
+    if(Mat.M[15]==idM16[15]) return 1;
+    else return 0;
+}
+int isinvertM32(M32 Mat)//Invertible Matrix?
+{
+    uint32_t temp;
+    int flag;
+    for(int i=0;i<32;i++)
+    {
+        if((Mat.M[i]&idM32[i])==idM32[i])
+        {
+            for(int j=i+1;j<32;j++)
+            {
+                if((Mat.M[j]&idM32[i])==idM32[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<32;j++)
+            {
+                if((Mat.M[j]&idM32[i])==idM32[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<32;k++)
+            {
+                if((Mat.M[k]&idM32[i])==idM32[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                }
+            }
+        }
+    }
+    if(Mat.M[31]==idM32[31]) return 1;
+    else return 0;
+}
+int isinvertM64(M64 Mat)//Invertible Matrix?
+{
+    uint64_t temp;
+    int flag;
+    for(int i=0;i<64;i++)
+    {
+        if((Mat.M[i]&idM64[i])==idM64[i])
+        {
+            for(int j=i+1;j<64;j++)
+            {
+                if((Mat.M[j]&idM64[i])==idM64[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<64;j++)
+            {
+                if((Mat.M[j]&idM64[i])==idM64[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<64;k++)
+            {
+                if((Mat.M[k]&idM64[i])==idM64[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                }
+            }
+        }
+    }
+    if(Mat.M[63]==idM64[63]) return 1;
+    else return 0;
+}
+int isinvertM128(M128 Mat)//Invertible Matrix?
+{
+    uint64_t temp[2];
+    int flag;
+    for(int i=0;i<64;i++)
+    {
+        if((Mat.M[i][0]&idM64[i])==idM64[i])
+        {
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][0]&idM64[i])==idM64[i])
+                {
+                    Mat.M[j][0]^=Mat.M[i][0];
+                    Mat.M[j][1]^=Mat.M[i][1];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][0]&idM64[i])==idM64[i])
+                {
+                    temp[0]=Mat.M[i][0];
+                    Mat.M[i][0]=Mat.M[j][0];
+                    Mat.M[j][0]=temp[0];
+
+                    temp[1]=Mat.M[i][1];
+                    Mat.M[i][1]=Mat.M[j][1];
+                    Mat.M[j][1]=temp[1];
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<128;k++)
+            {
+                if((Mat.M[k][0]&idM64[i])==idM64[i])
+                {
+                    Mat.M[k][0]^=Mat.M[i][0];
+                    Mat.M[k][1]^=Mat.M[i][1];
+                }
+            }
+        }
+    }
+    for(int i=64;i<128;i++)
+    {
+        if((Mat.M[i][1]&idM64[i-64])==idM64[i-64])
+        {
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][1]&idM64[i-64])==idM64[i-64])
+                {
+                    Mat.M[j][1]^=Mat.M[i][1];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][1]&idM64[i-64])==idM64[i-64])
+                {
+                    temp[1]=Mat.M[i][1];
+                    Mat.M[i][1]=Mat.M[j][1];
+                    Mat.M[j][1]=temp[1];
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<128;k++)
+            {
+                if((Mat.M[k][1]&idM64[i-64])==idM64[i-64])
+                {
+                    Mat.M[k][1]^=Mat.M[i][1];
+                }
+            }
+        }
+    }
+    if(Mat.M[127][1]==idM64[63]) return 1;
+    else return 0;
+}
 uint8_t affineU8(Aff8 aff,uint8_t arr)//8bits affine transformation
 {
     V8 mul_vec,ans_vec;
