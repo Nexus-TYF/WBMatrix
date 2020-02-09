@@ -37,7 +37,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last Updated : 2019/02/07<br>
+Last Updated : 2019/02/09<br>
 Modified By : Nexus
 
 ---
@@ -119,3 +119,6 @@ The initial base matrix function has a max times and a min times for selection w
 1.Fixed: Multipe define of global variables.<br>
 2.New: Function for random seed.<br>
 3.New: WBAES.<br>
+
+(2019/02/0)<br>
+1.Fixed: Poor randomness of random matrix function.<br>

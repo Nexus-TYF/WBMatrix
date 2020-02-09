@@ -6,8 +6,9 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "random.h"
 
-void SetRandSeed(int seed);//Set random seed
+void SetRandSeed(unsigned int seed);//Set random seed
 
 /*
 * 8bit Matrix operation

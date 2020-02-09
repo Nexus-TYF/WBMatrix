@@ -1,6 +1,6 @@
 #include "WBMatrix.h"
 
-int randseed;
+unsigned int randseed;
 
 M8 baseM8={
     .M[0]=0x80,
@@ -292,7 +292,7 @@ int initM32_times;
 int initM64_times;
 int initM128_times;
 
-void SetRandSeed(int seed)
+void SetRandSeed(unsigned int seed)
 {
     randseed=seed;
 }
@@ -356,58 +356,51 @@ void initV128(V128 *Vec)//initial Vector 128*1
 }
 void randM8(M8 *Mat)//randomize Matrix 8*8 
 {
-    srand((randseed++)^time(NULL));
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
     for(int i=0;i<8;i++)
     {
-        for(int j=0;j<8;j++)
-        {
-            if(rand()%2) (*Mat).M[i]^=idM8[j];
-        }
+        (*Mat).M[i]=random();
     }
 }
 void randM16(M16 *Mat)//randomize Matrix 16*16 
 {
-    srand((randseed++)^time(NULL));
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
     for(int i=0;i<16;i++)
     {
-        for(int j=0;j<16;j++)
-        {
-            if(rand()%2) (*Mat).M[i]^=idM16[j];
-        }
+        (*Mat).M[i]=random();
     }
 }
 void randM32(M32 *Mat)//randomize Matrix 32*32 
 {
-    srand((randseed++)^time(NULL));
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
     for(int i=0;i<32;i++)
     {
-        for(int j=0;j<32;j++)
-        {
-            if(rand()%2) (*Mat).M[i]^=idM32[j];
-        }
+        (*Mat).M[i]=random();
     }
 }
 void randM64(M64 *Mat)//randomize Matrix 64*64 
 {
-    srand((randseed++)^time(NULL));
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    uint32_t *m;
     for(int i=0;i<64;i++)
     {
-        for(int j=0;j<64;j++)
-        {
-            if(rand()%2) (*Mat).M[i]^=idM64[j];
-        }
+        m=(uint32_t*)&((*Mat).M[i]);
+        *(m+1)=random();
+        *m=random();
     }
 }
 void randM128(M128 *Mat)//randomize Matrix 128*128 
 {
-    srand((randseed++)^time(NULL));
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    uint32_t *m;
     for(int i=0;i<128;i++)
     {
-        for(int j=0;j<64;j++)
-        {
-            if(rand()%2) (*Mat).M[i][0]^=idM64[j];
-            if(rand()%2) (*Mat).M[i][1]^=idM64[j];
-        }
+        m=(uint32_t*)&((*Mat).M[i][0]);
+        *(m+1)=random();
+        *m=random();
+        m=(uint32_t*)&((*Mat).M[i][1]);
+        *(m+1)=random();
+        *m=random();
     }
 }
 void identityM8(M8 *Mat)//identity matrix 8*8
@@ -453,25 +446,25 @@ void identityM128(M128 *Mat)//identity matrix 128*128
 }
 void randV8(V8 *Vec)//randomize Vector 8*1
 {
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     (*Vec).V=rand();
 }
 void randV16(V16 *Vec)//randomize Vector 16*1
 {
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     (*Vec).V=rand();
 }
 void randV32(V32 *Vec)//randomize Vector 32*1
 {
     uint16_t *v=(uint16_t*)&((*Vec).V);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     *(v+1)=rand();
     *v=rand();
 }
 void randV64(V64 *Vec)//randomize Vector 64*1
 {
     uint16_t *v=(uint16_t*)&((*Vec).V);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     *(v+3)=rand();
     *(v+2)=rand();
     *(v+1)=rand();
@@ -480,7 +473,7 @@ void randV64(V64 *Vec)//randomize Vector 64*1
 void randV128(V128 *Vec)//randomize Vector 128*1
 {
     uint16_t *v=(uint16_t*)&((*Vec).V[0]);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     *(v+3)=rand();
     *(v+2)=rand();
     *(v+1)=rand();
@@ -869,7 +862,7 @@ void printbitM128(M128 Mat)//printf Matrix 128*128 in the form of bits
 uint8_t MatMulNumM8(M8 Mat,uint8_t n)//matrix * number -> number 8bits
 {
     uint8_t temp=0;
-    if(xorU8(Mat.M[0]&n)) temp^=0x01;
+    if(xorU8(Mat.M[0]&n)) temp=0x01;
     for(int i=1;i<8;i++)
     {
         temp=temp<<1;
@@ -880,7 +873,7 @@ uint8_t MatMulNumM8(M8 Mat,uint8_t n)//matrix * number -> number 8bits
 uint16_t MatMulNumM16(M16 Mat,uint16_t n)//matrix * number -> number 16bits
 {
     uint16_t temp=0;
-    if(xorU16(Mat.M[0]&n)) temp^=0x0001;
+    if(xorU16(Mat.M[0]&n)) temp=0x0001;
     for(int i=1;i<16;i++)
     {
         temp=temp<<1;
@@ -891,7 +884,7 @@ uint16_t MatMulNumM16(M16 Mat,uint16_t n)//matrix * number -> number 16bits
 uint32_t MatMulNumM32(M32 Mat,uint32_t n)//matrix * number -> number 32bits
 {
     uint32_t temp=0;
-    if(xorU32(Mat.M[0]&n)) temp^=0x00000001;
+    if(xorU32(Mat.M[0]&n)) temp=0x00000001;
     for(int i=1;i<32;i++)
     {
         temp=temp<<1;
@@ -902,7 +895,7 @@ uint32_t MatMulNumM32(M32 Mat,uint32_t n)//matrix * number -> number 32bits
 uint64_t MatMulNumM64(M64 Mat,uint64_t n)//matrix * number -> number 64bits
 {
     uint64_t temp=0;
-    if(xorU64(Mat.M[0]&n)) temp^=0x0000000000000001;
+    if(xorU64(Mat.M[0]&n)) temp=0x0000000000000001;
     for(int i=1;i<64;i++)
     {
         temp=temp<<1;
@@ -913,7 +906,7 @@ uint64_t MatMulNumM64(M64 Mat,uint64_t n)//matrix * number -> number 64bits
 void MatMulVecM8(M8 Mat,V8 Vec,V8 *ans)//matrix * vector -> vector 8*1
 {
     initV8(ans);
-    if(xorU8(Mat.M[0]&Vec.V)) (*ans).V^=0x01;
+    if(xorU8(Mat.M[0]&Vec.V)) (*ans).V=0x01;
     for(int i=1;i<8;i++)
     {
         (*ans).V=(*ans).V<<1;
@@ -923,7 +916,7 @@ void MatMulVecM8(M8 Mat,V8 Vec,V8 *ans)//matrix * vector -> vector 8*1
 void MatMulVecM16(M16 Mat,V16 Vec,V16 *ans)//matrix * vector -> vector 16*1
 {
     initV16(ans);
-    if(xorU16(Mat.M[0]&Vec.V)) (*ans).V^=0x0001;
+    if(xorU16(Mat.M[0]&Vec.V)) (*ans).V=0x0001;
     for(int i=1;i<16;i++)
     {
         (*ans).V=(*ans).V<<1;
@@ -933,7 +926,7 @@ void MatMulVecM16(M16 Mat,V16 Vec,V16 *ans)//matrix * vector -> vector 16*1
 void MatMulVecM32(M32 Mat,V32 Vec,V32 *ans)//matrix * vector -> vector 32*1
 {
     initV32(ans);
-    if(xorU32(Mat.M[0]&Vec.V)) (*ans).V^=0x00000001;
+    if(xorU32(Mat.M[0]&Vec.V)) (*ans).V=0x00000001;
     for(int i=1;i<32;i++)
     {
         (*ans).V=(*ans).V<<1;
@@ -943,7 +936,7 @@ void MatMulVecM32(M32 Mat,V32 Vec,V32 *ans)//matrix * vector -> vector 32*1
 void MatMulVecM64(M64 Mat,V64 Vec,V64 *ans)//matrix * vector -> vector 64*1
 {
     initV64(ans);
-    if(xorU64(Mat.M[0]&Vec.V)) (*ans).V^=0x0000000000000001;
+    if(xorU64(Mat.M[0]&Vec.V)) (*ans).V=0x0000000000000001;
     for(int i=1;i<64;i++)
     {
         (*ans).V=(*ans).V<<1;
@@ -956,7 +949,7 @@ void MatMulVecM128(M128 Mat,V128 Vec,V128 *ans)//matrix * vector -> vector 128*1
     uint64_t temp[2]; 
     temp[0]=Mat.M[0][0]&Vec.V[0];
     temp[1]=Mat.M[0][1]&Vec.V[1];
-    if(xorU128(temp)) (*ans).V[0]^=0x0000000000000001;
+    if(xorU128(temp)) (*ans).V[0]=0x0000000000000001;
     for(int i=1;i<64;i++)
     {
         (*ans).V[0]=(*ans).V[0]<<1;
@@ -1004,7 +997,7 @@ void initinvbaseM8(int N)//initial base matrix, parameter: initM8_min , initM8_m
 {
     int p,q;
     uint8_t temp;
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     if(basetrailM8[0][0]!=-1) return ;
     initM8_times=N;
     for(int i=0;i<initM8_times;i++)//generate reversible base matrix
@@ -1042,7 +1035,7 @@ void genMatpairM8(M8 *Mat,M8 *Mat_inv)//generate 8*8 reversible matrix and its i
     int trail[M8N][3];// generate trail
     copyM8(baseM8,Mat);//copy base matrix
     identityM8(Mat_inv);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     for(int i=0;i<M8N;i++)//generate reversible matrix
     {
         p=rand()%8;
@@ -1104,7 +1097,7 @@ void initinvbaseM16(int N)//initial base matrix, parameter: initM16_min , initM1
 {
     int p,q;
     uint16_t temp;
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     if(basetrailM16[0][0]!=-1) return ;
     initM16_times=N;
     for(int i=0;i<initM16_times;i++)//generate reversible base matrix
@@ -1142,7 +1135,7 @@ void genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and 
     int trail[M16N][3];
     copyM16(baseM16,Mat);//copy base matrix
     identityM16(Mat_inv);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     for(int i=0;i<M16N;i++)//generate reversible matrix
     {
         p=rand()%16;
@@ -1211,7 +1204,7 @@ void initinvbaseM32(int N)//initial base matrix, parameter: initM32_min , initM3
 {
     int p,q;
     uint32_t temp;
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     if(basetrailM32[0][0]!=-1) return ;
     initM32_times=N;
     for(int i=0;i<initM32_times;i++)//generate reversible base matrix
@@ -1249,7 +1242,7 @@ void genMatpairM32(M32 *Mat,M32 *Mat_inv)//generate 32*32 reversible matrix and 
     int trail[M32N][3];
     copyM32(baseM32,Mat);//copy base matrix
     identityM32(Mat_inv);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     for(int i=0;i<M32N;i++)//generate reversible matrix
     {
         p=rand()%32;
@@ -1310,7 +1303,7 @@ void initinvbaseM64(int N)//initial base matrix, parameter: initM64_min , initM6
 {
     int p,q;
     uint64_t temp;
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     if(basetrailM64[0][0]!=-1) return ;
     initM64_times=N;
     for(int i=0;i<initM64_times;i++)//generate reversible base matrix
@@ -1348,7 +1341,7 @@ void genMatpairM64(M64 *Mat,M64 *Mat_inv)//generate 64*64 reversible matrix and 
     int trail[M64N][3];
     copyM64(baseM64,Mat);//copy base matrix
     identityM64(Mat_inv);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     for(int i=0;i<M64N;i++)//generate reversible matrix
     {
         p=rand()%64;
@@ -1410,7 +1403,7 @@ void initinvbaseM128(int N)//initial base matrix, parameter: initM128_min , init
 {
     int p,q;
     uint64_t temp[2];
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     if(basetrailM128[0][0]!=-1) return ;
     initM128_times=N;
     for(int i=0;i<initM128_times;i++)//generate reversible base matrix
@@ -1452,7 +1445,7 @@ void genMatpairM128(M128 *Mat,M128 *Mat_inv)//generate 128*128 reversible matrix
     int trail[M128N][3];
     copyM128(baseM128,Mat);
     identityM128(Mat_inv);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     for(int i=0;i<M128N;i++)//generate reversible matrix
     {
         p=rand()%128;
