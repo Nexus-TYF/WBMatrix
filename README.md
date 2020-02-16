@@ -124,5 +124,5 @@ The initial base matrix function has a max times and a min times for selection w
 1.Fixed: Poor randomness of random matrix function.<br>
 2.New: Function for estimate the invertibility of matrix.<br>
 
-(2019/02/016)<br>
+(2019/02/16)<br>
 1.New: Add new test cases on github.<br>
