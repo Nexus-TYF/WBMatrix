@@ -1889,15 +1889,12 @@ void MattransM32(M32 Mat,M32 *Mat_trans)//matrix tansposition M32
 }
 void MattransM64(M64 Mat,M64 *Mat_trans)//matrix tansposition M64
 {
-    //initM64(Mat_trans);
+    initM64(Mat_trans);
     for(int i=0;i<64;i++)
     {
-        if((Mat.M[0]<<i)&0x8000000000000000) (*Mat_trans).M[i]=0x0000000000000001;
-        else (*Mat_trans).M[i]=0x0000000000000000;
-        for(int j=1;j<64;j++)
+        for(int j=0;j<64;j++)
         {
-            (*Mat_trans).M[i]=(*Mat_trans).M[i]<<1;
-            if((Mat.M[j]<<i)&0x8000000000000000) (*Mat_trans).M[i]^=0x0000000000000001;
+            if(Mat.M[i]&idM64[j]) (*Mat_trans).M[j]^=idM64[i];
         }
     }
 }
@@ -2033,11 +2030,9 @@ void MatMulMatM64(M64 Mat1,M64 Mat2,M64 *Mat)//matrix multiplication 64*64 mul 6
     MattransM64(Mat2,&Mat2_trans);
     for(int i=0;i<64;i++)
     {
-        if(xorU64(Mat1.M[i]&Mat2_trans.M[0])) (*Mat).M[i]=0x0000000000000001;
-        for(int j=1;j<64;j++)
+        for(int j=0;j<64;j++)
         {
-            (*Mat).M[i]=(*Mat).M[i]<<1;
-            if(xorU64(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=0x0000000000000001;
+            if(xorU64(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=idM64[j];
         }       
     } 
 }

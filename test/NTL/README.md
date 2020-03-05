@@ -1,8 +1,5 @@
-# WhiteBox AES
+# NTL: A Library for doing Number Theory
 
-This is a basic implementation of [Chow et al's][1] scheme, following [Muir's][2] tutorial.
+NTL is a high-performance, portable C++ library providing data structures and algorithms for manipulating signed, arbitrary length integers, and for vectors, matrices, and polynomials over the integers and over finite fields.
 
-[1]: https://www.cs.colorado.edu/~jrblack/class/csci7000/s03/project/oorschot-whitebox.pdf
-[2]: https://eprint.iacr.org/2013/104.pdf
-
-https://github.com/Gr1zz/WhiteBoxAES.git
+https://shoup.net/ntl/

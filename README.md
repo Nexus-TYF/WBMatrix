@@ -1,7 +1,8 @@
 WBMatrix
 ====
 
-White-Box Matrix Library(Designed for encodings in White-Box block cipher implementations)
+White-Box Matrix Library<br>
+(Designed for encodings in White-Box block cipher implementations)
 ----
 
 * Support For Following Operations(8/16/32/64/128 bits):<br>
@@ -130,3 +131,4 @@ The initial base matrix function has a max times and a min times for selection w
 (2019/03/05)<br>
 1.New: Add performance test cases on M4RI: basic arithmetic with matrix .<br>
 2.New: Add performance test cases on NTL.<br>
+3.New: Add performance test cases on WBMatrix.<br>

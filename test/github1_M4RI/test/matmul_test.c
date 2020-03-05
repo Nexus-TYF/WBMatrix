@@ -109,10 +109,8 @@ int main()
     printf("128*128 matrix - 128*1 vector multiplication cost %llu CPU cycles\n", (ans) / TEST);
     
     MatGf2 M8_1,M8_2,M8_ans;
-    M8_1 = GenMatGf2(8, 8);
-    M8_2 = GenMatGf2(8, 8);
-    RandomMatGf2(M8_1);
-    RandomMatGf2(M8_2);
+    M8_1 = GenInvertibleMatGf2(8,8);
+    M8_2 = GenMatGf2Inv(M8_1);
     M8_ans = GenMatGf2(8, 8);
     printf("\nmatrix-matrix mul\n");
     begin = start_rdtsc();
@@ -125,10 +123,8 @@ int main()
     printf("8*8 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
     MatGf2 M16_1,M16_2,M16_ans;
-    M16_1 = GenMatGf2(16, 16);
-    M16_2 = GenMatGf2(16, 16);
-    RandomMatGf2(M16_1);
-    RandomMatGf2(M16_2);
+    M16_1 = GenInvertibleMatGf2(16,16);
+    M16_2 = GenMatGf2Inv(M16_1);
     M16_ans = GenMatGf2(16, 16);
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -140,10 +136,8 @@ int main()
     printf("16*16 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
     MatGf2 M32_1,M32_2,M32_ans;
-    M32_1 = GenMatGf2(32, 32);
-    M32_2 = GenMatGf2(32, 32);
-    RandomMatGf2(M32_1);
-    RandomMatGf2(M32_2);
+    M32_1 = GenInvertibleMatGf2(32,32);
+    M32_2 = GenMatGf2Inv(M32_1);
     M32_ans = GenMatGf2(32, 32);
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -155,10 +149,8 @@ int main()
     printf("32*32 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
     MatGf2 M64_1,M64_2,M64_ans;
-    M64_1 = GenMatGf2(64, 64);
-    M64_2 = GenMatGf2(64, 64);
-    RandomMatGf2(M64_1);
-    RandomMatGf2(M64_2);
+    M64_1 = GenInvertibleMatGf2(64,64);
+    M64_2 = GenMatGf2Inv(M64_1);
     M64_ans = GenMatGf2(64, 64);
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -170,10 +162,8 @@ int main()
     printf("64*64 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
     MatGf2 M128_1,M128_2,M128_ans;
-    M128_1 = GenMatGf2(128, 128);
-    M128_2 = GenMatGf2(128, 128);
-    RandomMatGf2(M128_1);
-    RandomMatGf2(M128_2);
+    M128_1 = GenInvertibleMatGf2(128,128);
+    M128_2 = GenMatGf2Inv(M128_1);
     M128_ans = GenMatGf2(128, 128);
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
