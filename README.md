@@ -37,7 +37,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last Updated : 2019/02/16<br>
+Last Updated : 2019/03/05<br>
 Modified By : Nexus
 
 ---
@@ -126,3 +126,6 @@ The initial base matrix function has a max times and a min times for selection w
 
 (2019/02/16)<br>
 1.New: Add new test cases on github.<br>
+
+(2019/03/05)<br>
+1.New: Add performance test cases on M4RI: basic arithmetic with matrix .<br>

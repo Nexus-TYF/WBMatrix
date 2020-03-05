@@ -91,7 +91,17 @@ void genMatpairM128(MatGf2 *Mat,MatGf2 *Mat_inv)
     *Mat=GenInvertibleMatGf2(128,128);
     *Mat_inv=GenMatGf2Inv(*Mat);
 }
-
+int TimesInveribleMatGf2(int r, int c) {//
+	int times=1;
+    MatGf2 mat = GenMatGf2(r, c);
+    RandomMatGf2(mat);
+    while (IsMatGf2Invertible(mat)==0) {
+        RandomMatGf2(mat);
+        times++;
+    }
+    MatGf2Free(mat);
+    return times;
+}
 int main()
 {
     uint64_t begin;
@@ -196,7 +206,7 @@ int main()
     ans = (end - begin);
     printf("generate 128*128 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
     MatGf2Free(Tm128);
-
+/*
 	
     printf("\nInverse\n");
     MatGf2 Im8[TEST],Sm8;
@@ -355,6 +365,6 @@ int main()
     printf("generate 128*128 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
     MatGf2Free(m128);
     MatGf2Free(m128_inv);
-
+*/
 	return 0;
 }
