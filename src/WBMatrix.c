@@ -1116,88 +1116,93 @@ void printbitM128(M128 Mat)//printf Matrix 128*128 in the form of bits
     }
     printf("\n");
 }
+void VecAddVecV8(V8 Vec1,V8 Vec2,V8 *Vec)
+{
+    (*Vec).V=Vec1.V^Vec2.V;
+}
+void VecAddVecV16(V16 Vec1,V16 Vec2,V16 *Vec)
+{
+    (*Vec).V=Vec1.V^Vec2.V;
+}
+void VecAddVecV32(V32 Vec1,V32 Vec2,V32 *Vec)
+{
+    (*Vec).V=Vec1.V^Vec2.V;
+}
+void VecAddVecV64(V64 Vec1,V64 Vec2,V64 *Vec)
+{
+    (*Vec).V=Vec1.V^Vec2.V;
+}
+void VecAddVecV128(V128 Vec1,V128 Vec2,V128 *Vec)
+{
+    (*Vec).V[0]=Vec1.V[0]^Vec2.V[0];
+    (*Vec).V[1]=Vec1.V[1]^Vec2.V[1];
+}
 uint8_t MatMulNumM8(M8 Mat,uint8_t n)//matrix * number -> number 8bits
 {
     uint8_t temp=0;
-    if(xorU8(Mat.M[0]&n)) temp=0x01;
-    for(int i=1;i<8;i++)
+    for(int i=0;i<8;i++)
     {
-        temp=temp<<1;
-        if(xorU8(Mat.M[i]&n)) temp^=0x01;
+        if(xorU8(Mat.M[i]&n)) temp^=idM8[i];
     }
     return temp;
 }
 uint16_t MatMulNumM16(M16 Mat,uint16_t n)//matrix * number -> number 16bits
 {
     uint16_t temp=0;
-    if(xorU16(Mat.M[0]&n)) temp=0x0001;
-    for(int i=1;i<16;i++)
+    for(int i=0;i<16;i++)
     {
-        temp=temp<<1;
-        if(xorU16(Mat.M[i]&n)) temp^=0x0001;
+        if(xorU16(Mat.M[i]&n)) temp^=idM16[i];
     }
     return temp;
 }
 uint32_t MatMulNumM32(M32 Mat,uint32_t n)//matrix * number -> number 32bits
 {
     uint32_t temp=0;
-    if(xorU32(Mat.M[0]&n)) temp=0x00000001;
-    for(int i=1;i<32;i++)
+    for(int i=0;i<32;i++)
     {
-        temp=temp<<1;
-        if(xorU32(Mat.M[i]&n)) temp^=0x00000001;
+        if(xorU32(Mat.M[i]&n)) temp^=idM32[i];
     }
     return temp;
 }
 uint64_t MatMulNumM64(M64 Mat,uint64_t n)//matrix * number -> number 64bits
 {
     uint64_t temp=0;
-    if(xorU64(Mat.M[0]&n)) temp=0x0000000000000001;
-    for(int i=1;i<64;i++)
+    for(int i=0;i<64;i++)
     {
-        temp=temp<<1;
-        if(xorU64(Mat.M[i]&n)) temp^=0x0000000000000001;
+        if(xorU64(Mat.M[i]&n)) temp^=idM64[i];
     }
     return temp;
 }
 void MatMulVecM8(M8 Mat,V8 Vec,V8 *ans)//matrix * vector -> vector 8*1
 {
     initV8(ans);
-    if(xorU8(Mat.M[0]&Vec.V)) (*ans).V=0x01;
-    for(int i=1;i<8;i++)
+    for(int i=0;i<8;i++)
     {
-        (*ans).V=(*ans).V<<1;
-        if(xorU8(Mat.M[i]&Vec.V)) (*ans).V^=0x01;
+        if(xorU8(Mat.M[i]&Vec.V)) (*ans).V^=idM8[i];
     }
 }
 void MatMulVecM16(M16 Mat,V16 Vec,V16 *ans)//matrix * vector -> vector 16*1
 {
     initV16(ans);
-    if(xorU16(Mat.M[0]&Vec.V)) (*ans).V=0x0001;
-    for(int i=1;i<16;i++)
+    for(int i=0;i<16;i++)
     {
-        (*ans).V=(*ans).V<<1;
-        if(xorU16(Mat.M[i]&Vec.V)) (*ans).V^=0x0001;
+        if(xorU16(Mat.M[i]&Vec.V)) (*ans).V^=idM16[i];
     }
 }
 void MatMulVecM32(M32 Mat,V32 Vec,V32 *ans)//matrix * vector -> vector 32*1
 {
     initV32(ans);
-    if(xorU32(Mat.M[0]&Vec.V)) (*ans).V=0x00000001;
-    for(int i=1;i<32;i++)
+    for(int i=0;i<32;i++)
     {
-        (*ans).V=(*ans).V<<1;
-        if(xorU32(Mat.M[i]&Vec.V)) (*ans).V^=0x00000001;
+        if(xorU32(Mat.M[i]&Vec.V)) (*ans).V^=idM32[i];
     }
 }
 void MatMulVecM64(M64 Mat,V64 Vec,V64 *ans)//matrix * vector -> vector 64*1
 {
     initV64(ans);
-    if(xorU64(Mat.M[0]&Vec.V)) (*ans).V=0x0000000000000001;
-    for(int i=1;i<64;i++)
+    for(int i=0;i<64;i++)
     {
-        (*ans).V=(*ans).V<<1;
-        if(xorU64(Mat.M[i]&Vec.V)) (*ans).V^=0x0000000000000001;
+        if(xorU64(Mat.M[i]&Vec.V)) (*ans).V^=idM64[i];
     }
 }
 void MatMulVecM128(M128 Mat,V128 Vec,V128 *ans)//matrix * vector -> vector 128*1

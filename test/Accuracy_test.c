@@ -1,156 +1,257 @@
 //Accuarcy test for all functions of WBMatrix Library
 #include "WBMatrix.h"
-
+#define TEST 10000
 int main()
 {
-    int flag=1;
+    int flag=1,i;
     printf("-----mat mul num test-----\n");
     M8 mmnm8_1,mmnm8_2;
     uint8_t mmnn8_1=0x87,mmnn8_2;
-    genMatpairM8(&mmnm8_1,&mmnm8_2);
-    mmnn8_2=MatMulNumM8(mmnm8_2,MatMulNumM8(mmnm8_1,mmnn8_1));
-    if(mmnn8_1==mmnn8_2) printf("8bit: OK\n");
-    else {printf("8bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM8(&mmnm8_1,&mmnm8_2);
+        mmnn8_2=MatMulNumM8(mmnm8_2,MatMulNumM8(mmnm8_1,mmnn8_1));
+        if(mmnn8_1!=mmnn8_2) break;
+    }
+    if(i<TEST) {printf("8bit: ERROR\n"); flag=0;}
+    else printf("8bit: OK\n");
 
     M16 mmnm16_1,mmnm16_2;
     uint16_t mmnn16_1=0x8778,mmnn16_2;
-    genMatpairM16(&mmnm16_1,&mmnm16_2);
-    mmnn16_2=MatMulNumM16(mmnm16_2,MatMulNumM16(mmnm16_1,mmnn16_1));
-    if(mmnn16_1==mmnn16_2) printf("16bit: OK\n");
-    else {printf("16bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM16(&mmnm16_1,&mmnm16_2);
+        mmnn16_2=MatMulNumM16(mmnm16_2,MatMulNumM16(mmnm16_1,mmnn16_1));
+        if(mmnn16_1!=mmnn16_2) break;
+    }
+    if(i<TEST) {printf("16bit: ERROR\n"); flag=0;}
+    else printf("16bit: OK\n");
 
     M32 mmnm32_1,mmnm32_2;
     uint32_t mmnn32_1=0x87788778,mmnn32_2;
-    genMatpairM32(&mmnm32_1,&mmnm32_2);
-    mmnn32_2=MatMulNumM32(mmnm32_2,MatMulNumM32(mmnm32_1,mmnn32_1));
-    if(mmnn32_1==mmnn32_2) printf("32bit: OK\n");
-    else {printf("32bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM32(&mmnm32_1,&mmnm32_2);
+        mmnn32_2=MatMulNumM32(mmnm32_2,MatMulNumM32(mmnm32_1,mmnn32_1));
+        if(mmnn32_1!=mmnn32_2) break;
+    }
+    if(i<TEST) {printf("32bit: ERROR\n"); flag=0;}
+    else printf("32bit: OK\n");
 
     M64 mmnm64_1,mmnm64_2;
     uint64_t mmnn64_1=0x8778877887788778,mmnn64_2;
-    genMatpairM64(&mmnm64_1,&mmnm64_2);
-    mmnn64_2=MatMulNumM64(mmnm64_2,MatMulNumM64(mmnm64_1,mmnn64_1));
-    if(mmnn64_1==mmnn64_2) printf("64bit: OK\n");
-    else {printf("64bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM64(&mmnm64_1,&mmnm64_2);
+        mmnn64_2=MatMulNumM64(mmnm64_2,MatMulNumM64(mmnm64_1,mmnn64_1));
+        if(mmnn64_1!=mmnn64_2)  break;
+    }
+    if(i<TEST) {printf("64bit: ERROR\n"); flag=0;}
+    else printf("64bit: OK\n");
 
     printf("-----mat mul vec test-----\n");
     M8 mmvm8_1,mmvm8_2;
     V8 mmvv8_1,mmvv8_2,mmvv8_3;
-    genMatpairM8(&mmvm8_1,&mmvm8_2);
-    randV8(&mmvv8_1);
-    MatMulVecM8(mmvm8_1,mmvv8_1,&mmvv8_2);
-    MatMulVecM8(mmvm8_2,mmvv8_2,&mmvv8_3);
-    if(isequalV8(mmvv8_1,mmvv8_3)) printf("8bit: OK\n");
-    else {printf("8bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM8(&mmvm8_1,&mmvm8_2);
+        randV8(&mmvv8_1);
+        MatMulVecM8(mmvm8_1,mmvv8_1,&mmvv8_2);
+        MatMulVecM8(mmvm8_2,mmvv8_2,&mmvv8_3);
+        if(!isequalV8(mmvv8_1,mmvv8_3)) break;
+    }
+    if(i<TEST) {printf("8bit: ERROR\n"); flag=0;}
+    else printf("8bit: OK\n");
 
     M16 mmvm16_1,mmvm16_2;
     V16 mmvv16_1,mmvv16_2,mmvv16_3;
-    genMatpairM16(&mmvm16_1,&mmvm16_2);
-    randV16(&mmvv16_1);
-    MatMulVecM16(mmvm16_1,mmvv16_1,&mmvv16_2);
-    MatMulVecM16(mmvm16_2,mmvv16_2,&mmvv16_3);
-    if(isequalV16(mmvv16_1,mmvv16_3)) printf("16bit: OK\n");
-    else {printf("16bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM16(&mmvm16_1,&mmvm16_2);
+        randV16(&mmvv16_1);
+        MatMulVecM16(mmvm16_1,mmvv16_1,&mmvv16_2);
+        MatMulVecM16(mmvm16_2,mmvv16_2,&mmvv16_3);
+        if(!isequalV16(mmvv16_1,mmvv16_3)) break;
+    } 
+    if(i<TEST) {printf("16bit: ERROR\n"); flag=0;}
+    else printf("16bit: OK\n");
 
     M32 mmvm32_1,mmvm32_2;
     V32 mmvv32_1,mmvv32_2,mmvv32_3;
-    genMatpairM32(&mmvm32_1,&mmvm32_2);
-    randV32(&mmvv32_1);
-    MatMulVecM32(mmvm32_1,mmvv32_1,&mmvv32_2);
-    MatMulVecM32(mmvm32_2,mmvv32_2,&mmvv32_3);
-    if(isequalV32(mmvv32_1,mmvv32_3)) printf("32bit: OK\n");
-    else {printf("32bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM32(&mmvm32_1,&mmvm32_2);
+        randV32(&mmvv32_1);
+        MatMulVecM32(mmvm32_1,mmvv32_1,&mmvv32_2);
+        MatMulVecM32(mmvm32_2,mmvv32_2,&mmvv32_3);
+        if(!isequalV32(mmvv32_1,mmvv32_3)) break;
+    }
+    if(i<TEST) {printf("32bit: ERROR\n"); flag=0;}
+    else printf("32bit: OK\n");
 
     M64 mmvm64_1,mmvm64_2;
     V64 mmvv64_1,mmvv64_2,mmvv64_3;
-    genMatpairM64(&mmvm64_1,&mmvm64_2);
-    randV64(&mmvv64_1);
-    MatMulVecM64(mmvm64_1,mmvv64_1,&mmvv64_2);
-    MatMulVecM64(mmvm64_2,mmvv64_2,&mmvv64_3);
-    if(isequalV64(mmvv64_1,mmvv64_3)) printf("64bit: OK\n");
-    else {printf("64bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM64(&mmvm64_1,&mmvm64_2);
+        randV64(&mmvv64_1);
+        MatMulVecM64(mmvm64_1,mmvv64_1,&mmvv64_2);
+        MatMulVecM64(mmvm64_2,mmvv64_2,&mmvv64_3);
+        if(!isequalV64(mmvv64_1,mmvv64_3)) break;
+    } 
+    if(i<TEST) {printf("64bit: ERROR\n"); flag=0;}
+    else printf("64bit: OK\n");
 
     M128 mmvm128_1,mmvm128_2;
     V128 mmvv128_1,mmvv128_2,mmvv128_3;
-    genMatpairM128(&mmvm128_1,&mmvm128_2);
-    randV128(&mmvv128_1);
-    MatMulVecM128(mmvm128_1,mmvv128_1,&mmvv128_2);
-    MatMulVecM128(mmvm128_2,mmvv128_2,&mmvv128_3);
-    if(isequalV128(mmvv128_1,mmvv128_3)) printf("128bit: OK\n");
-    else {printf("128bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM128(&mmvm128_1,&mmvm128_2);
+        randV128(&mmvv128_1);
+        MatMulVecM128(mmvm128_1,mmvv128_1,&mmvv128_2);
+        MatMulVecM128(mmvm128_2,mmvv128_2,&mmvv128_3);
+        if(!isequalV128(mmvv128_1,mmvv128_3)) break;
+    } 
+    if(i<TEST) {printf("128bit: ERROR\n"); flag=0;}
+    else printf("128bit: OK\n");
     
-    printf("-----mat mul mat test-----\n");
+    printf("-----mat mul mat (includes mat transpositon) test-----\n");
     M8 mmmm8_1,mmmm8_2,mmmm8_3;
-    randM8(&mmmm8_1);
-    identityM8(&mmmm8_2);
-    MatMulMatM8(mmmm8_1,mmmm8_2,&mmmm8_3);
-    if(isequalM8(mmmm8_1,mmmm8_3)) printf("8bit: OK\n");
-    else {printf("8bit: ERROR\n"); flag=0;}
-
+    V8 mmmv8_1,mmmv8_2,mmmv8_3,mmmv8_4;
+    for(i=0;i<TEST;i++)
+    {
+        randM8(&mmmm8_1);
+        randM8(&mmmm8_2);
+        randV8(&mmmv8_1);
+        MatMulVecM8(mmmm8_1,mmmv8_1,&mmmv8_2);
+        MatMulVecM8(mmmm8_2,mmmv8_2,&mmmv8_3);
+        MatMulMatM8(mmmm8_2,mmmm8_1,&mmmm8_3);
+        MatMulVecM8(mmmm8_3,mmmv8_1,&mmmv8_4);
+        if(!isequalV8(mmmv8_3,mmmv8_4)) break;
+    }
+    if(i<TEST) {printf("8bit: ERROR\n"); flag=0;}
+    else printf("8bit: OK\n");
+    
     M16 mmmm16_1,mmmm16_2,mmmm16_3;
-    randM16(&mmmm16_1);
-    identityM16(&mmmm16_2);
-    MatMulMatM16(mmmm16_1,mmmm16_2,&mmmm16_3);
-    if(isequalM16(mmmm16_1,mmmm16_3)) printf("16bit: OK\n");
-    else {printf("16bit: ERROR\n"); flag=0;}
+    V16 mmmv16_1,mmmv16_2,mmmv16_3,mmmv16_4;
+    for(i=0;i<TEST;i++)
+    {
+        randM16(&mmmm16_1);
+        randM16(&mmmm16_2);
+        randV16(&mmmv16_1);
+        MatMulVecM16(mmmm16_1,mmmv16_1,&mmmv16_2);
+        MatMulVecM16(mmmm16_2,mmmv16_2,&mmmv16_3);
+        MatMulMatM16(mmmm16_2,mmmm16_1,&mmmm16_3);
+        MatMulVecM16(mmmm16_3,mmmv16_1,&mmmv16_4);
+        if(!isequalV16(mmmv16_3,mmmv16_4)) break;
+    }
+    if(i<TEST) {printf("16bit: ERROR\n"); flag=0;}
+    else printf("16bit: OK\n");
 
     M32 mmmm32_1,mmmm32_2,mmmm32_3;
-    randM32(&mmmm32_1);
-    identityM32(&mmmm32_2);
-    MatMulMatM32(mmmm32_1,mmmm32_2,&mmmm32_3);
-    if(isequalM32(mmmm32_1,mmmm32_3)) printf("32bit: OK\n");
-    else {printf("32bit: ERROR\n"); flag=0;}
+    V32 mmmv32_1,mmmv32_2,mmmv32_3,mmmv32_4;
+    for(i=0;i<TEST;i++)
+    {
+        randM32(&mmmm32_1);
+        randM32(&mmmm32_2);
+        randV32(&mmmv32_1);
+        MatMulVecM32(mmmm32_1,mmmv32_1,&mmmv32_2);
+        MatMulVecM32(mmmm32_2,mmmv32_2,&mmmv32_3);
+        MatMulMatM32(mmmm32_2,mmmm32_1,&mmmm32_3);
+        MatMulVecM32(mmmm32_3,mmmv32_1,&mmmv32_4);
+        if(!isequalV32(mmmv32_3,mmmv32_4)) break;
+    }
+    if(i<TEST) {printf("32bit: ERROR\n"); flag=0;}
+    else printf("32bit: OK\n");
 
     M64 mmmm64_1,mmmm64_2,mmmm64_3;
-    randM64(&mmmm64_1);
-    identityM64(&mmmm64_2);
-    MatMulMatM64(mmmm64_1,mmmm64_2,&mmmm64_3);
-    if(isequalM64(mmmm64_1,mmmm64_3)) printf("64bit: OK\n");
-    else {printf("64bit: ERROR\n"); flag=0;}
+    V64 mmmv64_1,mmmv64_2,mmmv64_3,mmmv64_4;
+    for(i=0;i<TEST;i++)
+    {
+        randM64(&mmmm64_1);
+        randM64(&mmmm64_2);
+        randV64(&mmmv64_1);
+        MatMulVecM64(mmmm64_1,mmmv64_1,&mmmv64_2);
+        MatMulVecM64(mmmm64_2,mmmv64_2,&mmmv64_3);
+        MatMulMatM64(mmmm64_2,mmmm64_1,&mmmm64_3);
+        MatMulVecM64(mmmm64_3,mmmv64_1,&mmmv64_4);
+        if(!isequalV64(mmmv64_3,mmmv64_4)) break;
+    }
+    if(i<TEST) {printf("64bit: ERROR\n"); flag=0;}
+    else printf("64bit: OK\n");
 
     M128 mmmm128_1,mmmm128_2,mmmm128_3;
-    randM128(&mmmm128_1);
-    identityM128(&mmmm128_2);
-    MatMulMatM128(mmmm128_1,mmmm128_2,&mmmm128_3);
-    if(isequalM128(mmmm128_1,mmmm128_3)) printf("128bit: OK\n");
-    else {printf("128bit: ERROR\n"); flag=0;}
+    V128 mmmv128_1,mmmv128_2,mmmv128_3,mmmv128_4;
+    for(i=0;i<TEST;i++)
+    {
+        randM128(&mmmm128_1);
+        randM128(&mmmm128_2);
+        randV128(&mmmv128_1);
+        MatMulVecM128(mmmm128_1,mmmv128_1,&mmmv128_2);
+        MatMulVecM128(mmmm128_2,mmmv128_2,&mmmv128_3);
+        MatMulMatM128(mmmm128_2,mmmm128_1,&mmmm128_3);
+        MatMulVecM128(mmmm128_3,mmmv128_1,&mmmv128_4);
+        if(!isequalV128(mmmv128_3,mmmv128_4)) break;
+    }
+    if(i<TEST) {printf("128bit: ERROR\n"); flag=0;}
+    else printf("128bit: OK\n");
 
     printf("-----invertible and inverse test-----\n");
     printf("nomal mode:\n");
     M8 iim8_1,iim8_2,iim8_3,iim8_4;
-    genMatpairM8(&iim8_1,&iim8_2);
-    MatMulMatM8(iim8_1,iim8_2,&iim8_3);
     identityM8(&iim8_4);
-    if(isequalM8(iim8_3,iim8_4)) printf("8bit: OK\n");
-    else {printf("8bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM8(&iim8_1,&iim8_2);
+        MatMulMatM8(iim8_1,iim8_2,&iim8_3);
+        if(!isequalM8(iim8_3,iim8_4)) break;
+    }
+    if(i<TEST) {printf("8bit: ERROR\n"); flag=0;}
+    else printf("8bit: OK\n");
 
     M16 iim16_1,iim16_2,iim16_3,iim16_4;
-    genMatpairM16(&iim16_1,&iim16_2);
-    MatMulMatM16(iim16_1,iim16_2,&iim16_3);
     identityM16(&iim16_4);
-    if(isequalM16(iim16_3,iim16_4)) printf("16bit: OK\n");
-    else {printf("16bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM16(&iim16_1,&iim16_2);
+        MatMulMatM16(iim16_1,iim16_2,&iim16_3);
+        if(!isequalM16(iim16_3,iim16_4)) break;
+    }
+    if(i<TEST) {printf("16bit: ERROR\n"); flag=0;}
+    else printf("16bit: OK\n");
 
     M32 iim32_1,iim32_2,iim32_3,iim32_4;
-    genMatpairM32(&iim32_1,&iim32_2);
-    MatMulMatM32(iim32_1,iim32_2,&iim32_3);
     identityM32(&iim32_4);
-    if(isequalM32(iim32_3,iim32_4)) printf("32bit: OK\n");
-    else {printf("32bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM32(&iim32_1,&iim32_2);
+        MatMulMatM32(iim32_1,iim32_2,&iim32_3);
+        if(!isequalM32(iim32_3,iim32_4)) break;
+    }
+    if(i<TEST) {printf("32bit: ERROR\n"); flag=0;}
+    else printf("32bit: OK\n");
 
     M64 iim64_1,iim64_2,iim64_3,iim64_4;
-    genMatpairM64(&iim64_1,&iim64_2);
-    MatMulMatM64(iim64_1,iim64_2,&iim64_3);
     identityM64(&iim64_4);
-    if(isequalM64(iim64_3,iim64_4)) printf("64bit: OK\n");
-    else {printf("64bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM64(&iim64_1,&iim64_2);
+        MatMulMatM64(iim64_1,iim64_2,&iim64_3);
+        if(!isequalM64(iim64_3,iim64_4)) break;
+    }
+    if(i<TEST) {printf("64bit: ERROR\n"); flag=0;}
+    else printf("64bit: OK\n");
 
     M128 iim128_1,iim128_2,iim128_3,iim128_4;
-    genMatpairM128(&iim128_1,&iim128_2);
-    MatMulMatM128(iim128_1,iim128_2,&iim128_3);
     identityM128(&iim128_4);
-    if(isequalM128(iim128_3,iim128_4)) printf("128bit: OK\n");
-    else {printf("128bit: ERROR\n"); flag=0;}
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM128(&iim128_1,&iim128_2);
+        MatMulMatM128(iim128_1,iim128_2,&iim128_3);
+        if(!isequalM128(iim128_3,iim128_4))  break;
+    }
+    if(i<TEST) {printf("128bit: ERROR\n"); flag=0;}
+    else printf("128bit: OK\n");
 
     printf("min mode:\n");
     M8 iiminm8_1,iiminm8_2,iiminm8_3,iiminm8_4;
@@ -238,37 +339,6 @@ int main()
     MatMulMatM128(iimaxm128_1,iimaxm128_2,&iimaxm128_3);
     identityM128(&iimaxm128_4);
     if(isequalM128(iimaxm128_3,iimaxm128_4)) printf("128bit: OK\n");
-    else {printf("128bit: ERROR\n"); flag=0;}
-
-    printf("-----mat transpositon test-----\n");
-    M8 mtm8_1,mtm8_2;
-    identityM8(&mtm8_1);
-    MattransM8(mtm8_1,&mtm8_2);
-    if(isequalM8(mtm8_1,mtm8_2)) printf("8bit: OK\n");
-    else {printf("8bit: ERROR\n"); flag=0;}
-
-    M16 mtm16_1,mtm16_2;
-    identityM16(&mtm16_1);
-    MattransM16(mtm16_1,&mtm16_2);
-    if(isequalM16(mtm16_1,mtm16_2)) printf("16bit: OK\n");
-    else {printf("16bit: ERROR\n"); flag=0;}
-
-    M32 mtm32_1,mtm32_2;
-    identityM32(&mtm32_1);
-    MattransM32(mtm32_1,&mtm32_2);
-    if(isequalM32(mtm32_1,mtm32_2)) printf("32bit: OK\n");
-    else {printf("32bit: ERROR\n"); flag=0;}
-
-    M64 mtm64_1,mtm64_2;
-    identityM64(&mtm64_1);
-    MattransM64(mtm64_1,&mtm64_2);
-    if(isequalM64(mtm64_1,mtm64_2)) printf("64bit: OK\n");
-    else {printf("64bit: ERROR\n"); flag=0;}
-
-    M128 mtm128_1,mtm128_2;
-    identityM128(&mtm128_1);
-    MattransM128(mtm128_1,&mtm128_2);
-    if(isequalM128(mtm128_1,mtm128_2)) printf("128bit: OK\n");
     else {printf("128bit: ERROR\n"); flag=0;}
 
     printf("-----invertible affine and affine transform test-----\n");

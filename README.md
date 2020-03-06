@@ -84,7 +84,7 @@ The initial base matrix function has a max times and a min times for selection w
 3.New: Add Matrix Basis Method test.<br>
 
 (2019/01/12)<br>
-1.New: Add 128bit test for matrix base method.<br>
+1.New: Add 128bit test for matrix basis method.<br>
 
 (2019/01/18)<br>
 1.Update test case: generate invertible matrix , compute inverse matrix.<br>
@@ -132,3 +132,8 @@ The initial base matrix function has a max times and a min times for selection w
 1.New: Add performance test cases on M4RI: basic arithmetic with matrix .<br>
 2.New: Add performance test cases on NTL.<br>
 3.New: Add performance test cases on WBMatrix.<br>
+
+(2019/03/06)<br>
+1.New: Add vector addition.<br>
+2.Fixed: Accuracy test mode.<br>
+3.Optimized:<br>

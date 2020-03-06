@@ -157,7 +157,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        V8_3.V = V8_1.V ^ V8_2.V;
+        VecAddVecV8(V8_1,V8_2,&V8_3);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -167,7 +167,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        V16_3.V = V16_1.V ^ V16_2.V;
+        VecAddVecV16(V16_1,V16_2,&V16_3);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -177,7 +177,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        V32_3.V = V32_1.V ^ V32_2.V;
+        VecAddVecV32(V32_1,V32_2,&V32_3);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -187,7 +187,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        V64_3.V = V64_1.V ^ V64_2.V;
+        VecAddVecV64(V64_1,V64_2,&V64_3);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -197,8 +197,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        V128_3.V[0] = V128_1.V[0] ^ V128_2.V[0];
-        V128_3.V[1] = V128_1.V[1] ^ V128_2.V[1];
+        VecAddVecV128(V128_1,V128_2,&V128_3);
     }
     end = end_rdtsc();
     ans = (end - begin);
