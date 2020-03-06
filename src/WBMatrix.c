@@ -1209,25 +1209,17 @@ void MatMulVecM128(M128 Mat,V128 Vec,V128 *ans)//matrix * vector -> vector 128*1
 {
     initV128(ans);
     uint64_t temp[2]; 
-    temp[0]=Mat.M[0][0]&Vec.V[0];
-    temp[1]=Mat.M[0][1]&Vec.V[1];
-    if(xorU128(temp)) (*ans).V[0]=0x0000000000000001;
-    for(int i=1;i<64;i++)
+    for(int i=0;i<64;i++)
     {
-        (*ans).V[0]=(*ans).V[0]<<1;
         temp[0]=Mat.M[i][0]&Vec.V[0];
         temp[1]=Mat.M[i][1]&Vec.V[1];
-        if(xorU128(temp)) (*ans).V[0]^=0x0000000000000001;
+        if(xorU128(temp)) (*ans).V[0]^=idM64[i];
     }
-    temp[0]=Mat.M[64][0]&Vec.V[0];
-    temp[1]=Mat.M[64][1]&Vec.V[1];
-    if(xorU128(temp)) (*ans).V[1]^=0x0000000000000001;
-    for(int i=65;i<128;i++)
+    for(int i=64;i<128;i++)
     {
-        (*ans).V[1]=(*ans).V[1]<<1;
         temp[0]=Mat.M[i][0]&Vec.V[0];
         temp[1]=Mat.M[i][1]&Vec.V[1];
-        if(xorU128(temp)) (*ans).V[1]^=0x0000000000000001;
+        if(xorU128(temp)) (*ans).V[1]^=idM64[i-64];
     }
 }
 void freebaseM8()
@@ -1852,43 +1844,34 @@ void affinecomM8to32(Aff8 aff1,Aff8 aff2,Aff8 aff3,Aff8 aff4,Aff32 *aff)//diagon
 }
 void MattransM8(M8 Mat,M8 *Mat_trans)//matrix tansposition M8
 {
-    //initM8(Mat_trans);
+    initM8(Mat_trans);
     for(int i=0;i<8;i++)
     {
-        if((Mat.M[0]<<i)&0x80) (*Mat_trans).M[i]=0x01;
-        else (*Mat_trans).M[i]=0x00;
-        for(int j=1;j<8;j++)
+        for(int j=0;j<8;j++)
         {
-            (*Mat_trans).M[i]=(*Mat_trans).M[i]<<1;
-            if((Mat.M[j]<<i)&0x80) (*Mat_trans).M[i]^=0x01;
+            if(Mat.M[i]&idM8[j]) (*Mat_trans).M[j]^=idM8[i];
         }
     }
 }
 void MattransM16(M16 Mat,M16 *Mat_trans)//matrix tansposition M16
 {
-    //initM16(Mat_trans);
+    initM16(Mat_trans);
     for(int i=0;i<16;i++)
     {
-        if((Mat.M[0]<<i)&0x8000) (*Mat_trans).M[i]=0x0001;
-        else (*Mat_trans).M[i]=0x0000;
-        for(int j=1;j<16;j++)
+        for(int j=0;j<16;j++)
         {
-            (*Mat_trans).M[i]=(*Mat_trans).M[i]<<1;
-            if((Mat.M[j]<<i)&0x8000) (*Mat_trans).M[i]^=0x0001;
+            if(Mat.M[i]&idM16[j]) (*Mat_trans).M[j]^=idM16[i];
         }
     }
 }
 void MattransM32(M32 Mat,M32 *Mat_trans)//matrix tansposition M32
 {
-    //initM32(Mat_trans);
+    initM32(Mat_trans);
     for(int i=0;i<32;i++)
     {
-        if((Mat.M[0]<<i)&0x80000000) (*Mat_trans).M[i]=0x00000001;
-        else (*Mat_trans).M[i]=0x00000000;
-        for(int j=1;j<32;j++)
+        for(int j=0;j<32;j++)
         {
-            (*Mat_trans).M[i]=(*Mat_trans).M[i]<<1;
-            if((Mat.M[j]<<i)&0x80000000) (*Mat_trans).M[i]^=0x00000001;
+            if(Mat.M[i]&idM32[j]) (*Mat_trans).M[j]^=idM32[i];
         }
     }
 }
@@ -1905,45 +1888,21 @@ void MattransM64(M64 Mat,M64 *Mat_trans)//matrix tansposition M64
 }
 void MattransM128(M128 Mat,M128 *Mat_trans)//matrix tansposition M128
 {
-    //initM128(Mat_trans);
+    initM128(Mat_trans);
     for(int i=0;i<64;i++)
     {
-        if((Mat.M[0][0]<<i)&0x8000000000000000) (*Mat_trans).M[i][0]=0x0000000000000001;
-        else (*Mat_trans).M[i][0]=0x0000000000000000;
-        for(int j=1;j<64;j++)
+        for(int j=0;j<64;j++)
         {
-            (*Mat_trans).M[i][0]=(*Mat_trans).M[i][0]<<1;
-            if((Mat.M[j][0]<<i)&0x8000000000000000) (*Mat_trans).M[i][0]^=0x0000000000000001;
-        }
-    }
-    for(int i=0;i<64;i++)
-    {
-        if((Mat.M[64][0]<<i)&0x8000000000000000) (*Mat_trans).M[i][1]=0x0000000000000001;
-        else (*Mat_trans).M[i][1]=0x0000000000000000;
-        for(int j=65;j<128;j++)
-        {
-            (*Mat_trans).M[i][1]=(*Mat_trans).M[i][1]<<1;
-            if((Mat.M[j][0]<<i)&0x8000000000000000) (*Mat_trans).M[i][1]^=0x0000000000000001;
+            if(Mat.M[i][0]&idM64[j]) (*Mat_trans).M[j][0]^=idM64[i];
+            if(Mat.M[i][1]&idM64[j]) (*Mat_trans).M[j+64][0]^=idM64[i];
         }
     }
     for(int i=64;i<128;i++)
     {
-        if((Mat.M[0][1]<<(i-64))&0x8000000000000000) (*Mat_trans).M[i][0]=0x0000000000000001;
-        else (*Mat_trans).M[i][0]=0x0000000000000000;
-        for(int j=1;j<64;j++)
+        for(int j=0;j<64;j++)
         {
-            (*Mat_trans).M[i][0]=(*Mat_trans).M[i][0]<<1;
-            if((Mat.M[j][1]<<(i-64))&0x8000000000000000) (*Mat_trans).M[i][0]^=0x0000000000000001;
-        }
-    }
-    for(int i=64;i<128;i++)
-    {
-        if((Mat.M[64][1]<<(i-64))&0x8000000000000000) (*Mat_trans).M[i][1]=0x0000000000000001;
-        else (*Mat_trans).M[i][1]=0x0000000000000000;
-        for(int j=65;j<128;j++)
-        {
-            (*Mat_trans).M[i][1]=(*Mat_trans).M[i][1]<<1;
-            if((Mat.M[j][1]<<(i-64))&0x8000000000000000) (*Mat_trans).M[i][1]^=0x0000000000000001;
+            if(Mat.M[i][0]&idM64[j]) (*Mat_trans).M[j][1]^=idM64[i-64];
+            if(Mat.M[i][1]&idM64[j]) (*Mat_trans).M[j+64][1]^=idM64[i-64];
         }
     }
 }
@@ -1990,11 +1949,9 @@ void MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat)//matrix multiplication 8*8 mul 8*8 -> 
     MattransM8(Mat2,&Mat2_trans);
     for(int i=0;i<8;i++)
     {
-        if(xorU8(Mat1.M[i]&Mat2_trans.M[0])) (*Mat).M[i]=0x01;
-        for(int j=1;j<8;j++)
+        for(int j=0;j<8;j++)
         {
-            (*Mat).M[i]=(*Mat).M[i]<<1;
-            if(xorU8(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=0x01;
+            if(xorU8(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=idM8[j];
         }       
     }
 }
@@ -2005,11 +1962,9 @@ void MatMulMatM16(M16 Mat1,M16 Mat2,M16 *Mat)//matrix multiplication 16*16 mul 1
     MattransM16(Mat2,&Mat2_trans);
     for(int i=0;i<16;i++)
     {
-        if(xorU16(Mat1.M[i]&Mat2_trans.M[0])) (*Mat).M[i]=0x0001;
-        for(int j=1;j<16;j++)
+        for(int j=0;j<16;j++)
         {
-            (*Mat).M[i]=(*Mat).M[i]<<1;
-            if(xorU16(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=0x0001;
+            if(xorU16(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=idM16[j];
         }       
     }
 }
@@ -2020,11 +1975,9 @@ void MatMulMatM32(M32 Mat1,M32 Mat2,M32 *Mat)//matrix multiplication 32*32 mul 3
     MattransM32(Mat2,&Mat2_trans);
     for(int i=0;i<32;i++)
     {
-        if(xorU32(Mat1.M[i]&Mat2_trans.M[0])) (*Mat).M[i]=0x00000001;
-        for(int j=1;j<32;j++)
+        for(int j=0;j<32;j++)
         {
-            (*Mat).M[i]=(*Mat).M[i]<<1;
-            if(xorU32(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=0x00000001;
+            if(xorU32(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=idM32[j];
         }       
     } 
 }
@@ -2049,25 +2002,17 @@ void MatMulMatM128(M128 Mat1,M128 Mat2,M128 *Mat)//matrix multiplication 128*128
     MattransM128(Mat2,&Mat2_trans);
     for(int i=0;i<128;i++)
     {
-        temp[0]=Mat1.M[i][0]&Mat2_trans.M[0][0];
-        temp[1]=Mat1.M[i][1]&Mat2_trans.M[0][1];
-        if(xorU128(temp)) (*Mat).M[i][0]=0x0000000000000001;
-        for(int j=1;j<64;j++)
+        for(int j=0;j<64;j++)
         {
-            (*Mat).M[i][0]=(*Mat).M[i][0]<<1;
             temp[0]=Mat1.M[i][0]&Mat2_trans.M[j][0];
             temp[1]=Mat1.M[i][1]&Mat2_trans.M[j][1];
-            if(xorU128(temp)) (*Mat).M[i][0]^=0x0000000000000001;
+            if(xorU128(temp)) (*Mat).M[i][0]^=idM64[j];
         }
-        temp[0]=Mat1.M[i][0]&Mat2_trans.M[64][0];
-        temp[1]=Mat1.M[i][1]&Mat2_trans.M[64][1];
-        if(xorU128(temp)) (*Mat).M[i][1]=0x0000000000000001;
-        for(int j=65;j<128;j++)
+        for(int j=64;j<128;j++)
         {
-            (*Mat).M[i][1]=(*Mat).M[i][1]<<1;
             temp[0]=Mat1.M[i][0]&Mat2_trans.M[j][0];
             temp[1]=Mat1.M[i][1]&Mat2_trans.M[j][1];
-            if(xorU128(temp)) (*Mat).M[i][1]^=0x0000000000000001;
+            if(xorU128(temp)) (*Mat).M[i][1]^=idM64[j-64];
         }
     } 
 }

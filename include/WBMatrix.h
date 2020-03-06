@@ -2,7 +2,7 @@
 #define _HWBMATRIX_H_
 /***
  * Last Update:2020/03/06
- * Version:2.1.1
+ * Version:2.1.2
 ***/
 #include "structure.h"
 #include "inverse.h"

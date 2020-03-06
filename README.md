@@ -38,7 +38,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last Updated : 2019/03/05<br>
+Last Updated : 2019/03/06<br>
 Modified By : Nexus
 
 ---
@@ -136,4 +136,4 @@ The initial base matrix function has a max times and a min times for selection w
 (2019/03/06)<br>
 1.New: Add vector addition.<br>
 2.Fixed: Accuracy test mode.<br>
-3.Optimized:<br>
+3.Optimized: Replace rotation with logical-AND.<br>
