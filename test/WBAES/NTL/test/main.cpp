@@ -73,11 +73,11 @@ int main(int argc, char * argv[])
         uint64_t begin;
         uint64_t end;
         uint64_t ans = 0;
-        
+
         //printf("Generating tables...\n");
         expandKey (key, expandedKey);
 
-        printf("WBAES-WBMatrix performance test:\n");
+        printf("WBAES-NTL performance test:\n");
         //MatGf2 Tim8;
         begin = start_rdtsc();
         for (i = 0; i < TEST; i++)

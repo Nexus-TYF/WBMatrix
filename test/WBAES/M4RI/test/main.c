@@ -1,7 +1,26 @@
-#include "genTables.h"
-#include  <time.h> 
+#include "matrixlib\genTables.h"
+#ifdef __GNUC__
+#include <x86intrin.h>
+#endif
+#ifdef _MSC_VER
+#include <intrin.h>
+#endif
+#pragma intrinsic(__rdtsc)
+
 //Repeat test times and calculate on average for accuracy
-#define TEST 1000
+#define TEST 100000
+
+//CPU cycles set start;
+uint64_t start_rdtsc()
+{
+    return __rdtsc();
+}
+
+//CPU cycles set end;
+uint64_t end_rdtsc()
+{
+    return __rdtsc();
+}
 
 #define GETU32(pt) (\
         ((u32)(pt)[0] << 24) ^ ((u32)(pt)[1] << 16) ^\
@@ -51,19 +70,23 @@ int main(int argc, char * argv[])
         int i;
         u8 expandedKey[176];
         u8 key[16] = {0};
+        uint64_t begin;
+        uint64_t end;
+        uint64_t ans = 0;
         
         //printf("Generating tables...\n");
         expandKey (key, expandedKey);
 
-        printf("WBAES-WBMatrix Method performance test:\n");
+        printf("WBAES-M4RI performance test:\n");
         //MatGf2 Tim8;
-        clock_t start = clock();
+        begin = start_rdtsc();
         for (i = 0; i < TEST; i++)
         {
                 computeTables(expandedKey);
         }
-        clock_t end   = clock();
-        printf("WBAES generate tables cost %ld ms\n", (end - start)/TEST);
+        end = end_rdtsc();
+        ans = (end - begin);
+        printf("WBAES generate tables cost %llu CPU cycles\n", ans/TEST);
 
         //asciiStr2hex(argv[1], (char *)IN, 32);
         

@@ -3,7 +3,6 @@ WBMatrix
 
 White-Box Matrix Library<br>
 (Designed for encodings in White-Box block cipher implementations)
-----
 
 * Support For Following Operations(8/16/32/64/128 bits):<br>
 * Matrix-Vector multiplication<br>
@@ -38,7 +37,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last Updated : 2019/03/06<br>
+Last Updated : 2019/03/07<br>
 Modified By : Nexus
 
 ---
@@ -137,3 +136,6 @@ The initial base matrix function has a max times and a min times for selection w
 1.New: Add vector addition.<br>
 2.Fixed: Accuracy test mode.<br>
 3.Optimized: Replace rotation with logical-AND.<br>
+
+(2019/03/07)<br>
+1.New: WBAES by M4RI.<br>
