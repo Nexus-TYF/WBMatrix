@@ -1,13 +1,17 @@
 #ifndef _HWBMATRIX_H_
 #define _HWBMATRIX_H_
-
-#include "structure.h"
-#include "inverse.h"
+/***
+ * Last Update:2020/03/06
+ * Version:2.1.2
+***/
+#include "WBMatrix/structure.h"
+#include "WBMatrix/inverse.h"
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "WBMatrix/random.h"
 
-void SetRandSeed(int seed);//Set random seed
+void SetRandSeed(unsigned int seed);//Set random seed
 
 /*
 * 8bit Matrix operation
@@ -19,11 +23,13 @@ void printM8(M8 Mat);
 void printbitM8(M8 Mat);
 void copyM8(M8 Mat1,M8 *Mat2);
 int isequalM8(M8 Mat1,M8 Mat2);
+int isinvertM8(M8 Mat);
 
 void initV8(V8 *Vec);
 void randV8(V8 *Vec);
 void printV8(V8 Vec);
 int isequalV8(V8 Vec1,V8 Vec2);
+void VecAddVecV8(V8 Vec1,V8 Vec2,V8 *Vec);
 
 uint8_t affineU8(Aff8 aff,uint8_t arr);
 int xorU8(uint8_t n);
@@ -50,11 +56,13 @@ void printM16(M16 Mat);
 void printbitM16(M16 Mat);
 void copyM16(M16 Mat1,M16 *Mat2);
 int isequalM16(M16 Mat1,M16 Mat2);
+int isinvertM16(M16 Mat);
 
 void initV16(V16 *Vec);
 void randV16(V16 *Vec);
 void printV16(V16 Vec);
 int isequalV16(V16 Vec1,V16 Vec2);
+void VecAddVecV16(V16 Vec1,V16 Vec2,V16 *Vec);
 
 uint16_t affineU16(Aff16 aff,uint16_t arr);
 int xorU16(uint16_t n);
@@ -81,11 +89,13 @@ void printM32(M32 Mat);
 void printbitM32(M32 Mat);
 void copyM32(M32 Mat1,M32 *Mat2);
 int isequalM32(M32 Mat1,M32 Mat2);
+int isinvertM32(M32 Mat);
 
 void initV32(V32 *Vec);
 void randV32(V32 *Vec);
 void printV32(V32 Vec);
 int isequalV32(V32 Vec1,V32 Vec2);
+void VecAddVecV32(V32 Vec1,V32 Vec2,V32 *Vec);
 
 uint32_t affineU32(Aff32 aff,uint32_t arr);
 int xorU32(uint32_t n);
@@ -115,11 +125,13 @@ void printM64(M64 Mat);
 void printbitM64(M64 Mat);
 void copyM64(M64 Mat1,M64 *Mat2);
 int isequalM64(M64 Mat1,M64 Mat2);
+int isinvertM64(M64 Mat);
 
 void initV64(V64 *Vec);
 void randV64(V64 *Vec);
 void printV64(V64 Vec);
 int isequalV64(V64 Vec1,V64 Vec2);
+void VecAddVecV64(V64 Vec1,V64 Vec2,V64 *Vec);
 
 uint64_t affineU64(Aff64 aff,uint64_t arr);
 int xorU64(uint64_t n);
@@ -147,6 +159,7 @@ void printM128(M128 Mat);
 void printbitM128(M128 Mat);
 void copyM128(M128 Mat1,M128 *Mat2);
 int isequalM128(M128 Mat1,M128 Mat2);
+int isinvertM128(M128 Mat);
 
 void initV128(V128 *Vec);
 void randV128(V128 *Vec);
@@ -156,6 +169,7 @@ void affineU128(Aff128 aff,uint64_t arr[],uint64_t ans[]);
 int xorU128(uint64_t n[]);
 void printU128(uint64_t n[]);
 int isequalV128(V128 Vec1,V128 Vec2);
+void VecAddVecV128(V128 Vec1,V128 Vec2,V128 *Vec);
 
 void MatMulVecM128(M128 Mat,V128 Vec,V128 *ans);
 //void MatMulNumM128(M128 Mat,uint64_t n[],uint64_t ans[]);

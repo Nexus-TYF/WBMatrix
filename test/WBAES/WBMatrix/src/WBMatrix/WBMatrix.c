@@ -1,6 +1,6 @@
 #include "WBMatrix/WBMatrix.h"
 
-int randseed;
+unsigned int randseed;
 
 M8 baseM8={
     .M[0]=0x80,
@@ -292,7 +292,7 @@ int initM32_times;
 int initM64_times;
 int initM128_times;
 
-void SetRandSeed(int seed)
+void SetRandSeed(unsigned int seed)
 {
     randseed=seed;
 }
@@ -356,58 +356,51 @@ void initV128(V128 *Vec)//initial Vector 128*1
 }
 void randM8(M8 *Mat)//randomize Matrix 8*8 
 {
-    srand((randseed++)^time(NULL));
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
     for(int i=0;i<8;i++)
     {
-        for(int j=0;j<8;j++)
-        {
-            if(rand()%2) (*Mat).M[i]^=idM8[j];
-        }
+        (*Mat).M[i]=random();
     }
 }
 void randM16(M16 *Mat)//randomize Matrix 16*16 
 {
-    srand((randseed++)^time(NULL));
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
     for(int i=0;i<16;i++)
     {
-        for(int j=0;j<16;j++)
-        {
-            if(rand()%2) (*Mat).M[i]^=idM16[j];
-        }
+        (*Mat).M[i]=random();
     }
 }
 void randM32(M32 *Mat)//randomize Matrix 32*32 
 {
-    srand((randseed++)^time(NULL));
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
     for(int i=0;i<32;i++)
     {
-        for(int j=0;j<32;j++)
-        {
-            if(rand()%2) (*Mat).M[i]^=idM32[j];
-        }
+        (*Mat).M[i]=random();
     }
 }
 void randM64(M64 *Mat)//randomize Matrix 64*64 
 {
-    srand((randseed++)^time(NULL));
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    uint32_t *m;
     for(int i=0;i<64;i++)
     {
-        for(int j=0;j<64;j++)
-        {
-            if(rand()%2) (*Mat).M[i]^=idM64[j];
-        }
+        m=(uint32_t*)&((*Mat).M[i]);
+        *(m+1)=random();
+        *m=random();
     }
 }
 void randM128(M128 *Mat)//randomize Matrix 128*128 
 {
-    srand((randseed++)^time(NULL));
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    uint32_t *m;
     for(int i=0;i<128;i++)
     {
-        for(int j=0;j<64;j++)
-        {
-            if(rand()%2) (*Mat).M[i][0]^=idM64[j];
-            if(rand()%2) (*Mat).M[i][1]^=idM64[j];
-        }
+        m=(uint32_t*)&((*Mat).M[i][0]);
+        *(m+1)=random();
+        *m=random();
+        m=(uint32_t*)&((*Mat).M[i][1]);
+        *(m+1)=random();
+        *m=random();
     }
 }
 void identityM8(M8 *Mat)//identity matrix 8*8
@@ -453,25 +446,25 @@ void identityM128(M128 *Mat)//identity matrix 128*128
 }
 void randV8(V8 *Vec)//randomize Vector 8*1
 {
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     (*Vec).V=rand();
 }
 void randV16(V16 *Vec)//randomize Vector 16*1
 {
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     (*Vec).V=rand();
 }
 void randV32(V32 *Vec)//randomize Vector 32*1
 {
     uint16_t *v=(uint16_t*)&((*Vec).V);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     *(v+1)=rand();
     *v=rand();
 }
 void randV64(V64 *Vec)//randomize Vector 64*1
 {
     uint16_t *v=(uint16_t*)&((*Vec).V);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     *(v+3)=rand();
     *(v+2)=rand();
     *(v+1)=rand();
@@ -480,7 +473,7 @@ void randV64(V64 *Vec)//randomize Vector 64*1
 void randV128(V128 *Vec)//randomize Vector 128*1
 {
     uint16_t *v=(uint16_t*)&((*Vec).V[0]);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     *(v+3)=rand();
     *(v+2)=rand();
     *(v+1)=rand();
@@ -685,6 +678,263 @@ int isequalV128(V128 Vec1,V128 Vec2)
     if(Vec1.V[1]!=Vec2.V[1]) flag=0;
     return flag;
 }
+int isinvertM8(M8 Mat)//Invertible Matrix?
+{
+    uint8_t temp;
+    int flag;
+    for(int i=0;i<8;i++)
+    {
+        if((Mat.M[i]&idM8[i])==idM8[i])
+        {
+            for(int j=i+1;j<8;j++)
+            {
+                if((Mat.M[j]&idM8[i])==idM8[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<8;j++)
+            {
+                if((Mat.M[j]&idM8[i])==idM8[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<8;k++)
+            {
+                if((Mat.M[k]&idM8[i])==idM8[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                }
+            }
+        }
+    }
+    if(Mat.M[7]==idM8[7]) return 1;
+    else return 0;
+}
+int isinvertM16(M16 Mat)//Invertible Matrix?
+{
+    uint16_t temp;
+    int flag;
+    for(int i=0;i<16;i++)
+    {
+        if((Mat.M[i]&idM16[i])==idM16[i])
+        {
+            for(int j=i+1;j<16;j++)
+            {
+                if((Mat.M[j]&idM16[i])==idM16[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<16;j++)
+            {
+                if((Mat.M[j]&idM16[i])==idM16[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<16;k++)
+            {
+                if((Mat.M[k]&idM16[i])==idM16[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                }
+            }
+        }
+    }
+    if(Mat.M[15]==idM16[15]) return 1;
+    else return 0;
+}
+int isinvertM32(M32 Mat)//Invertible Matrix?
+{
+    uint32_t temp;
+    int flag;
+    for(int i=0;i<32;i++)
+    {
+        if((Mat.M[i]&idM32[i])==idM32[i])
+        {
+            for(int j=i+1;j<32;j++)
+            {
+                if((Mat.M[j]&idM32[i])==idM32[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<32;j++)
+            {
+                if((Mat.M[j]&idM32[i])==idM32[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<32;k++)
+            {
+                if((Mat.M[k]&idM32[i])==idM32[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                }
+            }
+        }
+    }
+    if(Mat.M[31]==idM32[31]) return 1;
+    else return 0;
+}
+int isinvertM64(M64 Mat)//Invertible Matrix?
+{
+    uint64_t temp;
+    int flag;
+    for(int i=0;i<64;i++)
+    {
+        if((Mat.M[i]&idM64[i])==idM64[i])
+        {
+            for(int j=i+1;j<64;j++)
+            {
+                if((Mat.M[j]&idM64[i])==idM64[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<64;j++)
+            {
+                if((Mat.M[j]&idM64[i])==idM64[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<64;k++)
+            {
+                if((Mat.M[k]&idM64[i])==idM64[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                }
+            }
+        }
+    }
+    if(Mat.M[63]==idM64[63]) return 1;
+    else return 0;
+}
+int isinvertM128(M128 Mat)//Invertible Matrix?
+{
+    uint64_t temp[2];
+    int flag;
+    for(int i=0;i<64;i++)
+    {
+        if((Mat.M[i][0]&idM64[i])==idM64[i])
+        {
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][0]&idM64[i])==idM64[i])
+                {
+                    Mat.M[j][0]^=Mat.M[i][0];
+                    Mat.M[j][1]^=Mat.M[i][1];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][0]&idM64[i])==idM64[i])
+                {
+                    temp[0]=Mat.M[i][0];
+                    Mat.M[i][0]=Mat.M[j][0];
+                    Mat.M[j][0]=temp[0];
+
+                    temp[1]=Mat.M[i][1];
+                    Mat.M[i][1]=Mat.M[j][1];
+                    Mat.M[j][1]=temp[1];
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<128;k++)
+            {
+                if((Mat.M[k][0]&idM64[i])==idM64[i])
+                {
+                    Mat.M[k][0]^=Mat.M[i][0];
+                    Mat.M[k][1]^=Mat.M[i][1];
+                }
+            }
+        }
+    }
+    for(int i=64;i<128;i++)
+    {
+        if((Mat.M[i][1]&idM64[i-64])==idM64[i-64])
+        {
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][1]&idM64[i-64])==idM64[i-64])
+                {
+                    Mat.M[j][1]^=Mat.M[i][1];
+                }
+            }
+        }
+        else
+        {
+            flag=1;
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][1]&idM64[i-64])==idM64[i-64])
+                {
+                    temp[1]=Mat.M[i][1];
+                    Mat.M[i][1]=Mat.M[j][1];
+                    Mat.M[j][1]=temp[1];
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k=i+1;k<128;k++)
+            {
+                if((Mat.M[k][1]&idM64[i-64])==idM64[i-64])
+                {
+                    Mat.M[k][1]^=Mat.M[i][1];
+                }
+            }
+        }
+    }
+    if(Mat.M[127][1]==idM64[63]) return 1;
+    else return 0;
+}
 uint8_t affineU8(Aff8 aff,uint8_t arr)//8bits affine transformation
 {
     V8 mul_vec,ans_vec;
@@ -866,113 +1116,110 @@ void printbitM128(M128 Mat)//printf Matrix 128*128 in the form of bits
     }
     printf("\n");
 }
+void VecAddVecV8(V8 Vec1,V8 Vec2,V8 *Vec)
+{
+    (*Vec).V=Vec1.V^Vec2.V;
+}
+void VecAddVecV16(V16 Vec1,V16 Vec2,V16 *Vec)
+{
+    (*Vec).V=Vec1.V^Vec2.V;
+}
+void VecAddVecV32(V32 Vec1,V32 Vec2,V32 *Vec)
+{
+    (*Vec).V=Vec1.V^Vec2.V;
+}
+void VecAddVecV64(V64 Vec1,V64 Vec2,V64 *Vec)
+{
+    (*Vec).V=Vec1.V^Vec2.V;
+}
+void VecAddVecV128(V128 Vec1,V128 Vec2,V128 *Vec)
+{
+    (*Vec).V[0]=Vec1.V[0]^Vec2.V[0];
+    (*Vec).V[1]=Vec1.V[1]^Vec2.V[1];
+}
 uint8_t MatMulNumM8(M8 Mat,uint8_t n)//matrix * number -> number 8bits
 {
     uint8_t temp=0;
-    if(xorU8(Mat.M[0]&n)) temp^=0x01;
-    for(int i=1;i<8;i++)
+    for(int i=0;i<8;i++)
     {
-        temp=temp<<1;
-        if(xorU8(Mat.M[i]&n)) temp^=0x01;
+        if(xorU8(Mat.M[i]&n)) temp^=idM8[i];
     }
     return temp;
 }
 uint16_t MatMulNumM16(M16 Mat,uint16_t n)//matrix * number -> number 16bits
 {
     uint16_t temp=0;
-    if(xorU16(Mat.M[0]&n)) temp^=0x0001;
-    for(int i=1;i<16;i++)
+    for(int i=0;i<16;i++)
     {
-        temp=temp<<1;
-        if(xorU16(Mat.M[i]&n)) temp^=0x0001;
+        if(xorU16(Mat.M[i]&n)) temp^=idM16[i];
     }
     return temp;
 }
 uint32_t MatMulNumM32(M32 Mat,uint32_t n)//matrix * number -> number 32bits
 {
     uint32_t temp=0;
-    if(xorU32(Mat.M[0]&n)) temp^=0x00000001;
-    for(int i=1;i<32;i++)
+    for(int i=0;i<32;i++)
     {
-        temp=temp<<1;
-        if(xorU32(Mat.M[i]&n)) temp^=0x00000001;
+        if(xorU32(Mat.M[i]&n)) temp^=idM32[i];
     }
     return temp;
 }
 uint64_t MatMulNumM64(M64 Mat,uint64_t n)//matrix * number -> number 64bits
 {
     uint64_t temp=0;
-    if(xorU64(Mat.M[0]&n)) temp^=0x0000000000000001;
-    for(int i=1;i<64;i++)
+    for(int i=0;i<64;i++)
     {
-        temp=temp<<1;
-        if(xorU64(Mat.M[i]&n)) temp^=0x0000000000000001;
+        if(xorU64(Mat.M[i]&n)) temp^=idM64[i];
     }
     return temp;
 }
 void MatMulVecM8(M8 Mat,V8 Vec,V8 *ans)//matrix * vector -> vector 8*1
 {
     initV8(ans);
-    if(xorU8(Mat.M[0]&Vec.V)) (*ans).V^=0x01;
-    for(int i=1;i<8;i++)
+    for(int i=0;i<8;i++)
     {
-        (*ans).V=(*ans).V<<1;
-        if(xorU8(Mat.M[i]&Vec.V)) (*ans).V^=0x01;
+        if(xorU8(Mat.M[i]&Vec.V)) (*ans).V^=idM8[i];
     }
 }
 void MatMulVecM16(M16 Mat,V16 Vec,V16 *ans)//matrix * vector -> vector 16*1
 {
     initV16(ans);
-    if(xorU16(Mat.M[0]&Vec.V)) (*ans).V^=0x0001;
-    for(int i=1;i<16;i++)
+    for(int i=0;i<16;i++)
     {
-        (*ans).V=(*ans).V<<1;
-        if(xorU16(Mat.M[i]&Vec.V)) (*ans).V^=0x0001;
+        if(xorU16(Mat.M[i]&Vec.V)) (*ans).V^=idM16[i];
     }
 }
 void MatMulVecM32(M32 Mat,V32 Vec,V32 *ans)//matrix * vector -> vector 32*1
 {
     initV32(ans);
-    if(xorU32(Mat.M[0]&Vec.V)) (*ans).V^=0x00000001;
-    for(int i=1;i<32;i++)
+    for(int i=0;i<32;i++)
     {
-        (*ans).V=(*ans).V<<1;
-        if(xorU32(Mat.M[i]&Vec.V)) (*ans).V^=0x00000001;
+        if(xorU32(Mat.M[i]&Vec.V)) (*ans).V^=idM32[i];
     }
 }
 void MatMulVecM64(M64 Mat,V64 Vec,V64 *ans)//matrix * vector -> vector 64*1
 {
     initV64(ans);
-    if(xorU64(Mat.M[0]&Vec.V)) (*ans).V^=0x0000000000000001;
-    for(int i=1;i<64;i++)
+    for(int i=0;i<64;i++)
     {
-        (*ans).V=(*ans).V<<1;
-        if(xorU64(Mat.M[i]&Vec.V)) (*ans).V^=0x0000000000000001;
+        if(xorU64(Mat.M[i]&Vec.V)) (*ans).V^=idM64[i];
     }
 }
 void MatMulVecM128(M128 Mat,V128 Vec,V128 *ans)//matrix * vector -> vector 128*1
 {
     initV128(ans);
     uint64_t temp[2]; 
-    temp[0]=Mat.M[0][0]&Vec.V[0];
-    temp[1]=Mat.M[0][1]&Vec.V[1];
-    if(xorU128(temp)) (*ans).V[0]^=0x0000000000000001;
-    for(int i=1;i<64;i++)
+    for(int i=0;i<64;i++)
     {
-        (*ans).V[0]=(*ans).V[0]<<1;
         temp[0]=Mat.M[i][0]&Vec.V[0];
         temp[1]=Mat.M[i][1]&Vec.V[1];
-        if(xorU128(temp)) (*ans).V[0]^=0x0000000000000001;
+        if(xorU128(temp)) (*ans).V[0]^=idM64[i];
     }
-    temp[0]=Mat.M[64][0]&Vec.V[0];
-    temp[1]=Mat.M[64][1]&Vec.V[1];
-    if(xorU128(temp)) (*ans).V[1]^=0x0000000000000001;
-    for(int i=65;i<128;i++)
+    for(int i=64;i<128;i++)
     {
-        (*ans).V[1]=(*ans).V[1]<<1;
         temp[0]=Mat.M[i][0]&Vec.V[0];
         temp[1]=Mat.M[i][1]&Vec.V[1];
-        if(xorU128(temp)) (*ans).V[1]^=0x0000000000000001;
+        if(xorU128(temp)) (*ans).V[1]^=idM64[i-64];
     }
 }
 void freebaseM8()
@@ -1004,7 +1251,7 @@ void initinvbaseM8(int N)//initial base matrix, parameter: initM8_min , initM8_m
 {
     int p,q;
     uint8_t temp;
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     if(basetrailM8[0][0]!=-1) return ;
     initM8_times=N;
     for(int i=0;i<initM8_times;i++)//generate reversible base matrix
@@ -1042,7 +1289,7 @@ void genMatpairM8(M8 *Mat,M8 *Mat_inv)//generate 8*8 reversible matrix and its i
     int trail[M8N][3];// generate trail
     copyM8(baseM8,Mat);//copy base matrix
     identityM8(Mat_inv);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     for(int i=0;i<M8N;i++)//generate reversible matrix
     {
         p=rand()%8;
@@ -1104,7 +1351,7 @@ void initinvbaseM16(int N)//initial base matrix, parameter: initM16_min , initM1
 {
     int p,q;
     uint16_t temp;
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     if(basetrailM16[0][0]!=-1) return ;
     initM16_times=N;
     for(int i=0;i<initM16_times;i++)//generate reversible base matrix
@@ -1142,7 +1389,7 @@ void genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and 
     int trail[M16N][3];
     copyM16(baseM16,Mat);//copy base matrix
     identityM16(Mat_inv);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     for(int i=0;i<M16N;i++)//generate reversible matrix
     {
         p=rand()%16;
@@ -1211,7 +1458,7 @@ void initinvbaseM32(int N)//initial base matrix, parameter: initM32_min , initM3
 {
     int p,q;
     uint32_t temp;
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     if(basetrailM32[0][0]!=-1) return ;
     initM32_times=N;
     for(int i=0;i<initM32_times;i++)//generate reversible base matrix
@@ -1249,7 +1496,7 @@ void genMatpairM32(M32 *Mat,M32 *Mat_inv)//generate 32*32 reversible matrix and 
     int trail[M32N][3];
     copyM32(baseM32,Mat);//copy base matrix
     identityM32(Mat_inv);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     for(int i=0;i<M32N;i++)//generate reversible matrix
     {
         p=rand()%32;
@@ -1310,7 +1557,7 @@ void initinvbaseM64(int N)//initial base matrix, parameter: initM64_min , initM6
 {
     int p,q;
     uint64_t temp;
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     if(basetrailM64[0][0]!=-1) return ;
     initM64_times=N;
     for(int i=0;i<initM64_times;i++)//generate reversible base matrix
@@ -1348,7 +1595,7 @@ void genMatpairM64(M64 *Mat,M64 *Mat_inv)//generate 64*64 reversible matrix and 
     int trail[M64N][3];
     copyM64(baseM64,Mat);//copy base matrix
     identityM64(Mat_inv);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     for(int i=0;i<M64N;i++)//generate reversible matrix
     {
         p=rand()%64;
@@ -1410,7 +1657,7 @@ void initinvbaseM128(int N)//initial base matrix, parameter: initM128_min , init
 {
     int p,q;
     uint64_t temp[2];
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     if(basetrailM128[0][0]!=-1) return ;
     initM128_times=N;
     for(int i=0;i<initM128_times;i++)//generate reversible base matrix
@@ -1452,7 +1699,7 @@ void genMatpairM128(M128 *Mat,M128 *Mat_inv)//generate 128*128 reversible matrix
     int trail[M128N][3];
     copyM128(baseM128,Mat);
     identityM128(Mat_inv);
-    srand((randseed++)^time(NULL));
+    srand((randseed++)^(unsigned int)time(NULL));
     for(int i=0;i<M128N;i++)//generate reversible matrix
     {
         p=rand()%128;
@@ -1597,101 +1844,65 @@ void affinecomM8to32(Aff8 aff1,Aff8 aff2,Aff8 aff3,Aff8 aff4,Aff32 *aff)//diagon
 }
 void MattransM8(M8 Mat,M8 *Mat_trans)//matrix tansposition M8
 {
-    //initM8(Mat_trans);
+    initM8(Mat_trans);
     for(int i=0;i<8;i++)
     {
-        if((Mat.M[0]<<i)&0x80) (*Mat_trans).M[i]=0x01;
-        else (*Mat_trans).M[i]=0x00;
-        for(int j=1;j<8;j++)
+        for(int j=0;j<8;j++)
         {
-            (*Mat_trans).M[i]=(*Mat_trans).M[i]<<1;
-            if((Mat.M[j]<<i)&0x80) (*Mat_trans).M[i]^=0x01;
+            if(Mat.M[i]&idM8[j]) (*Mat_trans).M[j]^=idM8[i];
         }
     }
 }
 void MattransM16(M16 Mat,M16 *Mat_trans)//matrix tansposition M16
 {
-    //initM16(Mat_trans);
+    initM16(Mat_trans);
     for(int i=0;i<16;i++)
     {
-        if((Mat.M[0]<<i)&0x8000) (*Mat_trans).M[i]=0x0001;
-        else (*Mat_trans).M[i]=0x0000;
-        for(int j=1;j<16;j++)
+        for(int j=0;j<16;j++)
         {
-            (*Mat_trans).M[i]=(*Mat_trans).M[i]<<1;
-            if((Mat.M[j]<<i)&0x8000) (*Mat_trans).M[i]^=0x0001;
+            if(Mat.M[i]&idM16[j]) (*Mat_trans).M[j]^=idM16[i];
         }
     }
 }
 void MattransM32(M32 Mat,M32 *Mat_trans)//matrix tansposition M32
 {
-    //initM32(Mat_trans);
+    initM32(Mat_trans);
     for(int i=0;i<32;i++)
     {
-        if((Mat.M[0]<<i)&0x80000000) (*Mat_trans).M[i]=0x00000001;
-        else (*Mat_trans).M[i]=0x00000000;
-        for(int j=1;j<32;j++)
+        for(int j=0;j<32;j++)
         {
-            (*Mat_trans).M[i]=(*Mat_trans).M[i]<<1;
-            if((Mat.M[j]<<i)&0x80000000) (*Mat_trans).M[i]^=0x00000001;
+            if(Mat.M[i]&idM32[j]) (*Mat_trans).M[j]^=idM32[i];
         }
     }
 }
 void MattransM64(M64 Mat,M64 *Mat_trans)//matrix tansposition M64
 {
-    //initM64(Mat_trans);
+    initM64(Mat_trans);
     for(int i=0;i<64;i++)
     {
-        if((Mat.M[0]<<i)&0x8000000000000000) (*Mat_trans).M[i]=0x0000000000000001;
-        else (*Mat_trans).M[i]=0x0000000000000000;
-        for(int j=1;j<64;j++)
+        for(int j=0;j<64;j++)
         {
-            (*Mat_trans).M[i]=(*Mat_trans).M[i]<<1;
-            if((Mat.M[j]<<i)&0x8000000000000000) (*Mat_trans).M[i]^=0x0000000000000001;
+            if(Mat.M[i]&idM64[j]) (*Mat_trans).M[j]^=idM64[i];
         }
     }
 }
 void MattransM128(M128 Mat,M128 *Mat_trans)//matrix tansposition M128
 {
-    //initM128(Mat_trans);
+    initM128(Mat_trans);
     for(int i=0;i<64;i++)
     {
-        if((Mat.M[0][0]<<i)&0x8000000000000000) (*Mat_trans).M[i][0]=0x0000000000000001;
-        else (*Mat_trans).M[i][0]=0x0000000000000000;
-        for(int j=1;j<64;j++)
+        for(int j=0;j<64;j++)
         {
-            (*Mat_trans).M[i][0]=(*Mat_trans).M[i][0]<<1;
-            if((Mat.M[j][0]<<i)&0x8000000000000000) (*Mat_trans).M[i][0]^=0x0000000000000001;
-        }
-    }
-    for(int i=0;i<64;i++)
-    {
-        if((Mat.M[64][0]<<i)&0x8000000000000000) (*Mat_trans).M[i][1]=0x0000000000000001;
-        else (*Mat_trans).M[i][1]=0x0000000000000000;
-        for(int j=65;j<128;j++)
-        {
-            (*Mat_trans).M[i][1]=(*Mat_trans).M[i][1]<<1;
-            if((Mat.M[j][0]<<i)&0x8000000000000000) (*Mat_trans).M[i][1]^=0x0000000000000001;
+            if(Mat.M[i][0]&idM64[j]) (*Mat_trans).M[j][0]^=idM64[i];
+            if(Mat.M[i][1]&idM64[j]) (*Mat_trans).M[j+64][0]^=idM64[i];
         }
     }
     for(int i=64;i<128;i++)
     {
-        if((Mat.M[0][1]<<(i-64))&0x8000000000000000) (*Mat_trans).M[i][0]=0x0000000000000001;
-        else (*Mat_trans).M[i][0]=0x0000000000000000;
-        for(int j=1;j<64;j++)
+        for(int j=0;j<64;j++)
         {
-            (*Mat_trans).M[i][0]=(*Mat_trans).M[i][0]<<1;
-            if((Mat.M[j][1]<<(i-64))&0x8000000000000000) (*Mat_trans).M[i][0]^=0x0000000000000001;
-        }
-    }
-    for(int i=64;i<128;i++)
-    {
-        if((Mat.M[64][1]<<(i-64))&0x8000000000000000) (*Mat_trans).M[i][1]=0x0000000000000001;
-        else (*Mat_trans).M[i][1]=0x0000000000000000;
-        for(int j=65;j<128;j++)
-        {
-            (*Mat_trans).M[i][1]=(*Mat_trans).M[i][1]<<1;
-            if((Mat.M[j][1]<<(i-64))&0x8000000000000000) (*Mat_trans).M[i][1]^=0x0000000000000001;
+            if(Mat.M[i][0]&idM64[j]) (*Mat_trans).M[j][1]^=idM64[i-64];
+            if(Mat.M[i][1]&idM64[j]) (*Mat_trans).M[j+64][1]^=idM64[i-64];
         }
     }
 }
@@ -1738,11 +1949,9 @@ void MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat)//matrix multiplication 8*8 mul 8*8 -> 
     MattransM8(Mat2,&Mat2_trans);
     for(int i=0;i<8;i++)
     {
-        if(xorU8(Mat1.M[i]&Mat2_trans.M[0])) (*Mat).M[i]=0x01;
-        for(int j=1;j<8;j++)
+        for(int j=0;j<8;j++)
         {
-            (*Mat).M[i]=(*Mat).M[i]<<1;
-            if(xorU8(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=0x01;
+            if(xorU8(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=idM8[j];
         }       
     }
 }
@@ -1753,11 +1962,9 @@ void MatMulMatM16(M16 Mat1,M16 Mat2,M16 *Mat)//matrix multiplication 16*16 mul 1
     MattransM16(Mat2,&Mat2_trans);
     for(int i=0;i<16;i++)
     {
-        if(xorU16(Mat1.M[i]&Mat2_trans.M[0])) (*Mat).M[i]=0x0001;
-        for(int j=1;j<16;j++)
+        for(int j=0;j<16;j++)
         {
-            (*Mat).M[i]=(*Mat).M[i]<<1;
-            if(xorU16(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=0x0001;
+            if(xorU16(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=idM16[j];
         }       
     }
 }
@@ -1768,11 +1975,9 @@ void MatMulMatM32(M32 Mat1,M32 Mat2,M32 *Mat)//matrix multiplication 32*32 mul 3
     MattransM32(Mat2,&Mat2_trans);
     for(int i=0;i<32;i++)
     {
-        if(xorU32(Mat1.M[i]&Mat2_trans.M[0])) (*Mat).M[i]=0x00000001;
-        for(int j=1;j<32;j++)
+        for(int j=0;j<32;j++)
         {
-            (*Mat).M[i]=(*Mat).M[i]<<1;
-            if(xorU32(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=0x00000001;
+            if(xorU32(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=idM32[j];
         }       
     } 
 }
@@ -1783,11 +1988,9 @@ void MatMulMatM64(M64 Mat1,M64 Mat2,M64 *Mat)//matrix multiplication 64*64 mul 6
     MattransM64(Mat2,&Mat2_trans);
     for(int i=0;i<64;i++)
     {
-        if(xorU64(Mat1.M[i]&Mat2_trans.M[0])) (*Mat).M[i]=0x0000000000000001;
-        for(int j=1;j<64;j++)
+        for(int j=0;j<64;j++)
         {
-            (*Mat).M[i]=(*Mat).M[i]<<1;
-            if(xorU64(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=0x0000000000000001;
+            if(xorU64(Mat1.M[i]&Mat2_trans.M[j])) (*Mat).M[i]^=idM64[j];
         }       
     } 
 }
@@ -1799,25 +2002,17 @@ void MatMulMatM128(M128 Mat1,M128 Mat2,M128 *Mat)//matrix multiplication 128*128
     MattransM128(Mat2,&Mat2_trans);
     for(int i=0;i<128;i++)
     {
-        temp[0]=Mat1.M[i][0]&Mat2_trans.M[0][0];
-        temp[1]=Mat1.M[i][1]&Mat2_trans.M[0][1];
-        if(xorU128(temp)) (*Mat).M[i][0]=0x0000000000000001;
-        for(int j=1;j<64;j++)
+        for(int j=0;j<64;j++)
         {
-            (*Mat).M[i][0]=(*Mat).M[i][0]<<1;
             temp[0]=Mat1.M[i][0]&Mat2_trans.M[j][0];
             temp[1]=Mat1.M[i][1]&Mat2_trans.M[j][1];
-            if(xorU128(temp)) (*Mat).M[i][0]^=0x0000000000000001;
+            if(xorU128(temp)) (*Mat).M[i][0]^=idM64[j];
         }
-        temp[0]=Mat1.M[i][0]&Mat2_trans.M[64][0];
-        temp[1]=Mat1.M[i][1]&Mat2_trans.M[64][1];
-        if(xorU128(temp)) (*Mat).M[i][1]=0x0000000000000001;
-        for(int j=65;j<128;j++)
+        for(int j=64;j<128;j++)
         {
-            (*Mat).M[i][1]=(*Mat).M[i][1]<<1;
             temp[0]=Mat1.M[i][0]&Mat2_trans.M[j][0];
             temp[1]=Mat1.M[i][1]&Mat2_trans.M[j][1];
-            if(xorU128(temp)) (*Mat).M[i][1]^=0x0000000000000001;
+            if(xorU128(temp)) (*Mat).M[i][1]^=idM64[j-64];
         }
     } 
 }
