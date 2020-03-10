@@ -37,7 +37,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last Updated : 2019/03/09<br>
+Last Updated : 2019/03/10<br>
 Modified By : Nexus
 
 ---
@@ -142,3 +142,6 @@ The initial base matrix function has a max times and a min times for selection w
 
 (2019/03/09)<br>
 1.Update: WBMatrix Library for WBAES.<br>
+
+(2019/03/10)<br>
+1.New: WBSM4 by M4RI.<br>
