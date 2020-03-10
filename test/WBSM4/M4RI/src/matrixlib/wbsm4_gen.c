@@ -63,7 +63,7 @@ void sm4_wb_gen_affine(Sm4Whitebox* sm4_wb_ctx)
 }
 void sm4_wb_combine_tables(Sm4Whitebox* sm4_wb_ctx,MatGf2 csl_matrix)
 {
-        int i,j;
+    int i,j;
     MatGf2 temp = NULL;
     MatGf2 kv = NULL;
     MatGf2 dest = NULL;
