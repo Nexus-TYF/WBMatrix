@@ -78,7 +78,6 @@ int main(int argc, char * argv[])
         expandKey (key, expandedKey);
 
         printf("WBAES-NTL performance test:\n");
-        //MatGf2 Tim8;
         begin = start_rdtsc();
         for (i = 0; i < TEST; i++)
         {

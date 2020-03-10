@@ -145,3 +145,4 @@ The initial base matrix function has a max times and a min times for selection w
 
 (2019/03/10)<br>
 1.New: WBSM4 by M4RI.<br>
+2.Fixed: the release version of WBAES(WBMatrix version).<br>

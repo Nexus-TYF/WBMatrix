@@ -2,9 +2,7 @@
 #define GENTABLES_H
 
 #include "aes.h"
-extern "C" {
-  #include "WBMatrix/WBMatrix.h"
-}
+#include "WBMatrix/WBMatrix.h"
 typedef unsigned char  u8;
 typedef unsigned int   u32;
 
