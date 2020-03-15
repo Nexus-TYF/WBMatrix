@@ -2,7 +2,9 @@ WBMatrix
 ====
 
 White-Box Matrix Library<br>
-(Designed for encodings in White-Box block cipher implementations)
+(A new matrix library designed for encodings in White-Box block cipher implementations)
+
+Contains the relevant matrix operations in white-box design, and general test cases for matrix operations, aslo provide a Chow et al.'s White-box AES and Xiao-Lai's white-box SM4 built by WBMatrix, NTL and M4RI, respectively.
 
 * Support For Following Operations(8/16/32/64/128 bits):<br>
 * Matrix-Vector multiplication<br>
@@ -21,7 +23,7 @@ White-Box Matrix Library<br>
 ###Main Function(8bit in Example):<br>
 * **initinvbaseM8(int N)** : initial base invertible matrix which generate in N times.<br>
 we give a suggestion for the selection of N in inverse.h .<br>
-* **genMatpairM8(M8 *Mat,M8 *Mat_inv)** : generate an invertible matrix Mat and its inverse matrix Mat_inv from the base matrix in prestored times set in inverse.h.<br>
+* **genMatpairM8(M8 *Mat,M8 *Mat_inv)** : generate an invertible matrix Mat and its inverse matrix Mat_inv from the base matrix with prestored operating times set in inverse.h.<br>
 * **genaffinepairM8(Aff8 *aff,Aff8 *aff_inv)** : generate an affine transformation aff and its inverse affine transformation aff_inv.<br>
 * **MatMulVecM8(M8 Mat,V8 Vec,V8 *ans)** : multiplication for matrix Mat and vertor Vec, result set in ans.<br>
 * **MatMulMatM8(M8 Mat1,M8 Mat2,M8 *Mat)** : multiplication for matrix Mat1 and matrix Mat2, result set in Mat.<br>
@@ -37,7 +39,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]);<br>
 printM32(mat32[2]);<br>
 
 ---
-Last Updated : 2019/03/11<br>
+Last Updated : 2019/03/15<br>
 Modified By : Nexus
 
 ---
@@ -47,11 +49,11 @@ Details:<br>
 (now just support for 8/32bits operations)<br>
 2.Unify the API<br>
 3.User can change the generation times in inverse.h <br>
-4.Use initinvbaseM(8/32)() function to generate a initialized invertible matrix and it's trails are recorded in basetrailM(8/32)<br>
+4.Use initinvbaseM(8/32)() function to generate an initialized invertible matrix and it's trails are recorded in basetrailM(8/32)<br>
 8bits default value is 10<br>
 32bits default value is 30<br>
 which represent the operation times.<br>
-5.If not use the initialize fucntion then each matrix generate from a identify matrix in defined times<br>
+5.If not use the initialize function then each matrix generate from an identify matrix in defined times<br>
 6.New: copy function instead of identify function.<br>
 
 (2019/12/10)<br>
@@ -151,3 +153,6 @@ The initial base matrix function has a max times and a min times for selection w
 (2019/03/11)<br>
 1.New: WBSM4 by NTL.<br> 
 2.Update: Clean-up NTL files.<br>
+
+(2019/03/15)<br>
+1.New: Release on github.<br> 

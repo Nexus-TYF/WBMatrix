@@ -1,3 +1,4 @@
+//pairwise invertible matrices test of WBMatrix
 #include "WBMatrix.h"
 #ifdef __GNUC__
 #include <x86intrin.h>
