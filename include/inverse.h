@@ -8,7 +8,7 @@
 #define M64N 342
 #define M128N 1172
 
-//times of base matrix's generation, select by user
+//times of basis matrix's generation, select by user
 #define initM8_min 8
 #define initM8_max 32
 

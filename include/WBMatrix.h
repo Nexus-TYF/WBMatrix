@@ -1,8 +1,8 @@
 #ifndef _HWBMATRIX_H_
 #define _HWBMATRIX_H_
 /***
- * Last Update:2020/03/06
- * Version:2.1.2
+ * Last Update:2020/04/15
+ * Version:2.2.0
 ***/
 #include "structure.h"
 #include "inverse.h"
@@ -33,6 +33,7 @@ void VecAddVecV8(V8 Vec1,V8 Vec2,V8 *Vec);
 
 uint8_t affineU8(Aff8 aff,uint8_t arr);
 int xorU8(uint8_t n);
+int HWU8(uint8_t n);
 void printU8(uint8_t n);
 
 void MatMulVecM8(M8 Mat,V8 Vec,V8 *ans);
@@ -66,6 +67,7 @@ void VecAddVecV16(V16 Vec1,V16 Vec2,V16 *Vec);
 
 uint16_t affineU16(Aff16 aff,uint16_t arr);
 int xorU16(uint16_t n);
+int HWU16(uint16_t n);
 void printU16(uint16_t n);
 void MatAddMatM16(M16 Mat1,M16 Mat2,M16 *Mat);
 void MatMulVecM16(M16 Mat,V16 Vec,V16 *ans);
@@ -99,6 +101,7 @@ void VecAddVecV32(V32 Vec1,V32 Vec2,V32 *Vec);
 
 uint32_t affineU32(Aff32 aff,uint32_t arr);
 int xorU32(uint32_t n);
+int HWU32(uint32_t n);
 void printU32(uint32_t n);
 
 void MatMulVecM32(M32 Mat,V32 Vec,V32 *ans);
@@ -135,6 +138,7 @@ void VecAddVecV64(V64 Vec1,V64 Vec2,V64 *Vec);
 
 uint64_t affineU64(Aff64 aff,uint64_t arr);
 int xorU64(uint64_t n);
+int HWU64(uint64_t n);
 void printU64(uint64_t n);
 
 void MatMulVecM64(M64 Mat,V64 Vec,V64 *ans);
@@ -167,6 +171,7 @@ void printV128(V128 Vec);
 
 void affineU128(Aff128 aff,uint64_t arr[],uint64_t ans[]);
 int xorU128(uint64_t n[]);
+int HWU128(uint64_t n[]);
 void printU128(uint64_t n[]);
 int isequalV128(V128 Vec1,V128 Vec2);
 void VecAddVecV128(V128 Vec1,V128 Vec2,V128 *Vec);
