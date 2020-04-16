@@ -21,7 +21,7 @@ Header Files:
 * **inverse.h** Revisable generate times from the temporary state matrix , the selection times for initialization of base matrix.<br>
 * **WBMatrix.h** The declaration of the main function.<br>
 * **struture.h** Data structure of matrix.<br>
-* **struture.h** For random functions.<br>
+* **random.h** For random functions.<br>
 
 Main Functions (8bit in Example):
 -------
