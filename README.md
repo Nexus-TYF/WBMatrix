@@ -46,7 +46,7 @@ printM32(mat32[2]); //printf the matrix<br>
 
 ---
 Last Updated : 2020/04/15<br>
-Modified By : Nexus
+Modified By : 
 
 ---
 Details of update:<br>
