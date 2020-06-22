@@ -6,10 +6,10 @@ Implementations<br>
 
 Contains the matrix-operation supports and test cases related to white-box block cipher implementation, and provides the [Chow et al.'s][1] White-box AES and [Xiao-Lai's][2] white-box SM4 built by WBMatrix, [NTL][3], and [M4RI][4], respectively.
 
-[1]Chow S, Eisen P, Johnson H, et al. White-box cryptography and an AES implementation[C]//International Workshop on Selected Areas in Cryptography. Springer, Berlin, Heidelberg, 2002: 250-270.
-[2]Xiao Y, Lai X. White-box cryptography and a white-box implementation of the SMS4 algorithm[J]. Proc. Chaincrypto, 2009: 24-34.
-[3]https://www.shoup.net/ntl/
-[4]https://github.com/malb/m4ri
+[1]: Chow S, Eisen P, Johnson H, et al. White-box cryptography and an AES implementation[C]//International Workshop on Selected Areas in Cryptography. Springer, Berlin, Heidelberg, 2002: 250-270.
+[2]: Xiao Y, Lai X. White-box cryptography and a white-box implementation of the SMS4 algorithm[J]. Proc. Chaincrypto, 2009: 24-34.
+[3]: https://www.shoup.net/ntl/
+[4]: https://github.com/malb/m4ri
 
 Supports For Following Operations (8/16/32/64/128 bits):<br>
 * Matrix-Vector multiplication<br>
