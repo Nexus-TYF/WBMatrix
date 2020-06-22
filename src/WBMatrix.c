@@ -374,7 +374,7 @@ void randM8(M8 *Mat)//randomize Matrix 8*8
     InitRandom((randseed++)^((unsigned int)time(NULL)));
     for(int i=0;i<8;i++)
     {
-        (*Mat).M[i]=random();
+        (*Mat).M[i]=cus_random();
     }
 }
 void randM16(M16 *Mat)//randomize Matrix 16*16 
@@ -382,7 +382,7 @@ void randM16(M16 *Mat)//randomize Matrix 16*16
     InitRandom((randseed++)^((unsigned int)time(NULL)));
     for(int i=0;i<16;i++)
     {
-        (*Mat).M[i]=random();
+        (*Mat).M[i]=cus_random();
     }
 }
 void randM32(M32 *Mat)//randomize Matrix 32*32 
@@ -390,7 +390,7 @@ void randM32(M32 *Mat)//randomize Matrix 32*32
     InitRandom((randseed++)^((unsigned int)time(NULL)));
     for(int i=0;i<32;i++)
     {
-        (*Mat).M[i]=random();
+        (*Mat).M[i]=cus_random();
     }
 }
 void randM64(M64 *Mat)//randomize Matrix 64*64 
@@ -400,8 +400,8 @@ void randM64(M64 *Mat)//randomize Matrix 64*64
     for(int i=0;i<64;i++)
     {
         m=(uint32_t*)&((*Mat).M[i]);
-        *(m+1)=random();
-        *m=random();
+        *(m+1)=cus_random();
+        *m=cus_random();
     }
 }
 void randM128(M128 *Mat)//randomize Matrix 128*128 
@@ -411,11 +411,11 @@ void randM128(M128 *Mat)//randomize Matrix 128*128
     for(int i=0;i<128;i++)
     {
         m=(uint32_t*)&((*Mat).M[i][0]);
-        *(m+1)=random();
-        *m=random();
+        *(m+1)=cus_random();
+        *m=cus_random();
         m=(uint32_t*)&((*Mat).M[i][1]);
-        *(m+1)=random();
-        *m=random();
+        *(m+1)=cus_random();
+        *m=cus_random();
     }
 }
 void identityM8(M8 *Mat)//identity matrix 8*8

@@ -5,6 +5,6 @@
 
 unsigned int permuteQPR(unsigned int x);
 void InitRandom(unsigned int seedBase);
-unsigned int random();
+unsigned int cus_random();
 
 #endif // __RANDOM_SEQUENCE_H__

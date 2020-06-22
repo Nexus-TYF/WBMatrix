@@ -1,10 +1,15 @@
 WBMatrix
 ====
 
-An Optimized Matrix Library for White-Box White-Box Block Cipher
+An Optimized Matrix Library for White-Box Block Cipher
 Implementations<br>
 
-Contains the matrix operations and test cases related to white-box block cipher implementation and provides the Chow et al.'s White-box AES and Xiao-Lai's white-box SM4 built by WBMatrix, NTL, and M4RI, respectively.
+Contains the matrix-operation supports and test cases related to white-box block cipher implementation, and provides the [Chow et al.'s][1] White-box AES and [Xiao-Lai's][2] white-box SM4 built by WBMatrix, [NTL][3], and [M4RI][4], respectively.
+
+[1]Chow S, Eisen P, Johnson H, et al. White-box cryptography and an AES implementation[C]//International Workshop on Selected Areas in Cryptography. Springer, Berlin, Heidelberg, 2002: 250-270.
+[2]Xiao Y, Lai X. White-box cryptography and a white-box implementation of the SMS4 algorithm[J]. Proc. Chaincrypto, 2009: 24-34.
+[3]https://www.shoup.net/ntl/
+[4]https://github.com/malb/m4ri
 
 Supports For Following Operations (8/16/32/64/128 bits):<br>
 * Matrix-Vector multiplication<br>
@@ -45,7 +50,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]); //matrix-matrix multiplication<br>
 printM32(mat32[2]); //printf the matrix<br>
 
 ---
-Last Updated : 2020/04/15<br>
+Last Updated : 2020/06/22<br>
 Modified By : 
 
 ---
@@ -59,7 +64,7 @@ Details of update:<br>
 8bits default value is 10<br>
 32bits default value is 30<br>
 which represent the operation times.<br>
-5. If not use the initialize function then each matrix generate from an identify matrix in defined times<br>
+5. If not use the initialize function then each matrix generates from an identify matrix in defined times<br>
 6. New: copy function instead of identify function.<br>
 
 (2019/12/10)<br>
@@ -72,29 +77,29 @@ New method has been covered.<br>
 No retrun value because of its special structure.
 
 (2019/12/12)<br>
-1.  New: 16/64/128bit affine combination operation.<br>
+1. New: 16/64/128bit affine combination operation.<br>
 
 (2019/12/16)<br>
-1.  New: header files define code.<br>
+1. New: header files define code.<br>
 
 (2019/12/17)<br>
-1.  Fix some errors.<br>
+1. Fix some errors.<br>
 2. New: Add parameter for initial base matrix function. <br>
 The initial base matrix function has a max times and a min times for selection which is detailed in inverse.h .<br> 
 
 (2020/01/08)<br>
-1.  New: Add Matrix addition function.<br>
+1. New: Add Matrix addition function.<br>
 
 (2020/01/10)<br>
-1.  File tidying.<br>
+1. File tidying.<br>
 2. New: Add WBMatrix test.<br>
 3. New: Add Matrix Basis Method test.<br>
 
 (2020/01/12)<br>
-1.  New: Add 128bit test for matrix basis method.<br>
+1. New: Add 128bit test for matrix basis method.<br>
 
 (2020/01/18)<br>
-1. Update test case: generate invertible matrix , compute inverse matrix.<br>
+1. Update the test case: generate invertible matrix , compute inverse matrix.<br>
 2. Invertible: Matrix Basis Method, WBMatrix Method, Reverse Gaussian Elimination Method.<br>
 3. Inverse: WBMatrix Method, Matrix Basis Method.<br>
 
@@ -166,3 +171,7 @@ The initial base matrix function has a max times and a min times for selection w
 (2020/04/15)<br>
 1. New: support for returning Hamming Weight.<br> 
 2. New: add an example for mitigating DCA attack.<br>
+
+(2020/06/22)<br>
+1. Fixed: Add the references of articles and implementations.<br>
+2. Fixed: random function errors in Linux.<br>

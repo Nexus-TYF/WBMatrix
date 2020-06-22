@@ -7,7 +7,7 @@ unsigned int permuteQPR(unsigned int x)
 {
     static const unsigned int prime = 4294967291u;
     if (x >= prime)
-        return x;  // The 5 integers out of range are mapped to themselves.
+        return x;
     unsigned int residue = ((unsigned long long) x * x) % prime;
     return (x <= prime / 2) ? residue : prime - residue;
 }
@@ -19,7 +19,7 @@ void InitRandom(unsigned int seedBase)
     m_intermediateOffset = permuteQPR(permuteQPR(seedOffset) + 0x46790905);
 }
 
-unsigned int random()
+unsigned int cus_random()
 {
     return permuteQPR((permuteQPR(m_index++) + m_intermediateOffset) ^ 0x5bf03635);
 }
