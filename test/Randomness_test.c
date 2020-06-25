@@ -4,11 +4,77 @@
 #define TEST32 20000
 #define TEST64 5000
 #define TEST128 2000
-
+void InvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
+{
+    M8 temp;
+    randM8(&temp);
+    while(!isinvertM8(temp))
+    {
+        randM8(&temp);
+    }
+    copyM8(temp,Mat);
+}
+void randMat_m8_test()
+{
+    M8 Mat[TEST8];
+    FILE *fd = fopen("RandMat_8bits.bin","wb");
+    if(fd == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    for(int i = 0; i < TEST8; i++)
+    {
+        InvTMatM8(&Mat[i]);
+    }
+    fwrite(Mat, sizeof(M8), TEST8, fd);
+    fclose(fd);
+}
+void rGInvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
+{
+    int randAdd;
+    int randExc;
+    uint8_t temp;
+    srand(time(NULL));
+    for(int i=7;i>=0;i--)
+    {
+        for(int j=0;j<8;j++)//Add
+        {
+            if(j!=i)
+            {
+                randAdd=rand()%2;
+                if(randAdd) (*Mat).M[j]^=(*Mat).M[i];
+            }
+        }
+        if(i<7)//Exchange
+        {
+            randExc=i+1+rand()%(7-i);
+            temp=(*Mat).M[i];
+            (*Mat).M[i]=(*Mat).M[randExc];
+            (*Mat).M[randExc]=temp;
+        }   
+    }
+}
+void reGauss_m8_test()
+{
+    M8 Mat[TEST8];
+    FILE *fd = fopen("ReGauss_8bits.bin","wb");
+    if(fd == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    for(int i = 0; i < TEST8; i++)
+    {
+        rGInvTMatM8(&Mat[i]);
+    }
+    fwrite(Mat, sizeof(M8), TEST8, fd);
+    fclose(fd);
+}
 void m8_test()
 {
     M8 Mat1[TEST8], Mat2[TEST8];
-    FILE *fd = fopen("WBMatix_8bits_1024s.bin","wb");
+    FILE *fd = fopen("WBMatix_8bits.bin","wb");
     if(fd == NULL)
     {
         perror("open failed!");
@@ -17,7 +83,6 @@ void m8_test()
     for(int i = 0; i < TEST8; i++)
     {
         genMatpairM8(&Mat1[i], &Mat2[i]);
-        //randM8(&Mat1[i]);
     }
     fwrite(Mat1, sizeof(M8), TEST8, fd);
     fclose(fd);
@@ -92,6 +157,8 @@ int main()
     //m16_test();
     //m32_test();
     //m64_test();
-    m128_test();
+    //m128_test();
+    //randMat_m8_test();
+    reGauss_m8_test();
     return 0;
 }
