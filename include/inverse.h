@@ -2,7 +2,7 @@
 #define _HINVERSE_H_
 
 //times generate from base matrix, define by user
-#define M8N 11
+#define M8N 1024
 #define M16N 33
 #define M32N 103
 #define M64N 342

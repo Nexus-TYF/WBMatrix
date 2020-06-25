@@ -4,15 +4,15 @@ WBMatrix
 An Optimized Matrix Library for White-Box Block Cipher
 Implementations<br>
 
-Contains the matrix-operation supports and test cases related to white-box block cipher implementation, and provides the [Chow et al.'s][1] White-box AES and [Xiao-Lai's][2] white-box SM4 built by WBMatrix, [NTL][3], and [M4RI][4], respectively.
+Contains the matrix-operation supports and test cases related to white-box block cipher implementation, and provides the [Chow et al.'s][*] white-box AES and [Xiao-Lai's][**] white-box SM4 built by WBMatrix, [NTL][*~], and [M4RI][~~], respectively.
 
-[1]: Chow S, Eisen P, Johnson H, et al. White-box cryptography and an AES implementation[C]//International Workshop on Selected Areas in Cryptography. Springer, Berlin, Heidelberg, 2002: 250-270.
+[*]: Chow S, Eisen P, Johnson H, et al. White-box cryptography and an AES implementation[C]//International Workshop on Selected Areas in Cryptography. Springer, Berlin, Heidelberg, 2002: 250-270.
 
-[2]: Xiao Y, Lai X. White-box cryptography and a white-box implementation of the SMS4 algorithm[J]. Proc. Chaincrypto, 2009: 24-34.
+[**]: Xiao Y, Lai X. White-box cryptography and a white-box implementation of the SMS4 algorithm[J]. Proc. Chaincrypto, 2009: 24-34.
 
-[3]: https://www.shoup.net/ntl/
+[*~]: https://www.shoup.net/ntl/
 
-[4]: https://github.com/malb/m4ri
+[~~]: https://github.com/malb/m4ri
 
 Supports For Following Operations (8/16/32/64/128 bits):<br>
 * Matrix-Vector multiplication<br>
@@ -53,13 +53,13 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]); //matrix-matrix multiplication<br>
 printM32(mat32[2]); //printf the matrix<br>
 
 ---
-Last Updated : 2020/06/22<br>
+Last Updated : 2020/06/25<br>
 Modified By : 
 
 ---
 Details of update:<br>
 (2019/12/9)<br>
-1.  Change the generation of invertible matrix to base on an initialized matrix
+1. Change the generation of invertible matrix to base on an initialized matrix
 (now just support for 8/32bits operations)<br>
 2. Unify the API<br>
 3. User can change the generation times in inverse.h <br>
@@ -71,11 +71,11 @@ which represent the operation times.<br>
 6. New: copy function instead of identify function.<br>
 
 (2019/12/10)<br>
-1.  Update 16/64/128bits inverse matrix function.<br>
+1. Update 16/64/128bits inverse matrix function.<br>
 New method has been covered.<br>
 
 (2019/12/11)<br>
-1.  New: 16/64bit affine transformation.<br>
+1. New: 16/64bit affine transformation.<br>
 2. New: 128bit affine transformation.<br>
 No retrun value because of its special structure.
 
@@ -176,5 +176,9 @@ The initial base matrix function has a max times and a min times for selection w
 2. New: add an example for mitigating DCA attack.<br>
 
 (2020/06/22)<br>
-1. Fixed: Add the references of articles and implementations.<br>
+1. New: Add the references of articles and implementations.<br>
 2. Fixed: random function errors in Linux.<br>
+
+(2020/06/25)<br>
+1. New: Add randomness test cases (Special Publication 800-22
+Revision 1a).<br>
