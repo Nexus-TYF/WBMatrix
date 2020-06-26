@@ -102,7 +102,7 @@ testlist = [
         'random_excursion_test',
         'random_excursion_variant_test']
 
-fname = path1 + "/data/" + str(filename)
+fname = path1 + "/" + str(filename)
 fname = fname.replace('.bin', '.txt')
 fo = open(fname, "w")
 fo.write("Tests of Distinguishability from Random\n")

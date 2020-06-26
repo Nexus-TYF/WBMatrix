@@ -1,5 +1,5 @@
 //Basis Matrix Method 
-#include "WBMatrix.h"
+#include "WBMatrix/WBMatrix.h"
 #ifdef __GNUC__
 #include <x86intrin.h>
 #endif

@@ -53,7 +53,7 @@ MatMulMatM32(mat32[0],mat32[1],&mat32[2]); //matrix-matrix multiplication<br>
 printM32(mat32[2]); //prints the matrix<br>
 
 ---
-Last Updated : 2020/06/25<br>
+Last Updated : 2020/06/26<br>
 Modified By : 
 
 ---

@@ -1,5 +1,5 @@
 //Gaussian elimination Method Base on WBMatrix 
-#include "WBMatrix.h"
+#include "WBMatrix/WBMatrix.h"
 #ifdef __GNUC__
 #include <x86intrin.h>
 #endif

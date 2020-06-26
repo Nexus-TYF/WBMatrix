@@ -1,5 +1,5 @@
 //Reverse Gaussian elimination
-#include "structure.h"
+#include "WBMatrix/structure.h"
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>

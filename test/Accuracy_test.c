@@ -1,5 +1,5 @@
 //Accuarcy test for all functions of WBMatrix Library
-#include "WBMatrix.h"
+#include "WBMatrix/WBMatrix.h"
 #define TEST 10000
 int main()
 {
