@@ -1,5 +1,18 @@
 # WhiteBox SM4
 
-by NTL library
+An implementation of Xiao-Lai's [white-box SM4]((http://gb.oversea.cnki.net/KCMS/detail/detailall.aspx?filename=2010204831.nh&dbcode=CMFD&dbname=CMFD2010)) and it's performance test built by [NTL](https://shoup.net/ntl/) library.
 
-https://shoup.net/ntl/
+## Build
+
+```
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+```
+
+## Run
+
+```
+$ ./WBSM4
+```
