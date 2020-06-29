@@ -1,20 +1,14 @@
-WBMatrix
-====
+# WBMatrix
 
 An Optimized Matrix Library for White-Box Block Cipher
-Implementations<br>
+Implementations
 
-Contains the matrix-operation supports and test cases related to white-box block cipher implementation, and provides the [Chow et al.'s][*] white-box AES and [Xiao-Lai's][**] white-box SM4 built by WBMatrix, [NTL][*~], and [M4RI][~~], respectively.
+Contains the matrix-operation supports and test cases related to the white-box block cipher implementation, and provides the Chow et al.'s [white-box AES](https://link.springer.com/chapter/10.1007/3-540-36492-7_17) and Xiao-Lai's [white-box SM4](http://gb.oversea.cnki.net/KCMS/detail/detailall.aspx?filename=2010204831.nh&dbcode=CMFD&dbname=CMFD2010) implementations built by WBMatrix, [NTL](https://www.shoup.net/ntl/), and [M4RI](https://github.com/malb/m4ri), respectively.
 
-[*]: Chow S, Eisen P, Johnson H, et al. White-box cryptography and an AES implementation[C]//International Workshop on Selected Areas in Cryptography. Springer, Berlin, Heidelberg, 2002: 250-270.
+## Matrix Library
 
-[**]: Xiao Y, Lai X. White-box cryptography and a white-box implementation of the SMS4 algorithm[J]. Proc. Chaincrypto, 2009: 24-34.
+### Supports For Following Operations (8/16/32/64/128 bits)
 
-[*~]: https://www.shoup.net/ntl/
-
-[~~]: https://github.com/malb/m4ri
-
-Supports For Following Operations (8/16/32/64/128 bits):<br>
 * Matrix-Vector multiplication<br>
 * Matrix-Matrix multiplication<br>
 * Generation of an invertible Matrix with it's inverse matrix (pairwise invertible matrices)<br>
@@ -24,15 +18,15 @@ Supports For Following Operations (8/16/32/64/128 bits):<br>
 * Encodings concatenation<br>
 * Encodings conversion<br>
 
-Header Files:
--------
+### Header Files
+
 * **inverse.h** Revisable generating times from the temporary state matrix , the selection times for initialization of base matrix.<br>
 * **WBMatrix.h** The declaration of the main function.<br>
 * **struture.h** Data structure of matrix.<br>
 * **random.h** For random functions.<br>
 
-Main Functions (8bit in Example):
--------
+### Main Functions (8bit in Example)
+
 * **initinvbaseM8(int N)** a trace of the intermediate matrix which is generated in N times from an identity matrix.<br>
 we give a suggestion for the selection of N in inverse.h.<br>
 * **genMatpairM8(M8 \*Mat, M8 \*Mat_inv)** generates an invertible matrix Mat and its inverse matrix Mat_inv from the intermediate matrix with prestored operating times that are set in inverse.h.<br>
@@ -44,17 +38,68 @@ we give a suggestion for the selection of N in inverse.h.<br>
 * **affinemixM8(Aff8 aff, Aff8 preaff_inv, Aff8 \*mixaff)** affine conversion between aff and preaff_inv, result is set in mixaff.
 * **affinecomM8to32(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff32 \*aff)** affine concatenation, the matrix part of aff consists of sub-matrix on its diagonal, while the vector part of aff consists of sub-vector.
 
-Example:
--------
-M32 mat32[3]; //defines a 32-bit matrix<br>
+### Code Examples
+
+M32 mat32\[3\]; //defines a 32-bit matrix<br>
 initinvbaseM32(initM32_max); //initializes the intermediate matrix<br>
-genMatpairM32(&mat32[0],&mat32[1]); //generates the pairwise invertible matrices<br>
-MatMulMatM32(mat32[0],mat32[1],&mat32[2]); //matrix-matrix multiplication<br>
-printM32(mat32[2]); //prints the matrix<br>
+genMatpairM32(&mat32\[0\],&mat32\[1\]); //generates the pairwise invertible matrices<br>
+MatMulMatM32(mat32\[0\],mat32\[1\],&mat32\[2\]); //matrix-matrix multiplication<br>
+printM32(mat32\[2\]); //prints the matrix<br>
+
+### Includes library
+
+1. [Generation of random permutation](https://github.com/preshing/RandomSequence)
+
+---
+
+## Test Cases
+
+### Folder Introduction
+
+* **github1_M4RI** The performance test for matrix operation and for the generation of pairwise invertible matirces by M4RI library.<br>
+* **github(x)** The performance test for the generation of invertible matrix or the computation of invertion by the implementations on Github.<br>
+* **NTL** The matirx The performance test for matrix operation and for the generation of pairwise invertible matirces by NTL library.<br>
+* **randomness** A Statistical Test Suite for Random and Pseudorandom Number Generators for Cryptographic Applications (NIST Special Publication 800-22
+Revision 1a). <br>
+* **WBAES** A Chow et al.'s white-box AES implementation and its performance test built by WBMatrix, NTL, and M4RI respectively.<br>
+* **WBSM4** A Xiao-Lai's white-box SM4 implementation and its performance test built by WBMatrix, NTL, and M4RI respectively.<br>
+
+### File Introduction
+
+* **Accuracy_test.c** Accuracy test for the matrix operations in WBMatrix.<br>
+* **BasisMatrixMethod_test.c** Performance test for the generation of pairwise invertible matrices by Basis Matrix Method.<br>
+* **RGEMethod_test.c** Performance test for the generation of pairwise invertible matrices by [Reverse Gaussian Elimination Method](https://csce.ucmss.com/cr/books/2018/LFS/CSREA2018/MSV4017.pdf).<br>
+* **RLUDMethod_test.c** Performance test for the generation of pairwise invertible matrices by [Reverse LU Decomposition Method](https://csce.ucmss.com/cr/books/2018/LFS/CSREA2018/MSV4017.pdf).<br>
+* **BasisMatrixMethod_test.c** Performance test for the generation of pairwise invertible matrices by Randomly Generate and Verify Method.<br>
+* **WBMatrixMatOp_test.c** Performance test for the matrix operations in WBMatrix.<br>
+* **WBMatrixMethod_test.c** Performance test for the generation of pairwise invertible matrices by WBMatrix Method.<br>
+
+### Build
+
+```
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+```
+
+### Run
+
+```
+$ ./BMM
+```
+
+### Includes libraries
+
+1. [NTL](https://www.shoup.net/ntl/)<br>
+2. [M4RI](https://github.com/malb/m4ri)<br>
+3. [SM4](https://github.com/NEWPLAN/SMx/tree/master/SM4)<br>
+4. [(WB)AES](https://github.com/Gr1zz/WhiteBoxAES)<br>
+5. [sp800_22_tests](https://github.com/dj-on-github/sp800_22_tests)<br>
 
 ---
 Last Updated : 2020/06/26<br>
-Modified By : 
+Modified By : Nexus (Contact: yuft@m.scnu.edu.cn)
 
 ---
 Details of update:<br>
@@ -67,7 +112,7 @@ Details of update:<br>
 8bits default value is 10<br>
 32bits default value is 30<br>
 which represent the operation times.<br>
-5. If not use the initialize function then each matrix is generated from an identify matrix in defined times<br>
+5. If not use the initialized function then each matrix is generated from an identify matrix in defined times<br>
 6. New: Add copy function to replace the identify function.<br>
 
 (2019/12/10)<br>
