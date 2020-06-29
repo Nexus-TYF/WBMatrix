@@ -1,6 +1,27 @@
 # sp800_22_tests
-https://github.com/dj-on-github/sp800_22_tests
 
+Test for the randomness of matrix permutation.
+
+## README
+
+Generates the binary files of the matrix permutation and tests its randomness by [sp800_22_tests](https://github.com/dj-on-github/sp800_22_tests).
+
+## Build
+```
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+```
+
+## Run
+```
+$ ./RT
+$ cd ..
+$ python sp800_22_tests.py build/WBMatrix_8bits.bin
+```
+
+## Original README
 A python implementation of the SP800-22 Rev 1a PRNG test suite.
 
 The NIST STS-2.1.2 implementation of the SP800-22 Rev1a tests has some problems. It tends to crash a lot and give the wrong result.
