@@ -11,7 +11,7 @@ Contains the matrix-operation supports and test cases related to the white-box b
 
 * Matrix-Vector multiplication<br>
 * Matrix-Matrix multiplication<br>
-* Generation of an invertible Matrix with it's inverse matrix (pairwise invertible matrices)<br>
+* Generation of an invertible Matrix with its inverse matrix (pairwise invertible matrices)<br>
 * Generation of pairwise invertible affine transformations<br>
 * Matrix transpositon<br>
 * Affine transformation<br>
@@ -114,7 +114,7 @@ Details of update:<br>
 (now just supports for 8/32bits operations)<br>
 2. Unifies the API<br>
 3. User can change the generation times in inverse.h <br>
-4. Uses initinvbaseM(8/32)() function to generate an initialized invertible matrix and it's trails are recorded in basetrailM(8/32)<br>
+4. Uses initinvbaseM(8/32)() function to generate an initialized invertible matrix and its trails are recorded in basetrailM(8/32)<br>
 8bits default value is 10<br>
 32bits default value is 30<br>
 which represent the operation times.<br>

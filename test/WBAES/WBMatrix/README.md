@@ -1,6 +1,6 @@
 # White-box AES
 
-An implementation of Chow et al.'s [white-box AES](https://link.springer.com/chapter/10.1007/3-540-36492-7_17) and it's performance test built by WBMatrix library.
+An implementation of Chow et al.'s [white-box AES](https://link.springer.com/chapter/10.1007/3-540-36492-7_17) and its performance test built by WBMatrix library.
 
 ## Build
 
