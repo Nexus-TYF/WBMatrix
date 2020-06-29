@@ -46,7 +46,7 @@ genMatpairM32(&mat32\[0\],&mat32\[1\]); //generates the pairwise invertible matr
 MatMulMatM32(mat32\[0\],mat32\[1\],&mat32\[2\]); //matrix-matrix multiplication<br>
 printM32(mat32\[2\]); //prints the matrix<br>
 
-### Includes library
+### Included library
 
 1. [Generation of random permutation](https://github.com/preshing/RandomSequence)
 
@@ -89,13 +89,19 @@ $ make
 $ ./BMM
 ```
 
-### Includes libraries
+### Included libraries
 
 1. [NTL](https://www.shoup.net/ntl/)<br>
 2. [M4RI](https://github.com/malb/m4ri)<br>
-3. [SM4](https://github.com/NEWPLAN/SMx/tree/master/SM4)<br>
-4. [(WB)AES](https://github.com/Gr1zz/WhiteBoxAES)<br>
+3. [SMx-SM4](https://github.com/NEWPLAN/SMx/tree/master/SM4)<br>
+4. [WhiteBoxAES](https://github.com/Gr1zz/WhiteBoxAES)<br>
 5. [sp800_22_tests](https://github.com/dj-on-github/sp800_22_tests)<br>
+6. [Inverse-matrix](https://github.com/md-akhi/Inverse-matrix.git)<br>
+7. [Inverse-Matrix](https://github.com/jsgonzlez661/Inverse-Matrix.git)<br>
+8. [parallelMatrixInversion](https://github.com/moabrj/parallelMatrixInversion.git)<br>
+9. [InvertibleMatrix](https://github.com/liuyunhao13467/InvertibleMatrix.git)<br>
+10. [Inverse-of-Matrix](https://github.com/kay-max/Inverse-of-Matrix.git)<br>
+11. [inverseMatrix](https://github.com/braindrillmd/inverseMatrix.git)<br>
 
 ---
 Last Updated : 2020/06/26<br>
