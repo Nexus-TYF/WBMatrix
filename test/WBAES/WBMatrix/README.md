@@ -1,7 +1,6 @@
-White-box AES
-====
+# White-box AES
 
-An implementation of Chow et al.'s [white-box AES] library.
+An implementation of Chow et al.'s [white-box AES](https://link.springer.com/chapter/10.1007/3-540-36492-7_17) and it's performance test built by WBMatrix library.
 
 ## Build
 
@@ -15,5 +14,5 @@ $ make
 ## Run
 
 ```
-$ ./WBSM4
+$ ./WBAES
 ```
