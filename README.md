@@ -233,3 +233,6 @@ inverse.h has a max times and a min times for selection.<br>
 (2020/06/25)<br>
 1. New: Add randomness test cases (Special Publication 800-22
 Revision 1a).<br>
+
+(2020/07/01)<br>
+1. Fixed: Update the random functions.<br>
