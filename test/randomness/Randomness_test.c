@@ -294,12 +294,23 @@ void newmethod_genMatpairM8(M8 *Mat, M8 *Mat_inv)//generate 8*8 reversible matri
             p = cus_random()%8;
             q = cus_random()%8;
         }
-        temp = (*Mat).M[p];
-        (*Mat).M[p] = (*Mat).M[q];
-        (*Mat).M[q] = temp;
-        trail[i][0] = 0;// swap 0
-        trail[i][1] = p;
-        trail[i][2] = q;   
+        if(p > q)//add
+        {
+            
+            (*Mat).M[p] ^= (*Mat).M[q];
+            trail[i][0] = 1;
+            trail[i][1] = p;
+            trail[i][2] = q;
+        }
+        else//swap
+        {
+            temp = (*Mat).M[p];
+            (*Mat).M[p] = (*Mat).M[q];
+            (*Mat).M[q] = temp;
+            trail[i][0] = 0;// swap 0
+            trail[i][1] = p;
+            trail[i][2] = q;
+        }  
     }
     for(int j = times_add + times_add_or_swap - 1; j >= 0; j--)//generate inverse matrix
     {
