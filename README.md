@@ -104,8 +104,8 @@ $ ./BMM
 11. [inverseMatrix](https://github.com/braindrillmd/inverseMatrix.git)<br>
 
 ---
-Last Updated : 2020/06/26<br>
-Modified By : Nexus (Contact: yuft@m.scnu.edu.cn)
+Last Updated : 2020/07/01<br>
+Modified By : Nexus
 
 ---
 Details of update:<br>
@@ -139,7 +139,7 @@ No retrun value because of its special structure.
 (2019/12/17)<br>
 1. Fixed: some errors.<br>
 2. New: Add the parameters for initializing the intermediate matrix function. <br>
-inverse.h has a max times and a min times for selection.<br>
+inverse.h has the max times and min times for selection.<br>
 
 (2020/01/08)<br>
 1. New: Add Matrix addition function.<br>
@@ -168,7 +168,7 @@ inverse.h has a max times and a min times for selection.<br>
 1. Deletes xor.h.<br>
 
 (2020/01/30)<br>
-1. New: Add Gaussian elimination Method(Base on WBMatrix).<br>
+1. New: Add Gaussian elimination Method (Based on WBMatrix).<br>
 2. Changes the generation function of random Matrix.<br>
 
 (2020/01/31)<br>
