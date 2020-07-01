@@ -439,5 +439,6 @@ int main()
     else {printf("128bit: ERROR\n"); flag=0;}
 
     if(flag) printf("\nALL PASS!");
+    else printf("\nERROR!");
     return 0;
 }
