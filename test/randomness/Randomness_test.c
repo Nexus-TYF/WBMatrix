@@ -357,7 +357,197 @@ void newmethod_m8_test()
     fclose(fd0);
     fclose(fd1);
 }
+//------------------------------------------------
+void newmethod2_genMatpairM8(M8 *Mat,M8 *Mat_inv)//generate 8*8 reversible matrix and its inverse matrix
+{
+    int p,q;
+    uint8_t temp;
+    int trail[64][3];// generate trail
+    identityM8(Mat);
+    identityM8(Mat_inv);
+    InitRandom(time(NULL));
+    M8 tempMat;
+    M8 resultMat;
+    int row = 0;
+    randM8(&tempMat);
+    copyM8(tempMat, &resultMat);
+    int flag = 0;
+    int times = 0;
+    for(int i = 0; i < 8; i++)//diagonal = 1?
+    {
+        if((tempMat.M[i] & identM8[i]) == identM8[i])
+        {
+            for(int j = i + 1; j < 8; j++)
+            {
+                if((tempMat.M[j] & identM8[i]) == identM8[i])
+                {
+                    tempMat.M[j] ^= tempMat.M[i];
 
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+
+                    trail[times][0]=1;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                }
+            }
+        }
+        else// swap to find 1
+        {
+            flag = 1;
+            for(int j = i + 1; j < 8; j++)
+            {
+                if((tempMat.M[j] & identM8[i]) == identM8[i])
+                {
+                    temp=tempMat.M[i];
+                    tempMat.M[i]=tempMat.M[j];
+                    tempMat.M[j]=temp;
+
+                    flag=0;
+
+                    temp=(*Mat_inv).M[i];
+                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
+                    (*Mat_inv).M[j]=temp;
+
+                    trail[times][0]=0;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                row = i;
+                break;
+            }
+            else //still invertible
+            {
+                for(int k=i+1;k<8;k++)
+                {
+                    if((tempMat.M[k]&identM8[i])==identM8[i])
+                    {
+                        tempMat.M[k]^=tempMat.M[i];
+
+                        (*Mat_inv).M[k]^=(*Mat_inv).M[i];
+
+                        trail[times][0]=1;
+                        trail[times][1]=k;
+                        trail[times][2]=i;
+                        times++;
+                    }
+                }
+            }
+        }
+    }
+    if(flag)//not invertible
+    {
+        for(int t = row; t < 7; t++)
+        {
+            p = t + 1 + cus_random()%(7 - t);//swap
+            temp = tempMat.M[p];
+            tempMat.M[p] = tempMat.M[t];
+            tempMat.M[t] = temp;
+            temp = (*Mat_inv).M[p];
+            (*Mat_inv).M[p] = (*Mat_inv).M[t];
+            (*Mat_inv).M[t] = temp;
+            trail[times][0] = 0;
+            trail[times][1] = p;
+            trail[times][2] = t;
+            times++;
+    
+            for(int j = t + 1; j < 8; j++)
+            {
+                if((tempMat.M[j] & identM8[t]) == identM8[t])
+                {
+                    tempMat.M[j] ^= tempMat.M[t];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        for(int t = 7; t >= 0; t--)
+        {
+            for(int j = t - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j] & identM8[t]) == identM8[t])
+                {
+                    tempMat.M[j] ^= tempMat.M[t];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        
+        for(int j = times - 1; j >= 0; j--)//generate inverse matrix
+        {
+            if(trail[j][0])//add
+            {
+                (*Mat).M[trail[j][1]] ^= (*Mat).M[trail[j][2]];
+            }
+            else//swap
+            {
+                temp = (*Mat).M[trail[j][1]];
+                (*Mat).M[trail[j][1]] = (*Mat).M[trail[j][2]];
+                (*Mat).M[trail[j][2]] = temp;
+            }   
+        }
+    }
+    else//invertible 
+    {
+        for(int i=7;i>=0;i--)
+        {
+            for(int j=i-1;j>=0;j--)
+            {
+                if((tempMat.M[j]&identM8[i])==identM8[i])
+                {
+                    tempMat.M[j]^=tempMat.M[i];
+
+                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                }
+            }
+        }
+        copyM8(resultMat, Mat);
+    }
+}
+void newmethod2_m8_test()
+{
+    M8 Mat1[TEST8], Mat2[TEST8];
+    uint8_t st;
+    FILE *fd0 = fopen("newmethod2_8bits.bin","wb");
+    FILE *fd1 = fopen("newmethod2_8bits_inv.bin","wb");
+    if(fd0 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    if(fd1 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    for(int i = 0; i < TEST8; i++)
+    {
+        newmethod2_genMatpairM8(&Mat1[i], &Mat2[i]);
+        for(int j = 0; j < 8; j++)
+        {
+            st = Mat1[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd0);
+
+            st = Mat2[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd1);
+        }
+    }
+    fclose(fd0);
+    fclose(fd1);
+}
+//------------------------------------------------
 void m16_test()
 {
     M16 Mat1[TEST16], Mat2[TEST16];
@@ -444,6 +634,23 @@ void m128_test()
     }
     fclose(fd);
 }
+
+void accuracy()
+{
+    printf("-----invertible and inverse test-----\n");
+    printf("nomal mode:\n");
+    M8 iim8_1,iim8_2,iim8_3,iim8_4;
+    identityM8(&iim8_4);
+    int i;
+    for(i=0;i<TEST8;i++)
+    {
+        newmethod2_genMatpairM8(&iim8_1,&iim8_2);
+        MatMulMatM8(iim8_1,iim8_2,&iim8_3);
+        if(!isequalM8(iim8_3,iim8_4)) break;
+    }
+    if(i<TEST8) {printf("8bit: ERROR\n");}
+    else printf("8bit: OK\n");
+}
 int main()
 {
     m8_test();
@@ -455,5 +662,6 @@ int main()
     ReGauss_m8_test();
     newmethod_m8_test();
     RandbitMat_m8_test();
+    newmethod2_m8_test();
     return 0;
 }
