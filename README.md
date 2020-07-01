@@ -5,6 +5,8 @@ Implementations
 
 Contains the matrix-operation supports and test cases related to the white-box block cipher implementation, and provides the Chow et al.'s [white-box AES](https://link.springer.com/chapter/10.1007/3-540-36492-7_17) and Xiao-Lai's [white-box SM4](http://gb.oversea.cnki.net/KCMS/detail/detailall.aspx?filename=2010204831.nh&dbcode=CMFD&dbname=CMFD2010) implementations built by WBMatrix, [NTL](https://www.shoup.net/ntl/), and [M4RI](https://github.com/malb/m4ri), respectively.
 
+A released white-box AES can be found at [CEJO White box AES](https://github.com/Nexus-TYF/CEJO-whitebox-AES).
+
 ## Matrix Library
 
 ### Supports For Following Operations (8/16/32/64/128 bits)

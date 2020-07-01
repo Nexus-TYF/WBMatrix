@@ -1,8 +1,8 @@
 #ifndef _HWBMATRIX_H_
 #define _HWBMATRIX_H_
 /***
- * Last Update:2020/04/15
- * Version:2.2.0
+ * Last Update:2020/07/01
+ * Version:2.2.1
 ***/
 #include "WBMatrix/structure.h"
 #include "WBMatrix/inverse.h"
