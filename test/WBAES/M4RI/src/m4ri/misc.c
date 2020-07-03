@@ -64,17 +64,11 @@ word m4ri_random_word() {
   };
   return a;
 #else
-  // random() only returns 31 bits, so we need three calls.
-  // word a0 = random();
-  // word a1 = random();
-  // word a2 = random();
-  // return a0 ^ (a1 << 24) ^ a2 << 48;
-  word a = 0;
-  int i;
-  for(i=0; i< m4ri_radix; i+=8) {
-    a ^= (((word)rand())<<i);
-  };
-  return a;
+  random() only returns 31 bits, so we need three calls.
+  word a0 = random();
+  word a1 = random();
+  word a2 = random();
+  return a0 ^ (a1 << 24) ^ a2 << 48;
 #endif
 }
 
