@@ -1,4 +1,5 @@
 #include "WBMatrix/WBMatrix.h"
+#define TEST 100000
 #define TEST8 100000
 #define TEST16 25000
 #define TEST32 5000
@@ -14,6 +15,11 @@
 
 int randsseed;
 uint8_t identM8[8]={0x80,0x40,0x20,0x10,0x08,0x04,0x02,0x01};
+uint16_t identM16[16]={0x8000,0x4000,0x2000,0x1000,0x800,0x400,0x200,0x100,0x80,0x40,0x20,0x10,0x8,0x4,0x2,0x1};
+uint32_t identM32[32]={0x80000000,0x40000000,0x20000000,0x10000000,0x8000000,0x4000000,0x2000000,0x1000000,0x800000,0x400000,0x200000,0x100000,0x80000,0x40000,0x20000,0x10000,0x8000,0x4000,0x2000,0x1000,0x800,0x400,0x200,0x100,0x80,0x40,0x20,0x10,0x8,0x4,0x2,0x1};
+uint64_t identM64[64]={0x8000000000000000,0x4000000000000000,0x2000000000000000,0x1000000000000000,0x800000000000000,0x400000000000000,0x200000000000000,0x100000000000000,0x80000000000000,0x40000000000000,0x20000000000000,0x10000000000000,0x8000000000000,0x4000000000000,0x2000000000000,0x1000000000000,0x800000000000,0x400000000000,0x200000000000,0x100000000000,0x80000000000,0x40000000000,0x20000000000,0x10000000000,0x8000000000,0x4000000000,0x2000000000,0x1000000000,0x800000000,0x400000000,0x200000000,0x100000000,\
+                        0x80000000,0x40000000,0x20000000,0x10000000,0x8000000,0x4000000,0x2000000,0x1000000,0x800000,0x400000,0x200000,0x100000,0x80000,0x40000,0x20000,0x10000,0x8000,0x4000,0x2000,0x1000,0x800,0x400,0x200,0x100,0x80,0x40,0x20,0x10,0x8,0x4,0x2,0x1};
+
 
 void InvSMatM8(M8 Mat,M8 *Mat_inv)//generate 8*8 inverse matrix
 {
@@ -929,6 +935,570 @@ void newmethod2_ReGauss_m8_test()
     fclose(fd1);
 }
 //------------------------------------------------
+void newmethod2_genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and its inverse matrix
+{
+    int p,q;
+    uint16_t temp;
+    int trail[256][3];// generate trail
+    identityM16(Mat);
+    identityM16(Mat_inv);
+    InitRandom(time(NULL));
+    M16 tempMat;
+    M16 resultMat;
+    int row = 0;
+    randM16(&tempMat);
+    copyM16(tempMat, &resultMat);
+    int flag = 0;
+    int times = 0;
+    for(int i = 0; i < 16; i++)//diagonal = 1?
+    {
+        if((tempMat.M[i] & identM16[i]) == identM16[i])
+        {
+            for(int j = i + 1; j < 16; j++)
+            {
+                if((tempMat.M[j] & identM16[i]) == identM16[i])
+                {
+                    tempMat.M[j] ^= tempMat.M[i];
+
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+
+                    trail[times][0]=1;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                }
+            }
+        }
+        else// swap to find 1
+        {
+            flag = 1;
+            for(int j = i + 1; j < 16; j++)
+            {
+                if((tempMat.M[j] & identM16[i]) == identM16[i])
+                {
+                    temp=tempMat.M[i];
+                    tempMat.M[i]=tempMat.M[j];
+                    tempMat.M[j]=temp;
+
+                    flag=0;
+
+                    temp=(*Mat_inv).M[i];
+                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
+                    (*Mat_inv).M[j]=temp;
+
+                    trail[times][0]=0;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                row = i;
+                break;
+            }
+            else //still invertible
+            {
+                for(int k=i+1;k<16;k++)
+                {
+                    if((tempMat.M[k]&identM16[i])==identM16[i])
+                    {
+                        tempMat.M[k]^=tempMat.M[i];
+
+                        (*Mat_inv).M[k]^=(*Mat_inv).M[i];
+
+                        trail[times][0]=1;
+                        trail[times][1]=k;
+                        trail[times][2]=i;
+                        times++;
+                    }
+                }
+            }
+        }
+    }
+    if(flag)//not invertible
+    {
+        for(int t = row; t < 15; t++)
+        {
+            p = t + 1 + cus_random()%(15 - t);//swap
+            temp = tempMat.M[p];
+            tempMat.M[p] = tempMat.M[t];
+            tempMat.M[t] = temp;
+            temp = (*Mat_inv).M[p];
+            (*Mat_inv).M[p] = (*Mat_inv).M[t];
+            (*Mat_inv).M[t] = temp;
+            trail[times][0] = 0;
+            trail[times][1] = p;
+            trail[times][2] = t;
+            times++;
+    
+            for(int j = t + 1; j < 16; j++)
+            {
+                if((tempMat.M[j] & identM16[t]) == identM16[t])
+                {
+                    tempMat.M[j] ^= tempMat.M[t];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        for(int t = 15; t >= 0; t--)
+        {
+            for(int j = t - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j] & identM16[t]) == identM16[t])
+                {
+                    tempMat.M[j] ^= tempMat.M[t];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        
+        for(int j = times - 1; j >= 0; j--)//generate inverse matrix
+        {
+            if(trail[j][0])//add
+            {
+                (*Mat).M[trail[j][1]] ^= (*Mat).M[trail[j][2]];
+            }
+            else//swap
+            {
+                temp = (*Mat).M[trail[j][1]];
+                (*Mat).M[trail[j][1]] = (*Mat).M[trail[j][2]];
+                (*Mat).M[trail[j][2]] = temp;
+            }   
+        }
+    }
+    else//invertible 
+    {
+        for(int i=15;i>=0;i--)
+        {
+            for(int j=i-1;j>=0;j--)
+            {
+                if((tempMat.M[j]&identM16[i])==identM16[i])
+                {
+                    tempMat.M[j]^=tempMat.M[i];
+
+                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                }
+            }
+        }
+        copyM16(resultMat, Mat);
+    }
+}
+void newmethod2_m16_test()
+{
+    M16 Mat1[TEST16], Mat2[TEST16];
+    uint16_t st;
+    FILE *fd0 = fopen("newmethod2_16bits.bin","wb");
+    FILE *fd1 = fopen("newmethod2_16bits_inv.bin","wb");
+    if(fd0 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    if(fd1 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    for(int i = 0; i < TEST16; i++)
+    {
+        newmethod2_genMatpairM16(&Mat1[i], &Mat2[i]);
+        for(int j = 0; j < 16; j++)
+        {
+            st = Mat1[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd0);
+
+            st = Mat2[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd1);
+        }
+    }
+    fclose(fd0);
+    fclose(fd1);
+}
+//------------------------------------------------
+void newmethod2_strict_genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and its inverse matrix
+{
+    int p,q;
+    uint16_t temp;
+    int trail[256][3];// generate trail
+    identityM16(Mat);
+    identityM16(Mat_inv);
+    InitRandom(time(NULL));
+    M16 tempMat;
+    M16 resultMat;
+    randM16(&tempMat);
+    copyM16(tempMat, &resultMat);
+    int flag = 0;
+    int times = 0;
+    int invertible = 1;
+    for(int i = 0; i < 16; i++)//diagonal = 1?
+    {
+        if((tempMat.M[i] & identM16[i]) == identM16[i])
+        {
+            for(int j = i + 1; j < 16; j++)
+            {
+                if((tempMat.M[j] & identM16[i]) == identM16[i])
+                {
+                    tempMat.M[j] ^= tempMat.M[i];
+
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+
+                    trail[times][0]=1;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                }
+            }
+        }
+        else// swap to find 1
+        {
+            flag = 1;
+            for(int j = i + 1; j < 16; j++)
+            {
+                if((tempMat.M[j] & identM16[i]) == identM16[i])
+                {
+                    temp=tempMat.M[i];
+                    tempMat.M[i]=tempMat.M[j];
+                    tempMat.M[j]=temp;
+
+                    flag=0;
+
+                    temp=(*Mat_inv).M[i];
+                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
+                    (*Mat_inv).M[j]=temp;
+
+                    trail[times][0]=0;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                invertible = 0;
+                if (i < 15)
+                {
+                    p = i + 1 + cus_random()%(15 - i);//swap
+                    temp = tempMat.M[p];
+                    tempMat.M[p] = tempMat.M[i];
+                    tempMat.M[i] = temp;
+                    temp = (*Mat_inv).M[p];
+                    (*Mat_inv).M[p] = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = temp;
+                    trail[times][0] = 0;
+                    trail[times][1] = p;
+                    trail[times][2] = i;
+                    times++;
+                    for(int t = i + 1; t < 15; t++)
+                    {
+                        if(cus_random()%2)
+                        {
+                            tempMat.M[t] ^= tempMat.M[i];
+                            (*Mat_inv).M[t] ^= (*Mat_inv).M[i];
+                            trail[times][0] = 1;
+                            trail[times][1] = t;
+                            trail[times][2] = i;
+                            times++;
+                        }
+                    }
+                }
+            }
+            else //can still contiune
+            {
+                for(int k = i + 1; k < 16; k++)
+                {
+                    if((tempMat.M[k]&identM16[i]) == identM16[i])
+                    {
+                        tempMat.M[k] ^= tempMat.M[i];
+
+                        (*Mat_inv).M[k] ^= (*Mat_inv).M[i];
+
+                        trail[times][0] = 1;
+                        trail[times][1] = k;
+                        trail[times][2] = i;
+                        times++;
+                    }
+                }
+            }
+        }
+    }
+    if(!invertible)//not invertible
+    {
+        for(int t = 15; t >= 0; t--)
+        {
+            for(int j = t - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j] & identM16[t]) == identM16[t])
+                {
+                    tempMat.M[j] ^= tempMat.M[t];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        
+        for(int j = times - 1; j >= 0; j--)//generate inverse matrix
+        {
+            if(trail[j][0])//add
+            {
+                (*Mat).M[trail[j][1]] ^= (*Mat).M[trail[j][2]];
+            }
+            else//swap
+            {
+                temp = (*Mat).M[trail[j][1]];
+                (*Mat).M[trail[j][1]] = (*Mat).M[trail[j][2]];
+                (*Mat).M[trail[j][2]] = temp;
+            }   
+        }
+    }
+    else//invertible 
+    {
+        for(int i=15;i>=0;i--)
+        {
+            for(int j=i-1;j>=0;j--)
+            {
+                if((tempMat.M[j]&identM16[i])==identM16[i])
+                {
+                    tempMat.M[j]^=tempMat.M[i];
+
+                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                }
+            }
+        }
+        copyM16(resultMat, Mat);
+    }
+}
+void newmethod2_strict_m16_test()
+{
+    M16 Mat1[TEST16], Mat2[TEST16];
+    uint16_t st;
+    FILE *fd0 = fopen("newmethod2_strict_16bits.bin","wb");
+    FILE *fd1 = fopen("newmethod2_strict_16bits_inv.bin","wb");
+    if(fd0 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    if(fd1 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    for(int i = 0; i < TEST16; i++)
+    {
+        newmethod2_strict_genMatpairM16(&Mat1[i], &Mat2[i]);
+        for(int j = 0; j < 16; j++)
+        {
+            st = Mat1[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd0);
+
+            st = Mat2[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd1);
+        }
+    }
+    fclose(fd0);
+    fclose(fd1);
+}
+//------------------------------------------------
+void newmethod2_ReGauss_genMatpairM16(M16 *Mat,M16 *Mat_inv)//generate 16*16 reversible matrix and its inverse matrix
+{
+    int p,q;
+    uint16_t temp;
+    int trail[256][3];// generate trail
+    identityM16(Mat);
+    identityM16(Mat_inv);
+    InitRandom(time(NULL));
+    M16 tempMat;
+    M16 resultMat;
+    int row = 0;
+    randM16(&tempMat);
+    copyM16(tempMat, &resultMat);
+    int flag = 0;
+    int times = 0;
+    for(int i = 0; i < 16; i++)//diagonal = 1?
+    {
+        if((tempMat.M[i] & identM16[i]) == identM16[i])
+        {
+            for(int j = i + 1; j < 16; j++)
+            {
+                if((tempMat.M[j] & identM16[i]) == identM16[i])
+                {
+                    tempMat.M[j] ^= tempMat.M[i];
+
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+
+                    trail[times][0]=1;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                }
+            }
+        }
+        else// swap to find 1
+        {
+            flag = 1;
+            for(int j = i + 1; j < 16; j++)
+            {
+                if((tempMat.M[j] & identM16[i]) == identM16[i])
+                {
+                    temp=tempMat.M[i];
+                    tempMat.M[i]=tempMat.M[j];
+                    tempMat.M[j]=temp;
+
+                    flag=0;
+
+                    temp=(*Mat_inv).M[i];
+                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
+                    (*Mat_inv).M[j]=temp;
+
+                    trail[times][0]=0;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                row = i;
+                break;
+            }
+            else //still invertible
+            {
+                for(int k=i+1;k<16;k++)
+                {
+                    if((tempMat.M[k]&identM16[i])==identM16[i])
+                    {
+                        tempMat.M[k]^=tempMat.M[i];
+
+                        (*Mat_inv).M[k]^=(*Mat_inv).M[i];
+
+                        trail[times][0]=1;
+                        trail[times][1]=k;
+                        trail[times][2]=i;
+                        times++;
+                    }
+                }
+            }
+        }
+    }
+    if(flag)//not invertible
+    {
+        for(int t = row; t < 15; t++)
+        {
+            p = t + 1 + cus_random()%(15 - t);//swap
+            
+            temp = (*Mat_inv).M[p];
+            (*Mat_inv).M[p] = (*Mat_inv).M[t];
+            (*Mat_inv).M[t] = temp;
+            trail[times][0] = 0;
+            trail[times][1] = p;
+            trail[times][2] = t;
+            times++;
+    
+            for(int j = t + 1; j < 16; j++)
+            {
+                if(cus_random()%2)
+                {
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        for(int t = 15; t >= 0; t--)
+        {
+            for(int j = t - 1; j >= 0; j--)
+            {
+                if(cus_random()%2)
+                {
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        
+        for(int j = times - 1; j >= 0; j--)//generate inverse matrix
+        {
+            if(trail[j][0])//add
+            {
+                (*Mat).M[trail[j][1]] ^= (*Mat).M[trail[j][2]];
+            }
+            else//swap
+            {
+                temp = (*Mat).M[trail[j][1]];
+                (*Mat).M[trail[j][1]] = (*Mat).M[trail[j][2]];
+                (*Mat).M[trail[j][2]] = temp;
+            }   
+        }
+    }
+    else//invertible 
+    {
+        for(int i=15;i>=0;i--)
+        {
+            for(int j=i-1;j>=0;j--)
+            {
+                if((tempMat.M[j]&identM16[i])==identM16[i])
+                {
+                    tempMat.M[j]^=tempMat.M[i];
+
+                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                }
+            }
+        }
+        copyM16(resultMat, Mat);
+    }
+}
+void newmethod2_ReGauss_m16_test()
+{
+    M16 Mat1[TEST16], Mat2[TEST16];
+    uint16_t st;
+    FILE *fd0 = fopen("newmethod2_ReGauss_16bits.bin","wb");
+    FILE *fd1 = fopen("newmethod2_ReGauss_16bits_inv.bin","wb");
+    if(fd0 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    if(fd1 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    for(int i = 0; i < TEST16; i++)
+    {
+        newmethod2_ReGauss_genMatpairM16(&Mat1[i], &Mat2[i]);
+        for(int j = 0; j < 16; j++)
+        {
+            st = Mat1[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd0);
+
+            st = Mat2[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd1);
+        }
+    }
+    fclose(fd0);
+    fclose(fd1);
+}
+//------------------------------------------------
 void m16_test()
 {
     M16 Mat1[TEST16], Mat2[TEST16];
@@ -1020,17 +1590,33 @@ void accuracy()
 {
     printf("-----invertible and inverse test-----\n");
     printf("nomal mode:\n");
-    M8 iim8_1,iim8_2,iim8_3,iim8_4;
-    identityM8(&iim8_4);
+    M16 iim16_1,iim16_2,iim16_3,iim16_4;
+    identityM16(&iim16_4);
     int i;
-    for(i=0;i<TEST8;i++)
+    for(i=0;i<TEST;i++)
     {
-        newmethod2_genMatpairM8(&iim8_1,&iim8_2);
-        MatMulMatM8(iim8_1,iim8_2,&iim8_3);
-        if(!isequalM8(iim8_3,iim8_4)) break;
+        newmethod2_genMatpairM16(&iim16_1,&iim16_2);
+        MatMulMatM16(iim16_1,iim16_2,&iim16_3);
+        if(!isequalM16(iim16_3,iim16_4)) break;
     }
-    if(i<TEST8) {printf("8bit: ERROR\n");}
-    else printf("8bit: OK\n");
+    if(i<TEST) {printf("newmethod2 16bit: ERROR\n");}
+    else printf("newmethod2 16bit: OK\n");
+    for(i=0;i<TEST;i++)
+    {
+        newmethod2_strict_genMatpairM16(&iim16_1,&iim16_2);
+        MatMulMatM16(iim16_1,iim16_2,&iim16_3);
+        if(!isequalM16(iim16_3,iim16_4)) break;
+    }
+    if(i<TEST) {printf("newmethod2_strict 16bit: ERROR\n");}
+    else printf("newmethod2_strict 16bit: OK\n");
+    for(i=0;i<TEST;i++)
+    {
+        newmethod2_ReGauss_genMatpairM16(&iim16_1,&iim16_2);
+        MatMulMatM16(iim16_1,iim16_2,&iim16_3);
+        if(!isequalM16(iim16_3,iim16_4)) break;
+    }
+    if(i<TEST) {printf("newmethod2_ReGauss 16bit: ERROR\n");}
+    else printf("newmethod2_ReGauss 16bit: OK\n");
 }
 
 //CPU cycles set start;
@@ -1051,31 +1637,31 @@ void performance()
     uint64_t ans = 0;
     int i;
     printf("\nInvertible and Inverse\n");
-    M8 m8,m8_inv;
+    M16 m16,m16_inv;
     begin = start_rdtsc();
-    for (i = 0; i < TEST8; i++)
+    for (i = 0; i < TEST; i++)
     {
-        newmethod2_ReGauss_genMatpairM8(&m8,&m8_inv);
+        newmethod2_ReGauss_genMatpairM16(&m16,&m16_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("newmethod2_ReGauss generate 8*8 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST8);
+    printf("newmethod2_ReGauss generate 16*16 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
     begin = start_rdtsc();
-    for (i = 0; i < TEST8; i++)
+    for (i = 0; i < TEST; i++)
     {
-        newmethod2_strict_genMatpairM8(&m8,&m8_inv);
+        newmethod2_strict_genMatpairM16(&m16,&m16_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("newmethod2_strict generate 8*8 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST8);
+    printf("newmethod2_strict generate 16*16 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
     begin = start_rdtsc();
-    for (i = 0; i < TEST8; i++)
+    for (i = 0; i < TEST; i++)
     {
-        newmethod2_genMatpairM8(&m8,&m8_inv);
+        newmethod2_genMatpairM16(&m16,&m16_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("newmethod2 generate 8*8 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST8);
+    printf("newmethod2 generate 16*16 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 }
 int main()
 {
@@ -1088,10 +1674,12 @@ int main()
     // ReGauss_m8_test();
     // newmethod_m8_test();
     // RandbitMat_m8_test();
-    // newmethod2_m8_test();
     newmethod2_strict_m8_test();
     newmethod2_ReGauss_m8_test();
     newmethod2_m8_test();
+    newmethod2_strict_m16_test();
+    newmethod2_ReGauss_m16_test();
+    newmethod2_m16_test();
     //performance();
     //accuracy();
     return 0;
