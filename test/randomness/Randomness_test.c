@@ -76,6 +76,300 @@ void InvSMatM8(M8 Mat,M8 *Mat_inv)//generate 8*8 inverse matrix
         }
     }
 }
+void InvSMatM16(M16 Mat,M16 *Mat_inv)//generate 16*16 inverse matrix
+{
+    uint16_t temp;
+    identityM16(Mat_inv);
+    for(int i=0;i<16;i++)
+    {
+        if((Mat.M[i]&identM16[i])==identM16[i])
+        {
+            for(int j=i+1;j<16;j++)
+            {
+                if((Mat.M[j]&identM16[i])==identM16[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                }
+            }
+        }
+        else
+        {
+            for(int j=i+1;j<16;j++)
+            {
+                if((Mat.M[j]&identM16[i])==identM16[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+
+                    temp=(*Mat_inv).M[i];
+                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
+                    (*Mat_inv).M[j]=temp;
+                    break;
+                }
+            }
+            for(int k=i+1;k<16;k++)
+            {
+                if((Mat.M[k]&identM16[i])==identM16[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                    (*Mat_inv).M[k]^=(*Mat_inv).M[i];
+                }
+            }
+        }
+    }
+    for(int i=15;i>=0;i--)
+    {
+        for(int j=i-1;j>=0;j--)
+        {
+            if((Mat.M[j]&identM16[i])==identM16[i])
+            {
+                Mat.M[j]^=Mat.M[i];
+                (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+            }
+        }
+    }
+}
+void InvSMatM32(M32 Mat,M32 *Mat_inv)//generate 32*32 inverse matrix
+{
+    uint32_t temp;
+    identityM32(Mat_inv);
+    for(int i=0;i<32;i++)
+    {
+        if((Mat.M[i]&identM32[i])==identM32[i])
+        {
+            for(int j=i+1;j<32;j++)
+            {
+                if((Mat.M[j]&identM32[i])==identM32[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                }
+            }
+        }
+        else
+        {
+            for(int j=i+1;j<32;j++)
+            {
+                if((Mat.M[j]&identM32[i])==identM32[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+
+                    temp=(*Mat_inv).M[i];
+                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
+                    (*Mat_inv).M[j]=temp;
+                    break;
+                }
+            }
+            for(int k=i+1;k<32;k++)
+            {
+                if((Mat.M[k]&identM32[i])==identM32[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                    (*Mat_inv).M[k]^=(*Mat_inv).M[i];
+                }
+            }
+        }
+    }
+    for(int i=31;i>=0;i--)
+    {
+        for(int j=i-1;j>=0;j--)
+        {
+            if((Mat.M[j]&identM32[i])==identM32[i])
+            {
+                Mat.M[j]^=Mat.M[i];
+                (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+            }
+        }
+    }
+}
+void InvSMatM64(M64 Mat,M64 *Mat_inv)//generate 64*64 inverse matrix
+{
+    uint64_t temp;
+    identityM64(Mat_inv);
+    for(int i=0;i<64;i++)
+    {
+        if((Mat.M[i]&identM64[i])==identM64[i])
+        {
+            for(int j=i+1;j<64;j++)
+            {
+                if((Mat.M[j]&identM64[i])==identM64[i])
+                {
+                    Mat.M[j]^=Mat.M[i];
+                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                }
+            }
+        }
+        else
+        {
+            for(int j=i+1;j<64;j++)
+            {
+                if((Mat.M[j]&identM64[i])==identM64[i])
+                {
+                    temp=Mat.M[i];
+                    Mat.M[i]=Mat.M[j];
+                    Mat.M[j]=temp;
+
+                    temp=(*Mat_inv).M[i];
+                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
+                    (*Mat_inv).M[j]=temp;
+                    break;
+                }
+            }
+            for(int k=i+1;k<64;k++)
+            {
+                if((Mat.M[k]&identM64[i])==identM64[i])
+                {
+                    Mat.M[k]^=Mat.M[i];
+                    (*Mat_inv).M[k]^=(*Mat_inv).M[i];
+                }
+            }
+        }
+    }
+    for(int i=63;i>=0;i--)
+    {
+        for(int j=i-1;j>=0;j--)
+        {
+            if((Mat.M[j]&identM64[i])==identM64[i])
+            {
+                Mat.M[j]^=Mat.M[i];
+                (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+            }
+        }
+    }
+}
+void InvSMatM128(M128 Mat,M128 *Mat_inv)//generate 128*128 inverse matrix
+{
+    uint64_t temp[2];
+    identityM128(Mat_inv);
+    for(int i=0;i<64;i++)
+    {
+        if((Mat.M[i][0]&identM64[i])==identM64[i])
+        {
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][0]&identM64[i])==identM64[i])
+                {
+                    Mat.M[j][0]^=Mat.M[i][0];
+                    Mat.M[j][1]^=Mat.M[i][1];
+
+                    (*Mat_inv).M[j][0]^=(*Mat_inv).M[i][0];
+                    (*Mat_inv).M[j][1]^=(*Mat_inv).M[i][1];
+                }
+            }
+        }
+        else
+        {
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][0]&identM64[i])==identM64[i])
+                {
+                    temp[0]=Mat.M[i][0];
+                    Mat.M[i][0]=Mat.M[j][0];
+                    Mat.M[j][0]=temp[0];
+
+                    temp[1]=Mat.M[i][1];
+                    Mat.M[i][1]=Mat.M[j][1];
+                    Mat.M[j][1]=temp[1];
+
+                    temp[0]=(*Mat_inv).M[i][0];
+                    (*Mat_inv).M[i][0]=(*Mat_inv).M[j][0];
+                    (*Mat_inv).M[j][0]=temp[0];
+
+                    temp[1]=(*Mat_inv).M[i][1];
+                    (*Mat_inv).M[i][1]=(*Mat_inv).M[j][1];
+                    (*Mat_inv).M[j][1]=temp[1];
+                    break;
+                }
+            }
+            for(int k=i+1;k<128;k++)
+            {
+                if((Mat.M[k][0]&identM64[i])==identM64[i])
+                {
+                    Mat.M[k][0]^=Mat.M[i][0];
+                    Mat.M[k][1]^=Mat.M[i][1];
+
+                    (*Mat_inv).M[k][0]^=(*Mat_inv).M[i][0];
+                    (*Mat_inv).M[k][1]^=(*Mat_inv).M[i][1];
+                }
+            }
+        }
+    }
+    for(int i=64;i<128;i++)
+    {
+        if((Mat.M[i][1]&identM64[i-64])==identM64[i-64])
+        {
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][1]&identM64[i-64])==identM64[i-64])
+                {
+                    Mat.M[j][1]^=Mat.M[i][1];
+
+                    (*Mat_inv).M[j][0]^=(*Mat_inv).M[i][0];
+                    (*Mat_inv).M[j][1]^=(*Mat_inv).M[i][1];
+                }
+            }
+        }
+        else
+        {
+            for(int j=i+1;j<128;j++)
+            {
+                if((Mat.M[j][1]&identM64[i-64])==identM64[i-64])
+                {
+                    temp[1]=Mat.M[i][1];
+                    Mat.M[i][1]=Mat.M[j][1];
+                    Mat.M[j][1]=temp[1];
+
+                    temp[0]=(*Mat_inv).M[i][0];
+                    (*Mat_inv).M[i][0]=(*Mat_inv).M[j][0];
+                    (*Mat_inv).M[j][0]=temp[0];
+
+                    temp[1]=(*Mat_inv).M[i][1];
+                    (*Mat_inv).M[i][1]=(*Mat_inv).M[j][1];
+                    (*Mat_inv).M[j][1]=temp[1];
+                    break;
+                }
+            }
+            for(int k=i+1;k<128;k++)
+            {
+                if((Mat.M[k][1]&identM64[i-64])==identM64[i-64])
+                {
+                    Mat.M[k][1]^=Mat.M[i][1];
+
+                    (*Mat_inv).M[k][0]^=(*Mat_inv).M[i][0];
+                    (*Mat_inv).M[k][1]^=(*Mat_inv).M[i][1];
+                }
+            }
+        }
+    }
+    for(int i=127;i>=64;i--)
+    {
+        for(int j=i-1;j>=0;j--)
+        {
+            if((Mat.M[j][1]&identM64[i-64])==identM64[i-64])
+            {
+                Mat.M[j][1]^=Mat.M[i][1];
+                (*Mat_inv).M[j][0]^=(*Mat_inv).M[i][0];
+                (*Mat_inv).M[j][1]^=(*Mat_inv).M[i][1];
+            }
+        }
+    }
+    for(int i=63;i>=0;i--)
+    {
+        for(int j=i-1;j>=0;j--)
+        {
+            if((Mat.M[j][0]&identM64[i])==identM64[i])
+            {
+                Mat.M[j][0]^=Mat.M[i][0];
+                (*Mat_inv).M[j][0]^=(*Mat_inv).M[i][0];
+                (*Mat_inv).M[j][1]^=(*Mat_inv).M[i][1];
+            }
+        }
+    }
+}
 //----------------------------------------------------
 void RandMat_InvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
 {
@@ -225,6 +519,248 @@ void ReGauss_m8_test()
             fwrite(&st, sizeof(st), 1, fd0);
 
             st = Mat_inv[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd1);
+        }
+    }
+    fclose(fd0);
+    fclose(fd1);
+}
+void rGInvTMatM16(M16 *Mat)//generate 16*16 invertible matrix
+{
+    int randAdd;
+    int randExc;
+    uint16_t temp;
+    srand(time(NULL));
+    for(int i=15;i>=0;i--)
+    {
+        for(int j=0;j<16;j++)//Add
+        {
+            if(j!=i)
+            {
+                randAdd=rand()%2;
+                if(randAdd) (*Mat).M[j]^=(*Mat).M[i];
+            }
+        }
+        if(i<15)//Exchange
+        {
+            randExc=i+1+rand()%(15-i);
+            temp=(*Mat).M[i];
+            (*Mat).M[i]=(*Mat).M[randExc];
+            (*Mat).M[randExc]=temp;
+        }   
+    }
+}
+void ReGauss_m16_test()
+{
+    M16 Mat[TEST16], Mat_inv[TEST16];
+    uint16_t st;
+    FILE *fd0 = fopen("ReGauss_16bits.bin","wb");
+    FILE *fd1 = fopen("ReGauss_16bits_inv.bin","wb");
+    if(fd0 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    if(fd1 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    for(int i = 0; i < TEST16; i++)
+    {
+        rGInvTMatM16(&Mat[i]);
+        InvSMatM16(Mat[i], &Mat_inv[i]);
+        for(int j = 0; j < 16; j++)
+        {
+            st = Mat[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd0);
+
+            st = Mat_inv[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd1);
+        }
+    }
+    fclose(fd0);
+    fclose(fd1);
+}
+//-------------------------------------------------------------
+void rGInvTMatM32(M32 *Mat)//generate 32*32 invertible matrix
+{
+    int randAdd;
+    int randExc;
+    uint32_t temp;
+    srand(time(NULL));
+    for(int i=31;i>=0;i--)
+    {
+        for(int j=0;j<32;j++)//Add
+        {
+            if(j!=i)
+            {
+                randAdd=rand()%2;
+                if(randAdd) (*Mat).M[j]^=(*Mat).M[i];
+            }
+        }
+        if(i<31)//Exchange
+        {
+            randExc=i+1+rand()%(31-i);
+            temp=(*Mat).M[i];
+            (*Mat).M[i]=(*Mat).M[randExc];
+            (*Mat).M[randExc]=temp;
+        }   
+    }
+}
+void ReGauss_m32_test()
+{
+    M32 Mat[TEST32], Mat_inv[TEST32];
+    uint32_t st;
+    FILE *fd0 = fopen("ReGauss_32bits.bin","wb");
+    FILE *fd1 = fopen("ReGauss_32bits_inv.bin","wb");
+    if(fd0 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    if(fd1 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    for(int i = 0; i < TEST32; i++)
+    {
+        rGInvTMatM32(&Mat[i]);
+        InvSMatM32(Mat[i], &Mat_inv[i]);
+        for(int j = 0; j < 32; j++)
+        {
+            st = Mat[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd0);
+
+            st = Mat_inv[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd1);
+        }
+    }
+    fclose(fd0);
+    fclose(fd1);
+}
+//---------------------------------------------------
+void rGInvTMatM64(M64 *Mat)//generate 64*64 invertible matrix
+{
+    int randAdd;
+    int randExc;
+    uint64_t temp;
+    srand(time(NULL));
+    for(int i=63;i>=0;i--)
+    {
+        for(int j=0;j<64;j++)//Add
+        {
+            if(j!=i)
+            {
+                randAdd=rand()%2;
+                if(randAdd) (*Mat).M[j]^=(*Mat).M[i];
+            }
+        }
+        if(i<63)//Exchange
+        {
+            randExc=i+1+rand()%(63-i);
+            temp=(*Mat).M[i];
+            (*Mat).M[i]=(*Mat).M[randExc];
+            (*Mat).M[randExc]=temp;
+        }   
+    }
+}
+void ReGauss_m64_test()
+{
+    M64 Mat[TEST64], Mat_inv[TEST64];
+    uint64_t st;
+    FILE *fd0 = fopen("ReGauss_64bits.bin","wb");
+    FILE *fd1 = fopen("ReGauss_64bits_inv.bin","wb");
+    if(fd0 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    if(fd1 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    for(int i = 0; i < TEST64; i++)
+    {
+        rGInvTMatM64(&Mat[i]);
+        InvSMatM64(Mat[i], &Mat_inv[i]);
+        for(int j = 0; j < 64; j++)
+        {
+            st = Mat[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd0);
+
+            st = Mat_inv[i].M[j];
+            fwrite(&st, sizeof(st), 1, fd1);
+        }
+    }
+    fclose(fd0);
+    fclose(fd1);
+}
+//--------------------------------------------------------
+void rGInvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
+{
+    int randAdd;
+    int randExc;
+    uint64_t temp[2];
+    srand(time(NULL));
+    for(int i=127;i>=0;i--)
+    {
+        for(int j=0;j<128;j++)//Add
+        {
+            if(j!=i)
+            {
+                randAdd=rand()%2;
+                if(randAdd) 
+                {
+                    (*Mat).M[j][0]^=(*Mat).M[i][0];
+                    (*Mat).M[j][1]^=(*Mat).M[i][1];
+                }
+            }
+        }
+        if(i<127)//Exchange
+        {
+            randExc=i+1+rand()%(127-i);
+            temp[0]=(*Mat).M[i][0];
+            temp[1]=(*Mat).M[i][1];
+            (*Mat).M[i][0]=(*Mat).M[randExc][0];
+            (*Mat).M[i][1]=(*Mat).M[randExc][1];
+            (*Mat).M[randExc][0]=temp[0];
+            (*Mat).M[randExc][1]=temp[1];
+        }   
+    }
+}
+void ReGauss_m128_test()
+{
+    M128 Mat[TEST128], Mat_inv[TEST128];
+    uint64_t st;
+    FILE *fd0 = fopen("ReGauss_128bits.bin","wb");
+    FILE *fd1 = fopen("ReGauss_128bits_inv.bin","wb");
+    if(fd0 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    if(fd1 == NULL)
+    {
+        perror("open failed!");
+        exit(1);
+    }
+    for(int i = 0; i < TEST128; i++)
+    {
+        rGInvTMatM128(&Mat[i]);
+        InvSMatM128(Mat[i], &Mat_inv[i]);
+        for(int j = 0; j < 128; j++)
+        {
+            st = Mat[i].M[j][0];
+            fwrite(&st, sizeof(st), 1, fd0);
+            st = Mat[i].M[j][1];
+            fwrite(&st, sizeof(st), 1, fd0);
+
+            st = Mat_inv[i].M[j][0];
+            fwrite(&st, sizeof(st), 1, fd1);
+            st = Mat_inv[i].M[j][1];
             fwrite(&st, sizeof(st), 1, fd1);
         }
     }
@@ -1672,6 +2208,10 @@ int main()
     // m128_test();
     // RandMat_m8_test();
     // ReGauss_m8_test();
+    // ReGauss_m16_test();
+    // ReGauss_m32_test();
+    // ReGauss_m64_test();
+    // ReGauss_m128_test();
     // newmethod_m8_test();
     // RandbitMat_m8_test();
     newmethod2_strict_m8_test();
