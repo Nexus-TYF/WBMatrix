@@ -495,7 +495,7 @@ void rGInvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
 }
 void ReGauss_m8_test()
 {
-    M8 Mat[TEST8], Mat_inv[TEST8];
+    M8 Mat, Mat_inv;
     uint8_t st;
     FILE *fd0 = fopen("ReGauss_8bits.bin","wb");
     FILE *fd1 = fopen("ReGauss_8bits_inv.bin","wb");
@@ -511,14 +511,14 @@ void ReGauss_m8_test()
     }
     for(int i = 0; i < TEST8; i++)
     {
-        rGInvTMatM8(&Mat[i]);
-        InvSMatM8(Mat[i], &Mat_inv[i]);
+        rGInvTMatM8(&Mat);
+        InvSMatM8(Mat, &Mat_inv);
         for(int j = 0; j < 8; j++)
         {
-            st = Mat[i].M[j];
+            st = Mat.M[j];
             fwrite(&st, sizeof(st), 1, fd0);
 
-            st = Mat_inv[i].M[j];
+            st = Mat_inv.M[j];
             fwrite(&st, sizeof(st), 1, fd1);
         }
     }
@@ -552,7 +552,7 @@ void rGInvTMatM16(M16 *Mat)//generate 16*16 invertible matrix
 }
 void ReGauss_m16_test()
 {
-    M16 Mat[TEST16], Mat_inv[TEST16];
+    M16 Mat, Mat_inv;
     uint16_t st;
     FILE *fd0 = fopen("ReGauss_16bits.bin","wb");
     FILE *fd1 = fopen("ReGauss_16bits_inv.bin","wb");
@@ -568,14 +568,14 @@ void ReGauss_m16_test()
     }
     for(int i = 0; i < TEST16; i++)
     {
-        rGInvTMatM16(&Mat[i]);
-        InvSMatM16(Mat[i], &Mat_inv[i]);
+        rGInvTMatM16(&Mat);
+        InvSMatM16(Mat, &Mat_inv);
         for(int j = 0; j < 16; j++)
         {
-            st = Mat[i].M[j];
+            st = Mat.M[j];
             fwrite(&st, sizeof(st), 1, fd0);
 
-            st = Mat_inv[i].M[j];
+            st = Mat_inv.M[j];
             fwrite(&st, sizeof(st), 1, fd1);
         }
     }
@@ -610,7 +610,7 @@ void rGInvTMatM32(M32 *Mat)//generate 32*32 invertible matrix
 }
 void ReGauss_m32_test()
 {
-    M32 Mat[TEST32], Mat_inv[TEST32];
+    M32 Mat, Mat_inv;
     uint32_t st;
     FILE *fd0 = fopen("ReGauss_32bits.bin","wb");
     FILE *fd1 = fopen("ReGauss_32bits_inv.bin","wb");
@@ -626,14 +626,14 @@ void ReGauss_m32_test()
     }
     for(int i = 0; i < TEST32; i++)
     {
-        rGInvTMatM32(&Mat[i]);
-        InvSMatM32(Mat[i], &Mat_inv[i]);
+        rGInvTMatM32(&Mat);
+        InvSMatM32(Mat, &Mat_inv);
         for(int j = 0; j < 32; j++)
         {
-            st = Mat[i].M[j];
+            st = Mat.M[j];
             fwrite(&st, sizeof(st), 1, fd0);
 
-            st = Mat_inv[i].M[j];
+            st = Mat_inv.M[j];
             fwrite(&st, sizeof(st), 1, fd1);
         }
     }
@@ -668,7 +668,7 @@ void rGInvTMatM64(M64 *Mat)//generate 64*64 invertible matrix
 }
 void ReGauss_m64_test()
 {
-    M64 Mat[TEST64], Mat_inv[TEST64];
+    M64 Mat, Mat_inv;
     uint64_t st;
     FILE *fd0 = fopen("ReGauss_64bits.bin","wb");
     FILE *fd1 = fopen("ReGauss_64bits_inv.bin","wb");
@@ -684,14 +684,14 @@ void ReGauss_m64_test()
     }
     for(int i = 0; i < TEST64; i++)
     {
-        rGInvTMatM64(&Mat[i]);
-        InvSMatM64(Mat[i], &Mat_inv[i]);
+        rGInvTMatM64(&Mat);
+        InvSMatM64(Mat, &Mat_inv);
         for(int j = 0; j < 64; j++)
         {
-            st = Mat[i].M[j];
+            st = Mat.M[j];
             fwrite(&st, sizeof(st), 1, fd0);
 
-            st = Mat_inv[i].M[j];
+            st = Mat_inv.M[j];
             fwrite(&st, sizeof(st), 1, fd1);
         }
     }
@@ -733,7 +733,7 @@ void rGInvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
 }
 void ReGauss_m128_test()
 {
-    M128 Mat[TEST128], Mat_inv[TEST128];
+    M128 Mat, Mat_inv;
     uint64_t st;
     FILE *fd0 = fopen("ReGauss_128bits.bin","wb");
     FILE *fd1 = fopen("ReGauss_128bits_inv.bin","wb");
@@ -749,18 +749,18 @@ void ReGauss_m128_test()
     }
     for(int i = 0; i < TEST128; i++)
     {
-        rGInvTMatM128(&Mat[i]);
-        InvSMatM128(Mat[i], &Mat_inv[i]);
+        rGInvTMatM128(&Mat);
+        InvSMatM128(Mat, &Mat_inv);
         for(int j = 0; j < 128; j++)
         {
-            st = Mat[i].M[j][0];
+            st = Mat.M[j][0];
             fwrite(&st, sizeof(st), 1, fd0);
-            st = Mat[i].M[j][1];
+            st = Mat.M[j][1];
             fwrite(&st, sizeof(st), 1, fd0);
 
-            st = Mat_inv[i].M[j][0];
+            st = Mat_inv.M[j][0];
             fwrite(&st, sizeof(st), 1, fd1);
-            st = Mat_inv[i].M[j][1];
+            st = Mat_inv.M[j][1];
             fwrite(&st, sizeof(st), 1, fd1);
         }
     }
@@ -2207,19 +2207,19 @@ int main()
     // m64_test();
     // m128_test();
     // RandMat_m8_test();
-    // ReGauss_m8_test();
-    // ReGauss_m16_test();
-    // ReGauss_m32_test();
-    // ReGauss_m64_test();
-    // ReGauss_m128_test();
+    ReGauss_m8_test();
+    ReGauss_m16_test();
+    ReGauss_m32_test();
+    ReGauss_m64_test();
+    ReGauss_m128_test();
     // newmethod_m8_test();
     // RandbitMat_m8_test();
-    newmethod2_strict_m8_test();
-    newmethod2_ReGauss_m8_test();
-    newmethod2_m8_test();
-    newmethod2_strict_m16_test();
-    newmethod2_ReGauss_m16_test();
-    newmethod2_m16_test();
+    // newmethod2_strict_m8_test();
+    // newmethod2_ReGauss_m8_test();
+    // newmethod2_m8_test();
+    // newmethod2_strict_m16_test();
+    // newmethod2_ReGauss_m16_test();
+    // newmethod2_m16_test();
     //performance();
     //accuracy();
     return 0;
