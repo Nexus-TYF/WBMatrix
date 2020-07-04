@@ -109,7 +109,7 @@ fo.write("Tests of Distinguishability from Random\n")
 print("Tests of Distinguishability from Random")
 if args.list_tests:
     for i,testname in zip(range(len(testlist)),testlist):
-        fo.write(str(i+1).ljust(4)+": "+testname+"\n")
+       # fo.write(str(i+1).ljust(4)+": "+testname+"\n")
         print(str(i+1).ljust(4)+": "+testname)
     exit()
 
@@ -119,34 +119,34 @@ if args.testname:
     if args.testname in testlist:    
         m = __import__ ("sp800_22_"+args.testname)
         func = getattr(m,args.testname)
-        fo.write("TEST: %s\n" % args.testname)
+       # fo.write("TEST: %s\n" % args.testname)
         print("TEST: %s" % args.testname)
         success,p,plist = func(bits)
         gotresult = True
         if success:
-            fo.write("PASS\n")
+           # fo.write("PASS\n")
             print("PASS")
         else:
-            fo.write("FAIL\n")
+           # fo.write("FAIL\n")
             print("FAIL")
  
         if p:
-            fo.write("P="+str(p)+"\n")
+           # fo.write("P="+str(p)+"\n")
             print("P="+str(p))
 
         if plist:
             for pval in plist:
-                fo.write("P="+str(pval)+"\n")
+               # fo.write("P="+str(pval)+"\n")
                 print("P="+str(pval))
     else:
-        fo.write("Test name (%s) not known\n" % args.ttestname)
+       # fo.write("Test name (%s) not known\n" % args.ttestname)
         print("Test name (%s) not known" % args.ttestname)
         exit()
 else:
     results = list()
     
     for testname in testlist:
-        fo.write("TEST: %s\n" % testname)
+       # fo.write("TEST: %s\n" % testname)
         print("TEST: %s" % testname)
         m = __import__ ("sp800_22_"+testname)
         func = getattr(m,testname)
@@ -155,22 +155,22 @@ else:
 
         summary_name = testname
         if success:
-            fo.write("  PASS\n")
+           # fo.write("  PASS\n")
             print("  PASS")
             summary_result = "PASS"
         else:
-            fo.write("  FAIL\n")
+           # fo.write("  FAIL\n")
             print("  FAIL")
             summary_result = "FAIL"
         
         if p != None:
-            fo.write("  P="+str(p)+"\n")
+           # fo.write("  P="+str(p)+"\n")
             print("  P="+str(p))
             summary_p = str(p)
             
         if plist != None:
             for pval in plist:
-                fo.write("P="+str(pval)+"\n")
+               # fo.write("P="+str(pval)+"\n")
                 print("P="+str(pval))
             summary_p = str(min(plist))
         

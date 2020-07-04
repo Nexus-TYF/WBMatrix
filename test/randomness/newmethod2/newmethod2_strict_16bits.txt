@@ -1,0 +1,90 @@
+Tests of Distinguishability from Random
+TEST: monobit_test
+  PASS
+  P=0.6156593763545561
+TEST: frequency_within_block_test
+  PASS
+  P=0.17337843764200128
+TEST: runs_test
+  PASS
+  P=0.19530216386391316
+TEST: longest_run_ones_in_a_block_test
+  PASS
+  P=0.713141378185083
+TEST: binary_matrix_rank_test
+  PASS
+  P=0.753684397751593
+TEST: dft_test
+  PASS
+  P=0.8932340623742676
+TEST: non_overlapping_template_matching_test
+  PASS
+  P=0.999607021908385
+TEST: overlapping_template_matching_test
+  PASS
+  P=0.5726791765638357
+TEST: maurers_universal_test
+  PASS
+  P=0.3118572970092648
+TEST: linear_complexity_test
+  PASS
+  P=0.6918389645570328
+TEST: serial_test
+  PASS
+P=0.016226880284320143
+P=0.08332451446652157
+TEST: approximate_entropy_test
+  PASS
+  P=0.0161157765088169
+TEST: cumulative_sums_test
+  PASS
+P=0.7093257873961683
+P=0.7290105675600085
+TEST: random_excursion_test
+  FAIL
+P=0.18582812691355158
+P=0.1309505428560222
+P=0.004321199871446721
+P=0.024587984512839604
+P=0.81328737720042
+P=0.7910044977917833
+P=0.4340510610800204
+P=0.40022225874951395
+TEST: random_excursion_variant_test
+  PASS
+P=0.12144680625832649
+P=0.047970189883258914
+P=0.02789980519579356
+P=0.030554240994077234
+P=0.029346161064288504
+P=0.012790971502372414
+P=0.015162149614021212
+P=0.017753423785742687
+P=0.03193007712517383
+P=0.893339073631941
+P=0.8314197240736046
+P=0.7872899586205198
+P=0.849277027012376
+P=0.8362385838027987
+P=0.8161856332165194
+P=0.744887531481607
+P=0.9344709415897972
+P=0.7635646695178413
+
+SUMMARY
+-------
+monobit_test                             0.6156593763545561 PASS
+frequency_within_block_test              0.17337843764200128 PASS
+runs_test                                0.19530216386391316 PASS
+longest_run_ones_in_a_block_test         0.713141378185083  PASS
+binary_matrix_rank_test                  0.753684397751593  PASS
+dft_test                                 0.8932340623742676 PASS
+non_overlapping_template_matching_test   0.999607021908385  PASS
+overlapping_template_matching_test       0.5726791765638357 PASS
+maurers_universal_test                   0.3118572970092648 PASS
+linear_complexity_test                   0.6918389645570328 PASS
+serial_test                              0.016226880284320143 PASS
+approximate_entropy_test                 0.0161157765088169 PASS
+cumulative_sums_test                     0.7093257873961683 PASS
+random_excursion_test                    0.004321199871446721 FAIL
+random_excursion_variant_test            0.012790971502372414 PASS
