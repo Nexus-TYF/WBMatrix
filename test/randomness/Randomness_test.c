@@ -473,7 +473,8 @@ void rGInvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
     int randAdd;
     int randExc;
     uint8_t temp;
-    srand(time(NULL));
+    identityM8(Mat);
+    srand((randsseed++)^time(NULL));
     for(int i=7;i>=0;i--)
     {
         for(int j=0;j<8;j++)//Add
@@ -530,7 +531,8 @@ void rGInvTMatM16(M16 *Mat)//generate 16*16 invertible matrix
     int randAdd;
     int randExc;
     uint16_t temp;
-    srand(time(NULL));
+    identityM16(Mat);
+    srand((randsseed++)^time(NULL));
     for(int i=15;i>=0;i--)
     {
         for(int j=0;j<16;j++)//Add
@@ -588,7 +590,8 @@ void rGInvTMatM32(M32 *Mat)//generate 32*32 invertible matrix
     int randAdd;
     int randExc;
     uint32_t temp;
-    srand(time(NULL));
+    identityM32(Mat);
+    srand((randsseed++)^time(NULL));
     for(int i=31;i>=0;i--)
     {
         for(int j=0;j<32;j++)//Add
@@ -646,7 +649,8 @@ void rGInvTMatM64(M64 *Mat)//generate 64*64 invertible matrix
     int randAdd;
     int randExc;
     uint64_t temp;
-    srand(time(NULL));
+    identityM64(Mat);
+    srand((randsseed++)^time(NULL));
     for(int i=63;i>=0;i--)
     {
         for(int j=0;j<64;j++)//Add
@@ -704,7 +708,8 @@ void rGInvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
     int randAdd;
     int randExc;
     uint64_t temp[2];
-    srand(time(NULL));
+    identityM128(Mat);
+    srand((randsseed++)^time(NULL));
     for(int i=127;i>=0;i--)
     {
         for(int j=0;j<128;j++)//Add
@@ -2860,7 +2865,9 @@ void accuracy()
     identityM8(&iim8_4);
     for(i=0;i<TEST;i++)
     {
-        newmethod2_genMatpairM8(&iim8_1,&iim8_2);
+        // newmethod2_genMatpairM8(&iim8_1,&iim8_2);
+        rGInvTMatM8(&iim8_1);
+        InvSMatM8(iim8_1, &iim8_2);
         MatMulMatM8(iim8_1,iim8_2,&iim8_3);
         if(!isequalM8(iim8_3,iim8_4)) break;
     }
@@ -2871,7 +2878,9 @@ void accuracy()
     identityM16(&iim16_4);
     for(i=0;i<TEST;i++)
     {
-        newmethod2_genMatpairM16(&iim16_1,&iim16_2);
+        // newmethod2_genMatpairM16(&iim16_1,&iim16_2);
+        rGInvTMatM16(&iim16_1);
+        InvSMatM16(iim16_1, &iim16_2);
         MatMulMatM16(iim16_1,iim16_2,&iim16_3);
         if(!isequalM16(iim16_3,iim16_4)) break;
     }
@@ -2882,7 +2891,9 @@ void accuracy()
     identityM32(&iim32_4);
     for(i=0;i<TEST;i++)
     {
-        newmethod2_genMatpairM32(&iim32_1,&iim32_2);
+        // newmethod2_genMatpairM32(&iim32_1,&iim32_2);
+        rGInvTMatM32(&iim32_1);
+        InvSMatM32(iim32_1, &iim32_2);
         MatMulMatM32(iim32_1,iim32_2,&iim32_3);
         if(!isequalM32(iim32_3,iim32_4)) break;
     }
@@ -2893,7 +2904,9 @@ void accuracy()
     identityM64(&iim64_4);
     for(i=0;i<TEST;i++)
     {
-        newmethod2_genMatpairM64(&iim64_1,&iim64_2);
+        // newmethod2_genMatpairM64(&iim64_1,&iim64_2);
+        rGInvTMatM64(&iim64_1);
+        InvSMatM64(iim64_1, &iim64_2);
         MatMulMatM64(iim64_1,iim64_2,&iim64_3);
         if(!isequalM64(iim64_3,iim64_4)) break;
     }
@@ -2904,7 +2917,9 @@ void accuracy()
     identityM128(&iim128_4);
     for(i=0;i<TEST;i++)
     {
-        newmethod2_genMatpairM128(&iim128_1,&iim128_2);
+        // newmethod2_genMatpairM128(&iim128_1,&iim128_2);
+        rGInvTMatM128(&iim128_1);
+        InvSMatM128(iim128_1, &iim128_2);
         MatMulMatM128(iim128_1,iim128_2,&iim128_3);
         if(!isequalM128(iim128_3,iim128_4))  break;
     }
@@ -2984,20 +2999,20 @@ int main()
     // m64_test();
     // m128_test();
     // RandMat_m8_test();
-    // ReGauss_m8_test();
-    // ReGauss_m16_test();
-    // ReGauss_m32_test();
-    // ReGauss_m64_test();
-    // ReGauss_m128_test();
+    ReGauss_m8_test();
+    ReGauss_m16_test();
+    ReGauss_m32_test();
+    ReGauss_m64_test();
+    ReGauss_m128_test();
     // newmethod_m8_test();
     // RandbitMat_m8_test();
     // newmethod2_strict_m8_test();
     // newmethod2_ReGauss_m8_test();
-    newmethod2_m8_test();
-    newmethod2_m16_test();
-    newmethod2_m32_test();
-    newmethod2_m64_test();
-    newmethod2_m128_test();
+    // newmethod2_m8_test();
+    // newmethod2_m16_test();
+    // newmethod2_m32_test();
+    // newmethod2_m64_test();
+    // newmethod2_m128_test();
     // newmethod2_strict_m16_test();
     // newmethod2_ReGauss_m16_test();
     // performance();
