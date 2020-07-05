@@ -1,5 +1,5 @@
 //Reverse Gaussian elimination
-#include "WBMatrix/structure.h"
+#include "WBMatrix/WBMatrix.h"
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -33,6 +33,7 @@ void InvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
     int randAdd;
     int randExc;
     uint8_t temp;
+    identityM8(Mat);
     srand((randseed++)^time(NULL));
     for(int i=7;i>=0;i--)
     {
@@ -58,6 +59,7 @@ void InvTMatM16(M16 *Mat)//generate 16*16 invertible matrix
     int randAdd;
     int randExc;
     uint16_t temp;
+    identityM16(Mat);
     srand((randseed++)^time(NULL));
     for(int i=15;i>=0;i--)
     {
@@ -83,6 +85,7 @@ void InvTMatM32(M32 *Mat)//generate 32*32 invertible matrix
     int randAdd;
     int randExc;
     uint32_t temp;
+    identityM32(Mat);
     srand((randseed++)^time(NULL));
     for(int i=31;i>=0;i--)
     {
@@ -108,6 +111,7 @@ void InvTMatM64(M64 *Mat)//generate 64*64 invertible matrix
     int randAdd;
     int randExc;
     uint64_t temp;
+    identityM64(Mat);
     srand((randseed++)^time(NULL));
     for(int i=63;i>=0;i--)
     {
@@ -133,6 +137,7 @@ void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
     int randAdd;
     int randExc;
     uint64_t temp[2];
+    identityM128(Mat);
     srand((randseed++)^time(NULL));
     for(int i=127;i>=0;i--)
     {
