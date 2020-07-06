@@ -1,0 +1,19 @@
+Tests of Distinguishability from Random
+
+SUMMARY
+-------
+monobit_test                             0.007582711395572416 FAIL
+frequency_within_block_test              0.43759266309017014 PASS
+runs_test                                0.7620336572901083 PASS
+longest_run_ones_in_a_block_test         0.8747388504896054 PASS
+binary_matrix_rank_test                  0.9706447711060586 PASS
+dft_test                                 0.048433816012817286 PASS
+non_overlapping_template_matching_test   1.0000210786082655 PASS
+overlapping_template_matching_test       0.32007939682048775 PASS
+maurers_universal_test                   0.08905455881462848 PASS
+linear_complexity_test                   0.29858032197970574 PASS
+serial_test                              0.26896586017142493 PASS
+approximate_entropy_test                 0.2686136841559308 PASS
+cumulative_sums_test                     0.008436404295218969 FAIL
+random_excursion_test                    0.038732960604077826 PASS
+random_excursion_variant_test            0.3572923916606422 PASS
