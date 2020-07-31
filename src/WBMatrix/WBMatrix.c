@@ -424,6 +424,38 @@ int isequalV128(V128 Vec1, V128 Vec2)
     if(Vec1.V[1] != Vec2.V[1]) flag = 0;
     return flag;
 }
+int readbitM8(M8 Mat, int i, int j)//read one bit in a matrix, i in n rows, j in n columns, i,j: 0-7
+{
+    if((Mat.M[i] & idM8[j]) == idM8[j]) return 1;
+    else return 0;
+}
+int readbitM16(M16 Mat, int i, int j)//read one bit in a matrix, i in n rows, j in n columns, i,j: 0-15
+{
+    if((Mat.M[i] & idM16[j]) == idM16[j]) return 1;
+    else return 0;
+}
+int readbitM32(M32 Mat, int i, int j)//read one bit in a matrix, i in n rows, j in n columns, i,j: 0-31
+{
+    if((Mat.M[i] & idM32[j]) == idM32[j]) return 1;
+    else return 0;
+}
+int readbitM64(M64 Mat, int i, int j)//read one bit in a matrix, i in n rows, j in n columns, i,j: 0-63
+{
+    if((Mat.M[i] & idM64[j]) == idM64[j]) return 1;
+    else return 0;
+}
+int readbitM128(M128 Mat, int i, int j)//read one bit in a matrix, i in n rows, j in n columns, i,j: 0-127
+{
+    if(j < 64)
+    {
+        if((Mat.M[i][0] & idM64[j]) == idM64[j]) return 1;
+        else return 0;
+    }
+    else
+    {
+        if((Mat.M[i][1] & idM64[j - 64]) == idM64[j - 64]) return 1;
+    }
+}
 int isinvertM8(M8 Mat)//Invertible Matrix?
 {
     uint8_t temp;

@@ -24,6 +24,7 @@ void copyM8(M8 Mat1, M8 *Mat2);
 int isequalM8(M8 Mat1, M8 Mat2);
 int isinvertM8(M8 Mat);
 void invsM8(M8 Mat, M8 *Mat_inv);
+int readbitM8(M8 Mat, int i, int j);
 
 void initV8(V8 *Vec);
 void randV8(V8 *Vec);
@@ -57,6 +58,7 @@ void copyM16(M16 Mat1, M16 *Mat2);
 int isequalM16(M16 Mat1, M16 Mat2);
 int isinvertM16(M16 Mat);
 void invsM16(M16 Mat, M16 *Mat_inv);
+int readbitM16(M16 Mat, int i, int j);
 
 void initV16(V16 *Vec);
 void randV16(V16 *Vec);
@@ -89,6 +91,7 @@ void copyM32(M32 Mat1, M32 *Mat2);
 int isequalM32(M32 Mat1, M32 Mat2);
 int isinvertM32(M32 Mat);
 void invsM32(M32 Mat, M32 *Mat_inv);
+int readbitM32(M32 Mat, int i, int j);
 
 void initV32(V32 *Vec);
 void randV32(V32 *Vec);
@@ -125,6 +128,7 @@ void copyM64(M64 Mat1, M64 *Mat2);
 int isequalM64(M64 Mat1, M64 Mat2);
 int isinvertM64(M64 Mat);
 void invsM64(M64 Mat, M64 *Mat_inv);
+int readbitM64(M64 Mat, int i, int j);
 
 void initV64(V64 *Vec);
 void randV64(V64 *Vec);
@@ -158,6 +162,7 @@ void copyM128(M128 Mat1, M128 *Mat2);
 int isequalM128(M128 Mat1, M128 Mat2);
 int isinvertM128(M128 Mat);
 void invsM128(M128 Mat, M128 *Mat_inv);
+int readbitM128(M128 Mat, int i, int j);
 
 void initV128(V128 *Vec);
 void randV128(V128 *Vec);
