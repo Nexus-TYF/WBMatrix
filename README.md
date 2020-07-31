@@ -5,7 +5,10 @@ Implementations
 
 Contains the matrix-operation supports and test cases related to the white-box block cipher implementation, and provides the Chow et al.'s [white-box AES](https://link.springer.com/chapter/10.1007/3-540-36492-7_17) and Xiao-Lai's [white-box SM4](http://gb.oversea.cnki.net/KCMS/detail/detailall.aspx?filename=2010204831.nh&dbcode=CMFD&dbname=CMFD2010) implementations built by WBMatrix, [NTL](https://www.shoup.net/ntl/), and [M4RI](https://github.com/malb/m4ri), respectively.
 
-A released white-box AES can be found at [CEJO White box AES](https://github.com/Nexus-TYF/CEJO-whitebox-AES).
+## Applications
+1. [CEJO White box AES](https://github.com/Nexus-TYF/CEJO-whitebox-AES)
+
+2. [Xiao Lai White-box SM4](https://github.com/Nexus-TYF/Xiao-Lai-White-box-SM4)
 
 ## Matrix Library
 
@@ -14,7 +17,7 @@ A released white-box AES can be found at [CEJO White box AES](https://github.com
 * Matrix-Vector multiplication<br>
 * Matrix-Matrix multiplication<br>
 * Generation of an invertible Matrix with its inverse matrix (pairwise invertible matrices)<br>
-* Generation of pairwise invertible affine transformations<br>
+* Generation of the pairwise invertible affine transformations<br>
 * Matrix transpositon<br>
 * Affine transformation<br>
 * Encodings concatenation<br>
@@ -22,35 +25,38 @@ A released white-box AES can be found at [CEJO White box AES](https://github.com
 
 ### Header Files
 
-* **inverse.h** Revisable generating times from the temporary state matrix , the selection times for initialization of base matrix.<br>
-* **WBMatrix.h** The declaration of the main function.<br>
-* **struture.h** Data structure of matrix.<br>
+* **WBMatrix.h** The declaration of the main functions.<br>
+* **struture.h** Data structure of matrix and affine function.<br>
 * **random.h** For random functions.<br>
 
 ### Main Functions (8bit in Example)
 
-* **initinvbaseM8(int N)** a trace of the intermediate matrix which is generated in N times from an identity matrix.<br>
-we give a suggestion for the selection of N in inverse.h.<br>
-* **genMatpairM8(M8 \*Mat, M8 \*Mat_inv)** generates an invertible matrix Mat and its inverse matrix Mat_inv from the intermediate matrix with prestored operating times that are set in inverse.h.<br>
-* **genaffinepairM8(Aff8 \*aff, Aff8 \*aff_inv)** generates an affine transformation aff and its inverse affine transformation aff_inv.<br>
-* **MatMulVecM8(M8 Mat, V8 Vec, V8 \*ans)** multiplication for matrix Mat and vertor Vec, result is set in ans.<br>
-* **MatMulMatM8(M8 Mat1, M8 Mat2, M8 \*Mat)** multiplication for matrix Mat1 and matrix Mat2, result is set in Mat.<br>
-* **MattransM8(M8 Mat, M8 \*Mat_trans)** transpositon for matrix Mat, result is set in Mat_trans.<br>
-* **affineU8(Aff8 aff, uint8_t arr)** affine transformation for an uint8_t number, and returns an uint8_t result.
-* **affinemixM8(Aff8 aff, Aff8 preaff_inv, Aff8 \*mixaff)** affine conversion between aff and preaff_inv, result is set in mixaff.
-* **affinecomM8to32(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff32 \*aff)** affine concatenation, the matrix part of aff consists of sub-matrix on its diagonal, while the vector part of aff consists of sub-vector.
+* **identityM8(M8 \*Mat)** converts the matrix **Mat** into an identity matrix.<br>
+* **copyM8M8(M8 Mat1, M8 \*Mat2)** replicates the matrix **Mat1** to **Mat2**.<br>
+* **readbitM8(M8 Mat, int i, int j)** extracts the (i, j) bit in matrix **Mat**.<br>
+* **flipbitM8(M8 \*Mat, int i, int j)** flips the (i, j) bit in matrix **Mat**.<br>
+* **setbitM8(M8 *Mat, int i, int j, int bit)** assigns the (i, j) bit a value **bit**.<br>
+* **genMatpairM8(M8 \*Mat, M8 \*Mat_inv)** generates an invertible matrix **Mat** and its inverse matrix **Mat_inv**.<br>
+* **genaffinepairM8(Aff8 \*aff, Aff8 \*aff_inv)** generates an affine transformation **aff** and its inversion **aff_inv**.<br>
+* **MatMulVecM8(M8 Mat, V8 Vec, V8 \*ans)** multiplication for a matrix **Mat** and a vertor **Vec**, result is set in **ans**.<br>
+* **MatMulNumM8(M8 Mat, uint8_t n)** multiplication for a matrix **Mat** and a number **n**, returns a number.<br>
+* **MatMulMatM8(M8 Mat1, M8 Mat2, M8 \*Mat)** multiplication for a matrix **Mat1** and a matrix **Mat2**, result is set in **Mat**.<br>
+* **MatAddMatM8(M8 Mat1, M8 Mat2, M8 \*Mat)** addition between the matrix **Mat1** and **Mat2**, result is set in **Mat**.<br>
+* **MattransM8(M8 Mat, M8 \*Mat_trans)** transpositon for a matrix **Mat**, result is set in **Mat_trans**.<br>
+* **affineU8(Aff8 aff, uint8_t arr)** affine transformation for an uint8_t number **arr**, and returns an uint8_t result.<br>
+* **affinemixM8(Aff8 aff, Aff8 preaff_inv, Aff8 \*mixaff)** affine conversion between **aff** and **preaff_inv**, result is set in **mixaff**.<br>
+* **affinecomM8to32(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff32 \*aff)** affine concatenation, the matrix part of **aff** consists of submatrices on its diagonal, while the vector part of **aff** consists of subvectors.<br>
 
 ### Code Examples
 
-M32 mat32\[3\]; //defines a 32-bit matrix<br>
-initinvbaseM32(initM32_max); //initializes the intermediate matrix<br>
-genMatpairM32(&mat32\[0\],&mat32\[1\]); //generates the pairwise invertible matrices<br>
-MatMulMatM32(mat32\[0\],mat32\[1\],&mat32\[2\]); //matrix-matrix multiplication<br>
-printM32(mat32\[2\]); //prints the matrix<br>
+M8 mat\[3\]; //defines an 8-bit matrix<br>
+genMatpairM8(&mat\[0\],&mat\[1\]); //generates the pairwise invertible matrices<br>
+MatMulMatM8(mat\[0\],mat\[1\],&mat\[2\]); //matrix-matrix multiplication<br>
+printM8(mat\[2\]); //prints the matrix<br>
 
 ### Included library
 
-1. [Generation of random permutation](https://github.com/preshing/RandomSequence)
+1. [RandomSequence](https://github.com/preshing/RandomSequence)
 
 ---
 
@@ -106,7 +112,7 @@ $ ./BMM
 11. [inverseMatrix](https://github.com/braindrillmd/inverseMatrix.git)<br>
 
 ---
-Last Updated : 2020/07/01<br>
+Last Updated : 2020/07/31<br>
 Modified By : Nexus
 
 ---
@@ -238,3 +244,8 @@ Revision 1a).<br>
 
 (2020/07/01)<br>
 1. Fixed: Update the random functions.<br>
+
+(2020/07/31)<br>
+1. New: Update the new method for generating the pairwise invetible matrices.<br>
+2. New: add bitwise operation (read/flip/set) function.<br>
+3. New: add the function for calculating the inversion of an invertible matrix by Gaussian elimination method.<br>
