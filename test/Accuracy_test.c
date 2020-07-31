@@ -4,6 +4,147 @@
 int main()
 {
     int flag = 1, i;
+    printf("-----bitwise operation (read/set/flip) test-----\n");
+    M8 bom8_1, bom8_2, bom8_3;
+    int flag_bom8_1 = 1;
+    int flag_bom8_2 = 1;
+    int flag_bom8_3 = 1;
+    initM8(&bom8_1);
+    identityM8(&bom8_2);
+    initM8(&bom8_3);
+    for (i = 0; i < 8; i++)
+    {
+        setbitM8(&bom8_1, i, i, 1);
+    }
+    if(!isequalM8(bom8_1, bom8_2)) flag_bom8_1 = 0;
+    for (i = 0; i < 8; i++)
+    {
+        if(readbitM8(bom8_1, i, i) == 0) 
+        {
+            flag_bom8_2 = 0;
+            break;
+        }
+    }
+    for (i = 0; i < 8; i++)
+    {
+        flipbitM8(&bom8_1, i, i);
+    }
+    if(!isequalM8(bom8_1, bom8_3)) flag_bom8_1 = 0;
+    if(flag_bom8_1 && flag_bom8_2 && flag_bom8_3) printf("8bit: PASS\n");
+    else {printf("8bit: ERROR\n"); flag = 0;}
+
+    M16 bom16_1, bom16_2, bom16_3;
+    int flag_bom16_1 = 1;
+    int flag_bom16_2 = 1;
+    int flag_bom16_3 = 1;
+    initM16(&bom16_1);
+    identityM16(&bom16_2);
+    initM16(&bom16_3);
+    for (i = 0; i < 16; i++)
+    {
+        setbitM16(&bom16_1, i, i, 1);
+    }
+    if(!isequalM16(bom16_1, bom16_2)) flag_bom16_1 = 0;
+    for (i = 0; i < 16; i++)
+    {
+        if(readbitM16(bom16_1, i, i) == 0) 
+        {
+            flag_bom16_2 = 0;
+            break;
+        }
+    }
+    for (i = 0; i < 16; i++)
+    {
+        flipbitM16(&bom16_1, i, i);
+    }
+    if(!isequalM16(bom16_1, bom16_3)) flag_bom16_1 = 0;
+    if(flag_bom16_1 && flag_bom16_2 && flag_bom16_3) printf("16bit: PASS\n");
+    else {printf("16bit: ERROR\n"); flag = 0;}
+
+    M32 bom32_1, bom32_2, bom32_3;
+    int flag_bom32_1 = 1;
+    int flag_bom32_2 = 1;
+    int flag_bom32_3 = 1;
+    initM32(&bom32_1);
+    identityM32(&bom32_2);
+    initM32(&bom32_3);
+    for (i = 0; i < 32; i++)
+    {
+        setbitM32(&bom32_1, i, i, 1);
+    }
+    if(!isequalM32(bom32_1, bom32_2)) flag_bom32_1 = 0;
+    for (i = 0; i < 32; i++)
+    {
+        if(readbitM32(bom32_1, i, i) == 0) 
+        {
+            flag_bom32_2 = 0;
+            break;
+        }
+    }
+    for (i = 0; i < 32; i++)
+    {
+        flipbitM32(&bom32_1, i, i);
+    }
+    if(!isequalM32(bom32_1, bom32_3)) flag_bom32_1 = 0;
+    if(flag_bom32_1 && flag_bom32_2 && flag_bom32_3) printf("32bit: PASS\n");
+    else {printf("32bit: ERROR\n"); flag = 0;}
+
+    M64 bom64_1, bom64_2, bom64_3;
+    int flag_bom64_1 = 1;
+    int flag_bom64_2 = 1;
+    int flag_bom64_3 = 1;
+    initM64(&bom64_1);
+    identityM64(&bom64_2);
+    initM64(&bom64_3);
+    for (i = 0; i < 64; i++)
+    {
+        setbitM64(&bom64_1, i, i, 1);
+    }
+    if(!isequalM64(bom64_1, bom64_2)) flag_bom64_1 = 0;
+    for (i = 0; i < 64; i++)
+    {
+        if(readbitM64(bom64_1, i, i) == 0) 
+        {
+            flag_bom64_2 = 0;
+            break;
+        }
+    }
+    for (i = 0; i < 64; i++)
+    {
+        flipbitM64(&bom64_1, i, i);
+    }
+    if(!isequalM64(bom64_1, bom64_3)) flag_bom64_1 = 0;
+    if(flag_bom64_1 && flag_bom64_2 && flag_bom64_3) printf("64bit: PASS\n");
+    else {printf("64bit: ERROR\n"); flag = 0;}
+
+    M128 bom128_1, bom128_2, bom128_3;
+    int flag_bom128_1 = 1;
+    int flag_bom128_2 = 1;
+    int flag_bom128_3 = 1;
+    initM128(&bom128_1);
+    identityM128(&bom128_2);
+    initM128(&bom128_3);
+    for (i = 0; i < 128; i++)
+    {
+        setbitM128(&bom128_1, i, i, 1);
+    }
+    if(!isequalM128(bom128_1, bom128_2)) flag_bom128_1 = 0;
+    for (i = 0; i < 128; i++)
+    {
+        if(readbitM128(bom128_1, i, i) == 0) 
+        {
+            flag_bom128_2 = 0;
+            break;
+        }
+    }
+    for (i = 0; i < 128; i++)
+    {
+        flipbitM128(&bom128_1, i, i);
+    }
+    if(!isequalM128(bom128_1, bom128_3)) flag_bom128_1 = 0;
+    if(flag_bom128_1 && flag_bom128_2 && flag_bom128_3) printf("128bit: PASS\n");
+    else {printf("128bit: ERROR\n"); flag = 0;}
+
     printf("-----mat mul num test-----\n");
     M8 mmnm8_1, mmnm8_2;
     uint8_t mmnn8_1 = 0x87, mmnn8_2;

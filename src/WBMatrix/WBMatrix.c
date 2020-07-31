@@ -454,6 +454,7 @@ int readbitM128(M128 Mat, int i, int j)//read one bit in a matrix, i in n rows, 
     else
     {
         if((Mat.M[i][1] & idM64[j - 64]) == idM64[j - 64]) return 1;
+        else return 0;
     }
 }
 void flipbitM8(M8 *Mat, int i, int j)//flip (i, j) bit in a matrix
