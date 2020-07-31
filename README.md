@@ -3,7 +3,7 @@
 An Optimized Matrix Library for White-Box Block Cipher
 Implementations
 
-Contains the matrix-operation supports and test cases related to the white-box block cipher implementation, and provides the Chow et al.'s [white-box AES](https://link.springer.com/chapter/10.1007/3-540-36492-7_17) and Xiao-Lai's [white-box SM4](http://gb.oversea.cnki.net/KCMS/detail/detailall.aspx?filename=2010204831.nh&dbcode=CMFD&dbname=CMFD2010) implementations built by WBMatrix, [NTL](https://www.shoup.net/ntl/), and [M4RI](https://github.com/malb/m4ri), respectively.
+Contains the matrix operations related to the white-box block cipher implementation and provides thorough test cases for their performance and accuracy. The test cases also include the Chow et al.'s [white-box AES](https://link.springer.com/chapter/10.1007/3-540-36492-7_17) and Xiao-Lai's [white-box SM4](http://gb.oversea.cnki.net/KCMS/detail/detailall.aspx?filename=2010204831.nh&dbcode=CMFD&dbname=CMFD2010) implementations built by WBMatrix, [NTL](https://www.shoup.net/ntl/), and [M4RI](https://github.com/malb/m4ri), respectively.
 
 ## Applications
 1. [CEJO White box AES](https://github.com/Nexus-TYF/CEJO-whitebox-AES)
@@ -35,7 +35,7 @@ Contains the matrix-operation supports and test cases related to the white-box b
 * **copyM8M8(M8 Mat1, M8 \*Mat2)** replicates the matrix **Mat1** to **Mat2**.<br>
 * **readbitM8(M8 Mat, int i, int j)** extracts the (i, j) bit in matrix **Mat**.<br>
 * **flipbitM8(M8 \*Mat, int i, int j)** flips the (i, j) bit in matrix **Mat**.<br>
-* **setbitM8(M8 *Mat, int i, int j, int bit)** assigns the (i, j) bit a value **bit**.<br>
+* **setbitM8(M8 \*Mat, int i, int j, int bit)** assigns the (i, j) bit a value **bit**.<br>
 * **genMatpairM8(M8 \*Mat, M8 \*Mat_inv)** generates an invertible matrix **Mat** and its inverse matrix **Mat_inv**.<br>
 * **genaffinepairM8(Aff8 \*aff, Aff8 \*aff_inv)** generates an affine transformation **aff** and its inversion **aff_inv**.<br>
 * **MatMulVecM8(M8 Mat, V8 Vec, V8 \*ans)** multiplication for a matrix **Mat** and a vertor **Vec**, result is set in **ans**.<br>
@@ -50,8 +50,8 @@ Contains the matrix-operation supports and test cases related to the white-box b
 ### Code Examples
 
 M8 mat\[3\]; //defines an 8-bit matrix<br>
-genMatpairM8(&mat\[0\],&mat\[1\]); //generates the pairwise invertible matrices<br>
-MatMulMatM8(mat\[0\],mat\[1\],&mat\[2\]); //matrix-matrix multiplication<br>
+genMatpairM8(&mat\[0\], &mat\[1\]); //generates the pairwise invertible matrices<br>
+MatMulMatM8(mat\[0\], mat\[1\], &mat\[2\]); //matrix-matrix multiplication<br>
 printM8(mat\[2\]); //prints the matrix<br>
 
 ### Included library
@@ -94,7 +94,7 @@ $ make
 ### Run
 
 ```
-$ ./BMM
+$ ./WBMM
 ```
 
 ### Included libraries
@@ -247,5 +247,5 @@ Revision 1a).<br>
 
 (2020/07/31)<br>
 1. New: Update the new method for generating the pairwise invetible matrices.<br>
-2. New: add bitwise operation (read/flip/set) function.<br>
-3. New: add the function for calculating the inversion of an invertible matrix by Gaussian elimination method.<br>
+2. New: Add bitwise operation (read/flip/set) function.<br>
+3. New: Add the function for calculating the inversion of an invertible matrix by Gaussian elimination method.<br>
