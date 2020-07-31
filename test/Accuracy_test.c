@@ -14,7 +14,7 @@ int main()
         if(mmnn8_1 != mmnn8_2) break;
     }
     if(i < TEST) {printf("8bit: ERROR\n"); flag = 0;}
-    else printf("8bit: OK\n");
+    else printf("8bit: PASS\n");
 
     M16 mmnm16_1, mmnm16_2;
     uint16_t mmnn16_1=0x8778, mmnn16_2;
@@ -25,7 +25,7 @@ int main()
         if(mmnn16_1 != mmnn16_2) break;
     }
     if(i < TEST) {printf("16bit: ERROR\n"); flag = 0;}
-    else printf("16bit: OK\n");
+    else printf("16bit: PASS\n");
 
     M32 mmnm32_1,mmnm32_2;
     uint32_t mmnn32_1=0x87788778,mmnn32_2;
@@ -36,7 +36,7 @@ int main()
         if(mmnn32_1!=mmnn32_2) break;
     }
     if(i<TEST) {printf("32bit: ERROR\n"); flag=0;}
-    else printf("32bit: OK\n");
+    else printf("32bit: PASS\n");
 
     M64 mmnm64_1,mmnm64_2;
     uint64_t mmnn64_1=0x8778877887788778,mmnn64_2;
@@ -47,7 +47,7 @@ int main()
         if(mmnn64_1!=mmnn64_2)  break;
     }
     if(i<TEST) {printf("64bit: ERROR\n"); flag=0;}
-    else printf("64bit: OK\n");
+    else printf("64bit: PASS\n");
 
     printf("-----mat mul vec test-----\n");
     M8 mmvm8_1,mmvm8_2;
@@ -61,7 +61,7 @@ int main()
         if(!isequalV8(mmvv8_1,mmvv8_3)) break;
     }
     if(i<TEST) {printf("8bit: ERROR\n"); flag=0;}
-    else printf("8bit: OK\n");
+    else printf("8bit: PASS\n");
 
     M16 mmvm16_1,mmvm16_2;
     V16 mmvv16_1,mmvv16_2,mmvv16_3;
@@ -74,7 +74,7 @@ int main()
         if(!isequalV16(mmvv16_1,mmvv16_3)) break;
     } 
     if(i<TEST) {printf("16bit: ERROR\n"); flag=0;}
-    else printf("16bit: OK\n");
+    else printf("16bit: PASS\n");
 
     M32 mmvm32_1,mmvm32_2;
     V32 mmvv32_1,mmvv32_2,mmvv32_3;
@@ -87,7 +87,7 @@ int main()
         if(!isequalV32(mmvv32_1,mmvv32_3)) break;
     }
     if(i<TEST) {printf("32bit: ERROR\n"); flag=0;}
-    else printf("32bit: OK\n");
+    else printf("32bit: PASS\n");
 
     M64 mmvm64_1,mmvm64_2;
     V64 mmvv64_1,mmvv64_2,mmvv64_3;
@@ -100,7 +100,7 @@ int main()
         if(!isequalV64(mmvv64_1,mmvv64_3)) break;
     } 
     if(i<TEST) {printf("64bit: ERROR\n"); flag=0;}
-    else printf("64bit: OK\n");
+    else printf("64bit: PASS\n");
 
     M128 mmvm128_1,mmvm128_2;
     V128 mmvv128_1,mmvv128_2,mmvv128_3;
@@ -113,7 +113,7 @@ int main()
         if(!isequalV128(mmvv128_1,mmvv128_3)) break;
     } 
     if(i<TEST) {printf("128bit: ERROR\n"); flag=0;}
-    else printf("128bit: OK\n");
+    else printf("128bit: PASS\n");
     
     printf("-----mat mul mat (includes mat transpositon) test-----\n");
     M8 mmmm8_1,mmmm8_2,mmmm8_3;
@@ -130,7 +130,7 @@ int main()
         if(!isequalV8(mmmv8_3,mmmv8_4)) break;
     }
     if(i<TEST) {printf("8bit: ERROR\n"); flag=0;}
-    else printf("8bit: OK\n");
+    else printf("8bit: PASS\n");
     
     M16 mmmm16_1,mmmm16_2,mmmm16_3;
     V16 mmmv16_1,mmmv16_2,mmmv16_3,mmmv16_4;
@@ -146,7 +146,7 @@ int main()
         if(!isequalV16(mmmv16_3,mmmv16_4)) break;
     }
     if(i<TEST) {printf("16bit: ERROR\n"); flag=0;}
-    else printf("16bit: OK\n");
+    else printf("16bit: PASS\n");
 
     M32 mmmm32_1,mmmm32_2,mmmm32_3;
     V32 mmmv32_1,mmmv32_2,mmmv32_3,mmmv32_4;
@@ -162,7 +162,7 @@ int main()
         if(!isequalV32(mmmv32_3,mmmv32_4)) break;
     }
     if(i<TEST) {printf("32bit: ERROR\n"); flag=0;}
-    else printf("32bit: OK\n");
+    else printf("32bit: PASS\n");
 
     M64 mmmm64_1,mmmm64_2,mmmm64_3;
     V64 mmmv64_1,mmmv64_2,mmmv64_3,mmmv64_4;
@@ -178,7 +178,7 @@ int main()
         if(!isequalV64(mmmv64_3,mmmv64_4)) break;
     }
     if(i<TEST) {printf("64bit: ERROR\n"); flag=0;}
-    else printf("64bit: OK\n");
+    else printf("64bit: PASS\n");
 
     M128 mmmm128_1,mmmm128_2,mmmm128_3;
     V128 mmmv128_1,mmmv128_2,mmmv128_3,mmmv128_4;
@@ -194,64 +194,83 @@ int main()
         if(!isequalV128(mmmv128_3,mmmv128_4)) break;
     }
     if(i<TEST) {printf("128bit: ERROR\n"); flag=0;}
-    else printf("128bit: OK\n");
+    else printf("128bit: PASS\n");
 
     printf("-----invertible and inverse test-----\n");
-    printf("nomal mode:\n");
-    M8 iim8_1,iim8_2,iim8_3,iim8_4;
+    M8 iim8_1, iim8_2, iim8_3, iim8_4, iim8_5;
     identityM8(&iim8_4);
-    for(i=0;i<TEST;i++)
+    for(i = 0; i < TEST; i++)
     {
-        genMatpairM8(&iim8_1,&iim8_2);
-        MatMulMatM8(iim8_1,iim8_2,&iim8_3);
-        if(!isequalM8(iim8_3,iim8_4)) break;
+        genMatpairM8(&iim8_1, &iim8_2);
+        if(!isinvertM8(iim8_1)) break;
+        if(!isinvertM8(iim8_2)) break;
+        MatMulMatM8(iim8_1, iim8_2, &iim8_3);
+        if(!isequalM8(iim8_3, iim8_4)) break;
+        invsM8(iim8_1, &iim8_5);
+        if(!isequalM8(iim8_2, iim8_5)) break;
     }
     if(i<TEST) {printf("8bit: ERROR\n"); flag=0;}
-    else printf("8bit: OK\n");
+    else printf("8bit: PASS\n");
 
-    M16 iim16_1,iim16_2,iim16_3,iim16_4;
+    M16 iim16_1, iim16_2, iim16_3, iim16_4, iim16_5;
     identityM16(&iim16_4);
-    for(i=0;i<TEST;i++)
+    for(i = 0; i < TEST; i++)
     {
-        genMatpairM16(&iim16_1,&iim16_2);
-        MatMulMatM16(iim16_1,iim16_2,&iim16_3);
-        if(!isequalM16(iim16_3,iim16_4)) break;
+        genMatpairM16(&iim16_1, &iim16_2);
+        if(!isinvertM16(iim16_1)) break;
+        if(!isinvertM16(iim16_2)) break;
+        MatMulMatM16(iim16_1, iim16_2, &iim16_3);
+        if(!isequalM16(iim16_3, iim16_4)) break;
+        invsM16(iim16_1, &iim16_5);
+        if(!isequalM16(iim16_2, iim16_5)) break;
     }
     if(i<TEST) {printf("16bit: ERROR\n"); flag=0;}
-    else printf("16bit: OK\n");
+    else printf("16bit: PASS\n");
 
-    M32 iim32_1,iim32_2,iim32_3,iim32_4;
+    M32 iim32_1, iim32_2, iim32_3, iim32_4, iim32_5;
     identityM32(&iim32_4);
-    for(i=0;i<TEST;i++)
+    for(i = 0; i < TEST; i++)
     {
-        genMatpairM32(&iim32_1,&iim32_2);
-        MatMulMatM32(iim32_1,iim32_2,&iim32_3);
-        if(!isequalM32(iim32_3,iim32_4)) break;
+        genMatpairM32(&iim32_1, &iim32_2);
+        if(!isinvertM32(iim32_1)) break;
+        if(!isinvertM32(iim32_2)) break;
+        MatMulMatM32(iim32_1, iim32_2, &iim32_3);
+        if(!isequalM32(iim32_3, iim32_4)) break;
+        invsM32(iim32_1, &iim32_5);
+        if(!isequalM32(iim32_2, iim32_5)) break;
     }
     if(i<TEST) {printf("32bit: ERROR\n"); flag=0;}
-    else printf("32bit: OK\n");
+    else printf("32bit: PASS\n");
 
-    M64 iim64_1,iim64_2,iim64_3,iim64_4;
+    M64 iim64_1, iim64_2, iim64_3, iim64_4, iim64_5;
     identityM64(&iim64_4);
-    for(i=0;i<TEST;i++)
+    for(i = 0; i < TEST; i++)
     {
-        genMatpairM64(&iim64_1,&iim64_2);
-        MatMulMatM64(iim64_1,iim64_2,&iim64_3);
-        if(!isequalM64(iim64_3,iim64_4)) break;
+        genMatpairM64(&iim64_1, &iim64_2);
+        if(!isinvertM64(iim64_1)) break;
+        if(!isinvertM64(iim64_2)) break;
+        MatMulMatM64(iim64_1, iim64_2, &iim64_3);
+        if(!isequalM64(iim64_3, iim64_4)) break;
+        invsM64(iim64_1, &iim64_5);
+        if(!isequalM64(iim64_2, iim64_5)) break;
     }
     if(i<TEST) {printf("64bit: ERROR\n"); flag=0;}
-    else printf("64bit: OK\n");
+    else printf("64bit: PASS\n");
 
-    M128 iim128_1,iim128_2,iim128_3,iim128_4;
+    M128 iim128_1, iim128_2, iim128_3, iim128_4, iim128_5;
     identityM128(&iim128_4);
-    for(i=0;i<TEST;i++)
+    for(i = 0; i < TEST; i++)
     {
-        genMatpairM128(&iim128_1,&iim128_2);
-        MatMulMatM128(iim128_1,iim128_2,&iim128_3);
-        if(!isequalM128(iim128_3,iim128_4))  break;
+        genMatpairM128(&iim128_1, &iim128_2);
+        if(!isinvertM128(iim128_1)) break;
+        if(!isinvertM128(iim128_2)) break;
+        MatMulMatM128(iim128_1, iim128_2, &iim128_3);
+        if(!isequalM128(iim128_3, iim128_4))  break;
+        invsM128(iim128_1, &iim128_5);
+        if(!isequalM128(iim128_2, iim128_5)) break;
     }
     if(i<TEST) {printf("128bit: ERROR\n"); flag=0;}
-    else printf("128bit: OK\n");
+    else printf("128bit: PASS\n");
 
     printf("-----invertible affine and affine transform test-----\n");
     Aff8 iaa8_1,iaa8_2;
@@ -259,7 +278,7 @@ int main()
     genaffinepairM8(&iaa8_1,&iaa8_2);
     iau8_2=affineU8(iaa8_1,iau8_1);
     iau8_3=affineU8(iaa8_2,iau8_2);
-    if(iau8_1==iau8_3) printf("8bit: OK\n");
+    if(iau8_1==iau8_3) printf("8bit: PASS\n");
     else {printf("8bit: ERROR\n"); flag=0;}
 
     Aff16 iaa16_1,iaa16_2;
@@ -267,7 +286,7 @@ int main()
     genaffinepairM16(&iaa16_1,&iaa16_2);
     iau16_2=affineU16(iaa16_1,iau16_1);
     iau16_3=affineU16(iaa16_2,iau16_2);
-    if(iau16_1==iau16_3) printf("16bit: OK\n");
+    if(iau16_1==iau16_3) printf("16bit: PASS\n");
     else {printf("16bit: ERROR\n"); flag=0;}
 
     Aff32 iaa32_1,iaa32_2;
@@ -275,7 +294,7 @@ int main()
     genaffinepairM32(&iaa32_1,&iaa32_2);
     iau32_2=affineU32(iaa32_1,iau32_1);
     iau32_3=affineU32(iaa32_2,iau32_2);
-    if(iau32_1==iau32_3) printf("32bit: OK\n");
+    if(iau32_1==iau32_3) printf("32bit: PASS\n");
     else {printf("32bit: ERROR\n"); flag=0;}
 
     Aff64 iaa64_1,iaa64_2;
@@ -283,7 +302,7 @@ int main()
     genaffinepairM64(&iaa64_1,&iaa64_2);
     iau64_2=affineU64(iaa64_1,iau64_1);
     iau64_3=affineU64(iaa64_2,iau64_2);
-    if(iau64_1==iau64_3) printf("64bit: OK\n");
+    if(iau64_1==iau64_3) printf("64bit: PASS\n");
     else {printf("64bit: ERROR\n"); flag=0;}
 
     Aff128 iaa128_1,iaa128_2;
@@ -291,7 +310,7 @@ int main()
     genaffinepairM128(&iaa128_1,&iaa128_2);
     affineU128(iaa128_1,iau128_1,iau128_2);
     affineU128(iaa128_2,iau128_2,iau128_3);
-    if( (iau128_1[0]==iau128_3[0]) && (iau128_1[1]==iau128_3[1]) ) printf("128bit: OK\n");
+    if( (iau128_1[0]==iau128_3[0]) && (iau128_1[1]==iau128_3[1]) ) printf("128bit: PASS\n");
     else {printf("128bit: ERROR\n"); flag=0;}
 
     printf("-----affine mix test-----\n");
@@ -303,7 +322,7 @@ int main()
     affinemixM8(ama8_3,ama8_2,&ama8_5);
     amu8_4=affineU8(ama8_5,amu8_2);
     amu8_5=affineU8(ama8_4,amu8_4);
-    if(amu8_1==amu8_5) printf("8bit: OK\n");
+    if(amu8_1==amu8_5) printf("8bit: PASS\n");
     else {printf("8bit: ERROR\n"); flag=0;}
 
     Aff16 ama16_1,ama16_2,ama16_3,ama16_4,ama16_5;
@@ -314,7 +333,7 @@ int main()
     affinemixM16(ama16_3,ama16_2,&ama16_5);
     amu16_4=affineU16(ama16_5,amu16_2);
     amu16_5=affineU16(ama16_4,amu16_4);
-    if(amu16_1==amu16_5) printf("16bit: OK\n");
+    if(amu16_1==amu16_5) printf("16bit: PASS\n");
     else {printf("16bit: ERROR\n"); flag=0;}
 
     Aff32 ama32_1,ama32_2,ama32_3,ama32_4,ama32_5;
@@ -325,7 +344,7 @@ int main()
     affinemixM32(ama32_3,ama32_2,&ama32_5);
     amu32_4=affineU32(ama32_5,amu32_2);
     amu32_5=affineU32(ama32_4,amu32_4);
-    if(amu32_1==amu32_5) printf("32bit: OK\n");
+    if(amu32_1==amu32_5) printf("32bit: PASS\n");
     else {printf("32bit: ERROR\n"); flag=0;}
 
     Aff64 ama64_1,ama64_2,ama64_3,ama64_4,ama64_5;
@@ -336,7 +355,7 @@ int main()
     affinemixM64(ama64_3,ama64_2,&ama64_5);
     amu64_4=affineU64(ama64_5,amu64_2);
     amu64_5=affineU64(ama64_4,amu64_4);
-    if(amu64_1==amu64_5) printf("64bit: OK\n");
+    if(amu64_1==amu64_5) printf("64bit: PASS\n");
     else {printf("64bit: ERROR\n"); flag=0;}
 
     Aff128 ama128_1,ama128_2,ama128_3,ama128_4,ama128_5;
@@ -347,7 +366,7 @@ int main()
     affinemixM128(ama128_3,ama128_2,&ama128_5);
     affineU128(ama128_5,amu128_2,amu128_4);
     affineU128(ama128_4,amu128_4,amu128_5);
-    if( (amu128_1[0]==amu128_5[0]) && (amu128_1[1]==amu128_5[1]) )printf("128bit: OK\n");
+    if( (amu128_1[0]==amu128_5[0]) && (amu128_1[1]==amu128_5[1]) )printf("128bit: PASS\n");
     else {printf("128bit: ERROR\n"); flag=0;}
 
     if(flag) printf("\nALL PASS!");
