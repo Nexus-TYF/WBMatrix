@@ -483,6 +483,31 @@ void flipbitM128(M128 *Mat, int i, int j)//flip (i, j) bit in a matrix
         (*Mat).M[i][1] ^= idM64[j - 64];
     }
 }
+void setbitM8(M8 *Mat, int i, int j, int bit)//set (i, j) bit in a matrix, bit = 0/1
+{
+    if(readbitM8(*Mat, i, j) == bit) return;
+    else flipbitM8(Mat, i, j);
+}
+void setbitM16(M16 *Mat, int i, int j, int bit)//set (i, j) bit in a matrix, bit = 0/1
+{
+    if(readbitM16(*Mat, i, j) == bit) return;
+    else flipbitM16(Mat, i, j);
+}
+void setbitM32(M32 *Mat, int i, int j, int bit)//set (i, j) bit in a matrix, bit = 0/1
+{
+    if(readbitM32(*Mat, i, j) == bit) return;
+    else flipbitM32(Mat, i, j);
+}
+void setbitM64(M64 *Mat, int i, int j, int bit)//set (i, j) bit in a matrix, bit = 0/1
+{
+    if(readbitM64(*Mat, i, j) == bit) return;
+    else flipbitM64(Mat, i, j);
+}
+void setbitM128(M128 *Mat, int i, int j, int bit)//set (i, j) bit in a matrix, bit = 0/1
+{
+    if(readbitM128(*Mat, i, j) == bit) return;
+    else flipbitM128(Mat, i, j);
+}
 int isinvertM8(M8 Mat)//Invertible Matrix?
 {
     uint8_t temp;

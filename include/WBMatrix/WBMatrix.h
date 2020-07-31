@@ -26,6 +26,7 @@ int isinvertM8(M8 Mat);
 void invsM8(M8 Mat, M8 *Mat_inv);
 int readbitM8(M8 Mat, int i, int j);
 void flipbitM8(M8 *Mat, int i, int j);
+void setbitM8(M8 *Mat, int i, int j, int bit);
 
 void initV8(V8 *Vec);
 void randV8(V8 *Vec);
@@ -61,6 +62,7 @@ int isinvertM16(M16 Mat);
 void invsM16(M16 Mat, M16 *Mat_inv);
 int readbitM16(M16 Mat, int i, int j);
 void flipbitM16(M16 *Mat, int i, int j);
+void setbitM16(M16 *Mat, int i, int j, int bit);
 
 void initV16(V16 *Vec);
 void randV16(V16 *Vec);
@@ -95,6 +97,7 @@ int isinvertM32(M32 Mat);
 void invsM32(M32 Mat, M32 *Mat_inv);
 int readbitM32(M32 Mat, int i, int j);
 void flipbitM32(M32 *Mat, int i, int j);
+void setbitM32(M32 *Mat, int i, int j, int bit);
 
 void initV32(V32 *Vec);
 void randV32(V32 *Vec);
@@ -133,6 +136,7 @@ int isinvertM64(M64 Mat);
 void invsM64(M64 Mat, M64 *Mat_inv);
 int readbitM64(M64 Mat, int i, int j);
 void flipbitM64(M64 *Mat, int i, int j);
+void setbitM64(M64 *Mat, int i, int j, int bit);
 
 void initV64(V64 *Vec);
 void randV64(V64 *Vec);
@@ -168,6 +172,7 @@ int isinvertM128(M128 Mat);
 void invsM128(M128 Mat, M128 *Mat_inv);
 int readbitM128(M128 Mat, int i, int j);
 void flipbitM128(M128 *Mat, int i, int j);
+void setbitM128(M128 *Mat, int i, int j, int bit);
 
 void initV128(V128 *Vec);
 void randV128(V128 *Vec);
