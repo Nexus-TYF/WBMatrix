@@ -2,270 +2,6 @@
 
 unsigned int randseed;
 
-M8 baseM8 = {
-    .M[0] = 0x80,
-    .M[1] = 0x40,
-    .M[2] = 0x20,
-    .M[3] = 0x10,
-    .M[4] = 0x8,
-    .M[5] = 0x4,
-    .M[6] = 0x2,
-    .M[7] = 0x1
-};
-M16 baseM16 = {
-    .M[0] = 0x8000,
-    .M[1] = 0x4000,
-    .M[2] = 0x2000,
-    .M[3] = 0x1000,
-    .M[4] = 0x800,
-    .M[5] = 0x400,
-    .M[6] = 0x200,
-    .M[7] = 0x100,
-    .M[8] = 0x80,
-    .M[9] = 0x40,
-    .M[10] = 0x20,
-    .M[11] = 0x10,
-    .M[12] = 0x8,
-    .M[13] = 0x4,
-    .M[14] = 0x2,
-    .M[15] = 0x1
-};
-M32 baseM32 = {
-    .M[0] = 0x80000000,
-    .M[1] = 0x40000000,
-    .M[2] = 0x20000000,
-    .M[3] = 0x10000000,
-    .M[4] = 0x8000000,
-    .M[5] = 0x4000000,
-    .M[6] = 0x2000000,
-    .M[7] = 0x1000000,
-    .M[8] = 0x800000,
-    .M[9] = 0x400000,
-    .M[10] = 0x200000,
-    .M[11] = 0x100000,
-    .M[12] = 0x80000,
-    .M[13] = 0x40000,
-    .M[14] = 0x20000,
-    .M[15] = 0x10000,
-    .M[16] = 0x8000,
-    .M[17] = 0x4000,
-    .M[18] = 0x2000,
-    .M[19] = 0x1000,
-    .M[20] = 0x800,
-    .M[21] = 0x400,
-    .M[22] = 0x200,
-    .M[23] = 0x100,
-    .M[24] = 0x80,
-    .M[25] = 0x40,
-    .M[26] = 0x20,
-    .M[27] = 0x10,
-    .M[28] = 0x8,
-    .M[29] = 0x4,
-    .M[30] = 0x2,
-    .M[31] = 0x1
-};
-M64 baseM64 = {
-    .M[0] = 0x8000000000000000,
-    .M[1] = 0x4000000000000000,
-    .M[2] = 0x2000000000000000,
-    .M[3] = 0x1000000000000000,
-    .M[4] = 0x800000000000000,
-    .M[5] = 0x400000000000000,
-    .M[6] = 0x200000000000000,
-    .M[7] = 0x100000000000000,
-    .M[8] = 0x80000000000000,
-    .M[9] = 0x40000000000000,
-    .M[10] = 0x20000000000000,
-    .M[11] = 0x10000000000000,
-    .M[12] = 0x8000000000000,
-    .M[13] = 0x4000000000000,
-    .M[14] = 0x2000000000000,
-    .M[15] = 0x1000000000000,
-    .M[16] = 0x800000000000,
-    .M[17] = 0x400000000000,
-    .M[18] = 0x200000000000,
-    .M[19] = 0x100000000000,
-    .M[20] = 0x80000000000,
-    .M[21] = 0x40000000000,
-    .M[22] = 0x20000000000,
-    .M[23] = 0x10000000000,
-    .M[24] = 0x8000000000,
-    .M[25] = 0x4000000000,
-    .M[26] = 0x2000000000,
-    .M[27] = 0x1000000000,
-    .M[28] = 0x800000000,
-    .M[29] = 0x400000000,
-    .M[30] = 0x200000000,
-    .M[31] = 0x100000000,
-    .M[32] = 0x80000000,
-    .M[33] = 0x40000000,
-    .M[34] = 0x20000000,
-    .M[35] = 0x10000000,
-    .M[36] = 0x8000000,
-    .M[37] = 0x4000000,
-    .M[38] = 0x2000000,
-    .M[39] = 0x1000000,
-    .M[40] = 0x800000,
-    .M[41] = 0x400000,
-    .M[42] = 0x200000,
-    .M[43] = 0x100000,
-    .M[44] = 0x80000,
-    .M[45] = 0x40000,
-    .M[46] = 0x20000,
-    .M[47] = 0x10000,
-    .M[48] = 0x8000,
-    .M[49] = 0x4000,
-    .M[50] = 0x2000,
-    .M[51] = 0x1000,
-    .M[52] = 0x800,
-    .M[53] = 0x400,
-    .M[54] = 0x200,
-    .M[55] = 0x100,
-    .M[56] = 0x80,
-    .M[57] = 0x40,
-    .M[58] = 0x20,
-    .M[59] = 0x10,
-    .M[60] = 0x8,
-    .M[61] = 0x4,
-    .M[62] = 0x2,
-    .M[63] = 0x1
-};
-M128 baseM128 = {
-    .M[0][0] = 0x8000000000000000,
-    .M[1][0] = 0x4000000000000000,
-    .M[2][0] = 0x2000000000000000,
-    .M[3][0] = 0x1000000000000000,
-    .M[4][0] = 0x800000000000000,
-    .M[5][0] = 0x400000000000000,
-    .M[6][0] = 0x200000000000000,
-    .M[7][0] = 0x100000000000000,
-    .M[8][0] = 0x80000000000000,
-    .M[9][0] = 0x40000000000000,
-    .M[10][0] = 0x20000000000000,
-    .M[11][0] = 0x10000000000000,
-    .M[12][0] = 0x8000000000000,
-    .M[13][0] = 0x4000000000000,
-    .M[14][0] = 0x2000000000000,
-    .M[15][0] = 0x1000000000000,
-    .M[16][0] = 0x800000000000,
-    .M[17][0] = 0x400000000000,
-    .M[18][0] = 0x200000000000,
-    .M[19][0] = 0x100000000000,
-    .M[20][0] = 0x80000000000,
-    .M[21][0] = 0x40000000000,
-    .M[22][0] = 0x20000000000,
-    .M[23][0] = 0x10000000000,
-    .M[24][0] = 0x8000000000,
-    .M[25][0] = 0x4000000000,
-    .M[26][0] = 0x2000000000,
-    .M[27][0] = 0x1000000000,
-    .M[28][0] = 0x800000000,
-    .M[29][0] = 0x400000000,
-    .M[30][0] = 0x200000000,
-    .M[31][0] = 0x100000000,
-    .M[32][0] = 0x80000000,
-    .M[33][0] = 0x40000000,
-    .M[34][0] = 0x20000000,
-    .M[35][0] = 0x10000000,
-    .M[36][0] = 0x8000000,
-    .M[37][0] = 0x4000000,
-    .M[38][0] = 0x2000000,
-    .M[39][0] = 0x1000000,
-    .M[40][0] = 0x800000,
-    .M[41][0] = 0x400000,
-    .M[42][0] = 0x200000,
-    .M[43][0] = 0x100000,
-    .M[44][0] = 0x80000,
-    .M[45][0] = 0x40000,
-    .M[46][0] = 0x20000,
-    .M[47][0] = 0x10000,
-    .M[48][0] = 0x8000,
-    .M[49][0] = 0x4000,
-    .M[50][0] = 0x2000,
-    .M[51][0] = 0x1000,
-    .M[52][0] = 0x800,
-    .M[53][0] = 0x400,
-    .M[54][0] = 0x200,
-    .M[55][0] = 0x100,
-    .M[56][0] = 0x80,
-    .M[57][0] = 0x40,
-    .M[58][0] = 0x20,
-    .M[59][0] = 0x10,
-    .M[60][0] = 0x8,
-    .M[61][0] = 0x4,
-    .M[62][0] = 0x2,
-    .M[63][0] = 0x1,
-    .M[64][1] = 0x8000000000000000,
-    .M[65][1] = 0x4000000000000000,
-    .M[66][1] = 0x2000000000000000,
-    .M[67][1] = 0x1000000000000000,
-    .M[68][1] = 0x800000000000000,
-    .M[69][1] = 0x400000000000000,
-    .M[70][1] = 0x200000000000000,
-    .M[71][1] = 0x100000000000000,
-    .M[72][1] = 0x80000000000000,
-    .M[73][1] = 0x40000000000000,
-    .M[74][1] = 0x20000000000000,
-    .M[75][1] = 0x10000000000000,
-    .M[76][1] = 0x8000000000000,
-    .M[77][1] = 0x4000000000000,
-    .M[78][1] = 0x2000000000000,
-    .M[79][1] = 0x1000000000000,
-    .M[80][1] = 0x800000000000,
-    .M[81][1] = 0x400000000000,
-    .M[82][1] = 0x200000000000,
-    .M[83][1] = 0x100000000000,
-    .M[84][1] = 0x80000000000,
-    .M[85][1] = 0x40000000000,
-    .M[86][1] = 0x20000000000,
-    .M[87][1] = 0x10000000000,
-    .M[88][1] = 0x8000000000,
-    .M[89][1] = 0x4000000000,
-    .M[90][1] = 0x2000000000,
-    .M[91][1] = 0x1000000000,
-    .M[92][1] = 0x800000000,
-    .M[93][1] = 0x400000000,
-    .M[94][1] = 0x200000000,
-    .M[95][1] = 0x100000000,
-    .M[96][1] = 0x80000000,
-    .M[97][1] = 0x40000000,
-    .M[98][1] = 0x20000000,
-    .M[99][1] = 0x10000000,
-    .M[100][1] = 0x8000000,
-    .M[101][1] = 0x4000000,
-    .M[102][1] = 0x2000000,
-    .M[103][1] = 0x1000000,
-    .M[104][1] = 0x800000,
-    .M[105][1] = 0x400000,
-    .M[106][1] = 0x200000,
-    .M[107][1] = 0x100000,
-    .M[108][1] = 0x80000,
-    .M[109][1] = 0x40000,
-    .M[110][1] = 0x20000,
-    .M[111][1] = 0x10000,
-    .M[112][1] = 0x8000,
-    .M[113][1] = 0x4000,
-    .M[114][1] = 0x2000,
-    .M[115][1] = 0x1000,
-    .M[116][1] = 0x800,
-    .M[117][1] = 0x400,
-    .M[118][1] = 0x200,
-    .M[119][1] = 0x100,
-    .M[120][1] = 0x80,
-    .M[121][1] = 0x40,
-    .M[122][1] = 0x20,
-    .M[123][1] = 0x10,
-    .M[124][1] = 0x8,
-    .M[125][1] = 0x4,
-    .M[126][1] = 0x2,
-    .M[127][1] = 0x1
-};
-int basetrailM8[initM8_max][3] = {-1};
-int basetrailM16[initM16_max][3] = {-1};
-int basetrailM32[initM32_max][3] = {-1};
-int basetrailM64[initM64_max][3] = {-1};
-int basetrailM128[initM128_max][3] = {-1};
-
 //8bit internal xor table
 int xor[] = {0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 
 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 
@@ -301,11 +37,6 @@ uint16_t idM16[16] = {0x8000, 0x4000, 0x2000, 0x1000, 0x800, 0x400, 0x200, 0x100
 uint32_t idM32[32] = {0x80000000, 0x40000000, 0x20000000, 0x10000000, 0x8000000, 0x4000000, 0x2000000, 0x1000000, 0x800000, 0x400000, 0x200000, 0x100000, 0x80000, 0x40000, 0x20000, 0x10000, 0x8000, 0x4000, 0x2000, 0x1000, 0x800, 0x400, 0x200, 0x100, 0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1};
 uint64_t idM64[64] = {0x8000000000000000, 0x4000000000000000, 0x2000000000000000, 0x1000000000000000, 0x800000000000000, 0x400000000000000, 0x200000000000000, 0x100000000000000, 0x80000000000000, 0x40000000000000, 0x20000000000000, 0x10000000000000, 0x8000000000000, 0x4000000000000, 0x2000000000000, 0x1000000000000, 0x800000000000, 0x400000000000, 0x200000000000, 0x100000000000, 0x80000000000, 0x40000000000, 0x20000000000, 0x10000000000, 0x8000000000, 0x4000000000, 0x2000000000, 0x1000000000, 0x800000000, 0x400000000, 0x200000000, 0x100000000, \
                         0x80000000, 0x40000000, 0x20000000, 0x10000000, 0x8000000, 0x4000000, 0x2000000, 0x1000000, 0x800000, 0x400000, 0x200000, 0x100000, 0x80000, 0x40000, 0x20000, 0x10000, 0x8000, 0x4000, 0x2000, 0x1000, 0x800, 0x400, 0x200, 0x100, 0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1};
-int initM8_times;
-int initM16_times;
-int initM32_times;
-int initM64_times;
-int initM128_times;
 
 void SetRandSeed(unsigned int seed)
 {
@@ -1260,572 +991,957 @@ void MatMulVecM128(M128 Mat, V128 Vec, V128 *ans)//matrix * vector -> vector 128
         if(xorU128(temp)) (*ans).V[1] ^= idM64[i-64];
     }
 }
-void freebaseM8()
-{
-    identityM8(&baseM8);
-    basetrailM8[0][0] = -1;
-}
-void freebaseM16()
-{
-    identityM16(&baseM16);
-    basetrailM16[0][0] = -1;
-}
-void freebaseM32()
-{
-    identityM32(&baseM32);
-    basetrailM32[0][0] = -1;
-}
-void freebaseM64()
-{
-    identityM64(&baseM64);
-    basetrailM64[0][0] = -1;
-}
-void freebaseM128()
-{
-    identityM128(&baseM128);
-    basetrailM128[0][0] = -1;
-}
-void initinvbaseM8(int N)//initial base matrix,  parameter: initM8_min ,  initM8_max
-{
-    int p, q;
-    uint8_t temp;
-    InitRandom((randseed++)^(unsigned int)time(NULL));
-    if(basetrailM8[0][0] != -1) return ;
-    initM8_times = N;
-    for(int i = 0; i < initM8_times; i++)//generate reversible base matrix
-    {
-        p = cus_random()%8;
-        q = cus_random()%8;
-        while(p == q)
-        {
-            p = cus_random()%8;
-            q = cus_random()%8;
-        }
-        if(p > q)//add
-        {
-            
-            baseM8.M[p] ^= baseM8.M[q];
-            basetrailM8[i][0] = 1;
-            basetrailM8[i][1] = p;
-            basetrailM8[i][2] = q;
-        }
-        else//swap
-        {
-            temp = baseM8.M[p];
-            baseM8.M[p] = baseM8.M[q];
-            baseM8.M[q] = temp;
-            basetrailM8[i][0] = 0;
-            basetrailM8[i][1] = p;
-            basetrailM8[i][2] = q;
-        }   
-    }
-}
+
 void genMatpairM8(M8 *Mat, M8 *Mat_inv)//generate 8*8 reversible matrix and its inverse matrix
 {
-    int p, q;
+    int p,q;
     uint8_t temp;
-    int trail[M8N][3];// generate trail
-    copyM8(baseM8, Mat);//copy base matrix
+    uint8_t trail[64][3];// generate trail
+    identityM8(Mat);
     identityM8(Mat_inv);
-    InitRandom((randseed++)^(unsigned int)time(NULL));
-    for(int i = 0; i < M8N; i++)//generate reversible matrix
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    M8 tempMat;
+    M8 resultMat;
+    randM8(&tempMat);
+    copyM8(tempMat, &resultMat);
+    int flag = 0;
+    int times = 0;
+    int invertible = 1;
+    for(int i = 0; i < 8; i++)//diagonal = 1?
     {
-        p = cus_random()%8;
-        q = cus_random()%8;
-        while(p == q)
+        if((tempMat.M[i] & idM8[i]) == idM8[i])
         {
-            p = cus_random()%8;
-            q = cus_random()%8;
-        }
-        if(p > q)//add
-        {
-            
-            (*Mat).M[p] ^= (*Mat).M[q];
-            trail[i][0] = 1;
-            trail[i][1] = p;
-            trail[i][2] = q;
-        }
-        else//swap
-        {
-            temp = (*Mat).M[p];
-            (*Mat).M[p] = (*Mat).M[q];
-            (*Mat).M[q] = temp;
-            trail[i][0] = 0;
-            trail[i][1] = p;
-            trail[i][2] = q;
-        }   
-    }
-    /* *** the example for mitigating DCA attack
-    int extratimes = 0;
-    if(antiDCA)
-    {
-        for(int i = 0; i < 8; i++)
-        {
-            while(HW8((*Mat).M[i]) == 1)
+            for(int j = i + 1; j < 8; j++)
             {
-                p = cus_random()%8;
-                while(p == i)
+                if((tempMat.M[j] & idM8[i]) == idM8[i])
                 {
-                    p = cus_random()%8;
+                    tempMat.M[j] ^= tempMat.M[i];
+
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+
+                    trail[times][0]=1;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
                 }
-                (*Mat).M[i] ^= (*Mat).M[p];
-                trail[M8N+extratimes][0] = 1;
-                trail[M8N+extratimes][1] = i;
-                trail[M8N+extratimes][2] = p;
-                extratimes++;
+            }
+        }
+        else// swap to find 1
+        {
+            flag = 1;
+            for(int j = i + 1; j < 8; j++)
+            {
+                if((tempMat.M[j] & idM8[i]) == idM8[i])
+                {
+                    temp=tempMat.M[i];
+                    tempMat.M[i]=tempMat.M[j];
+                    tempMat.M[j]=temp;
+
+                    flag=0;
+
+                    temp=(*Mat_inv).M[i];
+                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
+                    (*Mat_inv).M[j]=temp;
+
+                    trail[times][0]=0;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                invertible = 0;
+                if (i < 7)
+                {
+                    p = i + 1 + cus_random()%(7 - i);//swap
+                    temp = tempMat.M[p];
+                    tempMat.M[p] = tempMat.M[i];
+                    tempMat.M[i] = temp;
+                    temp = (*Mat_inv).M[p];
+                    (*Mat_inv).M[p] = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = temp;
+                    trail[times][0] = 0;
+                    trail[times][1] = p;
+                    trail[times][2] = i;
+                    times++;
+                    for(int t = i + 1; t < 8; t++)
+                    {
+                        if(cus_random()%2)
+                        {
+                            tempMat.M[t] ^= tempMat.M[i];
+                            (*Mat_inv).M[t] ^= (*Mat_inv).M[i];
+                            trail[times][0] = 1;
+                            trail[times][1] = t;
+                            trail[times][2] = i;
+                            times++;
+                        }
+                    }
+                }
+            }
+            else //can still contiune
+            {
+                for(int k = i + 1; k < 8; k++)
+                {
+                    if((tempMat.M[k]&idM8[i]) == idM8[i])
+                    {
+                        tempMat.M[k] ^= tempMat.M[i];
+
+                        (*Mat_inv).M[k] ^= (*Mat_inv).M[i];
+
+                        trail[times][0] = 1;
+                        trail[times][1] = k;
+                        trail[times][2] = i;
+                        times++;
+                    }
+                }
             }
         }
     }
-    */
-    for(int j = M8N - 1; j >= 0; j--)//generate inverse matrix
+    if(!invertible)//not invertible
     {
-        if(trail[j][0])//add
+        for(int t = 7; t >= 0; t--)
         {
-            (*Mat_inv).M[trail[j][1]] ^=  (*Mat_inv).M[trail[j][2]];
-        }
-        else//swap
-        {
-            temp = (*Mat_inv).M[trail[j][1]];
-            (*Mat_inv).M[trail[j][1]] = (*Mat_inv).M[trail[j][2]];
-            (*Mat_inv).M[trail[j][2]] = temp;
-        }   
-    }
-    if(basetrailM8[0][0] != -1)//base matrix
-    {
-        for(int j = initM8_times - 1; j >= 0; j--)//generate inverse matrix
-        {
-            if(basetrailM8[j][0])//add
+            for(int j = t - 1; j >= 0; j--)
             {
-                (*Mat_inv).M[basetrailM8[j][1]] ^= (*Mat_inv).M[basetrailM8[j][2]];
+                if((tempMat.M[j] & idM8[t]) == idM8[t])
+                {
+                    tempMat.M[j] ^= tempMat.M[t];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        
+        for(int j = times - 1; j >= 0; j--)//generate inverse matrix
+        {
+            if(trail[j][0])//add
+            {
+                (*Mat).M[trail[j][1]] ^= (*Mat).M[trail[j][2]];
             }
             else//swap
             {
-                temp = (*Mat_inv).M[basetrailM8[j][1]];
-                (*Mat_inv).M[basetrailM8[j][1]] = (*Mat_inv).M[basetrailM8[j][2]];
-                (*Mat_inv).M[basetrailM8[j][2]] = temp;
+                temp = (*Mat).M[trail[j][1]];
+                (*Mat).M[trail[j][1]] = (*Mat).M[trail[j][2]];
+                (*Mat).M[trail[j][2]] = temp;
             }   
         }
     }
-}
-void initinvbaseM16(int N)//initial base matrix,  parameter: initM16_min ,  initM16_max
-{
-    int p, q;
-    uint16_t temp;
-    InitRandom((randseed++)^(unsigned int)time(NULL));
-    if(basetrailM16[0][0] != -1) return ;
-    initM16_times = N;
-    for(int i = 0; i < initM16_times; i++)//generate reversible base matrix
+    else//invertible 
     {
-        p = cus_random()%16;
-        q = cus_random()%16;
-        while(p == q)
+        for(int i=7;i>=0;i--)
         {
-            p = cus_random()%16;
-            q = cus_random()%16;
+            for(int j=i-1;j>=0;j--)
+            {
+                if((tempMat.M[j]&idM8[i])==idM8[i])
+                {
+                    tempMat.M[j]^=tempMat.M[i];
+
+                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                }
+            }
         }
-        if(p > q)//add
-        {
-            
-            baseM16.M[p] ^= baseM16.M[q];
-            basetrailM16[i][0] = 1;
-            basetrailM16[i][1] = p;
-            basetrailM16[i][2] = q;
-        }
-        else//swap
-        {
-            temp = baseM16.M[p];
-            baseM16.M[p] = baseM16.M[q];
-            baseM16.M[q] = temp;
-            basetrailM16[i][0] = 0;
-            basetrailM16[i][1] = p;
-            basetrailM16[i][2] = q;
-        }   
+        copyM8(resultMat, Mat);
     }
 }
 void genMatpairM16(M16 *Mat, M16 *Mat_inv)//generate 16*16 reversible matrix and its inverse matrix
 {
-    int p, q;
+    int p,q;
     uint16_t temp;
-    int trail[M16N][3];
-    copyM16(baseM16, Mat);//copy base matrix
+    uint8_t trail[256][3];// generate trail
+    identityM16(Mat);
     identityM16(Mat_inv);
-    InitRandom((randseed++)^(unsigned int)time(NULL));
-    for(int i = 0; i < M16N; i++)//generate reversible matrix
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    M16 tempMat;
+    M16 resultMat;
+    randM16(&tempMat);
+    copyM16(tempMat, &resultMat);
+    int flag = 0;
+    int times = 0;
+    int invertible = 1;
+    for(int i = 0; i < 16; i++)//diagonal = 1?
     {
-        p = cus_random()%16;
-        q = cus_random()%16;
-        while(p == q)
+        if((tempMat.M[i] & idM16[i]) == idM16[i])
         {
-            p = cus_random()%16;
-            q = cus_random()%16;
-        }
-        if(p > q)//add
-        {
-            
-            (*Mat).M[p] ^= (*Mat).M[q];
-            trail[i][0] = 1;
-            trail[i][1] = p;
-            trail[i][2] = q;
-        }
-        else//swap
-        {
-            p = cus_random()%16;
-            q = cus_random()%16;
-            while(p == q)
+            for(int j = i + 1; j < 16; j++)
             {
-                p = cus_random()%16;
-                q = cus_random()%16;
+                if((tempMat.M[j] & idM16[i]) == idM16[i])
+                {
+                    tempMat.M[j] ^= tempMat.M[i];
+
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+
+                    trail[times][0]=1;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                }
             }
-            temp = (*Mat).M[p];
-            (*Mat).M[p] = (*Mat).M[q];
-            (*Mat).M[q] = temp;
-            trail[i][0] = 0;
-            trail[i][1] = p;
-            trail[i][2] = q;
-        }   
-    }
-    for(int j = M16N - 1; j >= 0; j--)//generate inverse matrix
-    {
-        if(trail[j][0])//add
-        {
-            (*Mat_inv).M[trail[j][1]] ^= (*Mat_inv).M[trail[j][2]];
         }
-        else//swap
+        else// swap to find 1
         {
-            temp = (*Mat_inv).M[trail[j][1]];
-            (*Mat_inv).M[trail[j][1]] = (*Mat_inv).M[trail[j][2]];
-            (*Mat_inv).M[trail[j][2]] = temp;
-        }   
-    }
-    if(basetrailM16[0][0] != -1)
-    {
-        for(int j = initM16_times - 1; j >= 0; j--)//generate inverse matrix for base matrix
-        {
-            if(basetrailM16[j][0])//add
+            flag = 1;
+            for(int j = i + 1; j < 16; j++)
             {
-                (*Mat_inv).M[basetrailM16[j][1]] ^= (*Mat_inv).M[basetrailM16[j][2]];
+                if((tempMat.M[j] & idM16[i]) == idM16[i])
+                {
+                    temp=tempMat.M[i];
+                    tempMat.M[i]=tempMat.M[j];
+                    tempMat.M[j]=temp;
+
+                    flag=0;
+
+                    temp=(*Mat_inv).M[i];
+                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
+                    (*Mat_inv).M[j]=temp;
+
+                    trail[times][0]=0;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                invertible = 0;
+                if (i < 15)
+                {
+                    p = i + 1 + cus_random()%(15 - i);//swap
+                    temp = tempMat.M[p];
+                    tempMat.M[p] = tempMat.M[i];
+                    tempMat.M[i] = temp;
+                    temp = (*Mat_inv).M[p];
+                    (*Mat_inv).M[p] = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = temp;
+                    trail[times][0] = 0;
+                    trail[times][1] = p;
+                    trail[times][2] = i;
+                    times++;
+                    for(int t = i + 1; t < 16; t++)
+                    {
+                        if(cus_random()%2)
+                        {
+                            tempMat.M[t] ^= tempMat.M[i];
+                            (*Mat_inv).M[t] ^= (*Mat_inv).M[i];
+                            trail[times][0] = 1;
+                            trail[times][1] = t;
+                            trail[times][2] = i;
+                            times++;
+                        }
+                    }
+                }
+            }
+            else //can still contiune
+            {
+                for(int k = i + 1; k < 16; k++)
+                {
+                    if((tempMat.M[k]&idM16[i]) == idM16[i])
+                    {
+                        tempMat.M[k] ^= tempMat.M[i];
+
+                        (*Mat_inv).M[k] ^= (*Mat_inv).M[i];
+
+                        trail[times][0] = 1;
+                        trail[times][1] = k;
+                        trail[times][2] = i;
+                        times++;
+                    }
+                }
+            }
+        }
+    }
+    if(!invertible)//not invertible
+    {
+        for(int t = 15; t >= 0; t--)
+        {
+            for(int j = t - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j] & idM16[t]) == idM16[t])
+                {
+                    tempMat.M[j] ^= tempMat.M[t];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        
+        for(int j = times - 1; j >= 0; j--)//generate inverse matrix
+        {
+            if(trail[j][0])//add
+            {
+                (*Mat).M[trail[j][1]] ^= (*Mat).M[trail[j][2]];
             }
             else//swap
             {
-                temp = (*Mat_inv).M[basetrailM16[j][1]];
-                (*Mat_inv).M[basetrailM16[j][1]] = (*Mat_inv).M[basetrailM16[j][2]];
-                (*Mat_inv).M[basetrailM16[j][2]] = temp;
-            }
+                temp = (*Mat).M[trail[j][1]];
+                (*Mat).M[trail[j][1]] = (*Mat).M[trail[j][2]];
+                (*Mat).M[trail[j][2]] = temp;
+            }   
         }
     }
-}
-void initinvbaseM32(int N)//initial base matrix,  parameter: initM32_min ,  initM32_max
-{
-    int p, q;
-    uint32_t temp;
-    InitRandom((randseed++)^(unsigned int)time(NULL));
-    if(basetrailM32[0][0] != -1) return ;
-    initM32_times = N;
-    for(int i = 0; i < initM32_times; i++)//generate reversible base matrix
+    else//invertible 
     {
-        p = cus_random()%32;
-        q = cus_random()%32;
-        while(p == q)
+        for(int i=15;i>=0;i--)
         {
-            p = cus_random()%32;
-            q = cus_random()%32;
+            for(int j=i-1;j>=0;j--)
+            {
+                if((tempMat.M[j]&idM16[i])==idM16[i])
+                {
+                    tempMat.M[j]^=tempMat.M[i];
+
+                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                }
+            }
         }
-        if(p > q)//add
-        {
-            
-            baseM32.M[p] ^= baseM32.M[q];
-            basetrailM32[i][0] = 1;
-            basetrailM32[i][1] = p;
-            basetrailM32[i][2] = q;
-        }
-        else//swap
-        {
-            temp = baseM32.M[p];
-            baseM32.M[p] = baseM32.M[q];
-            baseM32.M[q] = temp;
-            basetrailM32[i][0] = 0;
-            basetrailM32[i][1] = p;
-            basetrailM32[i][2] = q;
-        }   
+        copyM16(resultMat, Mat);
     }
 }
 void genMatpairM32(M32 *Mat, M32 *Mat_inv)//generate 32*32 reversible matrix and its inverse matrix
 {
-    int p, q;
+    int p,q;
     uint32_t temp;
-    int trail[M32N][3];
-    copyM32(baseM32, Mat);//copy base matrix
+    uint8_t trail[1024][3];// generate trail
+    identityM32(Mat);
     identityM32(Mat_inv);
-    InitRandom((randseed++)^(unsigned int)time(NULL));
-    for(int i = 0; i < M32N; i++)//generate reversible matrix
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    M32 tempMat;
+    M32 resultMat;
+    randM32(&tempMat);
+    copyM32(tempMat, &resultMat);
+    int flag = 0;
+    int times = 0;
+    int invertible = 1;
+    for(int i = 0; i < 32; i++)//diagonal = 1?
     {
-        p = cus_random()%32;
-        q = cus_random()%32;
-        while(p == q)
+        if((tempMat.M[i] & idM32[i]) == idM32[i])
         {
-            p = cus_random()%32;
-            q = cus_random()%32;
-        }
-        if(p > q)//add
-        {
-            (*Mat).M[p] ^= (*Mat).M[q];
-            trail[i][0] = 1;
-            trail[i][1] = p;
-            trail[i][2] = q;
-        }
-        else//swap
-        {
-            temp = (*Mat).M[p];
-            (*Mat).M[p] = (*Mat).M[q];
-            (*Mat).M[q] = temp;
-            trail[i][0] = 0;
-            trail[i][1] = p;
-            trail[i][2] = q;
-        }   
-    }
-    for(int j = M32N - 1; j >= 0; j--)//generate inverse matrix
-    {
-        if(trail[j][0])//add
-        {
-            (*Mat_inv).M[trail[j][1]] ^= (*Mat_inv).M[trail[j][2]];
-        }
-        else//swap
-        {
-            temp = (*Mat_inv).M[trail[j][1]];
-            (*Mat_inv).M[trail[j][1]] = (*Mat_inv).M[trail[j][2]];
-            (*Mat_inv).M[trail[j][2]] = temp;
-        }   
-    }
-    if(basetrailM32[0][0] != -1)
-    {
-        for(int j = initM32_times - 1; j >= 0; j--)//generate inverse matrix for base matrix
-        {
-            if(basetrailM32[j][0])//add
+            for(int j = i + 1; j < 32; j++)
             {
-                (*Mat_inv).M[basetrailM32[j][1]] ^= (*Mat_inv).M[basetrailM32[j][2]];
+                if((tempMat.M[j] & idM32[i]) == idM32[i])
+                {
+                    tempMat.M[j] ^= tempMat.M[i];
+
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+
+                    trail[times][0]=1;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                }
+            }
+        }
+        else// swap to find 1
+        {
+            flag = 1;
+            for(int j = i + 1; j < 32; j++)
+            {
+                if((tempMat.M[j] & idM32[i]) == idM32[i])
+                {
+                    temp=tempMat.M[i];
+                    tempMat.M[i]=tempMat.M[j];
+                    tempMat.M[j]=temp;
+
+                    flag=0;
+
+                    temp=(*Mat_inv).M[i];
+                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
+                    (*Mat_inv).M[j]=temp;
+
+                    trail[times][0]=0;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                invertible = 0;
+                if (i < 31)
+                {
+                    p = i + 1 + cus_random()%(31 - i);//swap
+                    temp = tempMat.M[p];
+                    tempMat.M[p] = tempMat.M[i];
+                    tempMat.M[i] = temp;
+                    temp = (*Mat_inv).M[p];
+                    (*Mat_inv).M[p] = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = temp;
+                    trail[times][0] = 0;
+                    trail[times][1] = p;
+                    trail[times][2] = i;
+                    times++;
+                    for(int t = i + 1; t < 32; t++)
+                    {
+                        if(cus_random()%2)
+                        {
+                            tempMat.M[t] ^= tempMat.M[i];
+                            (*Mat_inv).M[t] ^= (*Mat_inv).M[i];
+                            trail[times][0] = 1;
+                            trail[times][1] = t;
+                            trail[times][2] = i;
+                            times++;
+                        }
+                    }
+                }
+            }
+            else //can still contiune
+            {
+                for(int k = i + 1; k < 32; k++)
+                {
+                    if((tempMat.M[k]&idM32[i]) == idM32[i])
+                    {
+                        tempMat.M[k] ^= tempMat.M[i];
+
+                        (*Mat_inv).M[k] ^= (*Mat_inv).M[i];
+
+                        trail[times][0] = 1;
+                        trail[times][1] = k;
+                        trail[times][2] = i;
+                        times++;
+                    }
+                }
+            }
+        }
+    }
+    if(!invertible)//not invertible
+    {
+        for(int t = 31; t >= 0; t--)
+        {
+            for(int j = t - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j] & idM32[t]) == idM32[t])
+                {
+                    tempMat.M[j] ^= tempMat.M[t];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        
+        for(int j = times - 1; j >= 0; j--)//generate inverse matrix
+        {
+            if(trail[j][0])//add
+            {
+                (*Mat).M[trail[j][1]] ^= (*Mat).M[trail[j][2]];
             }
             else//swap
             {
-                temp = (*Mat_inv).M[basetrailM32[j][1]];
-                (*Mat_inv).M[basetrailM32[j][1]] = (*Mat_inv).M[basetrailM32[j][2]];
-                (*Mat_inv).M[basetrailM32[j][2]] = temp;
+                temp = (*Mat).M[trail[j][1]];
+                (*Mat).M[trail[j][1]] = (*Mat).M[trail[j][2]];
+                (*Mat).M[trail[j][2]] = temp;
             }   
         }
     }
-}
-void initinvbaseM64(int N)//initial base matrix,  parameter: initM64_min ,  initM64_max
-{
-    int p, q;
-    uint64_t temp;
-    InitRandom((randseed++)^(unsigned int)time(NULL));
-    if(basetrailM64[0][0] != -1) return ;
-    initM64_times = N;
-    for(int i = 0; i < initM64_times; i++)//generate reversible base matrix
+    else//invertible 
     {
-        p = cus_random()%64;
-        q = cus_random()%64;
-        while(p == q)
+        for(int i=31;i>=0;i--)
         {
-            p = cus_random()%64;
-            q = cus_random()%64;
+            for(int j=i-1;j>=0;j--)
+            {
+                if((tempMat.M[j]&idM32[i])==idM32[i])
+                {
+                    tempMat.M[j]^=tempMat.M[i];
+
+                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                }
+            }
         }
-        if(p > q)//add
-        {
-            
-            baseM64.M[p] ^= baseM64.M[q];
-            basetrailM64[i][0] = 1;
-            basetrailM64[i][1] = p;
-            basetrailM64[i][2] = q;
-        }
-        else//swap
-        {
-            temp = baseM64.M[p];
-            baseM64.M[p] = baseM64.M[q];
-            baseM64.M[q] = temp;
-            basetrailM64[i][0] = 0;
-            basetrailM64[i][1] = p;
-            basetrailM64[i][2] = q;
-        }   
+        copyM32(resultMat, Mat);
     }
 }
 void genMatpairM64(M64 *Mat, M64 *Mat_inv)//generate 64*64 reversible matrix and its inverse matrix
 {
-    int p, q;
+    int p,q;
     uint64_t temp;
-    int trail[M64N][3];
-    copyM64(baseM64, Mat);//copy base matrix
+    uint8_t trail[4096][3];// generate trail
+    identityM64(Mat);
     identityM64(Mat_inv);
-    InitRandom((randseed++)^(unsigned int)time(NULL));
-    for(int i = 0; i < M64N; i++)//generate reversible matrix
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    M64 tempMat;
+    M64 resultMat;
+    randM64(&tempMat);
+    copyM64(tempMat, &resultMat);
+    int flag = 0;
+    int times = 0;
+    int invertible = 1;
+    for(int i = 0; i < 64; i++)//diagonal = 1?
     {
-        p = cus_random()%64;
-        q = cus_random()%64;
-        while(p == q)
+        if((tempMat.M[i] & idM64[i]) == idM64[i])
         {
-            p = cus_random()%64;
-            q = cus_random()%64;
-        }
-        if(p > q)//add
-        {
-            
-            (*Mat).M[p] ^= (*Mat).M[q];
-            trail[i][0] = 1;
-            trail[i][1] = p;
-            trail[i][2] = q;
-        }
-        else//swap
-        {
-            temp = (*Mat).M[p];
-            (*Mat).M[p] = (*Mat).M[q];
-            (*Mat).M[q] = temp;
-            trail[i][0] = 0;
-            trail[i][1] = p;
-            trail[i][2] = q;
-        }   
-    }
-    for(int j = M64N - 1; j >= 0; j--)//generate inverse matrix
-    {
-        if(trail[j][0])//add
-        {
-            (*Mat_inv).M[trail[j][1]] ^= (*Mat_inv).M[trail[j][2]];
-        }
-        else//swap
-        {
-            temp = (*Mat_inv).M[trail[j][1]];
-            (*Mat_inv).M[trail[j][1]] = (*Mat_inv).M[trail[j][2]];
-            (*Mat_inv).M[trail[j][2]] = temp;
-        }   
-    }
-    if(basetrailM64[0][0] != -1)
-    {
-        for(int j = initM64_times - 1; j >= 0; j--)//generate inverse matrix for base matrix
-        {
-            if(basetrailM64[j][0])//add
+            for(int j = i + 1; j < 64; j++)
             {
-                (*Mat_inv).M[basetrailM64[j][1]] ^= (*Mat_inv).M[basetrailM64[j][2]];
+                if((tempMat.M[j] & idM64[i]) == idM64[i])
+                {
+                    tempMat.M[j] ^= tempMat.M[i];
+
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
+                    times++;
+                }
+            }
+        }
+        else// swap to find 1
+        {
+            flag = 1;
+            for(int j = i + 1; j < 64; j++)
+            {
+                if((tempMat.M[j] & idM64[i]) == idM64[i])
+                {
+                    temp = tempMat.M[i];
+                    tempMat.M[i] = tempMat.M[j];
+                    tempMat.M[j] = temp;
+
+                    flag = 0;
+
+                    temp = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = (*Mat_inv).M[j];
+                    (*Mat_inv).M[j] = temp;
+
+                    trail[times][0] = 0;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                invertible = 0;
+                if (i < 63)
+                {
+                    p = i + 1 + cus_random()%(63 - i);//swap
+                    temp = tempMat.M[p];
+                    tempMat.M[p] = tempMat.M[i];
+                    tempMat.M[i] = temp;
+                    temp = (*Mat_inv).M[p];
+                    (*Mat_inv).M[p] = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = temp;
+                    trail[times][0] = 0;
+                    trail[times][1] = p;
+                    trail[times][2] = i;
+                    times++;
+                    for(int t = i + 1; t < 64; t++)
+                    {
+                        if(cus_random()%2)
+                        {
+                            tempMat.M[t] ^= tempMat.M[i];
+                            (*Mat_inv).M[t] ^= (*Mat_inv).M[i];
+                            trail[times][0] = 1;
+                            trail[times][1] = t;
+                            trail[times][2] = i;
+                            times++;
+                        }
+                    }
+                }
+            }
+            else //can still contiune
+            {
+                for(int k = i + 1; k < 64; k++)
+                {
+                    if((tempMat.M[k] & idM64[i]) == idM64[i])
+                    {
+                        tempMat.M[k] ^= tempMat.M[i];
+
+                        (*Mat_inv).M[k] ^= (*Mat_inv).M[i];
+
+                        trail[times][0] = 1;
+                        trail[times][1] = k;
+                        trail[times][2] = i;
+                        times++;
+                    }
+                }
+            }
+        }
+    }
+    if(!invertible)//not invertible
+    {
+        for(int t = 63; t >= 0; t--)
+        {
+            for(int j = t - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j] & idM64[t]) == idM64[t])
+                {
+                    tempMat.M[j] ^= tempMat.M[t];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        
+        for(int j = times - 1; j >= 0; j--)//generate inverse matrix
+        {
+            if(trail[j][0])//add
+            {
+                (*Mat).M[trail[j][1]] ^= (*Mat).M[trail[j][2]];
             }
             else//swap
             {
-                temp = (*Mat_inv).M[basetrailM64[j][1]];
-                (*Mat_inv).M[basetrailM64[j][1]] = (*Mat_inv).M[basetrailM64[j][2]];
-                (*Mat_inv).M[basetrailM64[j][2]] = temp;
+                temp = (*Mat).M[trail[j][1]];
+                (*Mat).M[trail[j][1]] = (*Mat).M[trail[j][2]];
+                (*Mat).M[trail[j][2]] = temp;
             }   
         }
     }
-}
-void initinvbaseM128(int N)//initial base matrix,  parameter: initM128_min ,  initM128_max
-{
-    int p, q;
-    uint64_t temp[2];
-    InitRandom((randseed++)^(unsigned int)time(NULL));
-    if(basetrailM128[0][0] != -1) return ;
-    initM128_times = N;
-    for(int i = 0; i < initM128_times; i++)//generate reversible base matrix
+    else//invertible 
     {
-        p = cus_random()%128;
-        q = cus_random()%128;
-        while(p == q)
+        for(int i = 63; i >= 0; i--)
         {
-            p = cus_random()%128;
-            q = cus_random()%128;
+            for(int j = i - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j] & idM64[i]) == idM64[i])
+                {
+                    tempMat.M[j] ^= tempMat.M[i];
+
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+                }
+            }
         }
-        if(p > q)//add
-        {
-            
-            baseM128.M[p][0] ^= baseM128.M[q][0];
-            baseM128.M[p][1] ^= baseM128.M[q][1];
-            basetrailM128[i][0] = 1;
-            basetrailM128[i][1] = p;
-            basetrailM128[i][2] = q;
-        }
-        else//swap
-        {
-            temp[0] = baseM128.M[p][0];
-            temp[1] = baseM128.M[p][1];
-            baseM128.M[p][0] = baseM128.M[q][0];
-            baseM128.M[p][1] = baseM128.M[q][1];
-            baseM128.M[q][0] = temp[0];
-            baseM128.M[q][1] = temp[1];
-            basetrailM128[i][0] = 0;
-            basetrailM128[i][1] = p;
-            basetrailM128[i][2] = q;
-        }   
+        copyM64(resultMat, Mat);
     }
 }
 void genMatpairM128(M128 *Mat, M128 *Mat_inv)//generate 128*128 reversible matrix and its inverse matrix
 {
-    int p, q;
-    uint64_t temp[2];
-    int trail[M128N][3];
-    copyM128(baseM128, Mat);
+    int p,q;
+    uint64_t temp;
+    uint8_t trail[16384][3];// generate trail
+    identityM128(Mat);
     identityM128(Mat_inv);
-    InitRandom((randseed++)^(unsigned int)time(NULL));
-    for(int i = 0; i < M128N; i++)//generate reversible matrix
+    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    M128 tempMat;
+    M128 resultMat;
+    randM128(&tempMat);
+    copyM128(tempMat, &resultMat);
+    int flag = 0;
+    int times = 0;
+    int invertible = 1;
+    for(int i = 0; i < 64; i++)//diagonal = 1?
     {
-        p = cus_random()%128;
-        q = cus_random()%128;
-        while(p == q)
+        if((tempMat.M[i][0] & idM64[i]) == idM64[i])
         {
-            p = cus_random()%128;
-            q = cus_random()%128;
-        }
-        if(p > q)//add
-        {
-            (*Mat).M[p][0] ^= (*Mat).M[q][0];
-            (*Mat).M[p][1] ^= (*Mat).M[q][1];
-            trail[i][0] = 1;
-            trail[i][1] = p;
-            trail[i][2] = q;
-        }
-        else//swap
-        {
-            temp[0] = (*Mat).M[p][0];
-            (*Mat).M[p][0] = (*Mat).M[q][0];
-            (*Mat).M[q][0] = temp[0];
-            temp[1] = (*Mat).M[p][1];
-            (*Mat).M[p][1] = (*Mat).M[q][1];
-            (*Mat).M[q][1] = temp[1];
-            trail[i][0] = 0;
-            trail[i][1] = p;
-            trail[i][2] = q;
-        }   
-    }
-    for(int j = M128N - 1; j >= 0; j--)//generate inverse matrix
-    {
-        if(trail[j][0])//add
-        {
-            (*Mat_inv).M[trail[j][1]][0] ^= (*Mat_inv).M[trail[j][2]][0];
-            (*Mat_inv).M[trail[j][1]][1] ^= (*Mat_inv).M[trail[j][2]][1];
-        }
-        else//swap
-        {
-            temp[0] = (*Mat_inv).M[trail[j][1]][0];
-            (*Mat_inv).M[trail[j][1]][0] = (*Mat_inv).M[trail[j][2]][0];
-            (*Mat_inv).M[trail[j][2]][0] = temp[0];
-            temp[1] = (*Mat_inv).M[trail[j][1]][1];
-            (*Mat_inv).M[trail[j][1]][1] = (*Mat_inv).M[trail[j][2]][1];
-            (*Mat_inv).M[trail[j][2]][1] = temp[1];
-        }   
-    }
-    if(basetrailM128[0][0] != -1)
-    {
-        for(int j = initM128_times - 1; j >= 0; j--)//generate inverse matrix for base matrix
-        {
-            if(basetrailM128[j][0])//add
+            for(int j = i + 1; j < 128; j++)
             {
-                (*Mat_inv).M[basetrailM128[j][1]][0] ^= (*Mat_inv).M[basetrailM128[j][2]][0];
-                (*Mat_inv).M[basetrailM128[j][1]][1] ^= (*Mat_inv).M[basetrailM128[j][2]][1];
+                if((tempMat.M[j][0] & idM64[i]) == idM64[i])
+                {
+                    tempMat.M[j][0] ^= tempMat.M[i][0];
+                    tempMat.M[j][1] ^= tempMat.M[i][1];
+
+                    (*Mat_inv).M[j][0] ^= (*Mat_inv).M[i][0];
+                    (*Mat_inv).M[j][1] ^= (*Mat_inv).M[i][1];
+
+                    trail[times][0]=1;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                }
+            }
+        }
+        else// swap to find 1
+        {
+            flag = 1;
+            for(int j = i + 1; j < 128; j++)
+            {
+                if((tempMat.M[j][0] & idM64[i]) == idM64[i])
+                {
+                    temp = tempMat.M[i][0];
+                    tempMat.M[i][0] = tempMat.M[j][0];
+                    tempMat.M[j][0] = temp;
+
+                    temp = tempMat.M[i][1];
+                    tempMat.M[i][1] = tempMat.M[j][1];
+                    tempMat.M[j][1] = temp;
+
+                    flag=0;
+
+                    temp = (*Mat_inv).M[i][0];
+                    (*Mat_inv).M[i][0] = (*Mat_inv).M[j][0];
+                    (*Mat_inv).M[j][0] = temp;
+
+                    temp = (*Mat_inv).M[i][1];
+                    (*Mat_inv).M[i][1] = (*Mat_inv).M[j][1];
+                    (*Mat_inv).M[j][1] = temp;
+
+                    trail[times][0] = 0;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                invertible = 0;
+                p = i + 1 + cus_random()%(127 - i);//swap
+                
+                temp = tempMat.M[p][0];
+                tempMat.M[p][0] = tempMat.M[i][0];
+                tempMat.M[i][0] = temp;
+
+                temp = tempMat.M[p][1];
+                tempMat.M[p][1] = tempMat.M[i][1];
+                tempMat.M[i][1] = temp;
+                
+                temp = (*Mat_inv).M[p][0];
+                (*Mat_inv).M[p][0] = (*Mat_inv).M[i][0];
+                (*Mat_inv).M[i][0] = temp;
+
+                temp = (*Mat_inv).M[p][1];
+                (*Mat_inv).M[p][1] = (*Mat_inv).M[i][1];
+                (*Mat_inv).M[i][1] = temp;
+                
+                trail[times][0] = 0;
+                trail[times][1] = p;
+                trail[times][2] = i;
+                times++;
+
+                for(int t = i + 1; t < 128; t++)
+                {
+                    if(cus_random()%2)
+                    {
+                        tempMat.M[t][0] ^= tempMat.M[i][0];
+                        tempMat.M[t][1] ^= tempMat.M[i][1];
+
+                        (*Mat_inv).M[t][0] ^= (*Mat_inv).M[i][0];
+                        (*Mat_inv).M[t][1] ^= (*Mat_inv).M[i][1];
+                        trail[times][0] = 1;
+                        trail[times][1] = t;
+                        trail[times][2] = i;
+                        times++;
+                    }
+                }
+            }
+            else //can still contiune
+            {
+                for(int k = i + 1; k < 128; k++)
+                {
+                    if((tempMat.M[k][0] & idM64[i]) == idM64[i])
+                    {
+                        tempMat.M[k][0] ^= tempMat.M[i][0];
+                        tempMat.M[k][1] ^= tempMat.M[i][1];
+
+                        (*Mat_inv).M[k][0] ^= (*Mat_inv).M[i][0];
+                        (*Mat_inv).M[k][1] ^= (*Mat_inv).M[i][1];
+
+                        trail[times][0] = 1;
+                        trail[times][1] = k;
+                        trail[times][2] = i;
+                        times++;
+                    }
+                }
+            }
+        }
+    }
+    for(int i = 64; i < 128; i++)//diagonal = 1?
+    {
+        if((tempMat.M[i][1] & idM64[i - 64]) == idM64[i - 64])
+        {
+            for(int j = i + 1; j < 128; j++)
+            {
+                if((tempMat.M[j][1] & idM64[i - 64]) == idM64[i - 64])
+                {
+                    tempMat.M[j][1] ^= tempMat.M[i][1];
+
+                    (*Mat_inv).M[j][0] ^= (*Mat_inv).M[i][0];
+                    (*Mat_inv).M[j][1] ^= (*Mat_inv).M[i][1];
+
+                    trail[times][0]=1;
+                    trail[times][1]=j;
+                    trail[times][2]=i;
+                    times++;
+                }
+            }
+        }
+        else// swap to find 1
+        {
+            flag = 1;
+            for(int j = i + 1; j < 128; j++)
+            {
+                if((tempMat.M[j][1] & idM64[i - 64]) == idM64[i - 64])
+                {
+                    temp = tempMat.M[i][1];
+                    tempMat.M[i][1] = tempMat.M[j][1];
+                    tempMat.M[j][1] = temp;
+
+                    flag=0;
+
+                    temp = (*Mat_inv).M[i][0];
+                    (*Mat_inv).M[i][0] = (*Mat_inv).M[j][0];
+                    (*Mat_inv).M[j][0] = temp;
+
+                    temp = (*Mat_inv).M[i][1];
+                    (*Mat_inv).M[i][1] = (*Mat_inv).M[j][1];
+                    (*Mat_inv).M[j][1] = temp;
+
+                    trail[times][0] = 0;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                invertible = 0;
+                if(i < 127)
+                {
+                    p = i + 1 + cus_random()%(127 - i);//swap
+
+                    temp = tempMat.M[p][1];
+                    tempMat.M[p][1] = tempMat.M[i][1];
+                    tempMat.M[i][1] = temp;
+                    
+                    temp = (*Mat_inv).M[p][0];
+                    (*Mat_inv).M[p][0] = (*Mat_inv).M[i][0];
+                    (*Mat_inv).M[i][0] = temp;
+
+                    temp = (*Mat_inv).M[p][1];
+                    (*Mat_inv).M[p][1] = (*Mat_inv).M[i][1];
+                    (*Mat_inv).M[i][1] = temp;
+                    
+                    trail[times][0] = 0;
+                    trail[times][1] = p;
+                    trail[times][2] = i;
+                    times++;
+
+                    for(int t = i + 1; t < 128; t++)
+                    {
+                        if(cus_random()%2)
+                        {
+                            tempMat.M[t][1] ^= tempMat.M[i][1];
+
+                            (*Mat_inv).M[t][0] ^= (*Mat_inv).M[i][0];
+                            (*Mat_inv).M[t][1] ^= (*Mat_inv).M[i][1];
+                            trail[times][0] = 1;
+                            trail[times][1] = t;
+                            trail[times][2] = i;
+                            times++;
+                        }
+                    }
+                }
+            }
+            else //can still contiune
+            {
+                for(int k = i + 1; k < 128; k++)
+                {
+                    if((tempMat.M[k][1] & idM64[i - 64]) == idM64[i - 64])
+                    {
+                        tempMat.M[k][1] ^= tempMat.M[i][1];
+
+                        (*Mat_inv).M[k][0] ^= (*Mat_inv).M[i][0];
+                        (*Mat_inv).M[k][1] ^= (*Mat_inv).M[i][1];
+
+                        trail[times][0] = 1;
+                        trail[times][1] = k;
+                        trail[times][2] = i;
+                        times++;
+                    }
+                }
+            }
+        }
+    }
+    if(!invertible)//not invertible
+    {
+        for(int t = 127; t >= 64; t--)
+        {
+            for(int j = t - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j][1] & idM64[t - 64]) == idM64[t - 64])
+                {
+                    tempMat.M[j][1] ^= tempMat.M[t][1];
+
+                    (*Mat_inv).M[j][0] ^= (*Mat_inv).M[t][0];
+                    (*Mat_inv).M[j][1] ^= (*Mat_inv).M[t][1];
+
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        for(int t = 63; t >= 0; t--)
+        {
+            for(int j = t - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j][0] & idM64[t]) == idM64[t])
+                {
+                    tempMat.M[j][0] ^= tempMat.M[t][0];
+
+                    (*Mat_inv).M[j][0] ^= (*Mat_inv).M[t][0];
+                    (*Mat_inv).M[j][1] ^= (*Mat_inv).M[t][1];
+
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        
+        for(int j = times - 1; j >= 0; j--)//generate inverse matrix
+        {
+            if(trail[j][0])//add
+            {
+                (*Mat).M[trail[j][1]][0] ^= (*Mat).M[trail[j][2]][0];
+                (*Mat).M[trail[j][1]][1] ^= (*Mat).M[trail[j][2]][1];
             }
             else//swap
             {
-                temp[0] = (*Mat_inv).M[basetrailM128[j][1]][0];
-                (*Mat_inv).M[basetrailM128[j][1]][0] = (*Mat_inv).M[basetrailM128[j][2]][0];
-                (*Mat_inv).M[basetrailM128[j][2]][0] = temp[0];
-                temp[1] = (*Mat_inv).M[basetrailM128[j][1]][1];
-                (*Mat_inv).M[basetrailM128[j][1]][1] = (*Mat_inv).M[basetrailM128[j][2]][1];
-                (*Mat_inv).M[basetrailM128[j][2]][1] = temp[1];
+                temp = (*Mat).M[trail[j][1]][0];
+                (*Mat).M[trail[j][1]][0] = (*Mat).M[trail[j][2]][0];
+                (*Mat).M[trail[j][2]][0] = temp;
+
+                temp = (*Mat).M[trail[j][1]][1];
+                (*Mat).M[trail[j][1]][1] = (*Mat).M[trail[j][2]][1];
+                (*Mat).M[trail[j][2]][1] = temp;
             }   
         }
+    }
+    else//invertible 
+    {
+        for(int i = 127; i >= 64; i--)
+        {
+            for(int j = i - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j][1] & idM64[i - 64]) == idM64[i - 64])
+                {
+                    tempMat.M[j][1] ^= tempMat.M[i][1];
+
+                    (*Mat_inv).M[j][0] ^= (*Mat_inv).M[i][0];
+                    (*Mat_inv).M[j][1] ^= (*Mat_inv).M[i][1];
+                }
+            }
+        }
+        for(int i = 63; i >= 0; i--)
+        {
+            for(int j = i - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j][0] & idM64[i]) == idM64[i])
+                {
+                    tempMat.M[j][0] ^= tempMat.M[i][0];
+
+                    (*Mat_inv).M[j][0] ^= (*Mat_inv).M[i][0];
+                    (*Mat_inv).M[j][1] ^= (*Mat_inv).M[i][1];
+                }
+            }
+        }
+        copyM128(resultMat, Mat);
     }
 }
 void genaffinepairM8(Aff8 *aff, Aff8 *aff_inv)//generate a pair of affine

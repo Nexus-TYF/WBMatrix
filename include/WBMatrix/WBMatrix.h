@@ -1,11 +1,10 @@
 #ifndef _HWBMATRIX_H_
 #define _HWBMATRIX_H_
 /***
- * Last Update:2020/07/01
- * Version:2.2.1
+ * Last Update: 2020/07/31
+ * Version: 3.0
 ***/
 #include "WBMatrix/structure.h"
-#include "WBMatrix/inverse.h"
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -41,8 +40,6 @@ uint8_t MatMulNumM8(M8 Mat, uint8_t n);
 void MatMulMatM8(M8 Mat1, M8 Mat2, M8 *Mat);
 void MatAddMatM8(M8 Mat1, M8 Mat2, M8 *Mat);
 void MattransM8(M8 Mat, M8 *Mat_trans);
-void initinvbaseM8(int N);
-void freebaseM8();
 
 void genMatpairM8(M8 *Mat, M8 *Mat_inv);
 void genaffinepairM8(Aff8 *aff, Aff8 *aff_inv);
@@ -73,10 +70,7 @@ void MatAddMatM16(M16 Mat1, M16 Mat2, M16 *Mat);
 void MatMulVecM16(M16 Mat, V16 Vec, V16 *ans);
 uint16_t MatMulNumM16(M16 Mat, uint16_t n);
 void MatMulMatM16(M16 Mat1, M16 Mat2, M16 *Mat);
-
 void MattransM16(M16 Mat, M16 *Mat_trans);
-void initinvbaseM16(int N);
-void freebaseM16();
 
 void genMatpairM16(M16 *Mat, M16 *Mat_inv);
 void genaffinepairM16(Aff16 *aff, Aff16 *aff_inv);
@@ -109,8 +103,6 @@ uint32_t MatMulNumM32(M32 Mat, uint32_t n);
 void MatMulMatM32(M32 Mat1, M32 Mat2, M32 *Mat);
 void MatAddMatM32(M32 Mat1, M32 Mat2, M32 *Mat);
 void MattransM32(M32 Mat, M32 *Mat_trans);
-void initinvbaseM32(int N);
-void freebaseM32();
 
 void genMatpairM32(M32 *Mat, M32 *Mat_inv);
 void genaffinepairM32(Aff32 *aff, Aff32 *aff_inv);
@@ -146,8 +138,6 @@ uint64_t MatMulNumM64(M64 Mat, uint64_t n);
 void MatMulMatM64(M64 Mat1, M64 Mat2, M64 *Mat);
 
 void MattransM64(M64 Mat, M64 *Mat_trans);
-void initinvbaseM64(int N);
-void freebaseM64();
 
 void MatAddMatM64(M64 Mat1, M64 Mat2, M64 *Mat);
 void genMatpairM64(M64 *Mat, M64 *Mat_inv);
@@ -179,10 +169,7 @@ void VecAddVecV128(V128 Vec1, V128 Vec2, V128 *Vec);
 void MatMulVecM128(M128 Mat, V128 Vec, V128 *ans);
 //void MatMulNumM128(M128 Mat, uint64_t n[], uint64_t ans[]);
 void MatMulMatM128(M128 Mat1, M128 Mat2, M128 *Mat);
-
 void MattransM128(M128 Mat, M128 *Mat_trans);
-void initinvbaseM128(int N);
-void freebaseM128();
 
 void MatAddMatM128(M128 Mat1, M128 Mat2, M128 *Mat);
 void genMatpairM128(M128 *Mat, M128 *Mat_inv);
