@@ -11,7 +11,41 @@
 #include "WBMatrix/random.h"
 
 void SetRandSeed(unsigned int seed);//Set random seed
+/*
+* 4bit Matrix operation
+*/
+void initM4(M4 *Mat);
+void randM4(M4 *Mat);
+void identityM4(M4 *Mat);
+void printM4(M4 Mat);
+void printbitM4(M4 Mat);
+void copyM4(M4 Mat1, M4 *Mat2);
+int isequalM4(M4 Mat1, M4 Mat2);
+int isinvertM4(M4 Mat);
+void invsM4(M4 Mat, M4 *Mat_inv);
+int readbitM4(M4 Mat, int i, int j);
+void flipbitM4(M4 *Mat, int i, int j);
+void setbitM4(M4 *Mat, int i, int j, int bit);
 
+void initV4(V4 *Vec);
+void randV4(V4 *Vec);
+void printV4(V4 Vec);
+int isequalV4(V4 Vec1, V4 Vec2);
+void VecAddVecV4(V4 Vec1, V4 Vec2, V4 *Vec);
+
+uint8_t affineU4(Aff4 aff, uint8_t arr);
+int xorU4(uint8_t n);
+int HWU4(uint8_t n);
+
+void MatMulVecM4(M4 Mat,V4 Vec, V4 *ans);
+uint8_t MatMulNumM4(M4 Mat, uint8_t n);
+void MatMulMatM4(M4 Mat1, M4 Mat2, M4 *Mat);
+void MatAddMatM4(M4 Mat1, M4 Mat2, M4 *Mat);
+void MattransM4(M4 Mat, M4 *Mat_trans);
+
+void genMatpairM4(M4 *Mat, M4 *Mat_inv);
+void genaffinepairM4(Aff4 *aff, Aff4 *aff_inv);
+void affinemixM4(Aff4 aff, Aff4 preaff_inv, Aff4 *mixaff);
 /*
 * 8bit Matrix operation
 */
@@ -34,7 +68,7 @@ void printV8(V8 Vec);
 int isequalV8(V8 Vec1, V8 Vec2);
 void VecAddVecV8(V8 Vec1, V8 Vec2, V8 *Vec);
 
-uint8_t affineU8(Aff8 aff,uint8_t arr);
+uint8_t affineU8(Aff8 aff, uint8_t arr);
 int xorU8(uint8_t n);
 int HWU8(uint8_t n);
 void printU8(uint8_t n);

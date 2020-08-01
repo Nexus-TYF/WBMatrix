@@ -5,6 +5,34 @@ int main()
 {
     int flag = 1, i;
     printf("-----bitwise operation (read/set/flip) test-----\n");
+    M4 bom4_1, bom4_2, bom4_3;
+    int flag_bom4_1 = 1;
+    int flag_bom4_2 = 1;
+    int flag_bom4_3 = 1;
+    initM4(&bom4_1);
+    identityM4(&bom4_2);
+    initM4(&bom4_3);
+    for (i = 0; i < 4; i++)
+    {
+        setbitM4(&bom4_1, i, i, 1);
+    }
+    if(!isequalM4(bom4_1, bom4_2)) flag_bom4_1 = 0;
+    for (i = 0; i < 4; i++)
+    {
+        if(readbitM4(bom4_1, i, i) == 0) 
+        {
+            flag_bom4_2 = 0;
+            break;
+        }
+    }
+    for (i = 0; i < 4; i++)
+    {
+        flipbitM4(&bom4_1, i, i);
+    }
+    if(!isequalM4(bom4_1, bom4_3)) flag_bom4_1 = 0;
+    if(flag_bom4_1 && flag_bom4_2 && flag_bom4_3) printf("4bit: PASS\n");
+    else {printf("4bit: ERROR\n"); flag = 0;}
+    
     M8 bom8_1, bom8_2, bom8_3;
     int flag_bom8_1 = 1;
     int flag_bom8_2 = 1;
@@ -146,6 +174,17 @@ int main()
     else {printf("128bit: ERROR\n"); flag = 0;}
 
     printf("-----mat mul num test-----\n");
+    M4 mmnm4_1, mmnm4_2;
+    uint8_t mmnn4_1 = 0x0c, mmnn4_2;
+    for(i = 0; i < TEST; i++)
+    {
+        genMatpairM4(&mmnm4_1, &mmnm4_2);
+        mmnn4_2=MatMulNumM4(mmnm4_2, MatMulNumM4(mmnm4_1, mmnn4_1));
+        if(mmnn4_1 != mmnn4_2) break;
+    }
+    if(i < TEST) {printf("4bit: ERROR\n"); flag = 0;}
+    else printf("4bit: PASS\n");
+
     M8 mmnm8_1, mmnm8_2;
     uint8_t mmnn8_1 = 0x87, mmnn8_2;
     for(i = 0; i < TEST; i++)
@@ -191,6 +230,19 @@ int main()
     else printf("64bit: PASS\n");
 
     printf("-----mat mul vec test-----\n");
+    M4 mmvm4_1,mmvm4_2;
+    V4 mmvv4_1,mmvv4_2,mmvv4_3;
+    for(i=0;i<TEST;i++)
+    {
+        genMatpairM4(&mmvm4_1,&mmvm4_2);
+        randV4(&mmvv4_1);
+        MatMulVecM4(mmvm4_1,mmvv4_1,&mmvv4_2);
+        MatMulVecM4(mmvm4_2,mmvv4_2,&mmvv4_3);
+        if(!isequalV4(mmvv4_1,mmvv4_3)) break;
+    }
+    if(i<TEST) {printf("4bit: ERROR\n"); flag=0;}
+    else printf("4bit: PASS\n");
+
     M8 mmvm8_1,mmvm8_2;
     V8 mmvv8_1,mmvv8_2,mmvv8_3;
     for(i=0;i<TEST;i++)
@@ -257,6 +309,22 @@ int main()
     else printf("128bit: PASS\n");
     
     printf("-----mat mul mat (includes mat transpositon) test-----\n");
+    M4 mmmm4_1,mmmm4_2,mmmm4_3;
+    V4 mmmv4_1,mmmv4_2,mmmv4_3,mmmv4_4;
+    for(i=0;i<TEST;i++)
+    {
+        randM4(&mmmm4_1);
+        randM4(&mmmm4_2);
+        randV4(&mmmv4_1);
+        MatMulVecM4(mmmm4_1,mmmv4_1,&mmmv4_2);
+        MatMulVecM4(mmmm4_2,mmmv4_2,&mmmv4_3);
+        MatMulMatM4(mmmm4_2,mmmm4_1,&mmmm4_3);
+        MatMulVecM4(mmmm4_3,mmmv4_1,&mmmv4_4);
+        if(!isequalV4(mmmv4_3,mmmv4_4)) break;
+    }
+    if(i<TEST) {printf("4bit: ERROR\n"); flag=0;}
+    else printf("4bit: PASS\n");
+    
     M8 mmmm8_1,mmmm8_2,mmmm8_3;
     V8 mmmv8_1,mmmv8_2,mmmv8_3,mmmv8_4;
     for(i=0;i<TEST;i++)
@@ -338,6 +406,21 @@ int main()
     else printf("128bit: PASS\n");
 
     printf("-----invertible and inverse test-----\n");
+    M4 iim4_1, iim4_2, iim4_3, iim4_4, iim4_5;
+    identityM4(&iim4_4);
+    for(i = 0; i < TEST; i++)
+    {
+        genMatpairM4(&iim4_1, &iim4_2);
+        if(!isinvertM4(iim4_1)) break;
+        if(!isinvertM4(iim4_2)) break;
+        MatMulMatM4(iim4_1, iim4_2, &iim4_3);
+        if(!isequalM4(iim4_3, iim4_4)) break;
+        invsM4(iim4_1, &iim4_5);
+        if(!isequalM4(iim4_2, iim4_5)) break;
+    }
+    if(i<TEST) {printf("4bit: ERROR\n"); flag=0;}
+    else printf("4bit: PASS\n");
+
     M8 iim8_1, iim8_2, iim8_3, iim8_4, iim8_5;
     identityM8(&iim8_4);
     for(i = 0; i < TEST; i++)
@@ -414,6 +497,14 @@ int main()
     else printf("128bit: PASS\n");
 
     printf("-----invertible affine and affine transform test-----\n");
+    Aff4 iaa4_1,iaa4_2;
+    uint8_t iau4_1=0x0c,iau4_2,iau4_3;
+    genaffinepairM4(&iaa4_1,&iaa4_2);
+    iau4_2=affineU4(iaa4_1,iau4_1);
+    iau4_3=affineU4(iaa4_2,iau4_2);
+    if(iau4_1==iau4_3) printf("4bit: PASS\n");
+    else {printf("4bit: ERROR\n"); flag=0;}
+
     Aff8 iaa8_1,iaa8_2;
     uint8_t iau8_1=0x87,iau8_2,iau8_3;
     genaffinepairM8(&iaa8_1,&iaa8_2);
@@ -455,6 +546,17 @@ int main()
     else {printf("128bit: ERROR\n"); flag=0;}
 
     printf("-----affine mix test-----\n");
+    Aff4 ama4_1,ama4_2,ama4_3,ama4_4,ama4_5;
+    uint8_t amu4_1=0x0c,amu4_2,amu4_3,amu4_4,amu4_5;
+    genaffinepairM4(&ama4_1,&ama4_2);
+    genaffinepairM4(&ama4_3,&ama4_4);
+    amu4_2=affineU4(ama4_1,amu4_1);
+    affinemixM4(ama4_3,ama4_2,&ama4_5);
+    amu4_4=affineU4(ama4_5,amu4_2);
+    amu4_5=affineU4(ama4_4,amu4_4);
+    if(amu4_1==amu4_5) printf("4bit: PASS\n");
+    else {printf("4bit: ERROR\n"); flag=0;}
+
     Aff8 ama8_1,ama8_2,ama8_3,ama8_4,ama8_5;
     uint8_t amu8_1=0x87,amu8_2,amu8_3,amu8_4,amu8_5;
     genaffinepairM8(&ama8_1,&ama8_2);

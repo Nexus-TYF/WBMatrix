@@ -32,6 +32,7 @@ int HW[] = {0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1, 2, 2, 3, 2,
 6, 6, 7, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 4, 
 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8};
 
+uint8_t idM4[4] = {0x08, 0x04, 0x02, 0x01};
 uint8_t idM8[8] = {0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01};
 uint16_t idM16[16] = {0x8000, 0x4000, 0x2000, 0x1000, 0x800, 0x400, 0x200, 0x100, 0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1};
 uint32_t idM32[32] = {0x80000000, 0x40000000, 0x20000000, 0x10000000, 0x8000000, 0x4000000, 0x2000000, 0x1000000, 0x800000, 0x400000, 0x200000, 0x100000, 0x80000, 0x40000, 0x20000, 0x10000, 0x8000, 0x4000, 0x2000, 0x1000, 0x800, 0x400, 0x200, 0x100, 0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1};
@@ -43,6 +44,13 @@ void SetRandSeed(unsigned int seed)
     randseed = seed;
 }
 
+void initM4(M4 *Mat)//initial Matrix 4*4
+{
+    for(int i = 0; i < 4; i++)
+    {
+        (*Mat).M[i] = 0;
+    }
+}
 void initM8(M8 *Mat)//initial Matrix 8*8
 {
     for(int i = 0; i < 8; i++)
@@ -79,6 +87,10 @@ void initM128(M128 *Mat)//initial Matrix 128*128
         (*Mat).M[i][1] = 0;
     }
 }
+void initV4(V4 *Vec)//initial Vector 4*1
+{
+    (*Vec).V = 0;
+}
 void initV8(V8 *Vec)//initial Vector 8*1
 {
     (*Vec).V = 0;
@@ -100,9 +112,17 @@ void initV128(V128 *Vec)//initial Vector 128*1
     (*Vec).V[0] = 0;
     (*Vec).V[1] = 0;
 }
+void randM4(M4 *Mat)//randomize Matrix 4*4 
+{
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
+    for(int i = 0; i < 4; i++)
+    {
+        (*Mat).M[i] = cus_random() & 0x0f;
+    }
+}
 void randM8(M8 *Mat)//randomize Matrix 8*8 
 {
-    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
     for(int i = 0; i < 8; i++)
     {
         (*Mat).M[i] = cus_random();
@@ -110,7 +130,7 @@ void randM8(M8 *Mat)//randomize Matrix 8*8
 }
 void randM16(M16 *Mat)//randomize Matrix 16*16 
 {
-    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
     for(int i = 0; i < 16; i++)
     {
         (*Mat).M[i] = cus_random();
@@ -118,7 +138,7 @@ void randM16(M16 *Mat)//randomize Matrix 16*16
 }
 void randM32(M32 *Mat)//randomize Matrix 32*32 
 {
-    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
     for(int i = 0; i < 32; i++)
     {
         (*Mat).M[i] = cus_random();
@@ -126,7 +146,7 @@ void randM32(M32 *Mat)//randomize Matrix 32*32
 }
 void randM64(M64 *Mat)//randomize Matrix 64*64 
 {
-    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
     uint32_t *m;
     for(int i = 0; i < 64; i++)
     {
@@ -137,7 +157,7 @@ void randM64(M64 *Mat)//randomize Matrix 64*64
 }
 void randM128(M128 *Mat)//randomize Matrix 128*128 
 {
-    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
     uint32_t *m;
     for(int i = 0; i < 128; i++)
     {
@@ -147,6 +167,13 @@ void randM128(M128 *Mat)//randomize Matrix 128*128
         m = (uint32_t*)&((*Mat).M[i][1]);
         *(m+1) = cus_random();
         *m = cus_random();
+    }
+}
+void identityM4(M4 *Mat)//identity matrix 4*4
+{
+    for(int i = 0; i < 4; i++)
+    {
+        (*Mat).M[i] = idM4[i];
     }
 }
 void identityM8(M8 *Mat)//identity matrix 8*8
@@ -190,6 +217,11 @@ void identityM128(M128 *Mat)//identity matrix 128*128
         (*Mat).M[i][1] = idM64[i-64];
     }
 }
+void randV4(V4 *Vec)//randomize Vector 4*1
+{
+    InitRandom((randseed++)^(unsigned int)time(NULL));
+    (*Vec).V = cus_random() & 0x0f;
+}
 void randV8(V8 *Vec)//randomize Vector 8*1
 {
     InitRandom((randseed++)^(unsigned int)time(NULL));
@@ -230,6 +262,13 @@ void randV128(V128 *Vec)//randomize Vector 128*1
     *(v+1) = cus_random();
     *v = cus_random();
 }
+void printM4(M4 Mat)//printf Matrix 4*4
+{
+    for(int i = 0; i < 4; i++)
+    {
+        printf("0x%x\n", Mat.M[i]);
+    }
+}
 void printM8(M8 Mat)//printf Matrix 8*8
 {
     for(int i = 0; i < 8; i++)
@@ -266,6 +305,10 @@ void printM128(M128 Mat)//printf Matrix 128*128
         printf("0x%llx\n", Mat.M[i][1]);
     }
 }
+void printV4(V4 Vec)//printf Vector 4*1
+{
+    printf("0x%x\n", Vec.V);
+}
 void printV8(V8 Vec)//printf Vector 8*1
 {
     printf("0x%x\n", Vec.V);
@@ -286,6 +329,13 @@ void printV128(V128 Vec)//printf Vector 128*1
 {
     printf("0x%llx ", Vec.V[0]);
     printf("0x%llx\n", Vec.V[1]);
+}
+void copyM4(M4 Mat1, M4 *Mat2)
+{
+    for(int i = 0; i < 4; i++)
+    {
+        (*Mat2).M[i] = Mat1.M[i];
+    }
 }
 void copyM8(M8 Mat1, M8 *Mat2)
 {
@@ -322,6 +372,19 @@ void copyM128(M128 Mat1, M128 *Mat2)
         (*Mat2).M[i][0] = Mat1.M[i][0];
         (*Mat2).M[i][1] = Mat1.M[i][1];
     }
+}
+int isequalM4(M4 Mat1, M4 Mat2)
+{
+    int flag = 1;
+    for(int i = 0; i < 4; i++)
+    {
+        if(Mat1.M[i] != Mat2.M[i])
+        {
+            flag = 0;
+            break;
+        }
+    }
+    return flag;
 }
 int isequalM8(M8 Mat1, M8 Mat2)
 {
@@ -393,6 +456,12 @@ int isequalM128(M128 Mat1, M128 Mat2)
     }
     return flag;
 }
+int isequalV4(V4 Vec1, V4 Vec2)
+{
+    int flag = 1;
+    if(Vec1.V != Vec2.V) flag = 0;
+    return flag;
+}
 int isequalV8(V8 Vec1, V8 Vec2)
 {
     int flag = 1;
@@ -423,6 +492,11 @@ int isequalV128(V128 Vec1, V128 Vec2)
     if(Vec1.V[0] != Vec2.V[0]) flag = 0;
     if(Vec1.V[1] != Vec2.V[1]) flag = 0;
     return flag;
+}
+int readbitM4(M4 Mat, int i, int j)//read one bit in a matrix, i in n rows, j in n columns, i,j: 0-3
+{
+    if((Mat.M[i] & idM4[j]) == idM4[j]) return 1;
+    else return 0;
 }
 int readbitM8(M8 Mat, int i, int j)//read one bit in a matrix, i in n rows, j in n columns, i,j: 0-7
 {
@@ -457,6 +531,10 @@ int readbitM128(M128 Mat, int i, int j)//read one bit in a matrix, i in n rows, 
         else return 0;
     }
 }
+void flipbitM4(M4 *Mat, int i, int j)//flip (i, j) bit in a matrix
+{
+    (*Mat).M[i] ^= idM4[j];
+}
 void flipbitM8(M8 *Mat, int i, int j)//flip (i, j) bit in a matrix
 {
     (*Mat).M[i] ^= idM8[j];
@@ -484,6 +562,11 @@ void flipbitM128(M128 *Mat, int i, int j)//flip (i, j) bit in a matrix
         (*Mat).M[i][1] ^= idM64[j - 64];
     }
 }
+void setbitM4(M4 *Mat, int i, int j, int bit)//set (i, j) bit in a matrix, bit = 0/1
+{
+    if(readbitM4(*Mat, i, j) == bit) return;
+    else flipbitM4(Mat, i, j);
+}
 void setbitM8(M8 *Mat, int i, int j, int bit)//set (i, j) bit in a matrix, bit = 0/1
 {
     if(readbitM8(*Mat, i, j) == bit) return;
@@ -508,6 +591,49 @@ void setbitM128(M128 *Mat, int i, int j, int bit)//set (i, j) bit in a matrix, b
 {
     if(readbitM128(*Mat, i, j) == bit) return;
     else flipbitM128(Mat, i, j);
+}
+int isinvertM4(M4 Mat)//Invertible Matrix?
+{
+    uint8_t temp;
+    int flag;
+    for(int i = 0; i < 4; i++)
+    {
+        if((Mat.M[i] & idM4[i]) == idM4[i])
+        {
+            for(int j = i + 1; j < 4; j++)
+            {
+                if((Mat.M[j] & idM4[i]) == idM4[i])
+                {
+                    Mat.M[j] ^= Mat.M[i];
+                }
+            }
+        }
+        else
+        {
+            flag = 1;
+            for(int j = i + 1; j < 4; j++)
+            {
+                if((Mat.M[j] & idM4[i]) == idM4[i])
+                {
+                    temp = Mat.M[i];
+                    Mat.M[i] = Mat.M[j];
+                    Mat.M[j] = temp;
+                    flag = 0;
+                    break;
+                }
+            }
+            if(flag) return 0;
+            for(int k = i + 1; k < 4; k++)
+            {
+                if((Mat.M[k] & idM4[i]) == idM4[i])
+                {
+                    Mat.M[k] ^= Mat.M[i];
+                }
+            }
+        }
+    }
+    if(Mat.M[3] == idM4[3]) return 1;
+    else return 0;
 }
 int isinvertM8(M8 Mat)//Invertible Matrix?
 {
@@ -765,6 +891,61 @@ int isinvertM128(M128 Mat)//Invertible Matrix?
     }
     if(Mat.M[127][1] == idM64[63]) return 1;
     else return 0;
+}
+void invsM4(M4 Mat, M4 *Mat_inv)//compute the 4*4 inverse matrix
+{
+    uint8_t temp;
+    identityM4(Mat_inv);
+    for(int i = 0; i < 4; i++)
+    {
+        if((Mat.M[i] & idM4[i]) == idM4[i])
+        {
+            for(int j = i + 1; j < 4; j++)
+            {
+                if((Mat.M[j] & idM4[i]) == idM4[i])
+                {
+                    Mat.M[j] ^= Mat.M[i];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+                }
+            }
+        }
+        else
+        {
+            for(int j = i + 1; j < 4; j++)
+            {
+                if((Mat.M[j] & idM4[i]) == idM4[i])
+                {
+                    temp = Mat.M[i];
+                    Mat.M[i] = Mat.M[j];
+                    Mat.M[j] = temp;
+
+                    temp = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = (*Mat_inv).M[j];
+                    (*Mat_inv).M[j] = temp;
+                    break;
+                }
+            }
+            for(int k = i + 1; k < 4; k++)
+            {
+                if((Mat.M[k] & idM4[i]) == idM4[i])
+                {
+                    Mat.M[k] ^= Mat.M[i];
+                    (*Mat_inv).M[k] ^= (*Mat_inv).M[i];
+                }
+            }
+        }
+    }
+    for(int i = 3; i >= 0; i--)
+    {
+        for(int j = i-1; j >= 0; j--)
+        {
+            if((Mat.M[j] & idM4[i]) == idM4[i])
+            {
+                Mat.M[j] ^= Mat.M[i];
+                (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+            }
+        }
+    }
 }
 void invsM8(M8 Mat, M8 *Mat_inv)//compute the 8*8 inverse matrix
 {
@@ -1115,6 +1296,13 @@ void invsM128(M128 Mat, M128 *Mat_inv)//compute the 128*128 inverse matrix
         }
     }
 }
+uint8_t affineU4(Aff4 aff, uint8_t arr)//4bits affine transformation
+{
+    V4 mul_vec, ans_vec;
+    mul_vec.V = arr;
+    MatMulVecM4(aff.Mat, mul_vec, &ans_vec);//mul
+    return ans_vec.V ^ aff.Vec.V;//add
+}
 uint8_t affineU8(Aff8 aff, uint8_t arr)//8bits affine transformation
 {
     V8 mul_vec, ans_vec;
@@ -1152,6 +1340,11 @@ void affineU128(Aff128 aff, uint64_t arr[], uint64_t ans[])//128bits affine tran
     ans[0] = ans_vec.V[0] ^ aff.Vec.V[0];//add
     ans[1] = ans_vec.V[1] ^ aff.Vec.V[1];
 }
+int xorU4(uint8_t n)// 4bits internal xor
+{
+    if(xor[n]) return 1;
+    else return 0;
+}
 int xorU8(uint8_t n)// uint8_t internal xor
 {
     if(xor[n]) return 1;
@@ -1187,6 +1380,10 @@ int xorU128(uint64_t n[])// uint128_t internal xor
     temp = n[0] ^ n[1];
     if(xorU64(temp)) return 1;
     else return 0;
+}
+int HWU4(uint8_t n)// 4bits HW
+{
+    return HW[n];
 }
 int HWU8(uint8_t n)// uint8_t HW
 {
@@ -1231,6 +1428,22 @@ void printU128(uint64_t n[])//printf uint128_t
 {
     printf("0x%x ", n[0]);
     printf("0x%x\n", n[1]);
+}
+void printbitM4(M4 Mat)//printf Matrix 4*4 in the form of bits 
+{
+    uint8_t temp;
+    for(int i = 0; i < 4; i++)
+    {
+        temp = Mat.M[i];
+        for(int j = 0; j < 4; j++)
+        {
+            if(temp & 0x08) printf("%d ", 1);
+            else printf("%d ", 0);
+            temp = temp << 1;
+        }
+        printf("\n");
+    }
+    printf("\n");
 }
 void printbitM8(M8 Mat)//printf Matrix 8*8 in the form of bits 
 {
@@ -1319,6 +1532,10 @@ void printbitM128(M128 Mat)//printf Matrix 128*128 in the form of bits
     }
     printf("\n");
 }
+void VecAddVecV4(V4 Vec1, V4 Vec2, V4 *Vec)
+{
+    (*Vec).V = Vec1.V ^ Vec2.V;
+}
 void VecAddVecV8(V8 Vec1, V8 Vec2, V8 *Vec)
 {
     (*Vec).V = Vec1.V ^ Vec2.V;
@@ -1339,6 +1556,15 @@ void VecAddVecV128(V128 Vec1, V128 Vec2, V128 *Vec)
 {
     (*Vec).V[0] = Vec1.V[0] ^ Vec2.V[0];
     (*Vec).V[1] = Vec1.V[1] ^ Vec2.V[1];
+}
+uint8_t MatMulNumM4(M4 Mat, uint8_t n)//matrix * number -> number 4bits
+{
+    uint8_t temp = 0;
+    for(int i = 0; i < 4; i++)
+    {
+        if(xorU4(Mat.M[i] & n & 0x0f)) temp ^= idM4[i];
+    }
+    return temp;
 }
 uint8_t MatMulNumM8(M8 Mat, uint8_t n)//matrix * number -> number 8bits
 {
@@ -1375,6 +1601,14 @@ uint64_t MatMulNumM64(M64 Mat, uint64_t n)//matrix * number -> number 64bits
         if(xorU64(Mat.M[i] & n)) temp ^= idM64[i];
     }
     return temp;
+}
+void MatMulVecM4(M4 Mat, V4 Vec, V4 *ans)//matrix * vector -> vector 4*1
+{
+    initV4(ans);
+    for(int i = 0; i < 4; i++)
+    {
+        if(xorU4(Mat.M[i] & Vec.V & 0x0f)) (*ans).V ^= idM4[i];
+    }
 }
 void MatMulVecM8(M8 Mat, V8 Vec, V8 *ans)//matrix * vector -> vector 8*1
 {
@@ -1425,7 +1659,162 @@ void MatMulVecM128(M128 Mat, V128 Vec, V128 *ans)//matrix * vector -> vector 128
         if(xorU128(temp)) (*ans).V[1] ^= idM64[i-64];
     }
 }
+void genMatpairM4(M4 *Mat, M4 *Mat_inv)//generate 4*4 invertible matrix and its inverse matrix
+{
+    int p,q;
+    uint8_t temp;
+    uint8_t trail[16][3];// generate trail
+    identityM4(Mat);
+    identityM4(Mat_inv);
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
+    M4 tempMat;
+    M4 resultMat;
+    randM4(&tempMat);
+    copyM4(tempMat, &resultMat);
+    int flag = 0;
+    int times = 0;
+    int invertible = 1;
+    for(int i = 0; i < 4; i++)//diagonal = 1?
+    {
+        if((tempMat.M[i] & idM4[i]) == idM4[i])
+        {
+            for(int j = i + 1; j < 4; j++)
+            {
+                if((tempMat.M[j] & idM4[i]) == idM4[i])
+                {
+                    tempMat.M[j] ^= tempMat.M[i];
 
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
+                    times++;
+                }
+            }
+        }
+        else// swap to find 1
+        {
+            flag = 1;
+            for(int j = i + 1; j < 4; j++)
+            {
+                if((tempMat.M[j] & idM4[i]) == idM4[i])
+                {
+                    temp = tempMat.M[i];
+                    tempMat.M[i] = tempMat.M[j];
+                    tempMat.M[j] = temp;
+
+                    flag = 0;
+
+                    temp = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = (*Mat_inv).M[j];
+                    (*Mat_inv).M[j] = temp;
+
+                    trail[times][0] = 0;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
+                    times++;
+                    break;
+                }
+            }
+            if(flag) //can not find 1 which means not invertible
+            {
+                invertible = 0;
+                if (i < 3)
+                {
+                    p = i + 1 + cus_random()%(3 - i);//swap
+                    temp = tempMat.M[p];
+                    tempMat.M[p] = tempMat.M[i];
+                    tempMat.M[i] = temp;
+                    temp = (*Mat_inv).M[p];
+                    (*Mat_inv).M[p] = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = temp;
+                    trail[times][0] = 0;
+                    trail[times][1] = p;
+                    trail[times][2] = i;
+                    times++;
+                    for(int t = i + 1; t < 4; t++)
+                    {
+                        if(cus_random()%2)
+                        {
+                            tempMat.M[t] ^= tempMat.M[i];
+                            (*Mat_inv).M[t] ^= (*Mat_inv).M[i];
+                            trail[times][0] = 1;
+                            trail[times][1] = t;
+                            trail[times][2] = i;
+                            times++;
+                        }
+                    }
+                }
+            }
+            else //can still contiune
+            {
+                for(int k = i + 1; k < 4; k++)
+                {
+                    if((tempMat.M[k] & idM4[i]) == idM4[i])
+                    {
+                        tempMat.M[k] ^= tempMat.M[i];
+
+                        (*Mat_inv).M[k] ^= (*Mat_inv).M[i];
+
+                        trail[times][0] = 1;
+                        trail[times][1] = k;
+                        trail[times][2] = i;
+                        times++;
+                    }
+                }
+            }
+        }
+    }
+    if(!invertible)//not invertible
+    {
+        for(int t = 3; t >= 0; t--)
+        {
+            for(int j = t - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j] & idM4[t]) == idM4[t])
+                {
+                    tempMat.M[j] ^= tempMat.M[t];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[t];
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = t;
+                    times++;
+                }
+            }
+        }
+        
+        for(int j = times - 1; j >= 0; j--)//generate inverse matrix
+        {
+            if(trail[j][0])//add
+            {
+                (*Mat).M[trail[j][1]] ^= (*Mat).M[trail[j][2]];
+            }
+            else//swap
+            {
+                temp = (*Mat).M[trail[j][1]];
+                (*Mat).M[trail[j][1]] = (*Mat).M[trail[j][2]];
+                (*Mat).M[trail[j][2]] = temp;
+            }   
+        }
+    }
+    else//invertible 
+    {
+        for(int i = 3; i >= 0; i--)
+        {
+            for(int j = i - 1; j >= 0; j--)
+            {
+                if((tempMat.M[j] & idM4[i]) == idM4[i])
+                {
+                    tempMat.M[j] ^= tempMat.M[i];
+
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
+                }
+            }
+        }
+        copyM4(resultMat, Mat);
+    }
+}
 void genMatpairM8(M8 *Mat, M8 *Mat_inv)//generate 8*8 invertible matrix and its inverse matrix
 {
     int p,q;
@@ -1433,7 +1822,7 @@ void genMatpairM8(M8 *Mat, M8 *Mat_inv)//generate 8*8 invertible matrix and its 
     uint8_t trail[64][3];// generate trail
     identityM8(Mat);
     identityM8(Mat_inv);
-    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
     M8 tempMat;
     M8 resultMat;
     randM8(&tempMat);
@@ -1467,19 +1856,19 @@ void genMatpairM8(M8 *Mat, M8 *Mat_inv)//generate 8*8 invertible matrix and its 
             {
                 if((tempMat.M[j] & idM8[i]) == idM8[i])
                 {
-                    temp=tempMat.M[i];
-                    tempMat.M[i]=tempMat.M[j];
-                    tempMat.M[j]=temp;
+                    temp = tempMat.M[i];
+                    tempMat.M[i] = tempMat.M[j];
+                    tempMat.M[j] = temp;
 
                     flag=0;
 
-                    temp=(*Mat_inv).M[i];
-                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
-                    (*Mat_inv).M[j]=temp;
+                    temp = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = (*Mat_inv).M[j];
+                    (*Mat_inv).M[j] = temp;
 
-                    trail[times][0]=0;
-                    trail[times][1]=j;
-                    trail[times][2]=i;
+                    trail[times][0] = 0;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
                     times++;
                     break;
                 }
@@ -1518,7 +1907,7 @@ void genMatpairM8(M8 *Mat, M8 *Mat_inv)//generate 8*8 invertible matrix and its 
             {
                 for(int k = i + 1; k < 8; k++)
                 {
-                    if((tempMat.M[k]&idM8[i]) == idM8[i])
+                    if((tempMat.M[k] & idM8[i]) == idM8[i])
                     {
                         tempMat.M[k] ^= tempMat.M[i];
 
@@ -1567,15 +1956,15 @@ void genMatpairM8(M8 *Mat, M8 *Mat_inv)//generate 8*8 invertible matrix and its 
     }
     else//invertible 
     {
-        for(int i=7;i>=0;i--)
+        for(int i = 7; i >= 0; i--)
         {
-            for(int j=i-1;j>=0;j--)
+            for(int j = i - 1; j >= 0; j--)
             {
-                if((tempMat.M[j]&idM8[i])==idM8[i])
+                if((tempMat.M[j] & idM8[i]) == idM8[i])
                 {
-                    tempMat.M[j]^=tempMat.M[i];
+                    tempMat.M[j] ^= tempMat.M[i];
 
-                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
                 }
             }
         }
@@ -1589,7 +1978,7 @@ void genMatpairM16(M16 *Mat, M16 *Mat_inv)//generate 16*16 invertible matrix and
     uint8_t trail[256][3];// generate trail
     identityM16(Mat);
     identityM16(Mat_inv);
-    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
     M16 tempMat;
     M16 resultMat;
     randM16(&tempMat);
@@ -1609,9 +1998,9 @@ void genMatpairM16(M16 *Mat, M16 *Mat_inv)//generate 16*16 invertible matrix and
 
                     (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
 
-                    trail[times][0]=1;
-                    trail[times][1]=j;
-                    trail[times][2]=i;
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
                     times++;
                 }
             }
@@ -1623,19 +2012,19 @@ void genMatpairM16(M16 *Mat, M16 *Mat_inv)//generate 16*16 invertible matrix and
             {
                 if((tempMat.M[j] & idM16[i]) == idM16[i])
                 {
-                    temp=tempMat.M[i];
-                    tempMat.M[i]=tempMat.M[j];
-                    tempMat.M[j]=temp;
+                    temp = tempMat.M[i];
+                    tempMat.M[i] = tempMat.M[j];
+                    tempMat.M[j] = temp;
 
-                    flag=0;
+                    flag = 0;
 
-                    temp=(*Mat_inv).M[i];
-                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
-                    (*Mat_inv).M[j]=temp;
+                    temp = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = (*Mat_inv).M[j];
+                    (*Mat_inv).M[j] = temp;
 
-                    trail[times][0]=0;
-                    trail[times][1]=j;
-                    trail[times][2]=i;
+                    trail[times][0] = 0;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
                     times++;
                     break;
                 }
@@ -1674,7 +2063,7 @@ void genMatpairM16(M16 *Mat, M16 *Mat_inv)//generate 16*16 invertible matrix and
             {
                 for(int k = i + 1; k < 16; k++)
                 {
-                    if((tempMat.M[k]&idM16[i]) == idM16[i])
+                    if((tempMat.M[k] & idM16[i]) == idM16[i])
                     {
                         tempMat.M[k] ^= tempMat.M[i];
 
@@ -1723,15 +2112,15 @@ void genMatpairM16(M16 *Mat, M16 *Mat_inv)//generate 16*16 invertible matrix and
     }
     else//invertible 
     {
-        for(int i=15;i>=0;i--)
+        for(int i = 15; i >= 0; i--)
         {
-            for(int j=i-1;j>=0;j--)
+            for(int j = i - 1; j >= 0; j--)
             {
-                if((tempMat.M[j]&idM16[i])==idM16[i])
+                if((tempMat.M[j] & idM16[i]) == idM16[i])
                 {
-                    tempMat.M[j]^=tempMat.M[i];
+                    tempMat.M[j] ^= tempMat.M[i];
 
-                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
                 }
             }
         }
@@ -1745,7 +2134,7 @@ void genMatpairM32(M32 *Mat, M32 *Mat_inv)//generate 32*32 invertible matrix and
     uint8_t trail[1024][3];// generate trail
     identityM32(Mat);
     identityM32(Mat_inv);
-    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
     M32 tempMat;
     M32 resultMat;
     randM32(&tempMat);
@@ -1765,9 +2154,9 @@ void genMatpairM32(M32 *Mat, M32 *Mat_inv)//generate 32*32 invertible matrix and
 
                     (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
 
-                    trail[times][0]=1;
-                    trail[times][1]=j;
-                    trail[times][2]=i;
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
                     times++;
                 }
             }
@@ -1779,19 +2168,19 @@ void genMatpairM32(M32 *Mat, M32 *Mat_inv)//generate 32*32 invertible matrix and
             {
                 if((tempMat.M[j] & idM32[i]) == idM32[i])
                 {
-                    temp=tempMat.M[i];
-                    tempMat.M[i]=tempMat.M[j];
-                    tempMat.M[j]=temp;
+                    temp = tempMat.M[i];
+                    tempMat.M[i] = tempMat.M[j];
+                    tempMat.M[j] = temp;
 
                     flag=0;
 
-                    temp=(*Mat_inv).M[i];
-                    (*Mat_inv).M[i]=(*Mat_inv).M[j];
-                    (*Mat_inv).M[j]=temp;
+                    temp = (*Mat_inv).M[i];
+                    (*Mat_inv).M[i] = (*Mat_inv).M[j];
+                    (*Mat_inv).M[j] = temp;
 
-                    trail[times][0]=0;
-                    trail[times][1]=j;
-                    trail[times][2]=i;
+                    trail[times][0] = 0;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
                     times++;
                     break;
                 }
@@ -1830,7 +2219,7 @@ void genMatpairM32(M32 *Mat, M32 *Mat_inv)//generate 32*32 invertible matrix and
             {
                 for(int k = i + 1; k < 32; k++)
                 {
-                    if((tempMat.M[k]&idM32[i]) == idM32[i])
+                    if((tempMat.M[k] & idM32[i]) == idM32[i])
                     {
                         tempMat.M[k] ^= tempMat.M[i];
 
@@ -1879,15 +2268,15 @@ void genMatpairM32(M32 *Mat, M32 *Mat_inv)//generate 32*32 invertible matrix and
     }
     else//invertible 
     {
-        for(int i=31;i>=0;i--)
+        for(int i = 31; i >= 0; i--)
         {
-            for(int j=i-1;j>=0;j--)
+            for(int j = i - 1; j >= 0; j--)
             {
-                if((tempMat.M[j]&idM32[i])==idM32[i])
+                if((tempMat.M[j] & idM32[i]) == idM32[i])
                 {
-                    tempMat.M[j]^=tempMat.M[i];
+                    tempMat.M[j] ^= tempMat.M[i];
 
-                    (*Mat_inv).M[j]^=(*Mat_inv).M[i];
+                    (*Mat_inv).M[j] ^= (*Mat_inv).M[i];
                 }
             }
         }
@@ -1901,7 +2290,7 @@ void genMatpairM64(M64 *Mat, M64 *Mat_inv)//generate 64*64 invertible matrix and
     uint8_t trail[4096][3];// generate trail
     identityM64(Mat);
     identityM64(Mat_inv);
-    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
     M64 tempMat;
     M64 resultMat;
     randM64(&tempMat);
@@ -2057,7 +2446,7 @@ void genMatpairM128(M128 *Mat, M128 *Mat_inv)//generate 128*128 invertible matri
     uint8_t trail[16384][3];// generate trail
     identityM128(Mat);
     identityM128(Mat_inv);
-    InitRandom((randseed++)^((unsigned int)time(NULL)));
+    InitRandom((randseed++) ^ ((unsigned int)time(NULL)));
     M128 tempMat;
     M128 resultMat;
     randM128(&tempMat);
@@ -2079,9 +2468,9 @@ void genMatpairM128(M128 *Mat, M128 *Mat_inv)//generate 128*128 invertible matri
                     (*Mat_inv).M[j][0] ^= (*Mat_inv).M[i][0];
                     (*Mat_inv).M[j][1] ^= (*Mat_inv).M[i][1];
 
-                    trail[times][0]=1;
-                    trail[times][1]=j;
-                    trail[times][2]=i;
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
                     times++;
                 }
             }
@@ -2101,7 +2490,7 @@ void genMatpairM128(M128 *Mat, M128 *Mat_inv)//generate 128*128 invertible matri
                     tempMat.M[i][1] = tempMat.M[j][1];
                     tempMat.M[j][1] = temp;
 
-                    flag=0;
+                    flag = 0;
 
                     temp = (*Mat_inv).M[i][0];
                     (*Mat_inv).M[i][0] = (*Mat_inv).M[j][0];
@@ -2194,9 +2583,9 @@ void genMatpairM128(M128 *Mat, M128 *Mat_inv)//generate 128*128 invertible matri
                     (*Mat_inv).M[j][0] ^= (*Mat_inv).M[i][0];
                     (*Mat_inv).M[j][1] ^= (*Mat_inv).M[i][1];
 
-                    trail[times][0]=1;
-                    trail[times][1]=j;
-                    trail[times][2]=i;
+                    trail[times][0] = 1;
+                    trail[times][1] = j;
+                    trail[times][2] = i;
                     times++;
                 }
             }
@@ -2378,6 +2767,12 @@ void genMatpairM128(M128 *Mat, M128 *Mat_inv)//generate 128*128 invertible matri
         copyM128(resultMat, Mat);
     }
 }
+void genaffinepairM4(Aff4 *aff, Aff4 *aff_inv)//generate a pair of affine
+{
+    genMatpairM4(&(aff->Mat), &(aff_inv->Mat));
+    randV4(&(aff->Vec));
+    MatMulVecM4((*aff_inv).Mat, (*aff).Vec, &(aff_inv->Vec));
+}
 void genaffinepairM8(Aff8 *aff, Aff8 *aff_inv)//generate a pair of affine
 {
     genMatpairM8(&(aff->Mat), &(aff_inv->Mat));
@@ -2452,6 +2847,17 @@ void affinecomM8to32(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff32 *aff)//di
     MatrixcomM8to32(aff1.Mat, aff2.Mat, aff3.Mat, aff4.Mat, &(aff->Mat));
     VectorcomV8to32(aff1.Vec, aff2.Vec, aff3.Vec, aff4.Vec, &(aff->Vec));
 }
+void MattransM4(M4 Mat, M4 *Mat_trans)//matrix tansposition M4
+{
+    initM4(Mat_trans);
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 4; j++)
+        {
+            if(Mat.M[i] & idM4[j]) (*Mat_trans).M[j] ^= idM4[i];
+        }
+    }
+}
 void MattransM8(M8 Mat, M8 *Mat_trans)//matrix tansposition M8
 {
     initM8(Mat_trans);
@@ -2516,6 +2922,13 @@ void MattransM128(M128 Mat, M128 *Mat_trans)//matrix tansposition M128
         }
     }
 }
+void MatAddMatM4(M4 Mat1, M4 Mat2, M4 *Mat)
+{
+    for(int i = 0; i < 4; i++)
+    {
+        (*Mat).M[i] = Mat1.M[i] ^ Mat2.M[i];
+    }
+}
 void MatAddMatM8(M8 Mat1, M8 Mat2, M8 *Mat)
 {
     for(int i = 0; i < 8; i++)
@@ -2550,6 +2963,19 @@ void MatAddMatM128(M128 Mat1, M128 Mat2, M128 *Mat)
     {
         (*Mat).M[i][0] = Mat1.M[i][0] ^ Mat2.M[i][0];
         (*Mat).M[i][1] = Mat1.M[i][1] ^ Mat2.M[i][1];
+    }
+}
+void MatMulMatM4(M4 Mat1, M4 Mat2, M4 *Mat)//matrix multiplication 4*4 mul 4*4 -> 4*4
+{
+    M4 Mat2_trans;
+    initM4(Mat);
+    MattransM4(Mat2, &Mat2_trans);
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 4; j++)
+        {
+            if(xorU4(Mat1.M[i] & Mat2_trans.M[j] & 0x0f)) (*Mat).M[i] ^= idM4[j];
+        }       
     }
 }
 void MatMulMatM8(M8 Mat1, M8 Mat2, M8 *Mat)//matrix multiplication 8*8 mul 8*8 -> 8*8
@@ -2625,6 +3051,12 @@ void MatMulMatM128(M128 Mat1, M128 Mat2, M128 *Mat)//matrix multiplication 128*1
             if(xorU128(temp)) (*Mat).M[i][1] ^= idM64[j-64];
         }
     } 
+}
+void affinemixM4(Aff4 aff, Aff4 preaff_inv, Aff4 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
+{
+    MatMulMatM4(aff.Mat, preaff_inv.Mat, &(mixaff->Mat));
+    MatMulVecM4(aff.Mat, preaff_inv.Vec, &(mixaff->Vec));
+    (*mixaff).Vec.V ^= aff.Vec.V;
 }
 void affinemixM8(Aff8 aff, Aff8 preaff_inv, Aff8 *mixaff)//mixed transformation of (previous affine inversion) and this round affine
 {
