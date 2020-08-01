@@ -3137,6 +3137,79 @@ void affinecomM8to128(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff8 aff5, Aff
     MatrixcomM8to128(aff1.Mat, aff2.Mat, aff3.Mat, aff4.Mat, aff5.Mat, aff6.Mat, aff7.Mat, aff8.Mat, aff9.Mat, aff10.Mat, aff11.Mat, aff12.Mat, aff13.Mat, aff14.Mat, aff15.Mat, aff16.Mat, &(aff->Mat));
     VectorcomV8to128(aff1.Vec, aff2.Vec, aff3.Vec, aff4.Vec, aff5.Vec, aff6.Vec, aff7.Vec, aff8.Vec, aff9.Vec, aff10.Vec, aff11.Vec, aff12.Vec, aff13.Vec, aff14.Vec, aff15.Vec, aff16.Vec, &(aff->Vec));
 }
+void MatrixcomM16to128(M16 m1, M16 m2, M16 m3, M16 m4, M16 m5, M16 m6, M16 m7, M16 m8, M128 *mat)//diagonal matrix concatenation, 8 16*16 -> 128*128
+{
+    int j = 0;
+    uint16_t* m;
+    initM128(mat);
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j][0];
+        *(m+3) = m1.M[i];
+        j++;
+    }
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j][0];
+        *(m+2) = m2.M[i];
+        j++;
+    }
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j][0];
+        *(m+1) = m3.M[i];
+        j++;
+    }
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j][0];
+        *m = m4.M[i];
+        j++;
+    }
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j][1];
+        *(m+3) = m5.M[i];
+        j++;
+    }
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j][1];
+        *(m+2) = m6.M[i];
+        j++;
+    }
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j][1];
+        *(m+1) = m7.M[i];
+        j++;
+    }
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j][1];
+        *m = m8.M[i];
+        j++;
+    }
+}
+void VectorcomV16to128(V16 v1, V16 v2, V16 v3, V16 v4, V16 v5, V16 v6, V16 v7, V16 v8, V128 *vec)//8 vectors concatenation
+{
+    uint16_t* v;
+    v = (uint16_t*)&(*vec).V[0];
+    *(v+3) = v1.V;
+    *(v+2) = v2.V;
+    *(v+1) = v3.V;
+    *v = v4.V;
+    v = (uint16_t*)&(*vec).V[1];
+    *(v+3) = v5.V;
+    *(v+2) = v6.V;
+    *(v+1) = v7.V;
+    *v = v8.V;
+}
+void affinecomM16to128(Aff16 aff1, Aff16 aff2, Aff16 aff3, Aff16 aff4, Aff16 aff5, Aff16 aff6, Aff16 aff7, Aff16 aff8, Aff128 *aff)//diagonal affine concatenation, 8 16*16 -> 128*128
+{
+    MatrixcomM16to128(aff1.Mat, aff2.Mat, aff3.Mat, aff4.Mat, aff5.Mat, aff6.Mat, aff7.Mat, aff8.Mat, &(aff->Mat));
+    VectorcomV16to128(aff1.Vec, aff2.Vec, aff3.Vec, aff4.Vec, aff5.Vec, aff6.Vec, aff7.Vec, aff8.Vec, &(aff->Vec));
+}
 void MattransM4(M4 Mat, M4 *Mat_trans)//matrix tansposition M4
 {
     initM4(Mat_trans);

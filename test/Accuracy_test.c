@@ -637,7 +637,7 @@ int main()
     if(isequalM128(acm128_1.Mat, acm128_2.Mat) && (acm128_1.Vec.V[0] == 0xffffffffffffffff) && (acm128_1.Vec.V[1] == 0xffffffffffffffff)) printf("8to128: PASS\n");
     else {printf("8to128: ERROR\n"); flag=0;}
 
-    Aff16 acm16[4];
+    Aff16 acm16[8];
     Aff32 acm32[4];
     for(i =0; i < 4; i++)
     {
@@ -647,6 +647,11 @@ int main()
         identityM32(&acm32[i].Mat);
         acm32[i].Vec.V = 0xffffffff;
     }
+    for(i = 4; i < 8; i++)
+    {
+        identityM16(&acm16[i].Mat);
+        acm16[i].Vec.V = 0xffff;
+    }
     affinecomM16to64(acm16[0], acm16[1], acm16[2], acm16[3], &acm64_1);
     if(isequalM64(acm64_1.Mat, acm64_2.Mat) && (acm64_1.Vec.V == 0xffffffffffffffff)) printf("16to64: PASS\n");
     else {printf("16to64: ERROR\n"); flag=0;}
@@ -654,6 +659,10 @@ int main()
     affinecomM32to128(acm32[0], acm32[1], acm32[2], acm32[3], &acm128_1);
     if(isequalM128(acm128_1.Mat, acm128_2.Mat) && (acm128_1.Vec.V[0] == 0xffffffffffffffff) && (acm128_1.Vec.V[1] == 0xffffffffffffffff)) printf("32to128: PASS\n");
     else {printf("32to128: ERROR\n"); flag=0;}
+
+    affinecomM16to128(acm16[0], acm16[1], acm16[2], acm16[3], acm16[4], acm16[5], acm16[6], acm16[7], &acm128_1);
+    if(isequalM128(acm128_1.Mat, acm128_2.Mat) && (acm128_1.Vec.V[0] == 0xffffffffffffffff) && (acm128_1.Vec.V[1] == 0xffffffffffffffff)) printf("16to128: PASS\n");
+    else {printf("16to128: ERROR\n"); flag=0;}
 
     if(flag) printf("\nALL PASS!");
     else printf("\nERROR!");

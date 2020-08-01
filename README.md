@@ -256,4 +256,4 @@ Revision 1a).<br>
 
 (2020/08/01)<br>
 1. New: Support for 4-bit matrix operations.<br>
-2. New: Add 8to64, 8to128, 16to64, 32to128 concatenation functions.<br>
+2. New: Add 8to64, 8to128, 16to64, 32to128, 16to128 concatenation functions.<br>
