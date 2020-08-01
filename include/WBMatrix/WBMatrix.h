@@ -195,6 +195,9 @@ void affinemixM64(Aff64 aff, Aff64 preaff_inv, Aff64 *mixaff);
 void MatrixcomM16to64(M16 m1, M16 m2, M16 m3, M16 m4, M64 *mat);
 void VectorcomV16to64(V16 v1, V16 v2, V16 v3, V16 v4, V64 *vec);
 void affinecomM16to64(Aff16 aff1, Aff16 aff2, Aff16 aff3, Aff16 aff4, Aff64 *aff);
+void MatrixcomM8to64(M8 m1, M8 m2, M8 m3, M8 m4, M8 m5, M8 m6, M8 m7, M8 m8, M64 *mat);
+void VectorcomV8to64(V8 v1, V8 v2, V8 v3, V8 v4, V8 v5, V8 v6, V8 v7, V8 v8, V64 *vec);
+void affinecomM8to64(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff8 aff5, Aff8 aff6, Aff8 aff7, Aff8 aff8, Aff64 *aff);
 /*
 * 128bit Matrix operation
 */
