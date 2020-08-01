@@ -2849,7 +2849,7 @@ void affinecomM8to32(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff32 *aff)//di
 }
 void MatrixcomM16to64(M16 m1, M16 m2, M16 m3, M16 m4, M64 *mat)//diagonal matrix concatenation, four 16*16 -> 64*64
 {
-    int j=0;
+    int j = 0;
     uint16_t* m;
     initM64(mat);
     for(int i = 0; i < 16; i++)
@@ -2893,7 +2893,7 @@ void affinecomM16to64(Aff16 aff1, Aff16 aff2, Aff16 aff3, Aff16 aff4, Aff64 *aff
 }
 void MatrixcomM8to64(M8 m1, M8 m2, M8 m3, M8 m4, M8 m5, M8 m6, M8 m7, M8 m8, M64 *mat)//diagonal matrix concatenation,four 8*8 -> 64*64
 {
-    int j=0;
+    int j = 0;
     uint8_t* m;
     initM64(mat);
     for(int i = 0; i < 8; i++)
@@ -2962,6 +2962,51 @@ void affinecomM8to64(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff8 aff5, Aff8
 {
     MatrixcomM8to64(aff1.Mat, aff2.Mat, aff3.Mat, aff4.Mat, aff5.Mat, aff6.Mat, aff7.Mat, aff8.Mat, &(aff->Mat));
     VectorcomV8to64(aff1.Vec, aff2.Vec, aff3.Vec, aff4.Vec, aff5.Vec, aff6.Vec, aff7.Vec, aff8.Vec, &(aff->Vec));
+}
+void MatrixcomM32to128(M32 m1, M32 m2, M32 m3, M32 m4, M128 *mat)//diagonal matrix concatenation, four 32*32 -> 128*128
+{
+    int j = 0;
+    uint32_t* m;
+    initM128(mat);
+    for(int i = 0; i < 32; i++)
+    {
+        m = (uint32_t*)&(*mat).M[j][0];
+        *(m+1) = m1.M[i];
+        j++;
+    }
+    for(int i = 0; i < 32; i++)
+    {
+        m = (uint32_t*)&(*mat).M[j][0];
+        *m = m2.M[i];
+        j++;
+    }
+    for(int i = 0; i < 32; i++)
+    {
+        m = (uint32_t*)&(*mat).M[j][1];
+        *(m+1) = m3.M[i];
+        j++;
+    }
+    for(int i = 0; i < 32; i++)
+    {
+        m = (uint32_t*)&(*mat).M[j][1];
+        *m = m4.M[i];
+        j++;
+    }
+}
+void VectorcomV32to128(V32 v1, V32 v2, V32 v3, V32 v4, V128 *vec)//4 vectors concatenation
+{
+    uint32_t* v;
+    v = (uint32_t*)&(*vec).V[0];
+    *(v+1) = v1.V;
+    *v = v2.V;
+    v = (uint32_t*)&(*vec).V[1];
+    *(v+1) = v3.V;
+    *v = v4.V;
+}
+void affinecomM32to128(Aff32 aff1, Aff32 aff2, Aff32 aff3, Aff32 aff4, Aff128 *aff)//diagonal affine concatenation, four 32*32 -> 128*128
+{
+    MatrixcomM32to128(aff1.Mat, aff2.Mat, aff3.Mat, aff4.Mat, &(aff->Mat));
+    VectorcomV32to128(aff1.Vec, aff2.Vec, aff3.Vec, aff4.Vec, &(aff->Vec));
 }
 void MattransM4(M4 Mat, M4 *Mat_trans)//matrix tansposition M4
 {

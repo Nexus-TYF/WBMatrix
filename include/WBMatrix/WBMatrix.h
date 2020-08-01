@@ -234,5 +234,8 @@ void MatAddMatM128(M128 Mat1, M128 Mat2, M128 *Mat);
 void genMatpairM128(M128 *Mat, M128 *Mat_inv);
 void genaffinepairM128(Aff128 *aff, Aff128 *aff_inv);
 void affinemixM128(Aff128 aff, Aff128 preaff_inv, Aff128 *mixaff);
+void MatrixcomM32to128(M32 m1, M32 m2, M32 m3, M32 m4, M128 *mat);
+void VectorcomV32to128(V32 v1, V32 v2, V32 v3, V32 v4, V128 *vec);
+void affinecomM32to128(Aff32 aff1, Aff32 aff2, Aff32 aff3, Aff32 aff4, Aff128 *aff);
 
 #endif
