@@ -612,6 +612,49 @@ int main()
     if( (amu128_1[0]==amu128_5[0]) && (amu128_1[1]==amu128_5[1]) )printf("128bit: PASS\n");
     else {printf("128bit: ERROR\n"); flag=0;}
 
+    printf("-----affine concatenation test-----\n");
+    Aff8 acm8[16];
+    Aff32 acm32_1, acm32_2;
+    Aff64 acm64_1, acm64_2;
+    Aff128 acm128_1, acm128_2;
+    identityM32(&acm32_2.Mat);
+    identityM64(&acm64_2.Mat);
+    identityM128(&acm128_2.Mat);
+    for(i =0; i < 16; i++)
+    {
+        identityM8(&acm8[i].Mat);
+        acm8[i].Vec.V = 0xff;
+    }
+    affinecomM8to32(acm8[0], acm8[1], acm8[2], acm8[3], &acm32_1);
+    if(isequalM32(acm32_1.Mat, acm32_2.Mat) && (acm32_1.Vec.V == 0xffffffff)) printf("8to32: PASS\n");
+    else {printf("8to32: ERROR\n"); flag=0;}
+
+    affinecomM8to64(acm8[0], acm8[1], acm8[2], acm8[3], acm8[4], acm8[5], acm8[6], acm8[7], &acm64_1);
+    if(isequalM64(acm64_1.Mat, acm64_2.Mat) && (acm64_1.Vec.V == 0xffffffffffffffff)) printf("8to64: PASS\n");
+    else {printf("8to64: ERROR\n"); flag=0;}
+
+    affinecomM8to128(acm8[0], acm8[1], acm8[2], acm8[3], acm8[4], acm8[5], acm8[6], acm8[7], acm8[8], acm8[9], acm8[10], acm8[11], acm8[12], acm8[13], acm8[14], acm8[15], &acm128_1);
+    if(isequalM128(acm128_1.Mat, acm128_2.Mat) && (acm128_1.Vec.V[0] == 0xffffffffffffffff) && (acm128_1.Vec.V[1] == 0xffffffffffffffff)) printf("8to128: PASS\n");
+    else {printf("8to128: ERROR\n"); flag=0;}
+
+    Aff16 acm16[4];
+    Aff32 acm32[4];
+    for(i =0; i < 4; i++)
+    {
+        identityM16(&acm16[i].Mat);
+        acm16[i].Vec.V = 0xffff;
+
+        identityM32(&acm32[i].Mat);
+        acm32[i].Vec.V = 0xffffffff;
+    }
+    affinecomM16to64(acm16[0], acm16[1], acm16[2], acm16[3], &acm64_1);
+    if(isequalM64(acm64_1.Mat, acm64_2.Mat) && (acm64_1.Vec.V == 0xffffffffffffffff)) printf("16to64: PASS\n");
+    else {printf("16to64: ERROR\n"); flag=0;}
+
+    affinecomM32to128(acm32[0], acm32[1], acm32[2], acm32[3], &acm128_1);
+    if(isequalM128(acm128_1.Mat, acm128_2.Mat) && (acm128_1.Vec.V[0] == 0xffffffffffffffff) && (acm128_1.Vec.V[1] == 0xffffffffffffffff)) printf("32to128: PASS\n");
+    else {printf("32to128: ERROR\n"); flag=0;}
+
     if(flag) printf("\nALL PASS!");
     else printf("\nERROR!");
     return 0;
