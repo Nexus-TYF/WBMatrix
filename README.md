@@ -8,11 +8,13 @@ Contains the matrix operations related to the white-box block cipher implementat
 ## Applications
 1. [CEJO White box AES](https://github.com/Nexus-TYF/CEJO-whitebox-AES)
 
-2. [Xiao Lai White-box SM4](https://github.com/Nexus-TYF/Xiao-Lai-White-box-SM4)
+2. [Table Redundancy Method for White-box AES](https://github.com/Nexus-TYF/Table-Redundancy-Method-for-White-box-AES)
+
+3. [Xiao Lai White-box SM4](https://github.com/Nexus-TYF/Xiao-Lai-White-box-SM4)
 
 ## Matrix Library
 
-### Supports For Following Operations (8/16/32/64/128 bits)
+### Supports For Following Operations (4/8/16/32/64/128 bits)
 
 * Matrix-Vector multiplication<br>
 * Matrix-Matrix multiplication<br>
@@ -31,21 +33,23 @@ Contains the matrix operations related to the white-box block cipher implementat
 
 ### Main Functions (8bit in Example)
 
-* **identityM8(M8 \*Mat)** converts the matrix **Mat** into an identity matrix.<br>
-* **copyM8M8(M8 Mat1, M8 \*Mat2)** replicates the matrix **Mat1** to **Mat2**.<br>
-* **readbitM8(M8 Mat, int i, int j)** extracts the (i, j) bit in matrix **Mat**.<br>
+* **affineU8(Aff8 aff, uint8_t arr)** affine transformation for an uint8_t number **arr**, and returns an uint8_t result.<br>
+* **affinemixM8(Aff8 aff, Aff8 preaff_inv, Aff8 \*mixaff)** affine conversion between **aff** and **preaff_inv**, result is set in **mixaff**.<br>
+* **affinecomM8to32(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff32 \*aff)** affine concatenation, the matrix part of **aff** consists of submatrices on its diagonal, while the vector part of **aff** consists of subvectors.<br>
+* **copyM8(M8 Mat1, M8 \*Mat2)** replicates the matrix **Mat1** to **Mat2**.<br>
 * **flipbitM8(M8 \*Mat, int i, int j)** flips the (i, j) bit in matrix **Mat**.<br>
-* **setbitM8(M8 \*Mat, int i, int j, int bit)** assigns the (i, j) bit a value **bit**.<br>
 * **genMatpairM8(M8 \*Mat, M8 \*Mat_inv)** generates an invertible matrix **Mat** and its inverse matrix **Mat_inv**.<br>
 * **genaffinepairM8(Aff8 \*aff, Aff8 \*aff_inv)** generates an affine transformation **aff** and its inversion **aff_inv**.<br>
+* **identityM8(M8 \*Mat)** converts the matrix **Mat** into an identity matrix.<br>
+* **invsM8(M8 Mat, M8 \*Mat_inv)** calculates the inversion of **Mat** by Gaussian elimination method, result is set in **Mat_inv**.<br>
+* **isinvertM8(M8 Mat)** determines if the matrix is invertible (1 for positive).<br>
 * **MatMulVecM8(M8 Mat, V8 Vec, V8 \*ans)** multiplication for a matrix **Mat** and a vertor **Vec**, result is set in **ans**.<br>
 * **MatMulNumM8(M8 Mat, uint8_t n)** multiplication for a matrix **Mat** and a number **n**, returns a number.<br>
 * **MatMulMatM8(M8 Mat1, M8 Mat2, M8 \*Mat)** multiplication for a matrix **Mat1** and a matrix **Mat2**, result is set in **Mat**.<br>
 * **MatAddMatM8(M8 Mat1, M8 Mat2, M8 \*Mat)** addition between the matrix **Mat1** and **Mat2**, result is set in **Mat**.<br>
 * **MattransM8(M8 Mat, M8 \*Mat_trans)** transpositon for a matrix **Mat**, result is set in **Mat_trans**.<br>
-* **affineU8(Aff8 aff, uint8_t arr)** affine transformation for an uint8_t number **arr**, and returns an uint8_t result.<br>
-* **affinemixM8(Aff8 aff, Aff8 preaff_inv, Aff8 \*mixaff)** affine conversion between **aff** and **preaff_inv**, result is set in **mixaff**.<br>
-* **affinecomM8to32(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff32 \*aff)** affine concatenation, the matrix part of **aff** consists of submatrices on its diagonal, while the vector part of **aff** consists of subvectors.<br>
+* **readbitM8(M8 Mat, int i, int j)** extracts the (i, j) bit in matrix **Mat**.<br>
+* **setbitM8(M8 \*Mat, int i, int j, int bit)** assigns the (i, j) bit a value **bit**.<br>
 
 ### Code Examples
 
@@ -112,7 +116,7 @@ $ ./WBMM
 11. [inverseMatrix](https://github.com/braindrillmd/inverseMatrix.git)<br>
 
 ---
-Last Updated : 2020/07/31<br>
+Last Updated : 2020/08/01<br>
 Modified By : Nexus
 
 ---
@@ -249,3 +253,7 @@ Revision 1a).<br>
 1. New: Update the new method for generating the pairwise invetible matrices.<br>
 2. New: Add bitwise operation (read/flip/set) function.<br>
 3. New: Add the function for calculating the inversion of an invertible matrix by Gaussian elimination method.<br>
+
+(2020/08/01)<br>
+1. New: Support for 4-bit matrix operations.<br>
+2. New: Add 8to64, 8to128, 16to64, 32to128 concatenation functions.<br>
