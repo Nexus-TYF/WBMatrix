@@ -2847,6 +2847,50 @@ void affinecomM8to32(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff32 *aff)//di
     MatrixcomM8to32(aff1.Mat, aff2.Mat, aff3.Mat, aff4.Mat, &(aff->Mat));
     VectorcomV8to32(aff1.Vec, aff2.Vec, aff3.Vec, aff4.Vec, &(aff->Vec));
 }
+void MatrixcomM16to64(M16 m1, M16 m2, M16 m3, M16 m4, M64 *mat)//diagonal matrix combine,four 16*16 -> 64*64
+{
+    int j=0;
+    uint16_t* m;
+    initM64(mat);
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j];
+        *(m+3) = m1.M[i];
+        j++;
+    }
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j];
+        *(m+2) = m2.M[i];
+        j++;
+    }
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j];
+        *(m+1) = m3.M[i];
+        j++;
+    }
+    for(int i = 0; i < 16; i++)
+    {
+        m = (uint16_t*)&(*mat).M[j];
+        *m = m4.M[i];
+        j++;
+    }
+}
+void VectorcomV16to64(V16 v1, V16 v2, V16 v3, V16 v4, V64 *vec)//four vectors combine
+{
+    uint16_t* v;
+    v = (uint16_t*)&(*vec).V;
+    *(v+3) = v1.V;
+    *(v+2) = v2.V;
+    *(v+1) = v3.V;
+    *v = v4.V;
+}
+void affinecomM16to64(Aff16 aff1, Aff16 aff2, Aff16 aff3, Aff16 aff4, Aff64 *aff)//diagonal affine combine,four 16*16 -> 64*64
+{
+    MatrixcomM16to64(aff1.Mat, aff2.Mat, aff3.Mat, aff4.Mat, &(aff->Mat));
+    VectorcomV16to64(aff1.Vec, aff2.Vec, aff3.Vec, aff4.Vec, &(aff->Vec));
+}
 void MattransM4(M4 Mat, M4 *Mat_trans)//matrix tansposition M4
 {
     initM4(Mat_trans);

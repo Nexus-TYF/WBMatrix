@@ -1,14 +1,14 @@
 #ifndef _HWBMATRIX_H_
 #define _HWBMATRIX_H_
 /***
- * Last Update: 2020/07/31
- * Version: 3.0
+ * Last Update: 2020/08/01
+ * Version: 3.1
 ***/
 #include "WBMatrix/structure.h"
+#include "WBMatrix/random.h"
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "WBMatrix/random.h"
 
 void SetRandSeed(unsigned int seed);//Set random seed
 /*
@@ -192,6 +192,9 @@ void MatAddMatM64(M64 Mat1, M64 Mat2, M64 *Mat);
 void genMatpairM64(M64 *Mat, M64 *Mat_inv);
 void genaffinepairM64(Aff64 *aff, Aff64 *aff_inv);
 void affinemixM64(Aff64 aff, Aff64 preaff_inv, Aff64 *mixaff);
+void MatrixcomM16to64(M16 m1, M16 m2, M16 m3, M16 m4, M64 *mat);
+void VectorcomV16to64(V16 v1, V16 v2, V16 v3, V16 v4, V64 *vec);
+void affinecomM16to64(Aff16 aff1, Aff16 aff2, Aff16 aff3, Aff16 aff4, Aff64 *aff);
 /*
 * 128bit Matrix operation
 */
