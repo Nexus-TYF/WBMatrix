@@ -6,11 +6,11 @@ Implementations
 Contains the matrix operations related to the white-box block cipher implementation and provides thorough test cases for their performance and accuracy. The test cases also include the Chow et al.'s [white-box AES](https://link.springer.com/chapter/10.1007/3-540-36492-7_17) and Xiao-Lai's [white-box SM4](http://gb.oversea.cnki.net/KCMS/detail/detailall.aspx?filename=2010204831.nh&dbcode=CMFD&dbname=CMFD2010) implementations built by WBMatrix, [NTL](https://www.shoup.net/ntl/), and [M4RI](https://github.com/malb/m4ri), respectively.
 
 ## Applications
-1. [CEJO White box AES](https://github.com/Nexus-TYF/CEJO-whitebox-AES)
+1. [CEJO White-box AES](https://github.com/Nexus-TYF/CEJO-whitebox-AES)
 
 2. [Table Redundancy Method for White-box AES](https://github.com/Nexus-TYF/Table-Redundancy-Method-for-White-box-AES)
 
-3. [Xiao Lai White-box SM4](https://github.com/Nexus-TYF/Xiao-Lai-White-box-SM4)
+3. [Xiao-Lai White-box SM4](https://github.com/Nexus-TYF/Xiao-Lai-White-box-SM4)
 
 ## Matrix Library
 
@@ -82,7 +82,7 @@ Revision 1a). <br>
 * **BasisMatrixMethod_test.c** Performance test for the generation of pairwise invertible matrices by Basis Matrix Method.<br>
 * **RGEMethod_test.c** Performance test for the generation of pairwise invertible matrices by [Reverse Gaussian Elimination Method](https://csce.ucmss.com/cr/books/2018/LFS/CSREA2018/MSV4017.pdf).<br>
 * **RLUDMethod_test.c** Performance test for the generation of pairwise invertible matrices by [Reverse LU Decomposition Method](https://csce.ucmss.com/cr/books/2018/LFS/CSREA2018/MSV4017.pdf).<br>
-* **BasisMatrixMethod_test.c** Performance test for the generation of pairwise invertible matrices by Randomly Generate and Verify Method.<br>
+* **WBGEMethod_test.c** Performance test for the generation of pairwise invertible matrices by Randomly Generate and Verify Method and Gaussian Elimination method.<br>
 * **WBMatrixMatOp_test.c** Performance test for the matrix operations in WBMatrix.<br>
 * **WBMatrixMethod_test.c** Performance test for the generation of pairwise invertible matrices by WBMatrix Method.<br>
 
