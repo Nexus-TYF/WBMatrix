@@ -8,7 +8,7 @@
 #pragma intrinsic(__rdtsc)
 
 //Repeat test times and calculate on average for accuracy
-#define TEST 100
+#define TEST 100000
 
 //CPU cycles set start;
 uint64_t start_rdtsc()
