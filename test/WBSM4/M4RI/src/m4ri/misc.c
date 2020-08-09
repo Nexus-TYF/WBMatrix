@@ -64,7 +64,7 @@ word m4ri_random_word() {
   };
   return a;
 #else
-  random() only returns 31 bits, so we need three calls.
+  // random() only returns 31 bits, so we need three calls.
   word a0 = random();
   word a1 = random();
   word a2 = random();
