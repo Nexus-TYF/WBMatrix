@@ -12,6 +12,12 @@ Contains the matrix operations related to the white-box block cipher implementat
 
 3. [Xiao-Lai White-box SM4](https://github.com/Nexus-TYF/Xiao-Lai-White-box-SM4)
 
+4. [Xiao-Lai-White-box-AES](https://github.com/Nexus-TYF/Xiao-Lai-White-box-AES)
+
+## Clone
+
+git clone --depth 1 https://github.com/Nexus-TYF/WBMatrix
+
 ## Matrix Library
 
 ### Supports For Following Operations (4/8/16/32/64/128 bits)
@@ -257,3 +263,6 @@ Revision 1a).<br>
 (2020/08/01)<br>
 1. New: Support for 4-bit matrix operations.<br>
 2. New: Add 8to64, 8to128, 16to64, 32to128, 16to128 concatenation functions.<br>
+
+(2020/08/02)<br>
+1. Fixed: Errors of comments in misc.c.<br>
