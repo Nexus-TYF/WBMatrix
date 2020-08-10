@@ -1,8 +1,8 @@
 #ifndef _HWBMATRIX_H_
 #define _HWBMATRIX_H_
 /***
- * Last Update: 2020/08/01
- * Version: 3.1.1
+ * Last Update: 2020/08/10
+ * Version: 3.1.2
 ***/
 #include "WBMatrix/structure.h"
 #include "WBMatrix/random.h"
@@ -12,6 +12,10 @@
 
 void SetRandSeed(unsigned int seed);//Set random seed
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 /*
 * 4bit Matrix operation
 */
@@ -256,5 +260,9 @@ void affinecomM8to128(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff8 aff5, Aff
 void MatrixcomM16to128(M16 m1, M16 m2, M16 m3, M16 m4, M16 m5, M16 m6, M16 m7, M16 m8, M128 *mat);
 void VectorcomV16to128(V16 v1, V16 v2, V16 v3, V16 v4, V16 v5, V16 v6, V16 v7, V16 v8, V128 *vec);
 void affinecomM16to128(Aff16 aff1, Aff16 aff2, Aff16 aff3, Aff16 aff4, Aff16 aff5, Aff16 aff6, Aff16 aff7, Aff16 aff8, Aff128 *aff);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

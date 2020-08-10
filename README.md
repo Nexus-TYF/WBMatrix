@@ -125,7 +125,7 @@ $ ./WBMM
 
 ---
 Last Updated : 2020/08/10<br>
-WBMatrix Version: 3.1.1
+WBMatrix Version: 3.1.2
 
 ---
 Details of update:<br>
@@ -269,3 +269,6 @@ Revision 1a).<br>
 (2020/08/09)<br>
 1. Fixed: Errors of comments in misc.c.<br>
 2. New: Add 4-bit test cases.<br>
+
+(2020/08/10)<br>
+1. NEW: Supports for C++.<br>
