@@ -10,12 +10,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void SetRandSeed(unsigned int seed);//Set random seed
-
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
+void SetRandSeed(unsigned int seed);//Set random seed
 /*
 * 4bit Matrix operation
 */
