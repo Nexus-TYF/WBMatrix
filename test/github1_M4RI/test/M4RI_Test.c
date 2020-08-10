@@ -24,78 +24,93 @@ uint64_t end_rdtsc()
     return __rdtsc();
 }
 
+void InvTMatM4(MatGf2 *Mat)
+{
+    *Mat = GenInvertibleMatGf2(4, 4);
+}
 void InvTMatM8(MatGf2 *Mat)
 {
-    *Mat=GenInvertibleMatGf2(8,8);
+    *Mat = GenInvertibleMatGf2(8, 8);
 }
 void InvTMatM16(MatGf2 *Mat)
 {
-    *Mat=GenInvertibleMatGf2(16,16);
+    *Mat = GenInvertibleMatGf2(16, 16);
 }
 void InvTMatM32(MatGf2 *Mat)
 {
-    *Mat=GenInvertibleMatGf2(32,32);
+    *Mat = GenInvertibleMatGf2(32, 32);
 }
 void InvTMatM64(MatGf2 *Mat)
 {
-    *Mat=GenInvertibleMatGf2(64,64);
+    *Mat = GenInvertibleMatGf2(64, 64);
 }
 void InvTMatM128(MatGf2 *Mat)
 {
-    *Mat=GenInvertibleMatGf2(128,128);
+    *Mat = GenInvertibleMatGf2(128, 128);
 }
 
-void InvSMatM8(MatGf2 Mat,MatGf2 *Mat_inv)
+void InvSMatM4(MatGf2 Mat, MatGf2 *Mat_inv)
 {
-    *Mat_inv=GenMatGf2Inv(Mat);
+    *Mat_inv = GenMatGf2Inv(Mat);
 }
-void InvSMatM16(MatGf2 Mat,MatGf2 *Mat_inv)
+void InvSMatM8(MatGf2 Mat, MatGf2 *Mat_inv)
 {
-    *Mat_inv=GenMatGf2Inv(Mat);
+    *Mat_inv = GenMatGf2Inv(Mat);
 }
-void InvSMatM32(MatGf2 Mat,MatGf2 *Mat_inv)
+void InvSMatM16(MatGf2 Mat, MatGf2 *Mat_inv)
 {
-    *Mat_inv=GenMatGf2Inv(Mat);
+    *Mat_inv = GenMatGf2Inv(Mat);
 }
-void InvSMatM64(MatGf2 Mat,MatGf2 *Mat_inv)
+void InvSMatM32(MatGf2 Mat, MatGf2 *Mat_inv)
 {
-    *Mat_inv=GenMatGf2Inv(Mat);
+    *Mat_inv = GenMatGf2Inv(Mat);
 }
-void InvSMatM128(MatGf2 Mat,MatGf2 *Mat_inv)
+void InvSMatM64(MatGf2 Mat, MatGf2 *Mat_inv)
 {
-    *Mat_inv=GenMatGf2Inv(Mat);
+    *Mat_inv = GenMatGf2Inv(Mat);
+}
+void InvSMatM128(MatGf2 Mat, MatGf2 *Mat_inv)
+{
+    *Mat_inv = GenMatGf2Inv(Mat);
 }
 
-void genMatpairM8(MatGf2 *Mat,MatGf2 *Mat_inv)
+void genMatpairM4(MatGf2 *Mat, MatGf2 *Mat_inv)
 {
-    *Mat=GenInvertibleMatGf2(8,8);
-    *Mat_inv=GenMatGf2Inv(*Mat);
+    *Mat = GenInvertibleMatGf2(4, 4);
+    *Mat_inv = GenMatGf2Inv(*Mat);
 }
-void genMatpairM16(MatGf2 *Mat,MatGf2 *Mat_inv)
+void genMatpairM8(MatGf2 *Mat, MatGf2 *Mat_inv)
 {
-    *Mat=GenInvertibleMatGf2(16,16);
-    *Mat_inv=GenMatGf2Inv(*Mat);
+    *Mat = GenInvertibleMatGf2(8, 8);
+    *Mat_inv = GenMatGf2Inv(*Mat);
 }
-void genMatpairM32(MatGf2 *Mat,MatGf2 *Mat_inv)
+void genMatpairM16(MatGf2 *Mat, MatGf2 *Mat_inv)
 {
-    *Mat=GenInvertibleMatGf2(32,32);
-    *Mat_inv=GenMatGf2Inv(*Mat);
+    *Mat = GenInvertibleMatGf2(16, 16);
+    *Mat_inv = GenMatGf2Inv(*Mat);
 }
-void genMatpairM64(MatGf2 *Mat,MatGf2 *Mat_inv)
+void genMatpairM32(MatGf2 *Mat, MatGf2 *Mat_inv)
 {
-    *Mat=GenInvertibleMatGf2(64,64);
-    *Mat_inv=GenMatGf2Inv(*Mat);
+    *Mat = GenInvertibleMatGf2(32, 32);
+    *Mat_inv = GenMatGf2Inv(*Mat);
 }
-void genMatpairM128(MatGf2 *Mat,MatGf2 *Mat_inv)
+void genMatpairM64(MatGf2 *Mat, MatGf2 *Mat_inv)
 {
-    *Mat=GenInvertibleMatGf2(128,128);
-    *Mat_inv=GenMatGf2Inv(*Mat);
+    *Mat = GenInvertibleMatGf2(64, 64);
+    *Mat_inv = GenMatGf2Inv(*Mat);
 }
-int TimesInveribleMatGf2(int r, int c) {//
-	int times=1;
+void genMatpairM128(MatGf2 *Mat, MatGf2 *Mat_inv)
+{
+    *Mat = GenInvertibleMatGf2(128, 128);
+    *Mat_inv = GenMatGf2Inv(*Mat);
+}
+int TimesInveribleMatGf2(int r, int c) 
+{
+	int times = 1;
     MatGf2 mat = GenMatGf2(r, c);
     RandomMatGf2(mat);
-    while (IsMatGf2Invertible(mat)==0) {
+    while (IsMatGf2Invertible(mat)==0) 
+    {
         RandomMatGf2(mat);
         times++;
     }
@@ -110,44 +125,40 @@ int main()
     int i;
 
     printf("M4RI Method performance test:\n");
+/*    
     printf("Times\n");
-    //MatGf2 Tim8;
-    double times8=0.0;
+    double times8 = 0.0;
     for (i = 0; i < TEST; i++)
     {
-        times8+=TimesInveribleMatGf2(8,8);
+        times8 += TimesInveribleMatGf2(8, 8);
     }
     printf("generate 8*8 invertible matrix cost %f times\n", (times8) / TEST);
 
-    //MatGf2 Tim16;
-    double times16=0.0;
+    double times16 = 0.0;
     for (i = 0; i < TEST; i++)
     {
-        times16+=TimesInveribleMatGf2(16,16);
+        times16 += TimesInveribleMatGf2(16, 16);
     }
     printf("generate 16*16 invertible matrix cost %f times\n", (times16) / TEST);
 
-    //MatGf2 Tim32;
-    double times32=0.0;
+    double times32 = 0.0;
     for (i = 0; i < TEST; i++)
     {
-        times32+=TimesInveribleMatGf2(32,32);
+        times32 += TimesInveribleMatGf2(32, 32);
     }
     printf("generate 32*32 invertible matrix cost %f times\n", (times32) / TEST);
 
-    //MatGf2 Tim64;
-    double times64=0.0;
+    double times64 = 0.0;
     for (i = 0; i < TEST; i++)
     {
-        times64+=TimesInveribleMatGf2(64,64);
+        times64 += TimesInveribleMatGf2(64, 64);
     }
     printf("generate 64*64 invertible matrix cost %f times\n", (times64) / TEST);
 
-    //MatGf2 Tim128;
-    double times128=0.0;
+    double times128 = 0.0;
     for (i = 0; i < TEST; i++)
     {
-        times128+=TimesInveribleMatGf2(128,128);
+        times128 += TimesInveribleMatGf2(128, 128);
     }
     printf("generate 128*128 invertible matrix cost %f times\n", (times128) / TEST);
 
@@ -206,7 +217,6 @@ int main()
     ans = (end - begin);
     printf("generate 128*128 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
     MatGf2Free(Tm128);
-/*
 	
     printf("\nInverse\n");
     MatGf2 Im8[TEST],Sm8;
@@ -303,14 +313,26 @@ int main()
         MatGf2Free(Im128[i]);
     }
     MatGf2Free(Sm128);
-
+*/
 
     printf("\nInvertible and Inverse\n");
-    MatGf2 m8,m8_inv;
+    MatGf2 m4, m4_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        genMatpairM8(&m8,&m8_inv);
+        genMatpairM4(&m4, &m4_inv);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 4*4 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+    MatGf2Free(m4);
+    MatGf2Free(m4_inv);
+
+    MatGf2 m8, m8_inv;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        genMatpairM8(&m8, &m8_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -318,11 +340,11 @@ int main()
     MatGf2Free(m8);
     MatGf2Free(m8_inv);
 
-    MatGf2 m16,m16_inv;
+    MatGf2 m16, m16_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        genMatpairM16(&m16,&m16_inv);
+        genMatpairM16(&m16, &m16_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -330,11 +352,11 @@ int main()
     MatGf2Free(m16);
     MatGf2Free(m16_inv);
 
-    MatGf2 m32,m32_inv;
+    MatGf2 m32, m32_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        genMatpairM32(&m32,&m32_inv);
+        genMatpairM32(&m32, &m32_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -342,11 +364,11 @@ int main()
     MatGf2Free(m32);
     MatGf2Free(m32_inv);
 
-    MatGf2 m64,m64_inv;
+    MatGf2 m64, m64_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        genMatpairM64(&m64,&m64_inv);
+        genMatpairM64(&m64, &m64_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -354,17 +376,17 @@ int main()
     MatGf2Free(m64);
     MatGf2Free(m64_inv);
 
-    MatGf2 m128,m128_inv;
+    MatGf2 m128, m128_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        genMatpairM128(&m128,&m128_inv);
+        genMatpairM128(&m128, &m128_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
     printf("generate 128*128 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
     MatGf2Free(m128);
     MatGf2Free(m128_inv);
-*/
+
 	return 0;
 }
