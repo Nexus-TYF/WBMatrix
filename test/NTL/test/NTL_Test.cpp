@@ -1,4 +1,4 @@
-#include<RandMat.h>
+#include <RandMat.h>
 #include <stdio.h>
 #include <stdint.h>
 
@@ -33,13 +33,23 @@ int main()
     int i;
 
     printf("NTL test:\n");
-
+/*
     printf("Inverible\n");
+    mat_GF2 Tm4;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMat(Tm4, 4);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 4*4 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+
     mat_GF2 Tm8;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        InvTMat(Tm8,8);
+        InvTMat(Tm8, 8);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -49,7 +59,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        InvTMat(Tm16,16);
+        InvTMat(Tm16, 16);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -59,7 +69,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        InvTMat(Tm32,32);
+        InvTMat(Tm32, 32);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -69,7 +79,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        InvTMat(Tm64,64);
+        InvTMat(Tm64, 64);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -79,17 +89,31 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        InvTMat(Tm128,128);
+        InvTMat(Tm128, 128);
     }
     end = end_rdtsc();
     ans = (end - begin);
     printf("generate 128*128 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
-/*
+
     printf("\nInverse\n");
-    mat_GF2 Im8[TEST],Sm8;
+    mat_GF2 Im4[TEST], Sm4;
     for (i = 0; i < TEST; i++)
     {
-        InvTMat(Im8[i],8);
+        InvTMat(Im4[i], 4);
+    }
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        Sm4 = inv(Im4[i]);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("compute 4*4 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+    mat_GF2 Im8[TEST], Sm8;
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMat(Im8[i], 8);
     }
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -100,10 +124,10 @@ int main()
     ans = (end - begin);
     printf("compute 8*8 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
 
-    mat_GF2 Im16[TEST],Sm16;
+    mat_GF2 Im16[TEST], Sm16;
     for (i = 0; i < TEST; i++)
     {
-        InvTMat(Im16[i],16);
+        InvTMat(Im16[i], 16);
     }
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -114,10 +138,10 @@ int main()
     ans = (end - begin);
     printf("compute 16*16 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
 
-    mat_GF2 Im32[TEST],Sm32;
+    mat_GF2 Im32[TEST], Sm32;
     for (i = 0; i < TEST; i++)
     {
-        InvTMat(Im32[i],32);
+        InvTMat(Im32[i], 32);
     }
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -128,10 +152,10 @@ int main()
     ans = (end - begin);
     printf("compute 32*32 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
 
-    mat_GF2 Im64[TEST],Sm64;
+    mat_GF2 Im64[TEST], Sm64;
     for (i = 0; i < TEST; i++)
     {
-        InvTMat(Im64[i],64);
+        InvTMat(Im64[i], 64);
     }
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -142,10 +166,10 @@ int main()
     ans = (end - begin);
     printf("compute 64*64 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
 
-    mat_GF2 Im128[TEST],Sm128;
+    mat_GF2 Im128[TEST], Sm128;
     for (i = 0; i < TEST; i++)
     {
-        InvTMat(Im128[i],128);
+        InvTMat(Im128[i], 128);
     }
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -157,6 +181,16 @@ int main()
     printf("compute 128*128 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
 */
     printf("\nInvertible and Inverse\n");
+    RandMat m4;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        m4.init(4);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 4*4 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+
     RandMat m8;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)

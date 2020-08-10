@@ -33,12 +33,26 @@ int main()
     int i;
     printf("NTL Matrix performance test:\n");
     
+    RandMat M4;
+    M4.init(4);
+    vec_GF2 V4_1, V4_2;
+    initVec(V4_1, 4);
+    V4_2.SetLength(4);
+    printf("matrix-vector mul\n");
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        V4_2 = M4.mat * V4_1;
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("4*4 matrix - 4*1 vector multiplication cost %llu CPU cycles\n", (ans) / TEST);
+
     RandMat M8;
     M8.init(8);
-    vec_GF2 V8_1,V8_2;
-    initVec(V8_1,8);
+    vec_GF2 V8_1, V8_2;
+    initVec(V8_1, 8);
     V8_2.SetLength(8);
-    printf("matrix-vector mul\n");
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
@@ -50,8 +64,8 @@ int main()
     
     RandMat M16;
     M16.init(16);
-    vec_GF2 V16_1,V16_2;
-    initVec(V16_1,16);
+    vec_GF2 V16_1, V16_2;
+    initVec(V16_1, 16);
     V16_2.SetLength(16);
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -64,9 +78,9 @@ int main()
     
     RandMat M32;
     M32.init(32);
-    vec_GF2 V32_1,V32_2;
+    vec_GF2 V32_1, V32_2;
     V32_2.SetLength(32);
-    initVec(V32_1,32);
+    initVec(V32_1, 32);
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
@@ -78,8 +92,8 @@ int main()
     
     RandMat M64;
     M64.init(64);
-    vec_GF2 V64_1,V64_2;
-    initVec(V64_1,64);
+    vec_GF2 V64_1, V64_2;
+    initVec(V64_1, 64);
     V64_2.SetLength(64);
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -92,8 +106,8 @@ int main()
     
     RandMat M128;
     M128.init(128);
-    vec_GF2 V128_1,V128_2;
-    initVec(V128_1,128);
+    vec_GF2 V128_1, V128_2;
+    initVec(V128_1, 128);
     V128_2.SetLength(128);
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -103,11 +117,23 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("128*128 matrix - 128*1 vector multiplication cost %llu CPU cycles\n", (ans) / TEST);
-   
-    RandMat M8_1,M8_2;
+    
+    RandMat M4_1, M4_2;
+    M4_1.init(8);
+    M4_2.init(8);
+    printf("\nmatrix-matrix mul\n");
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        M4_2.mat = M4_1.mat * M4_1.invMat;
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("4*4 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
+
+    RandMat M8_1, M8_2;
     M8_1.init(8);
     M8_2.init(8);
-    printf("\nmatrix-matrix mul\n");
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
@@ -117,7 +143,7 @@ int main()
     ans = (end - begin);
     printf("8*8 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
-    RandMat M16_1,M16_2;
+    RandMat M16_1, M16_2;
     M16_1.init(16);
     M16_2.init(16);
     begin = start_rdtsc();
@@ -129,7 +155,7 @@ int main()
     ans = (end - begin);
     printf("16*16 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
-    RandMat M32_1,M32_2;
+    RandMat M32_1, M32_2;
     M32_1.init(32);
     M32_2.init(32);
     begin = start_rdtsc();
@@ -141,7 +167,7 @@ int main()
     ans = (end - begin);
     printf("32*32 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
-    RandMat M64_1,M64_2;
+    RandMat M64_1, M64_2;
     M64_1.init(64);
     M64_2.init(64);
     begin = start_rdtsc();
@@ -153,7 +179,7 @@ int main()
     ans = (end - begin);
     printf("64*64 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
-    RandMat M128_1,M128_2;
+    RandMat M128_1, M128_2;
     M128_1.init(128);
     M128_2.init(128);
     begin = start_rdtsc();
@@ -165,8 +191,18 @@ int main()
     ans = (end - begin);
     printf("128*128 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
-    vec_GF2 V8_3;
+    vec_GF2 V4_3;
     printf("\nvector-vector add\n");
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        V4_3 = V4_1 + V4_2;
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("4*1 vector - vector addition cost %llu CPU cycles\n", (ans) / TEST);
+
+    vec_GF2 V8_3;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
@@ -218,6 +254,15 @@ int main()
     printf("128*1 vector - vector addition cost %llu CPU cycles\n", (ans) / TEST);
 
     printf("\nmatrix-matrix add\n");
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        M4.invMat = M4_1.invMat + M4_2.invMat;
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("4*4 matrix - matrix addition cost %llu CPU cycles\n", (ans) / TEST);
+
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
