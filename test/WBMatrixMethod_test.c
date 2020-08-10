@@ -32,7 +32,17 @@ int main()
 
     printf("WBMatrix method performance test\n");
     printf("\nInvertible and Inverse\n");
-    M8 m8,m8_inv;
+    M4 m4, m4_inv;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        genMatpairM4(&m4, &m4_inv);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 4 * 4 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+
+    M8 m8, m8_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
@@ -40,9 +50,9 @@ int main()
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("generate 8*8 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+    printf("generate 8 * 8 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
-    M16 m16,m16_inv;
+    M16 m16, m16_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
@@ -50,9 +60,9 @@ int main()
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("generate 16*16 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+    printf("generate 16 * 16 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
-    M32 m32,m32_inv;
+    M32 m32, m32_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
@@ -60,9 +70,9 @@ int main()
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("generate 32*32 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+    printf("generate 32 * 32 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
-    M64 m64,m64_inv;
+    M64 m64, m64_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
@@ -70,9 +80,9 @@ int main()
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("generate 64*64 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+    printf("generate 64 * 64 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
-    M128 m128,m128_inv;
+    M128 m128, m128_inv;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {

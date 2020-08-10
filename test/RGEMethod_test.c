@@ -28,107 +28,133 @@ uint64_t end_rdtsc()
     return __rdtsc();
 }
 
-void InvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
+void InvTMatM4(M4 *Mat)//generate 4 * 4 invertible matrix
+{
+    int randAdd;
+    int randExc;
+    uint8_t temp;
+    identityM4(Mat);
+    srand((randseed++) ^ time(NULL));
+    for(int i = 3; i >= 0; i--)
+    {
+        for(int j = 0; j < 4; j++)//Add
+        {
+            if(j != i)
+            {
+                randAdd = rand()%2;
+                if(randAdd) (*Mat).M[j] ^= (*Mat).M[i];
+            }
+        }
+        if(i < 3)//Exchange
+        {
+            randExc = i + 1 + rand()%(3 - i);
+            temp = (*Mat).M[i];
+            (*Mat).M[i] = (*Mat).M[randExc];
+            (*Mat).M[randExc] = temp;
+        }   
+    }
+}
+void InvTMatM8(M8 *Mat)//generate 8 * 8 invertible matrix
 {
     int randAdd;
     int randExc;
     uint8_t temp;
     identityM8(Mat);
-    srand((randseed++)^time(NULL));
-    for(int i=7;i>=0;i--)
+    srand((randseed++) ^ time(NULL));
+    for(int i = 7; i >= 0; i--)
     {
-        for(int j=0;j<8;j++)//Add
+        for(int j = 0; j < 8; j++)//Add
         {
-            if(j!=i)
+            if(j != i)
             {
-                randAdd=rand()%2;
-                if(randAdd) (*Mat).M[j]^=(*Mat).M[i];
+                randAdd = rand()%2;
+                if(randAdd) (*Mat).M[j] ^= (*Mat).M[i];
             }
         }
-        if(i<7)//Exchange
+        if(i < 7)//Exchange
         {
-            randExc=i+1+rand()%(7-i);
-            temp=(*Mat).M[i];
-            (*Mat).M[i]=(*Mat).M[randExc];
-            (*Mat).M[randExc]=temp;
+            randExc = i + 1 + rand()%(7 - i);
+            temp = (*Mat).M[i];
+            (*Mat).M[i] = (*Mat).M[randExc];
+            (*Mat).M[randExc] = temp;
         }   
     }
 }
-void InvTMatM16(M16 *Mat)//generate 16*16 invertible matrix
+void InvTMatM16(M16 *Mat)//generate 16 * 16 invertible matrix
 {
     int randAdd;
     int randExc;
     uint16_t temp;
     identityM16(Mat);
-    srand((randseed++)^time(NULL));
-    for(int i=15;i>=0;i--)
+    srand((randseed++) ^ time(NULL));
+    for(int i = 15; i >= 0; i--)
     {
-        for(int j=0;j<16;j++)//Add
+        for(int j = 0; j < 16; j++)//Add
         {
-            if(j!=i)
+            if(j != i)
             {
-                randAdd=rand()%2;
-                if(randAdd) (*Mat).M[j]^=(*Mat).M[i];
+                randAdd = rand()%2;
+                if(randAdd) (*Mat).M[j] ^= (*Mat).M[i];
             }
         }
-        if(i<15)//Exchange
+        if(i < 15)//Exchange
         {
-            randExc=i+1+rand()%(15-i);
-            temp=(*Mat).M[i];
-            (*Mat).M[i]=(*Mat).M[randExc];
-            (*Mat).M[randExc]=temp;
+            randExc = i + 1 + rand()%(15 - i);
+            temp = (*Mat).M[i];
+            (*Mat).M[i] = (*Mat).M[randExc];
+            (*Mat).M[randExc] = temp;
         }   
     }
 }
-void InvTMatM32(M32 *Mat)//generate 32*32 invertible matrix
+void InvTMatM32(M32 *Mat)//generate 32 * 32 invertible matrix
 {
     int randAdd;
     int randExc;
     uint32_t temp;
     identityM32(Mat);
-    srand((randseed++)^time(NULL));
-    for(int i=31;i>=0;i--)
+    srand((randseed++) ^ time(NULL));
+    for(int i = 31; i >= 0; i--)
     {
-        for(int j=0;j<32;j++)//Add
+        for(int j = 0; j < 32; j++)//Add
         {
-            if(j!=i)
+            if(j != i)
             {
-                randAdd=rand()%2;
-                if(randAdd) (*Mat).M[j]^=(*Mat).M[i];
+                randAdd = rand()%2;
+                if(randAdd) (*Mat).M[j] ^= (*Mat).M[i];
             }
         }
-        if(i<31)//Exchange
+        if(i < 31)//Exchange
         {
-            randExc=i+1+rand()%(31-i);
-            temp=(*Mat).M[i];
-            (*Mat).M[i]=(*Mat).M[randExc];
-            (*Mat).M[randExc]=temp;
+            randExc = i + 1 + rand()%(31 - i);
+            temp = (*Mat).M[i];
+            (*Mat).M[i] = (*Mat).M[randExc];
+            (*Mat).M[randExc] = temp;
         }   
     }
 }
-void InvTMatM64(M64 *Mat)//generate 64*64 invertible matrix
+void InvTMatM64(M64 *Mat)//generate 64 * 64 invertible matrix
 {
     int randAdd;
     int randExc;
     uint64_t temp;
     identityM64(Mat);
-    srand((randseed++)^time(NULL));
-    for(int i=63;i>=0;i--)
+    srand((randseed++) ^ time(NULL));
+    for(int i = 63; i >= 0; i--)
     {
-        for(int j=0;j<64;j++)//Add
+        for(int j = 0; j < 64; j++)//Add
         {
-            if(j!=i)
+            if(j != i)
             {
-                randAdd=rand()%2;
-                if(randAdd) (*Mat).M[j]^=(*Mat).M[i];
+                randAdd = rand()%2;
+                if(randAdd) (*Mat).M[j] ^= (*Mat).M[i];
             }
         }
-        if(i<63)//Exchange
+        if(i < 63)//Exchange
         {
-            randExc=i+1+rand()%(63-i);
-            temp=(*Mat).M[i];
-            (*Mat).M[i]=(*Mat).M[randExc];
-            (*Mat).M[randExc]=temp;
+            randExc = i + 1 + rand()%(63 - i);
+            temp = (*Mat).M[i];
+            (*Mat).M[i] = (*Mat).M[randExc];
+            (*Mat).M[randExc] = temp;
         }   
     }
 }
@@ -138,30 +164,30 @@ void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
     int randExc;
     uint64_t temp[2];
     identityM128(Mat);
-    srand((randseed++)^time(NULL));
-    for(int i=127;i>=0;i--)
+    srand((randseed++) ^ time(NULL));
+    for(int i = 127; i >= 0; i--)
     {
-        for(int j=0;j<128;j++)//Add
+        for(int j = 0; j < 128; j++)//Add
         {
-            if(j!=i)
+            if(j != i)
             {
-                randAdd=rand()%2;
+                randAdd = rand()%2;
                 if(randAdd) 
                 {
-                    (*Mat).M[j][0]^=(*Mat).M[i][0];
-                    (*Mat).M[j][1]^=(*Mat).M[i][1];
+                    (*Mat).M[j][0] ^= (*Mat).M[i][0];
+                    (*Mat).M[j][1] ^= (*Mat).M[i][1];
                 }
             }
         }
-        if(i<127)//Exchange
+        if(i < 127)//Exchange
         {
-            randExc=i+1+rand()%(127-i);
-            temp[0]=(*Mat).M[i][0];
-            temp[1]=(*Mat).M[i][1];
-            (*Mat).M[i][0]=(*Mat).M[randExc][0];
-            (*Mat).M[i][1]=(*Mat).M[randExc][1];
-            (*Mat).M[randExc][0]=temp[0];
-            (*Mat).M[randExc][1]=temp[1];
+            randExc = i + 1 + rand()%(127 - i);
+            temp[0] = (*Mat).M[i][0];
+            temp[1] = (*Mat).M[i][1];
+            (*Mat).M[i][0] = (*Mat).M[randExc][0];
+            (*Mat).M[i][1] = (*Mat).M[randExc][1];
+            (*Mat).M[randExc][0] = temp[0];
+            (*Mat).M[randExc][1] = temp[1];
         }   
     }
 }
@@ -174,55 +200,71 @@ int main()
     int i;
 
     printf("Reverse Gussian Elimination Method performance test:\n");
-    M8 Tm8;
+    M4 Tm4, Sm4;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMatM4(&Tm4);
+        invsM4(Tm4, &Sm4);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 4 * 4 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+
+    M8 Tm8, Sm8;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
         InvTMatM8(&Tm8);
+        invsM8(Tm8, &Sm8);
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("generate 8*8 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+    printf("generate 8 * 8 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
-    M16 Tm16;
+    M16 Tm16, Sm16;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
         InvTMatM16(&Tm16);
+        invsM16(Tm16, &Sm16);
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("generate 16*16 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+    printf("generate 16 * 16 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
-    M32 Tm32;
+    M32 Tm32, Sm32;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
         InvTMatM32(&Tm32);
+        invsM32(Tm32, &Sm32);
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("generate 32*32 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+    printf("generate 32 * 32 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
-    M64 Tm64;
+    M64 Tm64, Sm64;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
         InvTMatM64(&Tm64);
+        invsM64(Tm64, &Sm64);
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("generate 64*64 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+    printf("generate 64 * 64 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
-    M128 Tm128;
+    M128 Tm128, Sm128;
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
         InvTMatM128(&Tm128);
+        invsM128(Tm128, &Sm128);
     }
     end = end_rdtsc();
     ans = (end - begin);
-    printf("generate 128*128 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+    printf("generate 128 * 128 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
     return 0;
 }

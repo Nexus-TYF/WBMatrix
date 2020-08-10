@@ -12,11 +12,13 @@ Contains the matrix operations related to the white-box block cipher implementat
 
 3. [Xiao-Lai White-box SM4](https://github.com/Nexus-TYF/Xiao-Lai-White-box-SM4)
 
-4. [Xiao-Lai-White-box-AES](https://github.com/Nexus-TYF/Xiao-Lai-White-box-AES)
+4. [Xiao-Lai White-box AES](https://github.com/Nexus-TYF/Xiao-Lai-White-box-AES)
 
 ## Clone
 
-git clone --depth 1 https://github.com/Nexus-TYF/WBMatrix
+```
+$ git clone --depth 1 https://github.com/Nexus-TYF/WBMatrix
+```
 
 ## Matrix Library
 
@@ -86,8 +88,8 @@ Revision 1a). <br>
 
 * **Accuracy_test.c** Accuracy test for the matrix operations in WBMatrix.<br>
 * **BasisMatrixMethod_test.c** Performance test for the generation of pairwise invertible matrices by Basis Matrix Method.<br>
-* **RGEMethod_test.c** Performance test for the generation of pairwise invertible matrices by [Reverse Gaussian Elimination Method](https://csce.ucmss.com/cr/books/2018/LFS/CSREA2018/MSV4017.pdf).<br>
-* **RLUDMethod_test.c** Performance test for the generation of pairwise invertible matrices by [Reverse LU Decomposition Method](https://csce.ucmss.com/cr/books/2018/LFS/CSREA2018/MSV4017.pdf).<br>
+* **RGEMethod_test.c** Performance test for the generation of pairwise invertible matrices by [Reverse Gaussian Elimination Method](https://csce.ucmss.com/cr/books/2018/LFS/CSREA2018/MSV4017.pdf) and Gaussian Elimination method.<br>
+* **RLUDMethod_test.c** Performance test for the generation of pairwise invertible matrices by [Reverse LU Decomposition Method](https://csce.ucmss.com/cr/books/2018/LFS/CSREA2018/MSV4017.pdf) and Gaussian Elimination method.<br>
 * **WBGEMethod_test.c** Performance test for the generation of pairwise invertible matrices by Randomly Generate and Verify Method and Gaussian Elimination method.<br>
 * **WBMatrixMatOp_test.c** Performance test for the matrix operations in WBMatrix.<br>
 * **WBMatrixMethod_test.c** Performance test for the generation of pairwise invertible matrices by WBMatrix Method.<br>
@@ -122,8 +124,8 @@ $ ./WBMM
 11. [inverseMatrix](https://github.com/braindrillmd/inverseMatrix.git)<br>
 
 ---
-Last Updated : 2020/08/01<br>
-Modified By : Nexus
+Last Updated : 2020/08/10<br>
+WBMatrix Version: 3.1.1
 
 ---
 Details of update:<br>
@@ -264,5 +266,6 @@ Revision 1a).<br>
 1. New: Support for 4-bit matrix operations.<br>
 2. New: Add 8to64, 8to128, 16to64, 32to128, 16to128 concatenation functions.<br>
 
-(2020/08/02)<br>
+(2020/08/09)<br>
 1. Fixed: Errors of comments in misc.c.<br>
+2. New: Add 4-bit test cases.<br>
