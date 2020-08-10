@@ -88,6 +88,7 @@ Revision 1a). <br>
 
 * **Accuracy_test.c** Accuracy test for the matrix operations in WBMatrix.<br>
 * **BasisMatrixMethod_test.c** Performance test for the generation of pairwise invertible matrices by Basis Matrix Method.<br>
+* **LowMCMethod_text.cpp** Performance test for the generation of pairwise invertible matrices by [LowMC Method](https://eprint.iacr.org/2016/687) and Gaussian Elimination method.<br>
 * **RGEMethod_test.c** Performance test for the generation of pairwise invertible matrices by [Reverse Gaussian Elimination Method](https://csce.ucmss.com/cr/books/2018/LFS/CSREA2018/MSV4017.pdf) and Gaussian Elimination method.<br>
 * **RLUDMethod_test.c** Performance test for the generation of pairwise invertible matrices by [Reverse LU Decomposition Method](https://csce.ucmss.com/cr/books/2018/LFS/CSREA2018/MSV4017.pdf) and Gaussian Elimination method.<br>
 * **WBGEMethod_test.c** Performance test for the generation of pairwise invertible matrices by Randomly Generate and Verify Method and Gaussian Elimination method.<br>
@@ -122,6 +123,7 @@ $ ./WBMM
 9. [InvertibleMatrix](https://github.com/liuyunhao13467/InvertibleMatrix.git)<br>
 10. [Inverse-of-Matrix](https://github.com/kay-max/Inverse-of-Matrix.git)<br>
 11. [inverseMatrix](https://github.com/braindrillmd/inverseMatrix.git)<br>
+12. [lowmc](https://github.com/LowMC/lowmc)<br>
 
 ---
 Last Updated : 2020/08/10<br>
@@ -272,3 +274,4 @@ Revision 1a).<br>
 
 (2020/08/10)<br>
 1. NEW: Supports for C++.<br>
+2. NEW: Add LowMC Method.<br>
