@@ -14,7 +14,7 @@
 
 //Repeat test times and calculate on average for accuracy
 #define TEST 100000
-int randseed;
+int cus_randomseed;
 
 //CPU cycles set start;
 uint64_t start_rdtsc()
@@ -30,149 +30,149 @@ uint64_t end_rdtsc()
 
 void InvTMatM4(M4 *Mat)//generate 4 * 4 invertible matrix
 {
-    int randAdd;
-    int randExc;
+    int cus_randomAdd;
+    int cus_randomExc;
     uint8_t temp;
     identityM4(Mat);
-    srand((randseed++) ^ time(NULL));
+    Initcus_randomom((cus_randomseed++) ^ time(NULL));
     for(int i = 3; i >= 0; i--)
     {
         for(int j = 0; j < 4; j++)//Add
         {
             if(j != i)
             {
-                randAdd = rand()%2;
-                if(randAdd) (*Mat).M[j] ^= (*Mat).M[i];
+                cus_randomAdd = cus_random()%2;
+                if(cus_randomAdd) (*Mat).M[j] ^= (*Mat).M[i];
             }
         }
         if(i < 3)//Exchange
         {
-            randExc = i + 1 + rand()%(3 - i);
+            cus_randomExc = i + 1 + cus_random()%(3 - i);
             temp = (*Mat).M[i];
-            (*Mat).M[i] = (*Mat).M[randExc];
-            (*Mat).M[randExc] = temp;
+            (*Mat).M[i] = (*Mat).M[cus_randomExc];
+            (*Mat).M[cus_randomExc] = temp;
         }   
     }
 }
 void InvTMatM8(M8 *Mat)//generate 8 * 8 invertible matrix
 {
-    int randAdd;
-    int randExc;
+    int cus_randomAdd;
+    int cus_randomExc;
     uint8_t temp;
     identityM8(Mat);
-    srand((randseed++) ^ time(NULL));
+    Initcus_randomom((cus_randomseed++) ^ time(NULL));
     for(int i = 7; i >= 0; i--)
     {
         for(int j = 0; j < 8; j++)//Add
         {
             if(j != i)
             {
-                randAdd = rand()%2;
-                if(randAdd) (*Mat).M[j] ^= (*Mat).M[i];
+                cus_randomAdd = cus_random()%2;
+                if(cus_randomAdd) (*Mat).M[j] ^= (*Mat).M[i];
             }
         }
         if(i < 7)//Exchange
         {
-            randExc = i + 1 + rand()%(7 - i);
+            cus_randomExc = i + 1 + cus_random()%(7 - i);
             temp = (*Mat).M[i];
-            (*Mat).M[i] = (*Mat).M[randExc];
-            (*Mat).M[randExc] = temp;
+            (*Mat).M[i] = (*Mat).M[cus_randomExc];
+            (*Mat).M[cus_randomExc] = temp;
         }   
     }
 }
 void InvTMatM16(M16 *Mat)//generate 16 * 16 invertible matrix
 {
-    int randAdd;
-    int randExc;
+    int cus_randomAdd;
+    int cus_randomExc;
     uint16_t temp;
     identityM16(Mat);
-    srand((randseed++) ^ time(NULL));
+    Initcus_randomom((cus_randomseed++) ^ time(NULL));
     for(int i = 15; i >= 0; i--)
     {
         for(int j = 0; j < 16; j++)//Add
         {
             if(j != i)
             {
-                randAdd = rand()%2;
-                if(randAdd) (*Mat).M[j] ^= (*Mat).M[i];
+                cus_randomAdd = cus_random()%2;
+                if(cus_randomAdd) (*Mat).M[j] ^= (*Mat).M[i];
             }
         }
         if(i < 15)//Exchange
         {
-            randExc = i + 1 + rand()%(15 - i);
+            cus_randomExc = i + 1 + cus_random()%(15 - i);
             temp = (*Mat).M[i];
-            (*Mat).M[i] = (*Mat).M[randExc];
-            (*Mat).M[randExc] = temp;
+            (*Mat).M[i] = (*Mat).M[cus_randomExc];
+            (*Mat).M[cus_randomExc] = temp;
         }   
     }
 }
 void InvTMatM32(M32 *Mat)//generate 32 * 32 invertible matrix
 {
-    int randAdd;
-    int randExc;
+    int cus_randomAdd;
+    int cus_randomExc;
     uint32_t temp;
     identityM32(Mat);
-    srand((randseed++) ^ time(NULL));
+    Initcus_randomom((cus_randomseed++) ^ time(NULL));
     for(int i = 31; i >= 0; i--)
     {
         for(int j = 0; j < 32; j++)//Add
         {
             if(j != i)
             {
-                randAdd = rand()%2;
-                if(randAdd) (*Mat).M[j] ^= (*Mat).M[i];
+                cus_randomAdd = cus_random()%2;
+                if(cus_randomAdd) (*Mat).M[j] ^= (*Mat).M[i];
             }
         }
         if(i < 31)//Exchange
         {
-            randExc = i + 1 + rand()%(31 - i);
+            cus_randomExc = i + 1 + cus_random()%(31 - i);
             temp = (*Mat).M[i];
-            (*Mat).M[i] = (*Mat).M[randExc];
-            (*Mat).M[randExc] = temp;
+            (*Mat).M[i] = (*Mat).M[cus_randomExc];
+            (*Mat).M[cus_randomExc] = temp;
         }   
     }
 }
 void InvTMatM64(M64 *Mat)//generate 64 * 64 invertible matrix
 {
-    int randAdd;
-    int randExc;
+    int cus_randomAdd;
+    int cus_randomExc;
     uint64_t temp;
     identityM64(Mat);
-    srand((randseed++) ^ time(NULL));
+    Initcus_randomom((cus_randomseed++) ^ time(NULL));
     for(int i = 63; i >= 0; i--)
     {
         for(int j = 0; j < 64; j++)//Add
         {
             if(j != i)
             {
-                randAdd = rand()%2;
-                if(randAdd) (*Mat).M[j] ^= (*Mat).M[i];
+                cus_randomAdd = cus_random()%2;
+                if(cus_randomAdd) (*Mat).M[j] ^= (*Mat).M[i];
             }
         }
         if(i < 63)//Exchange
         {
-            randExc = i + 1 + rand()%(63 - i);
+            cus_randomExc = i + 1 + cus_random()%(63 - i);
             temp = (*Mat).M[i];
-            (*Mat).M[i] = (*Mat).M[randExc];
-            (*Mat).M[randExc] = temp;
+            (*Mat).M[i] = (*Mat).M[cus_randomExc];
+            (*Mat).M[cus_randomExc] = temp;
         }   
     }
 }
 void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
 {
-    int randAdd;
-    int randExc;
+    int cus_randomAdd;
+    int cus_randomExc;
     uint64_t temp[2];
     identityM128(Mat);
-    srand((randseed++) ^ time(NULL));
+    Initcus_randomom((cus_randomseed++) ^ time(NULL));
     for(int i = 127; i >= 0; i--)
     {
         for(int j = 0; j < 128; j++)//Add
         {
             if(j != i)
             {
-                randAdd = rand()%2;
-                if(randAdd) 
+                cus_randomAdd = cus_random()%2;
+                if(cus_randomAdd) 
                 {
                     (*Mat).M[j][0] ^= (*Mat).M[i][0];
                     (*Mat).M[j][1] ^= (*Mat).M[i][1];
@@ -181,13 +181,13 @@ void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
         }
         if(i < 127)//Exchange
         {
-            randExc = i + 1 + rand()%(127 - i);
+            cus_randomExc = i + 1 + cus_random()%(127 - i);
             temp[0] = (*Mat).M[i][0];
             temp[1] = (*Mat).M[i][1];
-            (*Mat).M[i][0] = (*Mat).M[randExc][0];
-            (*Mat).M[i][1] = (*Mat).M[randExc][1];
-            (*Mat).M[randExc][0] = temp[0];
-            (*Mat).M[randExc][1] = temp[1];
+            (*Mat).M[i][0] = (*Mat).M[cus_randomExc][0];
+            (*Mat).M[i][1] = (*Mat).M[cus_randomExc][1];
+            (*Mat).M[cus_randomExc][0] = temp[0];
+            (*Mat).M[cus_randomExc][1] = temp[1];
         }   
     }
 }
