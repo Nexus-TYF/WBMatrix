@@ -14,7 +14,7 @@
 
 //Repeat test times and calculate on average for accuracy
 #define TEST 100000
-int cus_randomseed;
+int randseed;
 
 //CPU cycles set start;
 uint64_t start_rdtsc()
@@ -34,7 +34,7 @@ void InvTMatM4(M4 *Mat)//generate 4 * 4 invertible matrix
     int cus_randomExc;
     uint8_t temp;
     identityM4(Mat);
-    Initcus_randomom((cus_randomseed++) ^ time(NULL));
+    InitRandom((randseed++) ^ time(NULL));
     for(int i = 3; i >= 0; i--)
     {
         for(int j = 0; j < 4; j++)//Add
@@ -60,7 +60,7 @@ void InvTMatM8(M8 *Mat)//generate 8 * 8 invertible matrix
     int cus_randomExc;
     uint8_t temp;
     identityM8(Mat);
-    Initcus_randomom((cus_randomseed++) ^ time(NULL));
+    InitRandom((randseed++) ^ time(NULL));
     for(int i = 7; i >= 0; i--)
     {
         for(int j = 0; j < 8; j++)//Add
@@ -86,7 +86,7 @@ void InvTMatM16(M16 *Mat)//generate 16 * 16 invertible matrix
     int cus_randomExc;
     uint16_t temp;
     identityM16(Mat);
-    Initcus_randomom((cus_randomseed++) ^ time(NULL));
+    InitRandom((randseed++) ^ time(NULL));
     for(int i = 15; i >= 0; i--)
     {
         for(int j = 0; j < 16; j++)//Add
@@ -112,7 +112,7 @@ void InvTMatM32(M32 *Mat)//generate 32 * 32 invertible matrix
     int cus_randomExc;
     uint32_t temp;
     identityM32(Mat);
-    Initcus_randomom((cus_randomseed++) ^ time(NULL));
+    InitRandom((randseed++) ^ time(NULL));
     for(int i = 31; i >= 0; i--)
     {
         for(int j = 0; j < 32; j++)//Add
@@ -138,7 +138,7 @@ void InvTMatM64(M64 *Mat)//generate 64 * 64 invertible matrix
     int cus_randomExc;
     uint64_t temp;
     identityM64(Mat);
-    Initcus_randomom((cus_randomseed++) ^ time(NULL));
+    InitRandom((randseed++) ^ time(NULL));
     for(int i = 63; i >= 0; i--)
     {
         for(int j = 0; j < 64; j++)//Add
@@ -164,7 +164,7 @@ void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
     int cus_randomExc;
     uint64_t temp[2];
     identityM128(Mat);
-    Initcus_randomom((cus_randomseed++) ^ time(NULL));
+    InitRandom((randseed++) ^ time(NULL));
     for(int i = 127; i >= 0; i--)
     {
         for(int j = 0; j < 128; j++)//Add
