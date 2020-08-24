@@ -29,11 +29,12 @@ uint64_t end_rdtsc()
 bool getrandbit () {
     static std::bitset<80> state; //Keeps the 80 bit LSFR state
     bool tmp = 0;
+    unsigned i;
     //If state has not been initialized yet
     if (state.none ()) {
         state.set (); //Initialize with all bits set
         //Throw the first 160 bits away
-        for (unsigned i = 0; i < 160; ++i) {
+        for (i = 0; i < 160; ++i) {
             //Update the state
             tmp =  state[0] ^ state[13] ^ state[23]
                        ^ state[38] ^ state[51] ^ state[62];
@@ -68,9 +69,10 @@ uint64_t identM64[64] = {0x8000000000000000,0x4000000000000000,0x200000000000000
 
 void RandbitMatM4(M4 *Mat)
 {
-    for(int i = 0; i < 4; i++)
+    int i, j;
+    for(i = 0; i < 4; i++)
     {
-        for(int j = 0; j < 4; j++)
+        for(j = 0; j < 4; j++)
         {
             if(getrandbit()) (*Mat).M[i] ^= identM4[j];
         }
@@ -88,9 +90,10 @@ void InvTMatM4(M4 *Mat)//generate 4*4 invertible matrix
 }
 void RandbitMatM8(M8 *Mat)
 {
-    for(int i = 0; i < 8; i++)
+    int i, j;
+    for(i = 0; i < 8; i++)
     {
-        for(int j = 0; j < 8; j++)
+        for(j = 0; j < 8; j++)
         {
             if(getrandbit()) (*Mat).M[i] ^= identM8[j];
         }
@@ -108,9 +111,10 @@ void InvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
 }
 void RandbitMatM16(M16 *Mat)
 {
-    for(int i = 0; i < 16; i++)
+    int i, j;
+    for(i = 0; i < 16; i++)
     {
-        for(int j = 0; j < 16; j++)
+        for(j = 0; j < 16; j++)
         {
             if(getrandbit()) (*Mat).M[i] ^= identM16[j];
         }
@@ -128,9 +132,10 @@ void InvTMatM16(M16 *Mat)//generate 16*16 invertible matrix
 }
 void RandbitMatM32(M32 *Mat)
 {
-    for(int i = 0; i < 32; i++)
+    int i, j;
+    for(i = 0; i < 32; i++)
     {
-        for(int j = 0; j < 32; j++)
+        for(j = 0; j < 32; j++)
         {
             if(getrandbit()) (*Mat).M[i] ^= identM32[j];
         }
@@ -148,9 +153,10 @@ void InvTMatM32(M32 *Mat)//generate 32*32 invertible matrix
 }
 void RandbitMatM64(M64 *Mat)
 {
-    for(int i = 0; i < 64; i++)
+    int i, j;
+    for(i = 0; i < 64; i++)
     {
-        for(int j = 0; j < 64; j++)
+        for(j = 0; j < 64; j++)
         {
             if(getrandbit()) (*Mat).M[i] ^= identM64[j];
         }
@@ -168,9 +174,10 @@ void InvTMatM64(M64 *Mat)//generate 64*64 invertible matrix
 }
 void RandbitMatM128(M128 *Mat)
 {
-    for(int i = 0; i < 128; i++)
+    int i, j;
+    for(i = 0; i < 128; i++)
     {
-        for(int j = 0; j < 64; j++)
+        for(j = 0; j < 64; j++)
         {
             if(getrandbit()) (*Mat).M[i][0] ^= identM64[j];
             if(getrandbit()) (*Mat).M[i][1] ^= identM64[j];

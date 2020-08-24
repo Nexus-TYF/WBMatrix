@@ -577,83 +577,90 @@ M128 MatrixM128_inv[16]={
 
 void InvTMatM8(M8 *Mat)//generate 8*8 invertible matrix
 {
+    int i;
     M8 Temp;
     int randnum;
     identityM8(&Temp);
-    srand((randseed++)^time(NULL));
-    for(int i=0;i<N8;i++)
+    srand((randseed++) ^ time(NULL));
+    for(i = 0; i < N8; i++)
     {
         randnum=rand()%16;
-        MatMulMatM8(Temp,MatrixM8[randnum],&Temp);
+        MatMulMatM8(Temp,MatrixM8[randnum], &Temp);
     }
-    copyM8(Temp,Mat);
+    copyM8(Temp, Mat);
 }
 void InvTMatM16(M16 *Mat)//generate 16*16 invertible matrix
 {
+    int i;
     M16 Temp;
     int randnum;
     identityM16(&Temp);
-    srand((randseed++)^time(NULL));
-    for(int i=0;i<N16;i++)
+    srand((randseed++) ^ time(NULL));
+    for(i = 0; i < N16; i++)
     {
-        randnum=rand()%16;
-        MatMulMatM16(Temp,MatrixM16[randnum],&Temp);
+        randnum = rand()%16;
+        MatMulMatM16(Temp, MatrixM16[randnum], &Temp);
     }
-    copyM16(Temp,Mat);
+    copyM16(Temp, Mat);
 }
 void InvTMatM32(M32 *Mat)//generate 32*32 invertible matrix
 {
+    int i;
     M32 Temp;
     int randnum;
     identityM32(&Temp);
-    srand((randseed++)^time(NULL));
-    for(int i=0;i<N32;i++)
+    srand((randseed++) ^ time(NULL));
+    for(i = 0; i < N32; i++)
     {
         randnum=rand()%16;
-        MatMulMatM32(Temp,MatrixM32[randnum],&Temp);
+        MatMulMatM32(Temp, MatrixM32[randnum], &Temp);
     }
-    copyM32(Temp,Mat);
+    copyM32(Temp, Mat);
 }
 void InvTMatM64(M64 *Mat)//generate 64*64 invertible matrix
 {
+    int i;
     M64 Temp;
     int randnum;
     identityM64(&Temp);
-    srand((randseed++)^time(NULL));
-    for(int i=0;i<N64;i++)
+    srand((randseed++) ^ time(NULL));
+    for(i = 0; i < N64; i++)
     {
         randnum=rand()%16;
-        MatMulMatM64(Temp,MatrixM64[randnum],&Temp);
+        MatMulMatM64(Temp, MatrixM64[randnum], &Temp);
     }
-    copyM64(Temp,Mat);
+    copyM64(Temp, Mat);
 }
 void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
 {
+    int i;
     M128 Temp;
     int randnum;
     identityM128(&Temp);
-    srand((randseed++)^time(NULL));
-    for(int i=0;i<N128;i++)
+    srand((randseed++) ^ time(NULL));
+    for(i = 0; i < N128; i++)
     {
-        randnum=rand()%16;
-        MatMulMatM128(Temp,MatrixM128[randnum],&Temp);
+        randnum = rand()%16;
+        MatMulMatM128(Temp, MatrixM128[randnum], &Temp);
     }
-    copyM128(Temp,Mat);
+    copyM128(Temp, Mat);
 }
 
 void TrailM8(int k)//generate trail of 8*8 matrix
 {
+    int i;
     int randnum;
-    for(int i=0;i<N8;i++)
+    for(i = 0; i < N8; i++)
     {
-        randnum=rand()%16;
-        TM8[k][i]=randnum;
+        randnum = rand()%16;
+        TM8[k][i] = randnum;
     }
 }
 void TrailM16(int k)//generate trail of 16*16 matrix
 {
+    int i;
     int randnum;
-    for(int i=0;i<N16;i++)
+    for(i = 0; i < N16; i++)
     {
         randnum=rand()%16;
         TM16[k][i]=randnum;
@@ -661,8 +668,9 @@ void TrailM16(int k)//generate trail of 16*16 matrix
 }
 void TrailM32(int k)//generate trail of 32*32 matrix
 {
+    int i;
     int randnum;
-    for(int i=0;i<N32;i++)
+    for(i = 0; i < N32; i++)
     {
         randnum=rand()%16;
         TM32[k][i]=randnum;
@@ -670,8 +678,9 @@ void TrailM32(int k)//generate trail of 32*32 matrix
 }
 void TrailM64(int k)//generate trail of 64*64 matrix
 {
+    int i;
     int randnum;
-    for(int i=0;i<N64;i++)
+    for(i = 0; i < N64; i++)
     {
         randnum=rand()%16;
         TM64[k][i]=randnum;
@@ -679,8 +688,9 @@ void TrailM64(int k)//generate trail of 64*64 matrix
 }
 void TrailM128(int k)//generate trail of 128*128 matrix
 {
+    int i;
     int randnum;
-    for(int i=0;i<N128;i++)
+    for(i = 0; i < N128; i++)
     {
         randnum=rand()%16;
         TM128[k][i]=randnum;
@@ -689,159 +699,169 @@ void TrailM128(int k)//generate trail of 128*128 matrix
 
 void InvSMatM8(M8 *Mat_inv,int k)//generate 8*8 inverse matrix
 {
+    int i;
     M8 Temp_inv;
     identityM8(&Temp_inv);
-    for(int i=N8-1;i>=0;i--)
+    for(i = N8 - 1; i >= 0; i--)
     {
-        MatMulMatM8(Temp_inv,MatrixM8_inv[TM8[k][i]],&Temp_inv);
+        MatMulMatM8(Temp_inv,MatrixM8_inv[TM8[k][i]], &Temp_inv);
     }
     copyM8(Temp_inv,Mat_inv);
 }
 void InvSMatM16(M16 *Mat_inv,int k)//generate 16*16 inverse matrix
 {
+    int i;
     M16 Temp_inv;
     identityM16(&Temp_inv);
-    for(int i=N16-1;i>=0;i--)
+    for(int i = N16 - 1; i >= 0; i--)
     {
-        MatMulMatM16(Temp_inv,MatrixM16_inv[TM16[k][i]],&Temp_inv);
+        MatMulMatM16(Temp_inv, MatrixM16_inv[TM16[k][i]], &Temp_inv);
     }
-    copyM16(Temp_inv,Mat_inv);
+    copyM16(Temp_inv, Mat_inv);
 }
 void InvSMatM32(M32 *Mat_inv,int k)//generate 32*32 inverse matrix
 {
+    int i;
     M32 Temp_inv;
     identityM32(&Temp_inv);
-    for(int i=N32-1;i>=0;i--)
+    for(int i = N32 - 1; i>=0; i--)
     {
-        MatMulMatM32(Temp_inv,MatrixM32_inv[TM32[k][i]],&Temp_inv);
+        MatMulMatM32(Temp_inv, MatrixM32_inv[TM32[k][i]], &Temp_inv);
     }
-    copyM32(Temp_inv,Mat_inv);
+    copyM32(Temp_inv, Mat_inv);
 }
 void InvSMatM64(M64 *Mat_inv,int k)//generate 64*64 inverse matrix
 {
+    int i;
     M64 Temp_inv;
     identityM64(&Temp_inv);
-    for(int i=N64-1;i>=0;i--)
+    for(int i = N64 - 1; i >= 0; i--)
     {
-        MatMulMatM64(Temp_inv,MatrixM64_inv[TM64[k][i]],&Temp_inv);
+        MatMulMatM64(Temp_inv, MatrixM64_inv[TM64[k][i]], &Temp_inv);
     }
-    copyM64(Temp_inv,Mat_inv);
+    copyM64(Temp_inv, Mat_inv);
 }
 void InvSMatM128(M128 *Mat_inv,int k)//generate 128*128 inverse matrix
 {
+    int i;
     M128 Temp_inv;
     identityM128(&Temp_inv);
-    for(int i=N128-1;i>=0;i--)
+    for(i = N128 - 1; i >= 0; i--)
     {
-        MatMulMatM128(Temp_inv,MatrixM128_inv[TM128[k][i]],&Temp_inv);
+        MatMulMatM128(Temp_inv, MatrixM128_inv[TM128[k][i]], &Temp_inv);
     }
-    copyM128(Temp_inv,Mat_inv);
+    copyM128(Temp_inv, Mat_inv);
 }
 
 void MatrixpairM8(M8 *Mat,M8 *Mat_inv)
 {
+    int i;
     M8 Temp,Temp_inv;
-    int flag[N8]={0};
+    int flag[N8] = {0};
     int randnum;
     identityM8(&Temp);
     identityM8(&Temp_inv);
-    srand((randseed++)^time(NULL));
-    for(int i=0;i<N8;i++)
+    srand((randseed++) ^ time(NULL));
+    for(i = 0; i < N8; i++)
     {
-        randnum=rand()%16;
-        MatMulMatM8(Temp,MatrixM8[randnum],&Temp);
-        flag[i]=randnum;
+        randnum = rand()%16;
+        MatMulMatM8(Temp, MatrixM8[randnum], &Temp);
+        flag[i] = randnum;
     }
-    for(int i=N8-1;i>=0;i--)
+    for(i = N8 - 1; i >= 0; i--)
     {
-        MatMulMatM8(Temp_inv,MatrixM8_inv[flag[i]],&Temp_inv);
+        MatMulMatM8(Temp_inv, MatrixM8_inv[flag[i]], &Temp_inv);
     }
-    copyM8(Temp,Mat);
-    copyM8(Temp_inv,Mat_inv);
+    copyM8(Temp, Mat);
+    copyM8(Temp_inv, Mat_inv);
 }
 void MatrixpairM16(M16 *Mat,M16 *Mat_inv)
 {
-    M16 Temp,Temp_inv;
-    int flag[N16]={0};
+    int i;
+    M16 Temp, Temp_inv;
+    int flag[N16] = {0};
     int randnum;
     identityM16(&Temp);
     identityM16(&Temp_inv);
-    srand((randseed++)^time(NULL));
-    for(int i=0;i<N16;i++)
+    srand((randseed++) ^ time(NULL));
+    for(i = 0; i < N16; i++)
     {
-        randnum=rand()%16;
-        MatMulMatM16(Temp,MatrixM16[randnum],&Temp);
-        flag[i]=randnum;
+        randnum = rand()%16;
+        MatMulMatM16(Temp, MatrixM16[randnum], &Temp);
+        flag[i] = randnum;
     }
-    for(int i=N16-1;i>=0;i--)
+    for(i = N16 - 1; i >= 0; i--)
     {
-        MatMulMatM16(Temp_inv,MatrixM16_inv[flag[i]],&Temp_inv);
+        MatMulMatM16(Temp_inv, MatrixM16_inv[flag[i]], &Temp_inv);
     }
-    copyM16(Temp,Mat);
-    copyM16(Temp_inv,Mat_inv);
+    copyM16(Temp, Mat);
+    copyM16(Temp_inv, Mat_inv);
 }
 void MatrixpairM32(M32 *Mat,M32 *Mat_inv)
 {
-    M32 Temp,Temp_inv;
-    int flag[N32]={0};
+    int i;
+    M32 Temp, Temp_inv;
+    int flag[N32] = {0};
     int randnum;
     identityM32(&Temp);
     identityM32(&Temp_inv);
-    srand((randseed++)^time(NULL));
-    for(int i=0;i<N32;i++)
+    srand((randseed++) ^ time(NULL));
+    for(i = 0; i < N32; i++)
     {
-        randnum=rand()%16;
-        MatMulMatM32(Temp,MatrixM32[randnum],&Temp);
-        flag[i]=randnum;
+        randnum = rand()%16;
+        MatMulMatM32(Temp, MatrixM32[randnum], &Temp);
+        flag[i] = randnum;
     }
-    for(int i=N32-1;i>=0;i--)
+    for(i = N32 - 1; i >= 0; i--)
     {
-        MatMulMatM32(Temp_inv,MatrixM32_inv[flag[i]],&Temp_inv);
+        MatMulMatM32(Temp_inv, MatrixM32_inv[flag[i]], &Temp_inv);
     }
-    copyM32(Temp,Mat);
-    copyM32(Temp_inv,Mat_inv);
+    copyM32(Temp, Mat);
+    copyM32(Temp_inv, Mat_inv);
 }
 void MatrixpairM64(M64 *Mat,M64 *Mat_inv)
 {
-    M64 Temp,Temp_inv;
-    int flag[N64]={0};
+    int i;
+    M64 Temp, Temp_inv;
+    int flag[N64] = {0};
     int randnum;
     identityM64(&Temp);
     identityM64(&Temp_inv);
     srand((randseed++)^time(NULL));
-    for(int i=0;i<N64;i++)
+    for(i = 0; i < N64; i++)
     {
-        randnum=rand()%16;
-        MatMulMatM64(Temp,MatrixM64[randnum],&Temp);
-        flag[i]=randnum;
+        randnum = rand()%16;
+        MatMulMatM64(Temp, MatrixM64[randnum], &Temp);
+        flag[i] = randnum;
     }
-    for(int i=N64-1;i>=0;i--)
+    for(i = N64 - 1; i >= 0; i--)
     {
-        MatMulMatM64(Temp_inv,MatrixM64_inv[flag[i]],&Temp_inv);
+        MatMulMatM64(Temp_inv, MatrixM64_inv[flag[i]], &Temp_inv);
     }
-    copyM64(Temp,Mat);
-    copyM64(Temp_inv,Mat_inv);
+    copyM64(Temp, Mat);
+    copyM64(Temp_inv, Mat_inv);
 }
 void MatrixpairM128(M128 *Mat,M128 *Mat_inv)
 {
-    M128 Temp,Temp_inv;
-    int flag[N128]={0};
+    int i;
+    M128 Temp, Temp_inv;
+    int flag[N128] = {0};
     int randnum;
     identityM128(&Temp);
     identityM128(&Temp_inv);
-    srand((randseed++)^time(NULL));
-    for(int i=0;i<N128;i++)
+    srand((randseed++) ^ time(NULL));
+    for(i = 0; i < N128; i++)
     {
-        randnum=rand()%16;
-        MatMulMatM128(Temp,MatrixM128[randnum],&Temp);
-        flag[i]=randnum;
+        randnum = rand()%16;
+        MatMulMatM128(Temp, MatrixM128[randnum], &Temp);
+        flag[i] = randnum;
     }
-    for(int i=N128-1;i>=0;i--)
+    for(i = N128 - 1; i >= 0; i--)
     {
-        MatMulMatM128(Temp_inv,MatrixM128_inv[flag[i]],&Temp_inv);
+        MatMulMatM128(Temp_inv, MatrixM128_inv[flag[i]], &Temp_inv);
     }
-    copyM128(Temp,Mat);
-    copyM128(Temp_inv,Mat_inv);
+    copyM128(Temp, Mat);
+    copyM128(Temp_inv, Mat_inv);
 }
 
 int main()
@@ -911,7 +931,7 @@ int main()
         TrailM8(i);
     }
     begin = start_rdtsc();
-    for (i = 0; i < TEST; i++)
+    for (i = 0; i  <  TEST; i++)
     {
         InvSMatM8(&Sm8,i);
     }
@@ -925,7 +945,7 @@ int main()
         TrailM16(i);
     }
     begin = start_rdtsc();
-    for (i = 0; i < TEST; i++)
+    for (i = 0; i  <  TEST; i++)
     {
         InvSMatM16(&Sm16,i);
     }
@@ -939,7 +959,7 @@ int main()
         TrailM32(i);
     }
     begin = start_rdtsc();
-    for (i = 0; i < TEST; i++)
+    for (i = 0; i  <  TEST; i++)
     {
         InvSMatM32(&Sm32,i);
     }
@@ -981,7 +1001,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        MatrixpairM8(&m8,&m8_inv);
+        MatrixpairM8(&m8, &m8_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -991,7 +1011,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        MatrixpairM16(&m16,&m16_inv);
+        MatrixpairM16(&m16, &m16_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -1001,7 +1021,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        MatrixpairM32(&m32,&m32_inv);
+        MatrixpairM32(&m32, &m32_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -1011,7 +1031,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        MatrixpairM64(&m64,&m64_inv);
+        MatrixpairM64(&m64, &m64_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);
@@ -1021,7 +1041,7 @@ int main()
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
     {
-        MatrixpairM128(&m128,&m128_inv);
+        MatrixpairM128(&m128, &m128_inv);
     }
     end = end_rdtsc();
     ans = (end - begin);

@@ -1,8 +1,8 @@
 #ifndef _HWBMATRIX_H_
 #define _HWBMATRIX_H_
 /***
- * Last Update: 2020/08/10
- * Version: 3.1.2
+ * Last Update: 2020/08/24
+ * Version: 3.2.0
 ***/
 #include "WBMatrix/structure.h"
 #include "WBMatrix/random.h"

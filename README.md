@@ -126,8 +126,8 @@ $ ./WBMM
 12. [lowmc](https://github.com/LowMC/lowmc)<br>
 
 ---
-Last Updated : 2020/08/10<br>
-WBMatrix Version: 3.1.2
+Last Updated : 2020/08/24<br>
+WBMatrix Version: 3.2.0
 
 ---
 Details of update:<br>
@@ -275,3 +275,6 @@ Revision 1a).<br>
 (2020/08/10)<br>
 1. NEW: Supports for C++.<br>
 2. NEW: Add LowMC Method.<br>
+
+(2020/08/24)<br>
+1. Fixed: Free from C99.<br>
