@@ -126,8 +126,8 @@ $ ./WBMM
 12. [lowmc](https://github.com/LowMC/lowmc)<br>
 
 ---
-Last Updated : 2020/08/24<br>
-WBMatrix Version: 3.2.0
+Last Updated : 2020/09/29<br>
+WBMatrix Version: 3.2.1
 
 ---
 Details of update:<br>
@@ -278,3 +278,6 @@ Revision 1a).<br>
 
 (2020/08/24)<br>
 1. Fixed: Free from C99.<br>
+
+(2020/09/29)<br>
+1. NEW: A new matrix transposition function.<br>

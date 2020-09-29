@@ -3290,83 +3290,146 @@ void affinecomM16to128(Aff16 aff1, Aff16 aff2, Aff16 aff3, Aff16 aff4, Aff16 aff
 void MattransM4(M4 Mat, M4 *Mat_trans)//matrix tansposition M4
 {
     int i, j;
-    initM4(Mat_trans);
-    for(i = 0; i < 4; i++)
+    uint8_t mask[2], k, k2, l, temp;
+    mask[0] = 0x5;
+    mask[1] = 0x3;
+    for(j = 0; j < 2; j++)
     {
-        for(j = 0; j < 4; j++)
+        k = 1 << j;
+        k2 = k * 2;
+        for(i = 0; i < 2; i++)
         {
-            if(Mat.M[i] & idM4[j]) (*Mat_trans).M[j] ^= idM4[i];
+            l = (k2 * i) % 3;
+            temp = ((Mat.M[l] & ~mask[j]) ^ ((Mat.M[l + k] & ~mask[j]) >> k)) & 0x0f;
+            Mat.M[l + k] = ((Mat.M[l + k] & mask[j]) ^ ((Mat.M[l] & mask[j]) << k)) & 0x0f;
+            Mat.M[l] = temp;
         }
     }
+    copyM4(Mat, Mat_trans);
 }
 void MattransM8(M8 Mat, M8 *Mat_trans)//matrix tansposition M8
 {
     int i, j;
-    initM8(Mat_trans);
-    for(i = 0; i < 8; i++)
+    uint8_t mask[3], k, k2, l, temp;
+    mask[0] = 0x55;
+    mask[1] = 0x33;
+    mask[2] = 0x0f;
+    for(j = 0; j < 3; j++)
     {
-        for(j = 0; j < 8; j++)
+        k = 1 << j;
+        k2 = k * 2;
+        for(i = 0; i < 4; i++)
         {
-            if(Mat.M[i] & idM8[j]) (*Mat_trans).M[j] ^= idM8[i];
+            l = (k2 * i) % 7;
+            temp = (Mat.M[l] & ~mask[j]) ^ ((Mat.M[l + k] & ~mask[j]) >> k);
+            Mat.M[l + k] = (Mat.M[l + k] & mask[j]) ^ ((Mat.M[l] & mask[j]) << k);
+            Mat.M[l] = temp;
         }
     }
+    copyM8(Mat, Mat_trans);
 }
 void MattransM16(M16 Mat, M16 *Mat_trans)//matrix tansposition M16
 {
     int i, j;
-    initM16(Mat_trans);
-    for(i = 0; i < 16; i++)
+    uint16_t mask[4], k, k2, l, temp;
+    mask[0] = 0x5555;
+    mask[1] = 0x3333;
+    mask[2] = 0x0f0f;
+    mask[3] = 0x00ff;
+    for(j = 0; j < 4; j++)
     {
-        for(j = 0; j < 16; j++)
+        k = 1 << j;
+        k2 = k * 2;
+        for(i = 0; i < 8; i++)
         {
-            if(Mat.M[i] & idM16[j]) (*Mat_trans).M[j] ^= idM16[i];
+            l = (k2 * i) % 15;
+            temp = (Mat.M[l] & ~mask[j]) ^ ((Mat.M[l + k] & ~mask[j]) >> k);
+            Mat.M[l + k] = (Mat.M[l + k] & mask[j]) ^ ((Mat.M[l] & mask[j]) << k);
+            Mat.M[l] = temp;
         }
     }
+    copyM16(Mat, Mat_trans);
 }
 void MattransM32(M32 Mat, M32 *Mat_trans)//matrix tansposition M32
 {
     int i, j;
-    initM32(Mat_trans);
-    for(i = 0; i < 32; i++)
+    uint32_t mask[5], k, k2, l, temp;
+    mask[0] = 0x55555555;
+    mask[1] = 0x33333333;
+    mask[2] = 0x0f0f0f0f;
+    mask[3] = 0x00ff00ff;
+    mask[4] = 0x0000ffff;
+    for(j = 0; j < 5; j++)
     {
-        for(j = 0; j < 32; j++)
+        k = 1 << j;
+        k2 = k * 2;
+        for(i = 0; i < 16; i++)
         {
-            if(Mat.M[i] & idM32[j]) (*Mat_trans).M[j] ^= idM32[i];
+            l = (k2 * i) % 31;
+            temp = (Mat.M[l] & ~mask[j]) ^ ((Mat.M[l + k] & ~mask[j]) >> k);
+            Mat.M[l + k] = (Mat.M[l + k] & mask[j]) ^ ((Mat.M[l] & mask[j]) << k);
+            Mat.M[l] = temp;
         }
     }
+    copyM32(Mat, Mat_trans);
 }
 void MattransM64(M64 Mat, M64 *Mat_trans)//matrix tansposition M64
 {
     int i, j;
-    initM64(Mat_trans);
-    for(i = 0; i < 64; i++)
+    uint64_t mask[6], k, k2, l, temp;
+    mask[0] = 0x5555555555555555;
+    mask[1] = 0x3333333333333333;
+    mask[2] = 0x0f0f0f0f0f0f0f0f;
+    mask[3] = 0x00ff00ff00ff00ff;
+    mask[4] = 0x0000ffff0000ffff;
+    mask[5] = 0x00000000ffffffff;
+    for(j = 0; j < 6; j++)
     {
-        for(j = 0; j < 64; j++)
+        k = 1 << j;
+        k2 = k * 2;
+        for(i = 0; i < 32; i++)
         {
-            if(Mat.M[i] & idM64[j]) (*Mat_trans).M[j] ^= idM64[i];
+            l = (k2 * i) % 63;
+            temp = (Mat.M[l] & ~mask[j]) ^ ((Mat.M[l + k] & ~mask[j]) >> k);
+            Mat.M[l + k] = (Mat.M[l + k] & mask[j]) ^ ((Mat.M[l] & mask[j]) << k);
+            Mat.M[l] = temp;
         }
     }
+    copyM64(Mat, Mat_trans);
 }
 void MattransM128(M128 Mat, M128 *Mat_trans)//matrix tansposition M128
 {
     int i, j;
-    initM128(Mat_trans);
+    uint64_t mask[6], k, k2, l, temp;
+    mask[0] = 0x5555555555555555;
+    mask[1] = 0x3333333333333333;
+    mask[2] = 0x0f0f0f0f0f0f0f0f;
+    mask[3] = 0x00ff00ff00ff00ff;
+    mask[4] = 0x0000ffff0000ffff;
+    mask[5] = 0x00000000ffffffff;
+    for(j = 0; j < 6; j++)
+    {
+        k = 1 << j;
+        k2 = k * 2;
+        for(i = 0; i < 64; i++)
+        {
+            l = (k2 * i) % 127;
+            temp = (Mat.M[l][0] & ~mask[j]) ^ ((Mat.M[l + k][0] & ~mask[j]) >> k);
+            Mat.M[l + k][0] = (Mat.M[l + k][0] & mask[j]) ^ ((Mat.M[l][0] & mask[j]) << k);
+            Mat.M[l][0] = temp;
+
+            temp = (Mat.M[l][1] & ~mask[j]) ^ ((Mat.M[l + k][1] & ~mask[j]) >> k);
+            Mat.M[l + k][1] = (Mat.M[l + k][1] & mask[j]) ^ ((Mat.M[l][1] & mask[j]) << k);
+            Mat.M[l][1] = temp;
+        }
+    }
     for(i = 0; i < 64; i++)
     {
-        for(j = 0; j < 64; j++)
-        {
-            if(Mat.M[i][0] & idM64[j]) (*Mat_trans).M[j][0] ^= idM64[i];
-            if(Mat.M[i][1] & idM64[j]) (*Mat_trans).M[j+64][0] ^= idM64[i];
-        }
+        temp = Mat.M[i + 64][0];
+        Mat.M[i + 64][0] = Mat.M[i][1]; 
+        Mat.M[i][1] = temp;
     }
-    for(i = 64; i < 128; i++)
-    {
-        for(j = 0; j < 64; j++)
-        {
-            if(Mat.M[i][0] & idM64[j]) (*Mat_trans).M[j][1] ^= idM64[i-64];
-            if(Mat.M[i][1] & idM64[j]) (*Mat_trans).M[j+64][1] ^= idM64[i-64];
-        }
-    }
+    copyM128(Mat, Mat_trans);
 }
 void MatAddMatM4(M4 Mat1, M4 Mat2, M4 *Mat)
 {
