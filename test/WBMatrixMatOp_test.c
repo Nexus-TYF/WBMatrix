@@ -110,6 +110,19 @@ int main()
     ans = (end - begin);
     printf("128*128 matrix - 128*1 vector multiplication cost %llu CPU cycles\n", (ans) / TEST);
     
+    M256 Mat256;
+    randM256(&Mat256);
+    V256 Vec256, Vec256_ans;
+    randV256(&Vec256);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        MatMulVecM256(Mat256, Vec256, &Vec256_ans);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*256 matrix - 256*1 vector multiplication cost %llu CPU cycles\n", (ans) / TEST);
+    
     M4 M4_1, M4_2, M4_3;
     genMatpairM4(&M4_1, &M4_2);
     printf("\nmatrix-matrix mul\n");
@@ -177,6 +190,17 @@ int main()
     ans = (end - begin);
     printf("128*128 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
+    M256 M256_1, M256_2, M256_3;
+    genMatpairM256(&M256_1, &M256_2);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        MatMulMatM256(M256_1, M256_2, &M256_3);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*256 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
+
     V4 V4_1, V4_2, V4_3;
     printf("\nvector-vector add\n");
     begin = start_rdtsc();
@@ -238,6 +262,16 @@ int main()
     ans = (end - begin);
     printf("128*1 vector - vector addition cost %llu CPU cycles\n", (ans) / TEST);
 
+    V256 V256_1, V256_2, V256_3;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        VecAddVecV256(V256_1, V256_2, &V256_3);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*1 vector - vector addition cost %llu CPU cycles\n", (ans) / TEST);
+
     printf("\nmatrix-matrix add\n");
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -292,6 +326,15 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("128*128 matrix - matrix addition cost %llu CPU cycles\n", (ans) / TEST);
+
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        MatAddMatM256(M256_1, M256_2, &M256_3);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*256 matrix - matrix addition cost %llu CPU cycles\n", (ans) / TEST);
 
     return 0;
 }

@@ -92,5 +92,15 @@ int main()
     ans = (end - begin);
     printf("generate 128*128 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
+    M256 m256, m256_inv;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        genMatpairM256(&m256, &m256_inv);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 256*256 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+
     return 0;
 }

@@ -48,6 +48,10 @@ void InvTMatM128(MatGf2 *Mat)
 {
     *Mat = GenInvertibleMatGf2(128, 128);
 }
+void InvTMatM256(MatGf2 *Mat)
+{
+    *Mat = GenInvertibleMatGf2(256, 256);
+}
 
 void InvSMatM4(MatGf2 Mat, MatGf2 *Mat_inv)
 {
@@ -70,6 +74,10 @@ void InvSMatM64(MatGf2 Mat, MatGf2 *Mat_inv)
     *Mat_inv = GenMatGf2Inv(Mat);
 }
 void InvSMatM128(MatGf2 Mat, MatGf2 *Mat_inv)
+{
+    *Mat_inv = GenMatGf2Inv(Mat);
+}
+void InvSMatM256(MatGf2 Mat, MatGf2 *Mat_inv)
 {
     *Mat_inv = GenMatGf2Inv(Mat);
 }
@@ -104,6 +112,11 @@ void genMatpairM128(MatGf2 *Mat, MatGf2 *Mat_inv)
     *Mat = GenInvertibleMatGf2(128, 128);
     *Mat_inv = GenMatGf2Inv(*Mat);
 }
+void genMatpairM256(MatGf2 *Mat, MatGf2 *Mat_inv)
+{
+    *Mat = GenInvertibleMatGf2(256, 256);
+    *Mat_inv = GenMatGf2Inv(*Mat);
+}
 int TimesInveribleMatGf2(int r, int c) 
 {
 	int times = 1;
@@ -125,7 +138,7 @@ int main()
     int i;
 
     printf("M4RI Method performance test:\n");
-/*    
+    
     printf("Times\n");
     double times8 = 0.0;
     for (i = 0; i < TEST; i++)
@@ -313,7 +326,6 @@ int main()
         MatGf2Free(Im128[i]);
     }
     MatGf2Free(Sm128);
-*/
 
     printf("\nInvertible and Inverse\n");
     MatGf2 m4, m4_inv;
@@ -387,6 +399,18 @@ int main()
     printf("generate 128*128 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
     MatGf2Free(m128);
     MatGf2Free(m128_inv);
+
+    MatGf2 m256, m256_inv;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        genMatpairM256(&m256, &m256_inv);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 256*256 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+    MatGf2Free(m256);
+    MatGf2Free(m256_inv);
 
 	return 0;
 }

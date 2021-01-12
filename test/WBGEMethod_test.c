@@ -83,6 +83,16 @@ void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
     }
     copyM128(temp, Mat);
 }
+void InvTMatM256(M256 *Mat)//generate 256*256 invertible matrix
+{
+    M256 temp;
+    randM256(&temp);
+    while(!isinvertM256(temp))
+    {
+        randM256(&temp);
+    }
+    copyM256(temp, Mat);
+}
 
 void MatrixpairM4(M4 *Mat, M4 *Mat_inv)
 {
@@ -113,6 +123,11 @@ void MatrixpairM128(M128 *Mat, M128 *Mat_inv)
 {
     InvTMatM128(Mat);
     invsM128(*Mat, Mat_inv);
+}
+void MatrixpairM256(M256 *Mat, M256 *Mat_inv)
+{
+    InvTMatM256(Mat);
+    invsM256(*Mat, Mat_inv);
 }
 
 int main()
@@ -184,6 +199,16 @@ int main()
     ans = (end - begin);
     printf("generate 128 * 128 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
 
+    M256 Tm256;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMatM256(&Tm256);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 256 * 256 invertible matrix cost %llu CPU cycles\n", (ans) / TEST);
+
     printf("\nInverse\n");
     M4 Sm4;
     begin = start_rdtsc();
@@ -244,6 +269,16 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("compute 128 * 128 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
+
+    M256 Sm256;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        invsM256(Tm256, &Sm256);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("compute 256 * 256 inverse matrix cost %llu CPU cycles\n", (ans) / TEST);
 
     
     printf("\nInvertible and Inverse\n");
@@ -306,6 +341,16 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("generate 128 * 128 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+
+    M256 m256, m256_inv;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        MatrixpairM256(&m256, &m256_inv);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 256 * 256 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
     return 0;
 }

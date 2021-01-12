@@ -122,6 +122,73 @@ void lowM128(M128 *Mat)
         }
     }
 }
+void lowM256(M256 *Mat)
+{
+    int i, j;
+    InitRandom((randseed++) ^ time(NULL));
+    for(i = 0; i < 64; i++)
+    {
+        (*Mat).M[i][0] = identM64[i];
+        for(j = 0; j < i; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][0] ^= identM64[j];
+        }
+        (*Mat).M[i][1] = 0;
+        (*Mat).M[i][2] = 0;
+        (*Mat).M[i][3] = 0;
+    }
+    for(i = 64; i < 128; i++)
+    {
+        (*Mat).M[i][1] = identM64[i - 64];
+        for(j = 64; j < i; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][1] ^= identM64[j - 64];
+        }
+        for(j = 0; j < 64; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][0] ^= identM64[j];
+        }
+        (*Mat).M[i][2] = 0;
+        (*Mat).M[i][3] = 0;
+    }
+    for(i = 128; i < 192; i++)
+    {
+        (*Mat).M[i][2] = identM64[i - 128];
+        for(j = 128; j < i; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][2] ^= identM64[j - 128];
+        }
+        for(j = 64; j < 128; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][1] ^= identM64[j - 64];
+        }
+        for(j = 0; j < 64; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][0] ^= identM64[j];
+        }
+        (*Mat).M[i][3] = 0;
+    }
+    for(i = 192; i < 256; i++)
+    {
+        (*Mat).M[i][3] = identM64[i - 192];
+        for(j = 192; j < i; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][3] ^= identM64[j - 192];
+        }
+        for(j = 128; j < 192; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][2] ^= identM64[j - 128];
+        }
+        for(j = 64; j < 128; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][1] ^= identM64[j - 64];
+        }
+        for(j = 0; j < 64; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][0] ^= identM64[j];
+        }
+    }
+}
 
 void upM4(M4 *Mat)
 {
@@ -214,6 +281,73 @@ void upM128(M128 *Mat)
         (*Mat).M[i][0] = 0;
     }
 }
+void upM256(M256 *Mat)
+{
+    int i, j;
+    InitRandom((randseed++) ^ time(NULL));
+    for(i = 0; i < 64; i++)
+    {
+        (*Mat).M[i][0] = identM64[i];
+        for(j = i + 1; j < 64; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][0] ^= identM64[j];
+        }
+        for(j = 64; j < 128; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][1] ^= identM64[j - 64];
+        }
+        for(j = 128; j < 192; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][2] ^= identM64[j - 128];
+        }
+        for(j = 192; j < 256; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][3] ^= identM64[j - 192];
+        }
+    }
+    for(i = 64; i < 128; i++)
+    {
+        (*Mat).M[i][0] = 0;
+        (*Mat).M[i][1] = identM64[i - 64];
+        for(j = i + 1; j < 128; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][1] ^= identM64[j - 64];
+        }
+        for(j = 128; j < 192; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][2] ^= identM64[j - 128];
+        }
+        for(j = 192; j < 256; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][3] ^= identM64[j - 192];
+        }
+    }
+    for(i = 128; i < 192; i++)
+    {
+        (*Mat).M[i][0] = 0;
+        (*Mat).M[i][1] = 0;
+        (*Mat).M[i][2] = identM64[i - 128];
+        for(j = i + 1; j < 192; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][2] ^= identM64[j - 128];
+        }
+        for(j = 192; j < 256; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][3] ^= identM64[j - 192];
+        }
+    }
+    for(i = 192; i < 256; i++)
+    {
+        (*Mat).M[i][0] = 0;
+        (*Mat).M[i][1] = 0;
+        (*Mat).M[i][2] = 0;
+        (*Mat).M[i][3] = identM64[i - 192];
+        for(j = i + 1; j < 256; j++)
+        {
+            if(cus_random()%2) (*Mat).M[i][4] ^= identM64[j - 192];
+        }
+    }
+}
 
 void InvTMatM4(M4 *Mat)//generate 4*4 invertible matrix
 {
@@ -263,9 +397,9 @@ void InvTMatM16(M16 *Mat)//generate 16*16 invertible matrix
     lowM16(&mat1);
     upM16(&mat2);
     MatMulMatM16(mat1, mat2, &mat3);
-    for(i = 0; i < 7; i++)
+    for(i = 0; i < 15; i++)
     {
-        randpivot = i + 1 + cus_random()%(7 - i);
+        randpivot = i + 1 + cus_random()%(15 - i);
         temp = mat3.M[i];
         mat3.M[i] = mat3.M[randpivot];
         mat3.M[randpivot] = temp;
@@ -282,9 +416,9 @@ void InvTMatM32(M32 *Mat)//generate 32*32 invertible matrix
     lowM32(&mat1);
     upM32(&mat2);
     MatMulMatM32(mat1, mat2, &mat3);
-    for(i = 0; i < 7; i++)
+    for(i = 0; i < 31; i++)
     {
-        randpivot = i + 1 + cus_random()%(7 - i);
+        randpivot = i + 1 + cus_random()%(31 - i);
         temp = mat3.M[i];
         mat3.M[i] = mat3.M[randpivot];
         mat3.M[randpivot] = temp;
@@ -301,9 +435,9 @@ void InvTMatM64(M64 *Mat)//generate 64*64 invertible matrix
     lowM64(&mat1);
     upM64(&mat2);
     MatMulMatM64(mat1, mat2, &mat3);
-    for(i = 0; i < 7; i++)
+    for(i = 0; i < 63; i++)
     {
-        randpivot = i + 1 + cus_random()%(7 - i);
+        randpivot = i + 1 + cus_random()%(63 - i);
         temp = mat3.M[i];
         mat3.M[i] = mat3.M[randpivot];
         mat3.M[randpivot] = temp;
@@ -320,9 +454,9 @@ void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
     lowM128(&mat1);
     upM128(&mat2);
     MatMulMatM128(mat1, mat2, &mat3);
-    for(i = 0; i < 7; i++)
+    for(i = 0; i < 127; i++)
     {
-        randpivot = i + 1 + cus_random()%(7 - i);
+        randpivot = i + 1 + cus_random()%(127 - i);
         temp[0] = mat3.M[i][0];
         mat3.M[i][0] = mat3.M[randpivot][0];
         mat3.M[randpivot][0] = temp[0];
@@ -332,6 +466,37 @@ void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
         mat3.M[randpivot][1] = temp[1];
     }
     copyM128(mat3, Mat);
+}
+void InvTMatM256(M256 *Mat)//generate 256*256 invertible matrix
+{
+    int i;
+    M256 mat1, mat2, mat3;
+    int randpivot;
+    uint64_t temp[4];
+    InitRandom((randseed++) ^ time(NULL));
+    lowM256(&mat1);
+    upM256(&mat2);
+    MatMulMatM256(mat1, mat2, &mat3);
+    for(i = 0; i < 255; i++)
+    {
+        randpivot = i + 1 + cus_random()%(255 - i);
+        temp[0] = mat3.M[i][0];
+        mat3.M[i][0] = mat3.M[randpivot][0];
+        mat3.M[randpivot][0] = temp[0];
+
+        temp[1] = mat3.M[i][1];
+        mat3.M[i][1] = mat3.M[randpivot][1];
+        mat3.M[randpivot][1] = temp[1];
+
+        temp[2] = mat3.M[i][2];
+        mat3.M[i][2] = mat3.M[randpivot][2];
+        mat3.M[randpivot][2] = temp[2];
+
+        temp[3] = mat3.M[i][3];
+        mat3.M[i][3] = mat3.M[randpivot][3];
+        mat3.M[randpivot][3] = temp[3];
+    }
+    copyM256(mat3, Mat);
 }
 
 int main()
@@ -407,6 +572,17 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("generate 128 * 128 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+
+    M256 Tm256, Sm256;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMatM256(&Tm256);
+        invsM256(Tm256, &Sm256);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 256 * 256 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
     return 0;
 }

@@ -4,6 +4,7 @@
 int main()
 {
     int flag = 1, i;
+    
     printf("-----bitwise operation (read/set/flip) test-----\n");
     M4 bom4_1, bom4_2, bom4_3;
     int flag_bom4_1 = 1;
@@ -173,6 +174,34 @@ int main()
     if(flag_bom128_1 && flag_bom128_2 && flag_bom128_3) printf("128bit: PASS\n");
     else {printf("128bit: ERROR\n"); flag = 0;}
 
+    M256 bom256_1, bom256_2, bom256_3;
+    int flag_bom256_1 = 1;
+    int flag_bom256_2 = 1;
+    int flag_bom256_3 = 1;
+    initM256(&bom256_1);
+    identityM256(&bom256_2);
+    initM256(&bom256_3);
+    for (i = 0; i < 256; i++)
+    {
+        setbitM256(&bom256_1, i, i, 1);
+    }
+    if(!isequalM256(bom256_1, bom256_2)) flag_bom256_1 = 0;
+    for (i = 0; i < 256; i++)
+    {
+        if(readbitM256(bom256_1, i, i) == 0) 
+        {
+            flag_bom256_2 = 0;
+            break;
+        }
+    }
+    for (i = 0; i < 256; i++)
+    {
+        flipbitM256(&bom256_1, i, i);
+    }
+    if(!isequalM256(bom256_1, bom256_3)) flag_bom256_1 = 0;
+    if(flag_bom256_1 && flag_bom256_2 && flag_bom256_3) printf("256bit: PASS\n");
+    else {printf("256bit: ERROR\n"); flag = 0;}
+
     printf("-----mat mul num test-----\n");
     M4 mmnm4_1, mmnm4_2;
     uint8_t mmnn4_1 = 0x0c, mmnn4_2;
@@ -307,6 +336,19 @@ int main()
     } 
     if(i < TEST) {printf("128bit: ERROR\n"); flag = 0;}
     else printf("128bit: PASS\n");
+
+    M256 mmvm256_1, mmvm256_2;
+    V256 mmvv256_1, mmvv256_2, mmvv256_3;
+    for(i = 0; i < TEST; i++)
+    {
+        genMatpairM256(&mmvm256_1, &mmvm256_2);
+        randV256(&mmvv256_1);
+        MatMulVecM256(mmvm256_1, mmvv256_1, &mmvv256_2);
+        MatMulVecM256(mmvm256_2, mmvv256_2, &mmvv256_3);
+        if(!isequalV256(mmvv256_1, mmvv256_3)) break;
+    } 
+    if(i < TEST) {printf("256bit: ERROR\n"); flag = 0;}
+    else printf("256bit: PASS\n");
     
     printf("-----mat mul mat (includes mat transpositon) test-----\n");
     M4 mmmm4_1, mmmm4_2, mmmm4_3;
@@ -405,6 +447,22 @@ int main()
     if(i < TEST) {printf("128bit: ERROR\n"); flag = 0;}
     else printf("128bit: PASS\n");
 
+    M256 mmmm256_1, mmmm256_2, mmmm256_3;
+    V256 mmmv256_1, mmmv256_2, mmmv256_3, mmmv256_4;
+    for(i = 0; i < TEST; i++)
+    {
+        randM256(&mmmm256_1);
+        randM256(&mmmm256_2);
+        randV256(&mmmv256_1);
+        MatMulVecM256(mmmm256_1, mmmv256_1, &mmmv256_2);
+        MatMulVecM256(mmmm256_2, mmmv256_2, &mmmv256_3);
+        MatMulMatM256(mmmm256_2, mmmm256_1, &mmmm256_3);
+        MatMulVecM256(mmmm256_3, mmmv256_1, &mmmv256_4);
+        if(!isequalV256(mmmv256_3, mmmv256_4)) break;
+    }
+    if(i < TEST) {printf("256bit: ERROR\n"); flag = 0;}
+    else printf("256bit: PASS\n");
+
     printf("-----invertible and inverse test-----\n");
     M4 iim4_1, iim4_2, iim4_3, iim4_4, iim4_5;
     identityM4(&iim4_4);
@@ -495,6 +553,21 @@ int main()
     }
     if(i < TEST) {printf("128bit: ERROR\n"); flag = 0;}
     else printf("128bit: PASS\n");
+
+    M256 iim256_1, iim256_2, iim256_3, iim256_4, iim256_5;
+    identityM256(&iim256_4);
+    for(i = 0; i < TEST; i++)
+    {
+        genMatpairM256(&iim256_1, &iim256_2);
+        if(!isinvertM256(iim256_1)) break;
+        if(!isinvertM256(iim256_2)) break;
+        MatMulMatM256(iim256_1, iim256_2, &iim256_3);
+        if(!isequalM256(iim256_3, iim256_4))  break;
+        invsM256(iim256_1, &iim256_5);
+        if(!isequalM256(iim256_2, iim256_5)) break;
+    }
+    if(i < TEST) {printf("256bit: ERROR\n"); flag = 0;}
+    else printf("256bit: PASS\n");
 
     printf("-----invertible affine and affine transform test-----\n");
     Aff4 iaa4_1, iaa4_2;
@@ -666,5 +739,6 @@ int main()
 
     if(flag) printf("\nALL PASS!");
     else printf("\nERROR!");
+
     return 0;
 }

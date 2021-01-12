@@ -123,6 +123,21 @@ int main()
     ans = (end - begin);
     printf("128*128 matrix - 128*1 vector multiplication cost %llu CPU cycles\n", (ans) / TEST);
     
+    MatGf2 M256, V256, V256_ans;
+    V256 = GenMatGf2(256, 1);
+    V256_ans = GenMatGf2(256, 1);
+    RandomMatGf2(V256);
+    M256 = GenMatGf2(256, 256);
+    RandomMatGf2(M256);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        MatGf2Mul(M256, V256, &V256_ans);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*256 matrix - 256*1 vector multiplication cost %llu CPU cycles\n", (ans) / TEST);
+    
     MatGf2 M4_1, M4_2, M4_ans;
     M4_1 = GenInvertibleMatGf2(4, 4);
     M4_2 = GenMatGf2Inv(M4_1);
@@ -201,6 +216,19 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("128*128 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
+
+    MatGf2 M256_1, M256_2, M256_ans;
+    M256_1 = GenInvertibleMatGf2(256, 256);
+    M256_2 = GenMatGf2Inv(M256_1);
+    M256_ans = GenMatGf2(256, 256);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        M256_ans = GenMatGf2Mul(M256_1, M256_2);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*256 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
     MatGf2 V4_1, V4_2, V4_3;
     V4_1 = GenMatGf2(4, 1);
@@ -293,6 +321,21 @@ int main()
     ans = (end - begin);
     printf("128*1 vector - vector addition cost %llu CPU cycles\n", (ans) / TEST);
 
+    MatGf2 V256_1, V256_2, V256_3;
+    V256_1 = GenMatGf2(256, 1);
+    V256_2 = GenMatGf2(256, 1);
+    RandomMatGf2(V256_1);
+    RandomMatGf2(V256_2);
+    V256_3 = GenMatGf2(256, 1);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        V256_3 = GenMatGf2Add(V256_1, V256_2);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*1 vector - vector addition cost %llu CPU cycles\n", (ans) / TEST);
+
     MatGf2 M4_3, M4_4, M4_5;
     M4_3 = GenMatGf2(4, 4);
     M4_4 = GenMatGf2(4, 4);
@@ -383,6 +426,21 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("128*128 matrix - matrix addition cost %llu CPU cycles\n", (ans) / TEST);
+
+    MatGf2 M256_3, M256_4, M256_5;
+    M256_3 = GenMatGf2(256, 256);
+    M256_4 = GenMatGf2(256, 256);
+    RandomMatGf2(M256_3);
+    RandomMatGf2(M256_4);
+    M256_5 = GenMatGf2(256, 256);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        M256_5 = GenMatGf2Add(M256_3, M256_4);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*256 matrix - matrix addition cost %llu CPU cycles\n", (ans) / TEST);
 
     return 0;
 }

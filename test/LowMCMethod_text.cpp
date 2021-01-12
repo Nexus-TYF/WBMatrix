@@ -194,6 +194,30 @@ void InvTMatM128(M128 *Mat)//generate 128*128 invertible matrix
     }
     copyM128(temp, Mat);
 }
+void RandbitMatM256(M256 *Mat)
+{
+    int i, j;
+    for(i = 0; i < 256; i++)
+    {
+        for(j = 0; j < 64; j++)
+        {
+            if(getrandbit()) (*Mat).M[i][0] ^= identM64[j];
+            if(getrandbit()) (*Mat).M[i][1] ^= identM64[j];
+            if(getrandbit()) (*Mat).M[i][2] ^= identM64[j];
+            if(getrandbit()) (*Mat).M[i][3] ^= identM64[j];
+        }
+    }
+}
+void InvTMatM256(M256 *Mat)//generate 256*256 invertible matrix
+{
+    M256 temp;
+    RandbitMatM256(&temp);
+    while(!isinvertM256(temp))
+    {
+        RandbitMatM256(&temp);
+    }
+    copyM256(temp, Mat);
+}
 
 int main()
 {
@@ -267,6 +291,17 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("generate 128*128 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+
+    M256 m256, m256_inv;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        InvTMatM256(&m256);
+        invsM256(m256, &m256_inv);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 256*256 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
     return 0;
 }

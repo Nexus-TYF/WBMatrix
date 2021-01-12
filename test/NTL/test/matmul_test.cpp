@@ -1,4 +1,4 @@
-#include<RandMat.h>
+#include <RandMat.h>
 #include <stdio.h>
 #include <stdint.h>
 
@@ -117,6 +117,20 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("128*128 matrix - 128*1 vector multiplication cost %llu CPU cycles\n", (ans) / TEST);
+
+    RandMat M256;
+    M256.init(256);
+    vec_GF2 V256_1, V256_2;
+    initVec(V256_1, 256);
+    V256_2.SetLength(256);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        V256_2 = M256.mat * V256_1;
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*256 matrix - 256*1 vector multiplication cost %llu CPU cycles\n", (ans) / TEST);
     
     RandMat M4_1, M4_2;
     M4_1.init(8);
@@ -191,6 +205,18 @@ int main()
     ans = (end - begin);
     printf("128*128 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
 
+    RandMat M256_1, M256_2;
+    M256_1.init(256);
+    M256_2.init(256);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        M256_2.mat = M256_1.mat * M256_1.invMat;
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*256 matrix - matrix multiplication cost %llu CPU cycles\n", (ans) / TEST);
+
     vec_GF2 V4_3;
     printf("\nvector-vector add\n");
     begin = start_rdtsc();
@@ -253,6 +279,17 @@ int main()
     ans = (end - begin);
     printf("128*1 vector - vector addition cost %llu CPU cycles\n", (ans) / TEST);
 
+    vec_GF2 V256_3;
+    V256_3.SetLength(256);
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        V256_3 = V256_1 + V256_2;
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*1 vector - vector addition cost %llu CPU cycles\n", (ans) / TEST);
+
     printf("\nmatrix-matrix add\n");
     begin = start_rdtsc();
     for (i = 0; i < TEST; i++)
@@ -307,6 +344,15 @@ int main()
     end = end_rdtsc();
     ans = (end - begin);
     printf("128*128 matrix - matrix addition cost %llu CPU cycles\n", (ans) / TEST);
+
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        M256.invMat = M256_1.invMat + M256_2.invMat;
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("256*256 matrix - matrix addition cost %llu CPU cycles\n", (ans) / TEST);
 
     return 0;
 }

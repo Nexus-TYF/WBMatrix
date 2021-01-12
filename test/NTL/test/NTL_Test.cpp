@@ -241,5 +241,15 @@ int main()
     ans = (end - begin);
     printf("generate 128*128 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
 
+    RandMat m256;
+    begin = start_rdtsc();
+    for (i = 0; i < TEST; i++)
+    {
+        m256.init(256);
+    }
+    end = end_rdtsc();
+    ans = (end - begin);
+    printf("generate 256*256 matrix and its inverse matirx cost %llu CPU cycles\n", (ans) / TEST);
+
 	return 0;
 }

@@ -14,6 +14,10 @@ Contains the matrix operations related to the white-box block cipher implementat
 
 4. [Xiao-Lai White-box AES](https://github.com/Nexus-TYF/Xiao-Lai-White-box-AES)
 
+5. [Improved Masking for White-box AES](https://github.com/Nexus-TYF/Improved-Masking-for-White-box-AES)
+
+6. [WBMatrix based LowMC](https://github.com/Nexus-TYF/WBMatrix-based-LowMC)
+
 ## Clone
 
 ```
@@ -22,7 +26,7 @@ $ git clone --depth 1 https://github.com/Nexus-TYF/WBMatrix
 
 ## Matrix Library
 
-### Supports For Following Operations (4/8/16/32/64/128 bits)
+### Supports For Following Operations (4/8/16/32/64/128/256 bits)
 
 * Matrix-Vector multiplication<br>
 * Matrix-Matrix multiplication<br>
@@ -126,8 +130,8 @@ $ ./WBMM
 12. [lowmc](https://github.com/LowMC/lowmc)<br>
 
 ---
-Last Updated : 2020/09/29<br>
-WBMatrix Version: 3.2.1
+Last Updated : 2021/01/12<br>
+WBMatrix Version: 3.3.0
 
 ---
 Details of update:<br>
@@ -281,3 +285,7 @@ Revision 1a).<br>
 
 (2020/09/29)<br>
 1. NEW: A new matrix transposition function.<br>
+
+(2021/01/12)<br>
+1. NEW: Supports for partial 256-bit operations.<br>
+2. NEW: Add partial 256-bit test cases.<br>

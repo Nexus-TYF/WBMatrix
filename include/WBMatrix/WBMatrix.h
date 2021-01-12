@@ -1,8 +1,8 @@
 #ifndef _HWBMATRIX_H_
 #define _HWBMATRIX_H_
 /***
- * Last Update: 2020/09/29
- * Version: 3.2.1
+ * Last Update: 2021/01/12
+ * Version: 3.3.0
 ***/
 #include "WBMatrix/structure.h"
 #include "WBMatrix/random.h"
@@ -17,7 +17,7 @@ extern "C"
 
 void SetRandSeed(unsigned int seed);//Set random seed
 /*
-* 4bit Matrix operation
+* 4-bit Matrix operation
 */
 
 void initM4(M4 *Mat);
@@ -54,7 +54,7 @@ void genaffinepairM4(Aff4 *aff, Aff4 *aff_inv);
 void affinemixM4(Aff4 aff, Aff4 preaff_inv, Aff4 *mixaff);
 
 /*
-* 8bit Matrix operation
+* 8-bit Matrix operation
 */
 
 void initM8(M8 *Mat);
@@ -92,7 +92,7 @@ void genaffinepairM8(Aff8 *aff, Aff8 *aff_inv);
 void affinemixM8(Aff8 aff, Aff8 preaff_inv, Aff8 *mixaff);
 
 /*
-* 16bit Matrix operation
+* 16-bit Matrix operation
 */
 
 void initM16(M16 *Mat);
@@ -129,7 +129,7 @@ void genaffinepairM16(Aff16 *aff, Aff16 *aff_inv);
 void affinemixM16(Aff16 aff, Aff16 preaff_inv, Aff16 *mixaff);
 
 /*
-* 32bit Matrix operation
+* 32-bit Matrix operation
 */
 
 void initM32(M32 *Mat);
@@ -170,7 +170,7 @@ void VectorcomV8to32(V8 v1, V8 v2, V8 v3, V8 v4, V32 *vec);
 void affinecomM8to32(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff32 *aff);
 
 /*
-* 64bit Matrix operation
+* 64-bit Matrix operation
 */
 
 void initM64(M64 *Mat);
@@ -215,7 +215,7 @@ void VectorcomV8to64(V8 v1, V8 v2, V8 v3, V8 v4, V8 v5, V8 v6, V8 v7, V8 v8, V64
 void affinecomM8to64(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff8 aff5, Aff8 aff6, Aff8 aff7, Aff8 aff8, Aff64 *aff);
 
 /*
-* 128bit Matrix operation
+* 128-bit Matrix operation
 */
 
 void initM128(M128 *Mat);
@@ -260,6 +260,43 @@ void affinecomM8to128(Aff8 aff1, Aff8 aff2, Aff8 aff3, Aff8 aff4, Aff8 aff5, Aff
 void MatrixcomM16to128(M16 m1, M16 m2, M16 m3, M16 m4, M16 m5, M16 m6, M16 m7, M16 m8, M128 *mat);
 void VectorcomV16to128(V16 v1, V16 v2, V16 v3, V16 v4, V16 v5, V16 v6, V16 v7, V16 v8, V128 *vec);
 void affinecomM16to128(Aff16 aff1, Aff16 aff2, Aff16 aff3, Aff16 aff4, Aff16 aff5, Aff16 aff6, Aff16 aff7, Aff16 aff8, Aff128 *aff);
+
+/*
+* 256-bit Matrix operation
+*/
+
+void initM256(M256 *Mat);
+void randM256(M256 *Mat);
+void identityM256(M256 *Mat);
+void printM256(M256 Mat);
+void printbitM256(M256 Mat);
+void copyM256(M256 Mat1, M256 *Mat2);
+int isequalM256(M256 Mat1, M256 Mat2);
+int isinvertM256(M256 Mat);
+void invsM256(M256 Mat, M256 *Mat_inv);
+int readbitM256(M256 Mat, int i, int j);
+void flipbitM256(M256 *Mat, int i, int j);
+void setbitM256(M256 *Mat, int i, int j, int bit);
+
+void initV256(V256 *Vec);
+void randV256(V256 *Vec);
+void printV256(V256 Vec);
+
+void affineU256(Aff256 aff, uint64_t arr[], uint64_t ans[]);
+int xorU256(uint64_t n[]);
+int HWU256(uint64_t n[]);
+void printU256(uint64_t n[]);
+int isequalV256(V256 Vec1, V256 Vec2);
+void VecAddVecV256(V256 Vec1, V256 Vec2, V256 *Vec);
+
+void MatMulVecM256(M256 Mat, V256 Vec, V256 *ans);
+void MatMulMatM256(M256 Mat1, M256 Mat2, M256 *Mat);
+void MattransM256(M256 Mat, M256 *Mat_trans);
+
+void MatAddMatM256(M256 Mat1, M256 Mat2, M256 *Mat);
+void genMatpairM256(M256 *Mat, M256 *Mat_inv);
+void genaffinepairM256(Aff256 *aff, Aff256 *aff_inv);
+void affinemixM256(Aff256 aff, Aff256 preaff_inv, Aff256 *mixaff);
 
 #ifdef __cplusplus
 }
