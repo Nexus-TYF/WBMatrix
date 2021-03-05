@@ -1,7 +1,7 @@
 # WBMatrix
 
 An Optimized Matrix Library for White-Box Block Cipher
-Implementations
+Implementations.
 
 Contains the matrix operations related to the white-box block cipher implementation and provides thorough test cases for their performance and accuracy. The test cases also include the Chow et al.'s [white-box AES](https://link.springer.com/chapter/10.1007/3-540-36492-7_17) and Xiao-Lai's [white-box SM4](http://gb.oversea.cnki.net/KCMS/detail/detailall.aspx?filename=2010204831.nh&dbcode=CMFD&dbname=CMFD2010) implementations built by WBMatrix, [NTL](https://www.shoup.net/ntl/), and [M4RI](https://github.com/malb/m4ri), respectively.
 
@@ -30,14 +30,14 @@ $ git clone --depth 1 https://github.com/Nexus-TYF/WBMatrix
 
 ### Supports For Following Operations (4/8/16/32/64/128/256 bits)
 
-* Matrix-Vector multiplication<br>
-* Matrix-Matrix multiplication<br>
-* Generation of an invertible Matrix with its inverse matrix (pairwise invertible matrices)<br>
-* Generation of the pairwise invertible affine transformations<br>
-* Matrix transpositon<br>
-* Affine transformation<br>
-* Encodings concatenation<br>
-* Encodings conversion<br>
+* Matrix-Vector multiplication.<br>
+* Matrix-Matrix multiplication.<br>
+* Generation of an invertible Matrix with its inverse matrix (pairwise invertible matrices).<br>
+* Generation of the pairwise invertible affine transformations.<br>
+* Matrix transpositon.<br>
+* Affine transformation.<br>
+* Encodings concatenation.<br>
+* Encodings conversion.<br>
 
 ### Header Files
 
@@ -64,21 +64,21 @@ $ git clone --depth 1 https://github.com/Nexus-TYF/WBMatrix
 * **MattransM8(M8 Mat, M8 \*Mat_trans)** transpositon for a matrix **Mat**, result is set in **Mat_trans**.<br>
 * **readbitM8(M8 Mat, int i, int j)** extracts the (i, j) bit in matrix **Mat**, returns 0/1.<br>
 * **setbitM8(M8 \*Mat, int i, int j, int bit)** assigns the (i, j) bit a value **bit** (0/1).<br>
-* **initM8(M8 *Mat)** converts all the elements of the matrix **Mat** into 0.<br>
-* **randM8(M8 *Mat)** generates a random matrix **Mat**.<br>
+* **initM8(M8 \*Mat)** converts all the elements of the matrix **Mat** into 0.<br>
+* **randM8(M8 \*Mat)** generates a random matrix **Mat**.<br>
 * **printbitM8(M8 Mat)** prints all the elements of the matrix **Mat**.<br>
 * **isequalM8(M8 Mat1, M8 Mat2)** determines if the matrix **Mat1** is equal to **Mat2** (1 for positive).<br>
-* **initV8(V8 *Vec)** converts all the elements of the vector **Vec** into 0.<br>
-* **randV8(V8 *Vec)** generates a random vector **Vec**.<br>
-* **VecAddVecV8(V8 Vec1, V8 Vec2, V8 *Vec)** addition between the vector **Vec1** and **Vec2**, result is set in **Vec**.<br>
+* **initV8(V8 \*Vec)** converts all the elements of the vector **Vec** into 0.<br>
+* **randV8(V8 \*Vec)** generates a random vector **Vec**.<br>
+* **VecAddVecV8(V8 Vec1, V8 Vec2, V8 \*Vec)** addition between the vector **Vec1** and **Vec2**, result is set in **Vec**.<br>
 * **HWU8(uint8_t n)** calculates the Hamming Weight of a number **n**.<br>
 
 ### Code Examples
 
-M8 mat\[3\]; //defines an 8-bit matrix<br>
-genMatpairM8(&mat\[0\], &mat\[1\]); //generates the pairwise invertible matrices<br>
-MatMulMatM8(mat\[0\], mat\[1\], &mat\[2\]); //matrix-matrix multiplication<br>
-printM8(mat\[2\]); //prints the matrix<br>
+M8 mat\[3\]; //defines an 8-bit matrix.<br>
+genMatpairM8(&mat\[0\], &mat\[1\]); //generates the pairwise invertible matrices.<br>
+MatMulMatM8(mat\[0\], mat\[1\], &mat\[2\]); //matrix-matrix multiplication.<br>
+printM8(mat\[2\]); //prints the matrix.<br>
 
 ### Included library
 
@@ -146,7 +146,7 @@ WBMatrix Version: 3.3.0
 ---
 Upgrade history:<br>
 (2019/12/9)<br>
-1. Added: An invertible matrix is generated from an initialized matrix. (now just supports for 8/32bits operations)<br>
+1. Added: An invertible matrix is generated from an initialized matrix (now just supports for 8/32bits operations).<br>
 2. Fixed: Unifies the API.<br>
 3. Added: The adjustable generation times in inverse.h.<br>
 4. Added: Uses initinvbaseM(8/32)() function to generate an initialized invertible matrix and its trails are recorded in basetrailM(8/32).<br>
