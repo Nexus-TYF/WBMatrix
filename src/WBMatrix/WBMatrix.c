@@ -2141,12 +2141,19 @@ void printU32(uint32_t n)//printf uint32_t
 }
 void printU64(uint64_t n)//printf uint64_t
 {
-    printf("0x%x\n", n);
+    printf("0llx%x\n", n);
 }
 void printU128(uint64_t n[])//printf uint128_t
 {
-    printf("0x%x ", n[0]);
-    printf("0x%x\n", n[1]);
+    printf("0llx%x ", n[0]);
+    printf("0llx%x\n", n[1]);
+}
+void printU256(uint64_t n[])//printf uint256_t
+{
+    printf("0x%llx ", n[0]);
+    printf("0x%llx ", n[1]);
+    printf("0x%llx ", n[2]);
+    printf("0x%llx\n", n[3]);
 }
 void printbitM4(M4 Mat)//printf Matrix 4*4 in the form of bits 
 {

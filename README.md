@@ -20,6 +20,8 @@ Contains the matrix operations related to the white-box block cipher implementat
 
 7. [Bai-Wu White-box SM4](https://github.com/Nexus-TYF/Bai-Wu-White-box-SM4)
 
+8. [WSISE White-box SM4](https://github.com/Nexus-TYF/WSISE-White-box-SM4)
+
 ## Clone
 
 ```
@@ -140,8 +142,8 @@ $ ./WBMM
 12. [lowmc](https://github.com/LowMC/lowmc)<br>
 
 ---
-Last Updated : 2021/01/12<br>
-WBMatrix Version: 3.3.0
+Last Updated : 2021/09/29<br>
+WBMatrix Version: 3.3.1
 
 ---
 Upgrade history:<br>
@@ -297,3 +299,6 @@ inverse.h has the max times and min times for selection.<br>
 (2021/01/12)<br>
 1. Added: Supports for partial 256-bit operations.<br>
 2. Added: Partial 256-bit test cases.<br>
+
+(2021/09/29)<br>
+1. Fixed: An error of printU64/128/256 function.<br>
